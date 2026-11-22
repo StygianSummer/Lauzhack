@@ -4,115 +4,237 @@
   "title": "Crise au conseil",
   "pill": "Défi : crise au conseil",
   "headline": "Les six premières heures",
-  "subtitle": "Une attaque est en cours et le conseil vous regarde. Décidez de la suite, puis voyez ce que coûte chaque choix.",
+  "subtitle": "Une attaque est en cours et tout le conseil se tourne vers vous. Tranchez, puis regardez ce que chaque choix a coûté.",
   "minutes": 12,
   "demo_id": "boardroom-crisis-demo",
   "deadline": "14:00",
-  "start_meters": { "trust": 70, "cash": 75, "systems": 30, "legal": 70 },
+  "start_meters": {
+    "trust": 70,
+    "cash": 75,
+    "systems": 30,
+    "legal": 70
+  },
   "dials": [
-    { "key": "trust", "label": "Confiance" },
-    { "key": "cash", "label": "Trésorerie" },
-    { "key": "systems", "label": "Systèmes" },
-    { "key": "legal", "label": "Situation juridique" }
+    {
+      "key": "trust",
+      "label": "Confiance"
+    },
+    {
+      "key": "cash",
+      "label": "Trésorerie"
+    },
+    {
+      "key": "systems",
+      "label": "Systèmes"
+    },
+    {
+      "key": "legal",
+      "label": "Situation juridique"
+    }
   ],
   "advisers": [
-    { "persona": "cat", "role": "Les faits d'abord", "say": "Débranchez le câble. Gardez les preuves." },
-    { "persona": "turtle", "role": "Préside la salle", "say": "Respirez, mon petit. On fait les choses dans l'ordre." },
-    { "persona": "dog", "role": "Serrures et clés", "say": "Je connais un deuxième verrou pour ça !" },
-    { "persona": "spider", "role": "L'attaquant", "say": "Je suis déjà dans le bâtiment..." }
+    {
+      "persona": "cat",
+      "role": "Les faits d'abord",
+      "say": "Débranchez le câble. Ne touchez pas aux preuves."
+    },
+    {
+      "persona": "turtle",
+      "role": "Tient la salle",
+      "say": "Respirez d'abord. Ensuite, on prend les choses dans l'ordre."
+    },
+    {
+      "persona": "dog",
+      "role": "Les serrures et les clés",
+      "say": "Pour ça, j'ai un deuxième verrou en réserve !"
+    },
+    {
+      "persona": "spider",
+      "role": "L'attaquant",
+      "say": "Ne vous levez pas. Je suis déjà dans la place..."
+    }
   ],
   "section_lines": {
     "briefing": [
-      { "persona": "spider", "text": "Prenez votre temps... J'ai toute la journée. Vous, vous avez jusqu'à 14:00." }
+      {
+        "persona": "spider",
+        "text": "Prenez tout votre temps... Moi, j'ai la journée. Vous, vous avez jusqu'à 14:00."
+      }
     ],
     "playbook": [
-      { "persona": "cat", "text": "Deux minutes ici font gagner des heures plus tard. Touchez une carte pour la lire de près." }
+      {
+        "persona": "cat",
+        "text": "Lisez ça maintenant. Tout à l'heure, vous n'aurez plus le temps. Touchez une carte pour la lire en entier."
+      }
     ],
     "decisions": [],
     "fallout": [
-      { "persona": "spider", "text": "Ah, le registre. Voyons ce que vous vous êtes coûté..." }
+      {
+        "persona": "spider",
+        "text": "Ah, le registre. Voyons ce que vous ont coûté vos bonnes idées..."
+      }
     ]
   },
   "briefing": {
-    "turtle_intro": "Bienvenue dans la salle, mon petit. Il est 08:10, un vendredi, et personne ici n'a pris son petit-déjeuner. Lisez ce que nous savons, et ce que nous ne savons pas encore. En pleine crise, c'est la deuxième liste qui compte le plus.",
-    "roster_title": "Qui est autour de la table",
+    "turtle_intro": "Bienvenue dans la salle. Vendredi, 08:10, et personne ici n'a pris de petit-déjeuner. Lisez ce que nous savons, puis ce que nous ignorons encore. Avec les années, on apprend que c'est la seconde liste qu'il faut lire deux fois.",
+    "roster_title": "Autour de la table",
     "roster": [
-      { "initials": "SM", "name": "Vous (Sam)", "role": "Directeur·rice des opérations, à la présidence", "you": true },
-      { "initials": "AM", "name": "Alex Morgan", "role": "PDG, en vol jusqu'à 12:00", "away": true },
-      { "initials": "DK", "name": "Dana Keller", "role": "Responsable informatique" },
-      { "initials": "LM", "name": "Luc Marchand", "role": "Directeur juridique" },
-      { "initials": "MS", "name": "Mira Sato", "role": "Communication" }
+      {
+        "initials": "SM",
+        "name": "Vous (Sam)",
+        "role": "Directeur·rice des opérations, préside la séance",
+        "you": true
+      },
+      {
+        "initials": "AM",
+        "name": "Alex Morgan",
+        "role": "PDG, dans l'avion jusqu'à 12:00",
+        "away": true
+      },
+      {
+        "initials": "DK",
+        "name": "Dana Keller",
+        "role": "Responsable informatique"
+      },
+      {
+        "initials": "LM",
+        "name": "Luc Marchand",
+        "role": "Directeur juridique"
+      },
+      {
+        "initials": "MS",
+        "name": "Mira Sato",
+        "role": "Communication"
+      }
     ],
-    "timeline_title": "Ce qui s'est passé jusqu'ici",
+    "timeline_title": "La matinée jusqu'ici",
     "timeline": [
-      { "time": "07:40", "text": "L'outil de sécurité signale 40 Go qui quittent un serveur de fichiers vers une adresse inconnue. L'alerte attend dans une file." },
-      { "time": "07:55", "text": "Les fichiers commencent à être chiffrés. Tous les écrans affichent le même message." },
-      { "time": "08:00", "text": "Dana confirme que neuf serveurs sont bloqués. Elle ne sait pas comment tout a commencé." },
-      { "time": "08:10", "text": "**Maintenant.** Le conseil est convoqué en salle de crise, et vous prenez la présidence.", "now": true }
+      {
+        "time": "07:40",
+        "text": "L'outil de sécurité repère 40 Go qui partent d'un serveur de fichiers vers une adresse inconnue. L'alerte atterrit dans une file d'attente."
+      },
+      {
+        "time": "07:55",
+        "text": "Le chiffrement commence. Sur chaque écran, le même message."
+      },
+      {
+        "time": "08:00",
+        "text": "Dana confirme : neuf serveurs bloqués. Comment tout a commencé, elle n'en sait rien."
+      },
+      {
+        "time": "08:10",
+        "text": "**Maintenant.** Le conseil se réunit en salle de crise. C'est vous qui présidez.",
+        "now": true
+      }
     ],
     "known_title": "Ce que nous savons",
     "known": [
-      "Les fichiers de plusieurs serveurs sont chiffrés, et cela continue de se propager.",
-      "Un gros envoi de données a quitté le réseau à 07:40.",
-      "Un message exige un paiement avant 14:00."
+      "Les fichiers de plusieurs serveurs sont chiffrés, et le chiffrement gagne encore du terrain.",
+      "À 07:40, un gros volume de données est sorti du réseau.",
+      "Un message réclame un paiement avant 14:00."
     ],
-    "unknown_title": "Ce que nous ne savons pas encore",
+    "unknown_title": "Ce que nous ignorons encore",
     "unknown": [
-      "Comment ils sont entrés, et s'ils sont encore là.",
-      "Si des données de clients ont été copiées, et lesquelles.",
-      "Si les sauvegardes de la nuit dernière sont saines."
+      "Par où ils sont entrés, et s'ils sont toujours dans le réseau.",
+      "Si des données clients ont été copiées, et de quels clients.",
+      "Si les sauvegardes de cette nuit sont saines."
     ],
-    "spider_line": "Six heures. Largement de quoi faire des erreurs... J'espère bien que vous en ferez.",
+    "spider_line": "Six heures. Largement le temps de commettre quelques erreurs... Je compte sur vous.",
     "note_title": "Un petit mot pour le conseil",
     "note": [
       "Cher conseil...",
-      "Vos fichiers sont à moi. Une copie de vos clients aussi.",
-      "Payez-moi 1,2 million d'euros en cryptomonnaie avant 14:00 et je vous enverrai la clé. Refusez, et à 14:00 la copie sera publiée et la clé détruite.",
-      "N'appelez pas la police. Ne dites rien à vos clients. Je le saurai..."
+      "J'ai vos fichiers. Et une copie de vos clients.",
+      "Versez 1,2 million d'euros en cryptomonnaie avant 14:00 et vous recevrez la clé. Sinon, à 14:00, la copie part en ligne et la clé disparaît.",
+      "N'appelez pas la police. Ne prévenez pas vos clients. Je le saurai..."
     ],
     "note_sign": "S.",
-    "chips": ["Échéance : 14:00", "Rançon : 1,2 million d'euros"]
+    "chips": [
+      "Échéance : 14:00",
+      "Rançon : 1,2 million d'euros"
+    ]
   },
   "playbook": {
-    "intro": "Six règles couvrent l'essentiel d'un premier jour. Cat garde les faits en ordre ; Turtle fait intervenir les bonnes personnes dans le bon ordre. Touchez une carte pour la lire de près. Les décisions vous renverront ici.",
+    "intro": "Six règles pour tenir un premier jour. Le Chat veille aux faits ; la Tortue fait entrer les bonnes personnes, dans le bon ordre. Touchez une carte pour l'ouvrir. Les décisions vous renverront ici.",
     "cards": [
       {
         "persona": "cat",
         "role": "Les faits avant les gestes",
         "title": "Contenir, puis réfléchir",
-        "say": "Un conseil qui panique facilite le travail de l'attaquant. Faites d'abord les choses ennuyeuses, dans le bon ordre, et gardez les preuves.",
+        "say": "Un conseil qui panique travaille pour l'attaquant. Commencez par les gestes ennuyeux, dans l'ordre, et gardez les preuves.",
         "rules": [
-          { "headline": "Coupez le câble, gardez le courant.", "body": "Déconnectez du réseau les machines touchées, mais ne les éteignez pas et ne les effacez pas. Les preuves sont en mémoire et sur le disque." },
-          { "headline": "Partez du principe qu'il lit vos e-mails.", "body": "Faites passer la cellule de crise au téléphone et sur une messagerie séparée tant que vous ne savez pas si l'attaquant est sorti." },
-          { "headline": "Ne dites que ce que vous pouvez prouver.", "body": "« Aucune donnée n'a été touchée » est une promesse. Rompez-la une fois et plus personne ne croit votre prochain message." }
+          {
+            "headline": "Coupez le câble, gardez le courant.",
+            "body": "Déconnectez du réseau les machines touchées, sans les éteindre ni les effacer. Les preuves sont dans la mémoire et sur le disque."
+          },
+          {
+            "headline": "Supposez qu'il lit vos e-mails.",
+            "body": "Basculez la cellule de crise sur le téléphone et une messagerie séparée, tant que rien ne prouve que l'attaquant est sorti."
+          },
+          {
+            "headline": "Ne dites que ce que vous pouvez prouver.",
+            "body": "« Aucune donnée n'a été touchée » est une promesse. Si les faits la démentent, plus personne ne croira votre message suivant."
+          }
         ],
-        "sign_off": "Le calme n'est pas un sentiment. C'est un ordre des opérations."
+        "sign_off": "En crise, le calme, c'est une liste qu'on suit dans l'ordre."
       },
       {
         "persona": "turtle",
         "role": "Les bonnes personnes, dans le bon ordre",
-        "title": "Personne ne fait ça seul",
-        "say": "J'ai vu bien des tempêtes, mon petit. Les conseils qui s'en sont bien sortis n'étaient jamais les plus malins. Ils ont simplement appelé les bonnes personnes tôt et dit la vérité.",
+        "title": "On ne traverse pas ça seul",
+        "say": "J'en ai vu passer, des crises. Les conseils qui s'en sont bien tirés n'étaient jamais les plus brillants. Ils avaient appelé les bonnes personnes tôt, et ils avaient dit la vérité.",
         "rules": [
-          { "headline": "Appelez les experts avant toute grande décision.", "body": "Le service juridique, votre assureur, la police et une équipe de réponse aux incidents passent en premier. Y compris pour la rançon : payer ne garantit rien et finance la prochaine attaque." },
-          { "headline": "Prévenez les bonnes personnes, à temps.", "body": "Le délai de l'autorité commence quand vous avez connaissance de l'incident : 72 heures selon le RGPD, « dès que possible » en Suisse. Les clients ont besoin de consignes claires avant que l'attaquant publie les données." },
-          { "headline": "Réparez la porte, pas la personne.", "body": "Réinitialisez les identifiants, ajoutez l'authentification à plusieurs facteurs, restaurez au propre. Punir la personne qui a cliqué apprend à tout le monde à cacher la prochaine erreur." }
+          {
+            "headline": "Appelez les experts avant toute grosse décision.",
+            "body": "D'abord le service juridique, votre assureur, la police et une équipe de réponse aux incidents. La rançon ne fait pas exception : payer ne garantit rien, et l'argent finance la prochaine attaque."
+          },
+          {
+            "headline": "Prévenez les bonnes personnes, à temps.",
+            "body": "Le délai pour prévenir l'autorité court dès que vous avez connaissance de l'incident : 72 heures selon le RGPD, « dès que possible » en Suisse. Vos clients, eux, doivent savoir quoi faire avant que l'attaquant publie leurs données."
+          },
+          {
+            "headline": "Réparez la porte, pas la personne.",
+            "body": "Réinitialisez les identifiants, activez l'authentification multifacteur, restaurez au propre. Sanctionner la personne qui a cliqué, c'est apprendre à tout le monde à cacher la prochaine erreur."
+          }
         ],
-        "sign_off": "Une équipe qui reste calme dans la tempête a été soignée bien avant."
+        "sign_off": "Les équipes qui tiennent le coup un vendredi matin, quelqu'un en a pris soin bien avant."
       }
     ]
   },
   "reviews": {
-    "cat0": { "card": 0, "rule": 0, "label": "Première règle de Cat : coupez le câble" },
-    "cat1": { "card": 0, "rule": 1, "label": "Deuxième règle de Cat : il vous lit" },
-    "cat2": { "card": 0, "rule": 2, "label": "Troisième règle de Cat : ne dites que ce que vous pouvez prouver" },
-    "turtle0": { "card": 1, "rule": 0, "label": "Première règle de Turtle : appelez les experts" },
-    "turtle1": { "card": 1, "rule": 1, "label": "Deuxième règle de Turtle : prévenez les bonnes personnes" },
-    "turtle2": { "card": 1, "rule": 2, "label": "Troisième règle de Turtle : réparez la porte, pas la personne" }
+    "cat0": {
+      "card": 0,
+      "rule": 0,
+      "label": "Première règle du Chat : coupez le câble"
+    },
+    "cat1": {
+      "card": 0,
+      "rule": 1,
+      "label": "Deuxième règle du Chat : supposez qu'il vous lit"
+    },
+    "cat2": {
+      "card": 0,
+      "rule": 2,
+      "label": "Troisième règle du Chat : ne dites que ce que vous pouvez prouver"
+    },
+    "turtle0": {
+      "card": 1,
+      "rule": 0,
+      "label": "Première règle de la Tortue : appelez les experts"
+    },
+    "turtle1": {
+      "card": 1,
+      "rule": 1,
+      "label": "Deuxième règle de la Tortue : prévenez les bonnes personnes"
+    },
+    "turtle2": {
+      "card": 1,
+      "rule": 2,
+      "label": "Troisième règle de la Tortue : réparez la porte, pas la personne"
+    }
   },
   "decisions_intro": {
     "persona": "cat",
-    "text": "Cinq décisions. Validez-les une par une et je les vérifie. Pas de retour en arrière, parce qu'une vraie crise n'en offre pas. Surveillez les quatre jauges : c'est ce qu'il reste à l'entreprise."
+    "text": "Cinq décisions. Vous validez, je vérifie. Pas de retour en arrière : une vraie crise n'en accorde pas. Gardez un œil sur les quatre jauges, c'est tout ce qu'il reste à l'entreprise."
   },
   "decisions": [
     {
@@ -121,54 +243,138 @@
       "voice": "cat",
       "type": "single",
       "title": "Stopper la propagation",
-      "text": "Le chiffrement passe de serveur en serveur. Dana est au téléphone et attend un ordre tout de suite. Que lui dites-vous ?",
-      "artifact": { "initials": "DK", "name": "Dana Keller", "role": "Responsable informatique", "time": "08:14", "text": "Ça se propage. Quatorze serveurs en dix minutes, et le serveur de sauvegarde est le prochain sur la liste. Dis-moi quoi faire, Sam." },
+      "text": "Le chiffrement saute d'un serveur à l'autre. Dana est en ligne et attend un ordre, maintenant. Que lui dites-vous ?",
+      "artifact": {
+        "initials": "DK",
+        "name": "Dana Keller",
+        "role": "Responsable informatique",
+        "time": "08:14",
+        "text": "Ça s'étend. Quatorze serveurs en dix minutes, et le prochain sur la liste, c'est le serveur de sauvegarde. Dis-moi quoi faire, Sam."
+      },
       "options": [
-        { "text": "Couper les machines touchées du réseau, mais les laisser allumées. Personne n'efface rien.", "short": "Isoler, laisser allumé", "ok": true },
-        { "text": "Tout éteindre et tout effacer, puis tout reconstruire. Repartir de zéro.", "short": "Tout effacer et reconstruire", "ok": false,
-          "fx": { "legal": -20, "systems": -10 }, "rv": "cat0",
-          "why": "Vous avez effacé les preuves avec le problème. Plus personne ne peut montrer par quelle porte je suis entré ni ce que j'ai pris, alors vous devez supposer que j'ai tout pris... et j'ai toujours la clé de cette porte." },
-        { "text": "Attendre que l'informatique ait une vue complète, puis agir d'un coup.", "short": "Attendre une vue complète", "ok": false,
-          "fx": { "systems": -25, "cash": -10 }, "rv": "cat0",
-          "why": "Pendant que le conseil attendait une vue d'ensemble, j'ai fini le tableau. À 09:00, le serveur de sauvegarde était bloqué lui aussi, et votre meilleure porte de sortie avait disparu." },
-        { "text": "Demander à chaque employé de redémarrer son ordinateur, ça règle souvent ce genre de chose.", "short": "Redémarrer toutes les machines", "ok": false,
-          "fx": { "systems": -20, "legal": -10 }, "rv": "cat0",
-          "why": "Les redémarrages ont effacé les traces gardées en mémoire, celles que les enquêteurs voulaient le plus. Et mon chiffrement s'est simplement réveillé avec chaque machine." }
+        {
+          "text": "Couper du réseau les machines touchées, mais les laisser allumées. Personne n'efface rien.",
+          "short": "Isoler sans éteindre",
+          "ok": true
+        },
+        {
+          "text": "Tout éteindre, tout effacer et tout reconstruire. On repart de zéro.",
+          "short": "Tout effacer, repartir de zéro",
+          "ok": false,
+          "fx": {
+            "legal": -20,
+            "systems": -10
+          },
+          "rv": "cat0",
+          "why": "Vous avez effacé les preuves avec le problème. Plus personne ne peut montrer quelle porte j'ai utilisée ni ce que j'ai emporté : vous devez donc supposer que j'ai tout pris... Et la clé de cette porte, je l'ai toujours."
+        },
+        {
+          "text": "Attendre que l'informatique ait le tableau complet, puis tout faire d'un coup.",
+          "short": "Attendre le tableau complet",
+          "ok": false,
+          "fx": {
+            "systems": -25,
+            "cash": -10
+          },
+          "rv": "cat0",
+          "why": "Le conseil voulait le tableau complet ? Je l'ai terminé pour vous. À 09:00, le serveur de sauvegarde était bloqué à son tour, et votre meilleure porte de sortie avec lui."
+        },
+        {
+          "text": "Demander à tout le monde de redémarrer son ordinateur : en général, ça règle ce genre de problème.",
+          "short": "Tout redémarrer",
+          "ok": false,
+          "fx": {
+            "systems": -20,
+            "legal": -10
+          },
+          "rv": "cat0",
+          "why": "En redémarrant, vous avez vidé la mémoire, et avec elle les traces que les enquêteurs voulaient en priorité. Mon chiffrement, lui, a redémarré avec chaque machine."
+        }
       ],
-      "gain": { "systems": 15 },
-      "explain": "Isoler d'abord, poser les questions ensuite. Débrancher le câble réseau stoppe la propagation, et laisser le courant garde les preuves en mémoire et sur le disque. Les enquêteurs en ont besoin pour trouver la porte d'entrée et savoir ce qui a été copié.",
-      "spider_ok": "Hm. Un câble débranché et des preuves intactes. J'avais encore neuf serveurs sur ma liste... et plus aucun moyen de les atteindre.",
-      "best": "Déconnecter du réseau les machines touchées, les laisser allumées et ne rien effacer."
+      "gain": {
+        "systems": 15
+      },
+      "explain": "On isole, et on pose les questions après. Câble réseau débranché : la propagation s'arrête. Courant maintenu : les preuves restent en mémoire et sur le disque. C'est avec elles que les enquêteurs trouveront la porte d'entrée et sauront ce qui a été copié.",
+      "spider_ok": "Hm. Câble débranché, preuves intactes. Il me restait neuf serveurs sur ma liste... et plus aucun chemin pour y arriver.",
+      "best": "Couper du réseau les machines touchées, les laisser allumées, ne rien effacer."
     },
     {
       "id": "d2",
       "time": "08:50",
       "voice": "turtle",
       "type": "multi",
-      "title": "Organiser la salle",
-      "text": "La salle est pleine et chacun a une idée. Choisissez tout ce que vous feriez dans la première heure.",
-      "artifact": { "initials": "MS", "name": "Mira Sato", "role": "Communication", "time": "08:48", "text": "Deux journalistes ont déjà demandé pourquoi notre portail client est en panne, et la moitié de la salle veut commencer à réparer. Par où on commence, Sam ?" },
+      "title": "Prendre la salle en main",
+      "text": "La salle est pleine, et chacun arrive avec son idée. Choisissez toutes les mesures que vous prendriez dans la première heure.",
+      "artifact": {
+        "initials": "MS",
+        "name": "Mira Sato",
+        "role": "Communication",
+        "time": "08:48",
+        "text": "Deux journalistes demandent déjà pourquoi le portail client est en panne, et la moitié de la salle veut se mettre à réparer tout de suite. On commence par quoi, Sam ?"
+      },
       "options": [
-        { "text": "Faire passer la cellule de crise au téléphone et sur une messagerie séparée. Partir du principe que la messagerie de l'entreprise est lue.", "short": "Canaux hors bande", "ok": true,
-          "fx": { "systems": -15, "trust": -5 }, "rv": "cat1",
-          "why": "J'ai lu les e-mails du conseil au petit-déjeuner. Chaque plan que vous avez écrit, je l'ai lu en premier. Quand vos équipes ont bougé, j'avais déjà déplacé les données ailleurs." },
-        { "text": "Appeler le service juridique et l'assureur cyber.", "short": "Le juridique et l'assureur", "ok": true,
-          "fx": { "legal": -15, "cash": -15 }, "rv": "turtle0",
-          "why": "Personne n'a appelé l'assureur, donc personne n'a vu la clause qui exige une déclaration rapide. En retard, il a trouvé une raison de payer moins. Personne n'a surveillé le délai de l'autorité non plus... il a commencé sans vous." },
-        { "text": "Faire venir une équipe externe de réponse aux incidents.", "short": "Une équipe de réponse externe", "ok": true,
-          "fx": { "systems": -15, "legal": -5 }, "rv": "turtle0",
-          "why": "Votre équipe informatique est brillante et épuisée, et elle apprenait à me combattre sur le tas. Elle a nettoyé une machine à la fois. Personne n'a trouvé ma porte dérobée." },
-        { "text": "Dire à la presse qu'« aucune donnée client n'est touchée », pour calmer les choses.", "short": "Dire à la presse que tout va bien", "ok": false,
-          "fx": { "trust": -25, "legal": -15 }, "rv": "cat2",
-          "why": "Vous l'avez dit avant de le savoir. À onze heures, vos propres intervenants avaient trouvé les fichiers copiés, et chaque journaliste avait deux citations : la vôtre, et la vérité." },
-        { "text": "Laisser chaque service restaurer ses propres systèmes tout de suite, pour gagner du temps.", "short": "Chacun restaure ses systèmes", "ok": false,
-          "fx": { "systems": -20, "cash": -10 }, "rv": "turtle0",
-          "why": "Six équipes ont restauré six systèmes dans le même réseau, avec moi encore à l'intérieur. Quelle gentillesse. J'ai rebloqué chacun d'eux dès son retour." }
+        {
+          "text": "Faire passer la cellule de crise sur le téléphone et une messagerie séparée. Considérer que les e-mails de l'entreprise sont lus.",
+          "short": "Passer sur un canal séparé",
+          "ok": true,
+          "fx": {
+            "systems": -15,
+            "trust": -5
+          },
+          "rv": "cat1",
+          "why": "J'ai lu les e-mails du conseil avec mon café. Chacun de vos plans, je l'ai eu sous les yeux avant vos équipes. Le temps qu'elles bougent, les données étaient déjà ailleurs."
+        },
+        {
+          "text": "Appeler le service juridique et l'assureur cyber.",
+          "short": "Juridique et assureur",
+          "ok": true,
+          "fx": {
+            "legal": -15,
+            "cash": -15
+          },
+          "rv": "turtle0",
+          "why": "Personne n'a appelé l'assureur, donc personne n'a lu la clause qui impose de déclarer vite. Votre déclaration est arrivée en retard, et il a trouvé de quoi payer moins. Quant au délai de l'autorité, personne ne le surveillait... Il a couru sans vous."
+        },
+        {
+          "text": "Faire venir une équipe externe de réponse aux incidents.",
+          "short": "Renfort externe",
+          "ok": true,
+          "fx": {
+            "systems": -15,
+            "legal": -5
+          },
+          "rv": "turtle0",
+          "why": "Votre équipe informatique est douée, et à bout. Elle apprenait à me combattre en me combattant, une machine après l'autre. Ma porte dérobée, personne ne l'a trouvée."
+        },
+        {
+          "text": "Annoncer à la presse qu'« aucune donnée client n'est touchée », pour calmer le jeu.",
+          "short": "Rassurer la presse",
+          "ok": false,
+          "fx": {
+            "trust": -25,
+            "legal": -15
+          },
+          "rv": "cat2",
+          "why": "Vous l'avez affirmé avant de le savoir. À onze heures, vos propres intervenants trouvaient les fichiers copiés, et chaque journaliste tenait deux citations : la vôtre, et la vérité."
+        },
+        {
+          "text": "Laisser chaque service restaurer ses propres systèmes sans attendre, pour gagner du temps.",
+          "short": "Chacun restaure ses systèmes",
+          "ok": false,
+          "fx": {
+            "systems": -20,
+            "cash": -10
+          },
+          "rv": "turtle0",
+          "why": "Six équipes, six systèmes restaurés dans le même réseau... où j'étais encore. C'est trop aimable. Je les ai rebloqués un par un, à mesure qu'ils revenaient."
+        }
       ],
-      "gain": { "legal": 10 },
-      "explain": "Dans la première heure, vous ne réparez rien, mon petit. Vous organisez la salle : un moyen de parler que l'attaquant ne peut pas lire, les personnes qui connaissent la loi et le contrat d'assurance, et des gens qui ont déjà vécu ça. Ne dites rien que vous ne pouvez prouver, et ne restaurez rien tant qu'il est encore là.",
-      "spider_ok": "Téléphones, avocats, spécialistes... Vous avez appelé exactement les gens que j'espérais vous voir oublier.",
-      "best": "Passer sur des canaux hors bande, appeler le juridique et l'assureur, et faire venir une équipe de réponse externe. Ne rien dire que l'on ne peut prouver."
+      "gain": {
+        "legal": 10
+      },
+      "explain": "La première heure, on ne répare rien. On installe la salle : un canal que l'attaquant ne peut pas lire, des gens qui connaissent la loi et le contrat d'assurance, et d'autres qui ont déjà traversé ce genre de matinée. On n'affirme rien qu'on ne puisse prouver, et on ne restaure rien tant qu'il est encore dans le réseau.",
+      "spider_ok": "Téléphones, avocats, spécialistes... Exactement ceux que j'espérais vous voir oublier.",
+      "best": "Passer sur un canal séparé, appeler le juridique et l'assureur, faire venir une équipe de réponse externe. Et ne rien affirmer sans preuve."
     },
     {
       "id": "d3",
@@ -176,24 +382,61 @@
       "voice": "cat",
       "type": "single",
       "title": "La rançon",
-      "text": "Le message exige 1,2 million d'euros en cryptomonnaie avant 14:00. Ensuite, la copie volée sera publiée et la clé détruite. Quelle est la position du conseil ?",
-      "artifact": { "initials": "DK", "name": "Dana Keller", "role": "Responsable informatique", "time": "09:38", "text": "La sauvegarde d'hier soir est sur le même réseau, donc je ne peux pas promettre qu'elle est saine. Le conseil doit prendre position sur le message avant que la presse le trouve." },
+      "text": "Le message réclame 1,2 million d'euros en cryptomonnaie avant 14:00. Passé ce délai, la copie volée part en ligne et la clé est détruite. Quelle est la position du conseil ?",
+      "artifact": {
+        "initials": "DK",
+        "name": "Dana Keller",
+        "role": "Responsable informatique",
+        "time": "09:38",
+        "text": "La sauvegarde d'hier soir est sur le même réseau. Je ne peux pas te garantir qu'elle est saine. Et il faut une position du conseil sur ce message avant que la presse tombe dessus."
+      },
       "options": [
-        { "text": "Ne pas payer pour l'instant. Appeler la police, et laisser le juridique et l'équipe de réponse vérifier d'abord les sauvegardes et les options.", "short": "Pas maintenant, avec des experts", "ok": true },
-        { "text": "Payer maintenant, avant la fin du compte à rebours. C'est le moyen le plus rapide de récupérer les fichiers.", "short": "Payer tout de suite", "ok": false,
-          "fx": { "cash": -30, "legal": -10 }, "rv": "turtle0",
-          "why": "Merci pour l'argent... Ma clé a ouvert un tiers de vos fichiers. J'ai gardé ma copie de vos données, évidemment. Et maintenant je sais que ce conseil paie." },
-        { "text": "Répondre depuis la boîte mail du PDG et négocier le prix vous-mêmes.", "short": "Négocier vous-mêmes", "ok": false,
-          "fx": { "cash": -15, "legal": -15 }, "rv": "turtle0",
-          "why": "Quel courage... Vous écriviez comme des amateurs effrayés, et je ne suis pas un amateur. Chaque réponse me disait à quel point vous aviez besoin de ces fichiers, alors chaque réponse a fait monter le prix." },
-        { "text": "Refuser, et n'en parler à personne en dehors de cette salle. Moins de gens au courant, moins de fuites.", "short": "N'en parler à personne", "ok": false,
-          "fx": { "legal": -20, "trust": -10 }, "rv": "turtle0",
-          "why": "Le silence. Mon préféré. Pas de police, personne qui m'ait déjà rencontré... Vous vous êtes retrouvés bien seuls." }
+        {
+          "text": "Ne pas payer pour l'instant. Appeler la police, et laisser le juridique et l'équipe de réponse examiner d'abord les sauvegardes et les options.",
+          "short": "Pas encore, experts d'abord",
+          "ok": true
+        },
+        {
+          "text": "Payer maintenant, avant la fin du compte à rebours. C'est le chemin le plus court pour récupérer les fichiers.",
+          "short": "Payer tout de suite",
+          "ok": false,
+          "fx": {
+            "cash": -30,
+            "legal": -10
+          },
+          "rv": "turtle0",
+          "why": "Merci pour l'argent... Ma clé a déverrouillé un tiers de vos fichiers. Ma copie de vos données, je l'ai gardée, naturellement. Et désormais, je sais que ce conseil paie."
+        },
+        {
+          "text": "Répondre depuis l'adresse e-mail du PDG et marchander le prix vous-mêmes.",
+          "short": "Marchander vous-mêmes",
+          "ok": false,
+          "fx": {
+            "cash": -15,
+            "legal": -15
+          },
+          "rv": "turtle0",
+          "why": "Quel courage... Vous écriviez comme des amateurs qui ont peur, et je n'en suis pas un. Chaque réponse me disait combien vous teniez à ces fichiers. Alors chaque réponse a fait monter le prix."
+        },
+        {
+          "text": "Refuser, et n'en parler à personne hors de cette salle. Moins il y a de gens au courant, moins il y a de fuites.",
+          "short": "Refuser et se taire",
+          "ok": false,
+          "fx": {
+            "legal": -20,
+            "trust": -10
+          },
+          "rv": "turtle0",
+          "why": "Le silence. Mon préféré. Pas de police, personne qui me connaisse déjà... Vous vous êtes isolés tout seuls."
+        }
       ],
-      "gain": { "cash": 10, "legal": 5 },
-      "explain": "Payer n'est jamais un réflexe. Cela n'achète aucune garantie d'une clé qui fonctionne, aucune garantie que la copie volée soit supprimée, et cela finance la prochaine attaque. Appelez la police, faites venir le juridique et les intervenants, testez ce que vos sauvegardes peuvent vraiment restaurer, et décidez sur des faits, pas sur un compte à rebours.",
-      "spider_ok": "Pas de paiement. Pas de panique. Je déteste les conseils patients.",
-      "best": "Ne pas payer pour l'instant. Impliquer la police, le juridique et les intervenants, et tester d'abord les sauvegardes."
+      "gain": {
+        "cash": 10,
+        "legal": 5
+      },
+      "explain": "Payer ne doit jamais être un réflexe. L'argent n'achète ni une clé qui fonctionne à coup sûr, ni l'effacement de la copie volée, et il finance la prochaine attaque. Appelez la police, faites venir le juridique et les intervenants, testez ce que vos sauvegardes restaurent réellement. Ensuite, décidez sur des faits. Le compte à rebours n'en est pas un.",
+      "spider_ok": "Pas de paiement, pas de panique. J'ai horreur des conseils patients.",
+      "best": "Ne pas payer pour l'instant : faire entrer la police, le juridique et les intervenants, et tester d'abord les sauvegardes."
     },
     {
       "id": "d4",
@@ -201,76 +444,164 @@
       "voice": "turtle",
       "type": "single",
       "title": "Les clients et l'autorité",
-      "text": "Les intervenants le confirment : environ 40 Go ont été copiés, dont les noms, adresses e-mail et mots de passe hachés de 120 000 clients. L'attaquant dit que tout sera publié à 14:00. Que faites-vous vis-à-vis de l'autorité et de vos clients ?",
-      "artifact": { "initials": "LM", "name": "Luc Marchand", "role": "Directeur juridique", "time": "11:12", "text": "Selon le RGPD, nous avons 72 heures pour prévenir l'autorité à partir du moment où nous avons eu connaissance de l'incident. Le droit suisse dit dès que possible. Notre délai a commencé à 07:40, quoi que nous décidions." },
+      "text": "Les intervenants confirment : environ 40 Go ont été copiés, dont les noms, adresses e-mail et mots de passe hachés de 120 000 clients. L'attaquant promet de tout publier à 14:00. Que faites-vous envers l'autorité et vos clients ?",
+      "artifact": {
+        "initials": "LM",
+        "name": "Luc Marchand",
+        "role": "Directeur juridique",
+        "time": "11:12",
+        "text": "Le RGPD nous laisse 72 heures pour prévenir l'autorité, à compter du moment où nous avons eu connaissance de l'incident. Le droit suisse dit « dès que possible ». Et notre délai court depuis 07:40, quoi que nous décidions."
+      },
       "options": [
-        { "text": "Prévenir l'autorité de protection des données maintenant, et préparer un message clair pour les clients : ce qui s'est passé, ce qui a été pris et quoi faire.", "short": "Prévenir l'autorité et les clients", "ok": true },
-        { "text": "Attendre la fin de l'enquête, puis décider qui prévenir.", "short": "Attendre le rapport final", "ok": false,
-          "fx": { "legal": -25, "trust": -10 }, "rv": "turtle1",
-          "why": "Une enquête prend des semaines. Le délai légal, trois jours. L'autorité demandera pourquoi vous saviez vendredi et avez parlé mardi... et les amendes s'écrivent en pourcentages." },
-        { "text": "Ne rien dire sauf si les données apparaissent vraiment en ligne.", "short": "Se taire sauf en cas de fuite", "ok": false,
-          "fx": { "trust": -30, "legal": -20 }, "rv": "turtle1",
-          "why": "À 14:00, j'ai publié. Vos clients l'ont appris par un inconnu sur un forum, sans avertissement et sans pouvoir changer de mot de passe. Plusieurs comptes sont tombés avant le soir." },
-        { "text": "Écrire à tous les clients maintenant : « vos données sont en sécurité ». Enquêter ensuite.", "short": "Dire aux clients qu'ils sont en sécurité", "ok": false,
-          "fx": { "trust": -30, "legal": -10 }, "rv": "cat2",
-          "why": "« Vos données sont en sécurité. » Une si jolie phrase à envoyer une heure avant que je prouve le contraire. La confiance met des années à se construire, et une phrase à se dépenser." }
+        {
+          "text": "Notifier dès maintenant l'autorité de protection des données, et préparer pour les clients un message simple : ce qui s'est passé, ce qui a été pris, ce qu'ils doivent faire.",
+          "short": "Prévenir l'autorité et les clients",
+          "ok": true
+        },
+        {
+          "text": "Attendre la fin de l'enquête, puis décider qui prévenir.",
+          "short": "Attendre le rapport final",
+          "ok": false,
+          "fx": {
+            "legal": -25,
+            "trust": -10
+          },
+          "rv": "turtle1",
+          "why": "Une enquête, ça prend des semaines. Le délai légal, trois jours. L'autorité voudra savoir pourquoi vous saviez vendredi et n'avez parlé que mardi... Et les amendes se calculent en pourcentage."
+        },
+        {
+          "text": "Ne rien dire tant que les données n'apparaissent pas en ligne.",
+          "short": "Se taire jusqu'à la fuite",
+          "ok": false,
+          "fx": {
+            "trust": -30,
+            "legal": -20
+          },
+          "rv": "turtle1",
+          "why": "À 14:00, j'ai publié. Vos clients l'ont appris d'un inconnu, sur un forum, sans avoir été prévenus ni avoir pu changer leur mot de passe. Avant le soir, plusieurs comptes étaient tombés."
+        },
+        {
+          "text": "Écrire à tous les clients maintenant : « vos données sont en sécurité ». Enquêter ensuite.",
+          "short": "Rassurer les clients",
+          "ok": false,
+          "fx": {
+            "trust": -30,
+            "legal": -10
+          },
+          "rv": "cat2",
+          "why": "« Vos données sont en sécurité. » Jolie phrase, envoyée une heure avant que je prouve le contraire. Il vous a fallu des années pour gagner leur confiance. Une phrase a suffi pour la dépenser."
+        }
       ],
-      "gain": { "trust": 15, "legal": 10 },
-      "explain": "Soyez rapide, clair et vrai, mon petit. Le délai de l'autorité a commencé quand vous avez eu connaissance de l'incident, et les clients doivent changer leurs mots de passe et se méfier du hameçonnage avant que l'attaquant ne les atteigne. Ne promettez jamais une sécurité que vous ne pouvez pas prouver.",
-      "spider_ok": "Vous les avez prévenus vous-mêmes, et clairement. Il ne me reste rien pour vous menacer.",
-      "best": "Prévenir l'autorité à temps, et dire clairement aux clients ce qui s'est passé et quoi faire."
+      "gain": {
+        "trust": 15,
+        "legal": 10
+      },
+      "explain": "Parlez tôt, parlez simple, dites vrai. Le délai de l'autorité court depuis que vous avez eu connaissance de l'incident, et vos clients doivent changer leurs mots de passe et se méfier du hameçonnage avant que l'attaquant ne s'en prenne à eux. Et ne leur promettez jamais une sécurité que vous ne pouvez pas prouver.",
+      "spider_ok": "Vous les avez prévenus vous-mêmes, et sans détour. Me voilà sans rien pour vous faire chanter.",
+      "best": "Notifier l'autorité dans les délais, et expliquer simplement aux clients ce qui s'est passé et ce qu'ils doivent faire."
     },
     {
       "id": "d5",
       "time": "13:10",
       "voice": "dog",
       "type": "multi",
-      "title": "Revenir en ligne",
-      "text": "Des sauvegardes saines sont prêtes. Les intervenants ont trouvé la porte d'entrée : le mot de passe d'une employée, utilisé sur un VPN sans deuxième facteur. Que faites-vous ensuite ?",
-      "artifact": { "initials": "DK", "name": "Dana Keller", "role": "Responsable informatique", "time": "13:08", "text": "Jo, de la comptabilité, a tapé son mot de passe sur une fausse page de connexion ThisIsTea jeudi soir. Elle est mortifiée. Elle est aussi venue nous voir quelques minutes après le premier écran de rançon, et c'est ce qui nous a donné la chronologie." },
+      "title": "Le retour en ligne",
+      "text": "Des sauvegardes saines sont prêtes, et les intervenants ont trouvé la porte d'entrée : le mot de passe d'une employée, utilisé sur un VPN sans deuxième facteur. Que faites-vous maintenant ?",
+      "artifact": {
+        "initials": "DK",
+        "name": "Dana Keller",
+        "role": "Responsable informatique",
+        "time": "13:08",
+        "text": "Jo, de la compta, a saisi son mot de passe sur une fausse page de connexion ThisIsTea jeudi soir. Elle est mortifiée. Mais c'est aussi elle qui est venue nous voir quelques minutes après le premier écran de rançon, et c'est grâce à elle qu'on a pu reconstituer la chronologie."
+      },
       "options": [
-        { "text": "Réinitialiser tous les mots de passe, en commençant par les comptes administrateurs et de service, et exiger l'authentification à plusieurs facteurs sur le VPN et tous les accès à distance.", "short": "Réinitialiser, ajouter la MFA", "ok": true,
-          "fx": { "systems": -20, "legal": -10 }, "rv": "turtle2",
-          "why": "Les anciens mots de passe marchaient encore, et l'ancienne porte aussi. Samedi à 02:00, je suis simplement revenu. Personne n'avait ajouté de deuxième verrou." },
-        { "text": "Restaurer depuis des sauvegardes vérifiées et saines, par étapes, dans un réseau surveillé.", "short": "Restaurer au propre, par étapes", "ok": true,
-          "fx": { "systems": -20, "cash": -10 }, "rv": "turtle2",
-          "why": "Une de vos sauvegardes contenait déjà un petit cadeau de ma part. Vous l'avez restaurée avec grand soin... et j'étais réveillé avant le petit-déjeuner." },
-        { "text": "Remercier Jo d'avoir signalé vite, et rendre le signalement facile et sans reproche pour tout le monde.", "short": "Remercier la personne qui a signalé", "ok": true,
-          "fx": { "trust": -10, "legal": -5 }, "rv": "turtle2",
-          "why": "Personne n'a remercié Jo. Elle a raconté sa journée à ses amis, et la personne suivante qui a repéré une de mes ruses s'est tue pendant deux jours. J'adore les bureaux silencieux." },
-        { "text": "Tout reconnecter immédiatement. L'entreprise perd de l'argent à chaque heure.", "short": "Tout reconnecter d'un coup", "ok": false,
-          "fx": { "systems": -25, "cash": -15 }, "rv": "turtle2",
-          "why": "Tout, d'un coup, avec les anciens mots de passe. Vous m'avez fait revenir en vitesse... Je me suis rarement senti aussi bien accueilli." },
-        { "text": "Licencier Jo. Il faut montrer que les erreurs ont des conséquences.", "short": "Licencier l'employée", "ok": false,
-          "fx": { "trust": -20, "legal": -10 }, "rv": "turtle2",
-          "why": "Ce jour-là, chaque employé a retenu la même leçon : cachez vos erreurs. Alors la prochaine fois que quelqu'un cliquera sur un de mes liens, vous l'apprendrez par moi, bien avant de l'apprendre par lui." }
+        {
+          "text": "Réinitialiser tous les mots de passe, en commençant par les comptes administrateurs et de service, et exiger l'authentification multifacteur sur le VPN et sur tous les accès à distance.",
+          "short": "Réinitialiser, ajouter la MFA",
+          "ok": true,
+          "fx": {
+            "systems": -20,
+            "legal": -10
+          },
+          "rv": "turtle2",
+          "why": "Les anciens mots de passe fonctionnaient toujours, donc l'ancienne porte aussi. Samedi, 02:00 : j'ai repris le même chemin. Personne n'avait posé de deuxième verrou."
+        },
+        {
+          "text": "Restaurer à partir de sauvegardes vérifiées et saines, par étapes, dans un réseau surveillé.",
+          "short": "Restaurer au propre, par étapes",
+          "ok": true,
+          "fx": {
+            "systems": -20,
+            "cash": -10
+          },
+          "rv": "turtle2",
+          "why": "Une de vos sauvegardes contenait déjà un petit cadeau de ma part. Vous l'avez restaurée avec beaucoup de soin... Avant le petit-déjeuner, j'étais de nouveau au travail."
+        },
+        {
+          "text": "Remercier Jo d'avoir signalé vite, et faire en sorte que chacun puisse signaler facilement, sans craindre de reproche.",
+          "short": "Remercier Jo",
+          "ok": true,
+          "fx": {
+            "trust": -10,
+            "legal": -5
+          },
+          "rv": "turtle2",
+          "why": "Personne n'a remercié Jo. Elle a raconté sa journée autour d'elle, et la personne suivante qui a repéré une de mes ruses n'en a parlé à personne pendant deux jours. J'adore les bureaux bien silencieux."
+        },
+        {
+          "text": "Tout reconnecter immédiatement. Chaque heure d'arrêt coûte de l'argent à l'entreprise.",
+          "short": "Tout reconnecter d'un coup",
+          "ok": false,
+          "fx": {
+            "systems": -25,
+            "cash": -15
+          },
+          "rv": "turtle2",
+          "why": "Tout, d'un coup, avec les anciens mots de passe. Vous m'avez rouvert la porte en courant... On m'a rarement réservé un tel accueil."
+        },
+        {
+          "text": "Licencier Jo. Il faut montrer que les erreurs ont des conséquences.",
+          "short": "Licencier Jo",
+          "ok": false,
+          "fx": {
+            "trust": -20,
+            "legal": -10
+          },
+          "rv": "turtle2",
+          "why": "Ce jour-là, tout le personnel a retenu la même leçon : cachez vos erreurs. La prochaine fois que quelqu'un cliquera sur un de mes liens, c'est moi qui vous l'apprendrai. Bien avant lui."
+        }
       ],
-      "gain": { "systems": 45, "trust": 5 },
-      "explain": "Voilà tout le principe, mon pote ! Restaurer au propre, verrouiller la porte avec un deuxième facteur, et garder les gens qui parlent. Et Bitwarden peut rendre ces nouveaux mots de passe longs et différents pour chaque compte, et il ne les remplira pas sur un faux site !",
-      "spider_ok": "Un deuxième verrou, une restauration propre et une collègue remerciée... J'essaierai une autre maison.",
-      "best": "Réinitialiser les identifiants et ajouter la MFA, restaurer au propre par étapes, et remercier la personne qui a signalé."
+      "gain": {
+        "systems": 45,
+        "trust": 5
+      },
+      "explain": "Vous avez tout : des systèmes restaurés au propre, une porte fermée par un deuxième facteur, et des gens qui continuent de parler. Petit bonus pour les nouveaux mots de passe : Bitwarden peut les rendre longs et différents pour chaque compte. Et il ne les propose que sur le site dont l'adresse correspond. Sur la fausse page de jeudi soir, il serait resté muet.",
+      "spider_ok": "Un deuxième verrou, une restauration propre, une collègue remerciée... Bon. Je vais essayer chez les voisins.",
+      "best": "Réinitialiser les identifiants et activer la MFA, restaurer au propre par étapes, remercier Jo d'avoir signalé."
     }
   ],
-  "outcome_thresholds": { "bruised": 3 },
+  "outcome_thresholds": {
+    "bruised": 3
+  },
   "outcomes": {
     "contained": {
       "voice": "turtle",
-      "title": "Hm. Vous avez fermé toutes les portes que j'ai essayées.",
-      "body": "Isolés, informés, patients, honnêtes et bienveillants. Je n'ai pas aimé ça du tout. J'irai chercher une maison avec un conseil plus discret... et moins de deuxièmes facteurs.",
-      "score": "Cinq sur cinq, mon petit. Remarquez qu'aucune de ces décisions ne demandait un outil malin, seulement le bon ordre. Maintenant, allez demander à votre propre équipe si le VPN a un deuxième verrou."
+      "title": "Toutes les portes que j'ai essayées étaient fermées. Agaçant.",
+      "body": "Isolés, informés, patients, honnêtes, et même aimables. Je n'ai pas apprécié. Je vais me trouver une maison avec un conseil plus discret... et moins de deuxièmes facteurs.",
+      "score": "Cinq sur cinq. Aucune de ces décisions ne demandait d'outil sophistiqué, seulement de les prendre dans le bon ordre. Une dernière chose : demandez à votre équipe si votre VPN a un deuxième verrou."
     },
     "bruised": {
       "voice": "cat",
-      "title": "Vous êtes encore debout... mais j'ai laissé des traces.",
-      "body": "Vous avez géré l'essentiel. Quelques-uns de vos choix étaient des cadeaux, et je les ai gardés. Le registre ci-dessous montre exactement lesquels.",
-      "score": "Plutôt solide. Les décisions qui ont mal tourné sont dans le récapitulatif, chacune avec la règle qui vous aurait sauvé. Lisez-les, puis rejouez."
+      "title": "Toujours debout... mais je vous ai laissé quelques marques.",
+      "body": "L'essentiel, vous l'avez tenu. Mais certains de vos choix étaient des cadeaux, et je les ai acceptés. Le registre ci-dessous vous dit lesquels.",
+      "score": "Plutôt solide. Les décisions ratées sont dans le récapitulatif, chacune avec la règle qui l'aurait évitée. Lisez-les, puis rejouez."
     },
     "wrecked": {
       "voice": "turtle",
-      "title": "Quel joli désastre nous avons fait ensemble.",
-      "body": "Chacun de ces choix semblait raisonnable sur le moment. C'est exactement pour ça qu'ils marchent sur les gens. Réessayez, et cette fois, pensez à l'ordre.",
-      "score": "C'était une matinée difficile, mon petit, et elle devait l'être. De vrais conseils se trompent aussi, c'est pour ça qu'on s'entraîne. Lisez le récapitulatif, puis réessayez."
+      "title": "Quel beau désastre. Nous avons bien travaillé, vous et moi.",
+      "body": "Sur le moment, chacun de ces choix paraissait raisonnable. C'est bien pour ça qu'ils marchent si souvent. Réessayez donc, en pensant à l'ordre cette fois.",
+      "score": "Matinée difficile, et elle était faite pour l'être. De vrais conseils se trompent sur ces mêmes choix. Mieux vaut le faire ici qu'un vrai vendredi. Lisez le récapitulatif, puis on recommence."
     }
   },
-  "footer": "À la prochaine... le prochain message n'arrivera pas par e-mail. Demandez donc si votre VPN a un deuxième verrou."
+  "footer": "À la prochaine... Et la prochaine fois, je ne passerai pas par un e-mail. Au fait, ce deuxième verrou sur votre VPN, vous avez vérifié ?"
 }

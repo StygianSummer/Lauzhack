@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import tea.app.Screen
 import tea.app.TeaApp
@@ -29,42 +28,36 @@ import tea.generated.resources.Res
 import tea.generated.resources.placement_ack_got_it
 import tea.generated.resources.placement_ack_together
 import tea.generated.resources.placement_empty
-import tea.generated.resources.placement_focus_ask
-import tea.generated.resources.placement_focus_emotion
-import tea.generated.resources.placement_focus_verify
-import tea.generated.resources.placement_focus_who
 import tea.generated.resources.placement_intro_body
 import tea.generated.resources.placement_intro_cat
 import tea.generated.resources.placement_intro_dont_know
 import tea.generated.resources.placement_intro_title
+import tea.generated.resources.placement_level_basics_action
+import tea.generated.resources.placement_level_basics_body
+import tea.generated.resources.placement_level_basics_title
+import tea.generated.resources.placement_level_label
+import tea.generated.resources.placement_level_start_body
+import tea.generated.resources.placement_level_start_title
 import tea.generated.resources.placement_loading
 import tea.generated.resources.placement_no_result
 import tea.generated.resources.placement_progress
-import tea.generated.resources.placement_result_focus_label
 import tea.generated.resources.placement_result_intro
-import tea.generated.resources.placement_result_strength_label
 import tea.generated.resources.placement_result_title
-import tea.generated.resources.placement_result_turtle
 import tea.generated.resources.placement_resume
 import tea.generated.resources.placement_start
 import tea.generated.resources.placement_start_lesson
-import tea.generated.resources.placement_strength_ask
-import tea.generated.resources.placement_strength_emotion
-import tea.generated.resources.placement_strength_general
-import tea.generated.resources.placement_strength_verify
-import tea.generated.resources.placement_strength_who
 import tea.generated.resources.placement_take_test
 import tea.generated.resources.placement_title
 import tea.model.Item
 import tea.model.LESSON_1_ID
 import tea.model.Mood
 import tea.model.Persona
-import tea.model.StepKey
 import tea.ui.components.Banner
 import tea.ui.components.PersonaBubble
 import tea.ui.components.ScreenColumn
 import tea.ui.components.SectionHeading
 import tea.ui.components.TeaButton
+import tea.ui.components.TeaButtonVariant
 import tea.ui.components.TeaCard
 import tea.ui.components.TeaProgressBar
 import tea.ui.components.TopBar
@@ -169,7 +162,10 @@ private fun Centered(text: String) {
     }
 }
 
-/** One strength and one focus sentence, no score (plan §6.2). Button "Start lesson 1". */
+/**
+ * Result of the (quick) placement: the level card, no score. The two-email test gives no evidence
+ * per step, so the strength / focus sentences of plan §6.2 are not shown.
+ */
 @Composable
 fun PlacementResultContent(app: TeaApp) {
     val profile by app.profile.collectAsState()
@@ -185,33 +181,63 @@ fun PlacementResultContent(app: TeaApp) {
             large = true,
             intro = stringResource(Res.string.placement_result_intro),
         )
-        val strength = if (result.strength == result.focus) Res.string.placement_strength_general else strengthText(result.strength)
-        TeaCard(Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.placement_result_strength_label), style = TeaTheme.type.smallStrong, color = TeaTheme.colors.okText)
-            Text(stringResource(strength), style = TeaTheme.type.title, color = TeaTheme.colors.ink)
-        }
-        TeaCard(Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.placement_result_focus_label), style = TeaTheme.type.smallStrong, color = TeaTheme.colors.hintText)
-            Text(stringResource(focusText(result.focus)), style = TeaTheme.type.title, color = TeaTheme.colors.ink)
-        }
-        PersonaBubble(Persona.TURTLE, Mood.HAPPY, stringResource(Res.string.placement_result_turtle), onSoft = true)
-        TeaButton(stringResource(Res.string.placement_start_lesson), {
-            app.navigateRoot(Screen.Home)
-            app.navigate(Screen.Lesson(LESSON_1_ID, 0))
-        })
+        LevelCard(
+            knowsBasics = knowsBasics(result.level),
+            onHarder = {
+                app.navigateRoot(Screen.Home)
+                app.navigate(Screen.Practice())
+            },
+            onLesson = {
+                app.navigateRoot(Screen.Home)
+                app.navigate(Screen.Lesson(LESSON_1_ID, 0))
+            },
+            lessonAlso = true,
+        )
     }
 }
 
-private fun strengthText(step: StepKey): StringResource = when (step) {
-    StepKey.WHO -> Res.string.placement_strength_who
-    StepKey.EMOTION -> Res.string.placement_strength_emotion
-    StepKey.ASK -> Res.string.placement_strength_ask
-    StepKey.VERIFY -> Res.string.placement_strength_verify
-}
+/**
+ * True when the placement put the learner above level 1: in the quick test, both emails right
+ * (scam called a trick, real one trusted, neither marked "guessing").
+ */
+fun knowsBasics(level: Int): Boolean = level > 1
 
-private fun focusText(step: StepKey): StringResource = when (step) {
-    StepKey.WHO -> Res.string.placement_focus_who
-    StepKey.EMOTION -> Res.string.placement_focus_emotion
-    StepKey.ASK -> Res.string.placement_focus_ask
-    StepKey.VERIFY -> Res.string.placement_focus_verify
+/**
+ * What the level test said, on Home and on the result screen. Knows the basics → "you can train at a
+ * harder level" (the placement already set the practice difficulty to its level, so Practice serves
+ * the harder emails); otherwise → lesson 1. [lessonAlso]: also offer lesson 1 to someone who knows the
+ * basics (the result screen; Home lists the lessons anyway).
+ */
+@Composable
+fun LevelCard(
+    knowsBasics: Boolean,
+    onHarder: () -> Unit,
+    onLesson: () -> Unit,
+    modifier: Modifier = Modifier,
+    lessonAlso: Boolean = false,
+) {
+    TeaCard(modifier.fillMaxWidth()) {
+        Text(
+            stringResource(Res.string.placement_level_label),
+            style = TeaTheme.type.smallStrong,
+            color = if (knowsBasics) TeaTheme.colors.okText else TeaTheme.colors.hintText,
+        )
+        Text(
+            stringResource(if (knowsBasics) Res.string.placement_level_basics_title else Res.string.placement_level_start_title),
+            style = TeaTheme.type.title,
+            color = TeaTheme.colors.ink,
+        )
+        PersonaBubble(
+            Persona.TURTLE,
+            Mood.HAPPY,
+            stringResource(if (knowsBasics) Res.string.placement_level_basics_body else Res.string.placement_level_start_body),
+            onSoft = true,
+        )
+        if (knowsBasics) {
+            TeaButton(stringResource(Res.string.placement_level_basics_action), onHarder)
+            if (lessonAlso) TeaButton(stringResource(Res.string.placement_start_lesson), onLesson, variant = TeaButtonVariant.Secondary)
+        } else {
+            TeaButton(stringResource(Res.string.placement_start_lesson), onLesson)
+        }
+    }
 }

@@ -49,6 +49,7 @@ import tea.generated.resources.*
 import tea.model.Chapter
 import tea.model.ChapterKind
 import tea.model.ChapterStatus
+import tea.model.LESSON_1_ID
 import tea.model.LESSON_2_DEMO_ID
 import tea.model.LESSON_2_ID
 import tea.model.LeaderboardResponse
@@ -74,6 +75,8 @@ import tea.ui.screens.challenge.outcomeWord
 import tea.ui.screens.learn.LearnKeys
 import tea.ui.screens.leaderboard.PERIODS
 import tea.ui.screens.leaderboard.RankRow
+import tea.ui.screens.placement.LevelCard
+import tea.ui.screens.placement.knowsBasics
 import tea.ui.theme.TeaSize
 import tea.ui.theme.TeaSpacing
 import tea.ui.theme.TeaTheme
@@ -111,6 +114,8 @@ data class HomeUi(
     val dailyMinutes: Int = 5,
     val chapters: List<ChapterUi> = emptyList(),
     val showPlacement: Boolean = false,
+    /** Level from the placement test, once taken (drives the level card). */
+    val placementLevel: Int? = null,
     val ranking: RankingUi = RankingUi.Loading,
     val online: Boolean = true,
     val loggedIn: Boolean = false,
@@ -123,6 +128,7 @@ class HomeActions(
     val openChapter: (ChapterUi) -> Unit = {},
     val openDemo: (ChapterUi) -> Unit = {},
     val placement: () -> Unit = {},
+    val lesson1: () -> Unit = {},
     val practise: () -> Unit = {},
     val leaderboard: () -> Unit = {},
     val about: () -> Unit = {},
@@ -234,6 +240,7 @@ fun HomeScreen(app: AppState) {
         dailyMinutes = profile.dailyMinutes,
         chapters = chapters,
         showPlacement = profile.placement == null,
+        placementLevel = profile.placement?.level,
         ranking = ranking,
         online = online,
         loggedIn = loggedIn,
@@ -252,6 +259,7 @@ fun HomeScreen(app: AppState) {
                 }
             },
             placement = { app.navigate(Screen.PlacementIntro) },
+            lesson1 = { app.navigate(Screen.Lesson(LESSON_1_ID, app.savedSection(LESSON_1_ID))) },
             practise = { app.navigate(Screen.Practice()) },
             leaderboard = { app.navigate(Screen.Leaderboard) },
             about = { app.navigate(Screen.About) },
@@ -337,7 +345,11 @@ private fun ColumnScope.MainColumn(ui: HomeUi, actions: HomeActions, columns: In
         "dodged" -> DebriefCard(caught = false, buttonText = stringResource(Res.string.home_debrief_practise), onClick = actions.practiseFocus)
     }
     if (statsStrip) StatsStrip(ui)
-    if (ui.showPlacement) PlacementCard(actions.placement)
+    if (ui.showPlacement) {
+        PlacementCard(actions.placement)
+    } else {
+        ui.placementLevel?.let { LevelCard(knowsBasics(it), onHarder = actions.practise, onLesson = actions.lesson1) }
+    }
     SectionHeading(stringResource(Res.string.home_chapters_title))
     ui.chapters.chunked(columns).forEachIndexed { row, items ->
         Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(TeaSpacing.s3)) {

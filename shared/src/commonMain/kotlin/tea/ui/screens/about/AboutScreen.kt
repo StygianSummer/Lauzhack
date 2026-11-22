@@ -120,9 +120,10 @@ fun localRows(app: AppState): List<AboutRow> {
     val off = stringResource(Res.string.about_no)
     val system = stringResource(Res.string.about_system)
     val flags by app.flags.collectAsState()
-    val answered = if (flags.onboardingDone) OnboardingQuestion.entries.size - flags.onboardingSkipped.size else listOf(
-        p.hereFor != null, p.ageRange != null, p.channels.isNotEmpty(), p.emailApp != null, p.interests.isNotEmpty(),
-        p.pastExperience != null, p.selfRating != null,
+    // Only the ids still asked count: a learner who skipped a question that was later dropped keeps it in the list.
+    val asked = OnboardingQuestion.entries.map { it.id }
+    val answered = if (flags.onboardingDone) asked.size - flags.onboardingSkipped.count { it in asked } else listOf(
+        p.pastExperience != null,
     ).count { it }
     val name = listOfNotNull(p.firstName, p.lastName).joinToString(" ").ifBlank { notGiven }
     val country = p.country?.let { stringResource(countryRes(it)) } ?: notGiven

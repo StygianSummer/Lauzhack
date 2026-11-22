@@ -288,7 +288,8 @@ class AppState(
         val f = _flags.value
         return when {
             p.firstName.isNullOrBlank() -> Screen.Name
-            !f.passwordSet -> Screen.Password
+            // A guest (offline) has no server account, so there is no password to set.
+            !f.passwordSet && !f.guest -> Screen.Password
             !f.onboardingDone -> Screen.Onboarding(0)
             f.termsVersion == null -> Screen.Terms
             // Registration ends on Home; the placement test is an optional card there.
@@ -365,6 +366,23 @@ class AppState(
         if (r is ApiResult.Ok && r.value.accepted) updateFlags { it.copy(passwordSet = true) }
         if (r is ApiResult.Err && r.status == 401) onUnauthorized()
         return r
+    }
+
+    /** Offline: no code can be sent, but the address is kept so the Code screen can take the demo code. */
+    fun startEmailOffline(email: String) {
+        local.pendingEmail = email.trim()
+    }
+
+    /**
+     * Offline sign-up with the demo code [OFFLINE_DEMO_CODE] (the same code the server accepts while no
+     * SMTP password is set). It opens nothing on the server: the learner becomes a local guest, exactly
+     * like "Continue without an account", and continues at the Name screen. Returns false for any other code.
+     */
+    fun verifyOffline(code: String): Boolean {
+        if (code != OFFLINE_DEMO_CODE) return false
+        updateFlags { it.copy(guest = true) }
+        if (!local.hasProfile) setProfile(_profile.value, sync = false)
+        return true
     }
 
     /** "Continue without an account" (offline): local guest, straight to the onboarding questions. */
@@ -667,6 +685,9 @@ class AppState(
     private fun newId(): String = Uuid.random().toString()
 
     companion object {
+        /** Accepted by [verifyOffline]; matches the server's DEV_VERIFY_CODE default (decisions.md). */
+        const val OFFLINE_DEMO_CODE = "426769"
+
         /** Country list of plan §9.2.1. */
         val COUNTRIES = listOf("CH", "FR", "ES", "DE", "IT", "GB", "IN", "PK", "OTHER")
 

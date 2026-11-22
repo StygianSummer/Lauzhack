@@ -40,11 +40,11 @@
       },
       {
         "t": "text",
-        "v": "Votre relevé d'octobre est joint. Merci d'ouvrir la pièce jointe et de vous connecter pour voir le détail."
+        "v": "Vous trouverez ci-joint votre relevé d'octobre. Ouvrez la pièce jointe et connectez-vous pour en consulter le détail."
       },
       {
         "t": "text",
-        "v": "Pour toute question, répondez simplement à cet e-mail."
+        "v": "Pour toute question, il vous suffit de répondre à cet e-mail."
       },
       {
         "t": "signature",
@@ -61,38 +61,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "Cette adresse a l'air correcte, mais une adresse d'expéditeur peut être falsifiée. Regardez où irait une réponse."
+      "explain": "L'adresse a l'air juste, mais une adresse d'expéditeur peut être falsifiée. Regardez plutôt où partirait votre réponse."
     },
     {
       "id": "hs-reply-to",
       "target": "reply_to",
       "step": "who",
       "red_flag": true,
-      "explain": "Les réponses partiraient vers swissalpbank-mail.example, un domaine différent de celui de la banque. Cette différence est une ruse classique."
+      "explain": "Les réponses partiraient vers swissalpbank-mail.example, un autre domaine que celui de la banque. Ce décalage est une ruse classique."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "« releve-octobre.pdf.html » se termine par .html : c'est une page web déguisée en PDF. Elle vous afficherait une fausse page de connexion."
+      "explain": "« releve-octobre.pdf.html » se termine par .html : c'est une page web déguisée en PDF. Une fois ouverte, elle afficherait une fausse page de connexion."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Votre prénom est facile à trouver. Cela ne prouve pas qui a écrit l'e-mail."
+      "explain": "Un prénom, n'importe qui peut le glaner en ligne. Ce n'est pas une preuve d'identité."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Pas la banque, malgré l'adresse de l'expéditeur. L'adresse de réponse est sur swissalpbank-mail.example : toute réponse irait donc à quelqu'un d'autre.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Pas la banque, malgré l'adresse d'expéditeur. L'adresse de réponse est sur swissalpbank-mail.example : votre réponse arriverait chez quelqu'un d'autre.",
       "choices": [
         "L'équipe des relevés de SwissAlpBank",
-        "Quelqu'un qui falsifie l'adresse de la banque, avec des réponses qui partent ailleurs",
-        "Votre conseiller personnel"
+        "Un imposteur qui détourne les réponses ailleurs",
+        "Votre conseiller personnel à la banque"
       ],
       "correct": 1,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Seulement un peu de curiosité : c'est un relevé d'apparence ordinaire, et c'est bien le but. Rien ici ne vous presse.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Un peu de curiosité, rien de plus : le message ressemble à un relevé ordinaire, et c'est voulu. Rien ne vous presse.",
       "choices": [
         "La panique à cause d'une dette",
-        "Un peu de curiosité : cela ressemble à du courrier de routine",
-        "La colère contre la banque"
+        "Un peu de curiosité : ça a l'air routinier",
+        "La colère contre des frais bancaires"
       ],
       "correct": 1,
       "cues": [
@@ -118,10 +118,10 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ouvrir la pièce jointe et vous connecter. La pièce jointe est une page web qui collecterait vos identifiants.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ouvrir la pièce jointe et vous connecter. Cette pièce jointe est une page web qui récupérerait vos identifiants.",
       "choices": [
-        "Payer des frais",
+        "Payer des frais de tenue de compte",
         "Ouvrir la pièce jointe et vous connecter",
         "Répondre avec votre numéro de compte"
       ],
@@ -134,11 +134,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
       "answer": "Ne l'ouvrez pas. Cherchez votre relevé dans l'application SwissAlpBank, ou appelez le numéro figurant sur votre carte.",
       "choices": [
-        "Ouvrir la pièce jointe pour la vérifier",
-        "Ouvrir vous-même l'application SwissAlpBank pour voir vos relevés",
+        "Ouvrir la pièce jointe pour en avoir le cœur net",
+        "Ouvrir vous-même l'application SwissAlpBank",
         "Répondre pour demander si c'est authentique"
       ],
       "correct": 1,
@@ -153,28 +153,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ouvrir vous-même l'application SwissAlpBank et regarder sous Documents",
+      "label": "Ouvrir vous-même l'application SwissAlpBank, rubrique Documents",
       "outcome": "safe",
-      "consequence": "Votre relevé y est, ou pas encore. Dans les deux cas, vous n'avez pas touché à la pièce jointe."
+      "consequence": "Votre relevé y est, ou pas encore. Dans les deux cas, la pièce jointe est restée fermée."
     },
     {
       "id": "open-attachment",
       "label": "Ouvrir la pièce jointe pour voir le relevé",
       "outcome": "unsafe",
-      "consequence": "Une fausse page de connexion s'ouvre. Si vous saisissez vos identifiants, ils vont chez l'escroc."
+      "consequence": "Une fausse page de connexion s'affiche. Si vous saisissez vos identifiants, l'escroc les reçoit."
     },
     {
       "id": "reply",
       "label": "Répondre pour demander si le relevé est authentique",
       "outcome": "neutral",
-      "consequence": "Votre réponse part à l'adresse de l'escroc, pas à la banque. Il vous dit que c'est authentique."
+      "consequence": "Votre réponse arrive chez l'escroc, pas à la banque. Il vous assure que tout est en ordre."
     },
     {
       "id": "report-delete",
-      "label": "Le signaler comme hameçonnage et le supprimer",
+      "label": "Le signaler comme hameçonnage, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Rien n'a été ouvert."
+      "consequence": "La pièce jointe n'a jamais été ouverte."
     }
   ],
-  "attacker_reveal": "L'expéditeur avait l'air correct, alors vous avez cessé de vérifier... mais j'ai fait en sorte que vos réponses arrivent chez moi, et le « PDF » était une page web masquée. Lisez toujours un nom de fichier jusqu'à la toute fin."
+  "attacker_reveal": "L'expéditeur était parfait, alors vous avez arrêté de regarder. Pendant ce temps, vos réponses arrivaient chez moi, et mon « PDF » était une page web. Un nom de fichier se lit jusqu'au dernier point."
 }

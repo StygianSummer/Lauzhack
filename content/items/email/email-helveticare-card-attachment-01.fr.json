@@ -32,7 +32,7 @@
     "from_name": "Cartes HelvetiCare",
     "from_address": "cards@helveticare.example.card-service.example",
     "to": "{{email}}",
-    "subject": "Veuillez vérifier votre nouvelle carte d'assurance",
+    "subject": "Votre nouvelle carte d'assurance : merci de vérifier vos données",
     "received": "-PT1H",
     "body": [
       {
@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "Votre nouvelle carte d'assurance pour l'an prochain est jointe. Merci de l'ouvrir et de vérifier que vos données sont correctes."
+        "v": "Vous trouverez en pièce jointe votre nouvelle carte d'assurance pour l'année prochaine. Merci de l'ouvrir et de vérifier que vos données sont exactes."
       },
       {
         "t": "text",
-        "v": "Les cartes non confirmées sont bloquées le 1er janvier."
+        "v": "Les cartes non confirmées seront bloquées au 1er janvier."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "Le propriétaire est le dernier nom avant le premier slash : card-service.example. helveticare.example n'est qu'un décor à sa gauche."
+      "explain": "Lisez le domaine en partant de la droite : le propriétaire, c'est card-service.example. Le helveticare.example placé devant n'est qu'un décor."
     },
     {
       "id": "hs-deadline",
       "target": "body:2",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Bloquées le 1er janvier » est une menace datée, pour vous faire ouvrir le fichier vite."
+      "explain": "« bloquées au 1er janvier » : une menace avec une date, pour que vous ouvriez le fichier sans attendre."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "« carte-assurance.jpg.html » se termine par .html. C'est une page web qui se fait passer pour une image et afficherait une fausse page de connexion."
+      "explain": "« carte-assurance.jpg.html » se termine par .html : c'est une page web déguisée en image, qui afficherait une fausse page de connexion."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Votre prénom est facile à trouver. Cela ne prouve rien."
+      "explain": "Votre prénom se trouve sans peine. Il ne prouve rien."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui utilise le nom de HelvetiCare. Le vrai propriétaire de l'adresse est card-service.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui utilise le nom de HelvetiCare. L'adresse appartient en réalité à card-service.example.",
       "choices": [
         "Le service des cartes de HelvetiCare",
-        "Votre employeur",
-        "Quelqu'un dont le vrai domaine est card-service.example"
+        "Le service du personnel de votre employeur",
+        "Quelqu'un dont le domaine est card-service.example"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La peur et la hâte : votre carte sera bloquée le 1er janvier si vous n'agissez pas.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La peur et la précipitation : votre carte sera bloquée au 1er janvier si vous ne faites rien.",
       "choices": [
-        "La curiosité pour une prime",
-        "Aucune : c'est de la routine",
-        "La peur d'une carte bloquée, avec une date"
+        "La curiosité pour une prime de fidélité",
+        "Aucune, c'est un envoi de routine",
+        "La peur d'une carte bloquée, à date fixe"
       ],
       "correct": 2,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ouvrir la pièce jointe. Le fichier est une page web qui collecterait vos identifiants.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ouvrir la pièce jointe. Le fichier est une page web qui récupérerait vos identifiants.",
       "choices": [
-        "Payer des frais",
+        "Payer des frais d'émission de carte",
         "Répondre avec votre date de naissance",
-        "Ouvrir une pièce jointe"
+        "Ouvrir la pièce jointe et vérifier vos données"
       ],
       "correct": 2,
       "cues": [
@@ -136,12 +136,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ne l'ouvrez pas. Vérifiez votre carte dans l'application HelvetiCare, ou appelez le numéro figurant sur votre carte actuelle.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne l'ouvrez pas. Vérifiez votre carte dans l'application HelvetiCare, ou appelez le numéro qui figure sur votre carte actuelle.",
       "choices": [
-        "Ouvrir le fichier pour voir ce que c'est",
-        "Répondre pour demander un autre format",
-        "Appeler le numéro de votre carte actuelle ou utiliser l'application HelvetiCare"
+        "Ouvrir le fichier pour voir de quoi il s'agit",
+        "Répondre pour demander la carte dans un autre format",
+        "Appeler le numéro de votre carte, ou passer par l'application"
       ],
       "correct": 2,
       "cues": [
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "call-card",
-      "label": "Appeler le numéro de votre carte actuelle et vous renseigner sur la nouvelle",
+      "label": "Appeler le numéro de votre carte actuelle et demander où en est la nouvelle",
       "outcome": "safe",
-      "consequence": "On vous répond que rien n'est en cours. L'e-mail était faux."
+      "consequence": "On vous répond qu'aucune nouvelle carte n'est en cours d'envoi. L'e-mail était un faux."
     },
     {
       "id": "open-file",
       "label": "Ouvrir la pièce jointe pour vérifier vos données",
       "outcome": "unsafe",
-      "consequence": "Une fausse page de connexion s'ouvre. Si vous saisissez vos identifiants, ils vont chez l'escroc."
+      "consequence": "Une fausse page de connexion s'ouvre. Tout ce que vous y tapez part chez l'escroc."
     },
     {
       "id": "reply",
       "label": "Répondre pour demander la carte dans un autre format",
       "outcome": "neutral",
-      "consequence": "L'escroc envoie un autre fichier. Votre réponse lui montre aussi que votre adresse est active."
+      "consequence": "L'escroc vous renvoie un autre fichier, et il sait désormais que votre adresse est active."
     },
     {
       "id": "report-delete",
       "label": "Le signaler comme hameçonnage et le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Rien n'a été ouvert."
+      "consequence": "Le fichier n'a jamais été ouvert, et il ne le sera pas."
     }
   ],
-  "attacker_reveal": "Un fichier image qui finit par .html... La plupart des gens lisent la première extension et s'arrêtent. La seconde indique au navigateur quoi faire. Une date sur la menace aide aussi."
+  "attacker_reveal": "« .jpg », et la plupart des gens s'arrêtent là. C'est pourtant la dernière extension qui dit au navigateur quoi faire, et la mienne, c'était .html. Avec une date butoir sur la menace, on clique avant d'avoir fini de lire."
 }

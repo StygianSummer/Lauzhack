@@ -3,7 +3,7 @@
   "language": "fr",
   "demo": true,
   "title": "L'hameçonnage en une minute",
-  "subtitle": "Les règles, une chasse et deux e-mails. Même appli, en plus rapide.",
+  "subtitle": "Les règles, une chasse aux pièges et deux e-mails. La même appli, en accéléré.",
   "minutes": 2,
   "sections": [
     {
@@ -12,36 +12,36 @@
         {
           "persona": "cat",
           "role": "Sécurité personnelle",
-          "title": "Protégez-vous d'abord",
-          "say": "Je ne peux protéger personne si mes propres accès sont grands ouverts. Vous non plus. On commence donc par vous.",
+          "title": "Vous d'abord",
+          "say": "Je ne protège personne avec des accès grands ouverts. Vous non plus. Alors on commence par les vôtres.",
           "rules": [
             {
               "headline": "Lisez le domaine après le @.",
-              "body": "Chaque lettre. thisistea.example et thisistae-app.example appartiennent à deux propriétaires différents."
+              "body": "Lettre par lettre. thisistea.example et thisistae-app.example n'ont pas le même propriétaire."
             },
             {
               "headline": "Repérez la précipitation.",
-              "body": "Un délai de deux heures est une émotion que quelqu'un d'autre a mise en vous. Une émotion n'est pas une preuve."
+              "body": "Un délai de deux heures, c'est une inquiétude que quelqu'un d'autre a installée chez vous. Elle ne prouve rien."
             },
             {
-              "headline": "Ne saisissez jamais de mot de passe après avoir cliqué sur le lien d'un e-mail.",
-              "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse."
+              "headline": "Jamais de mot de passe après un lien reçu par e-mail.",
+              "body": "Ouvrez le site vous-même : depuis un favori, ou en tapant l'adresse."
             }
           ],
-          "sign_off": "La confiance zéro n'est pas de la paranoïa. C'est vérifier."
+          "sign_off": "Je fais confiance. Après vérification."
         },
         {
           "persona": "turtle",
           "role": "Sécurité de l'organisation",
-          "title": "Protégez toute la carapace",
-          "say": "En toutes ces années, j'ai appris une chose : une seule porte ouverte laisse entrer la marée dans toutes les pièces. Quand vous gardez votre boîte de réception, vous gardez aussi vos voisins. C'est un peu comme un vaccin.",
+          "title": "Protégez toute la maison",
+          "say": "Une seule porte mal fermée, et l'eau passe dans toutes les pièces : je l'ai vu plus d'une fois. Votre boîte de réception est une de ces portes. En la surveillant, vous protégez aussi vos collègues, un peu comme un vaccin protège ceux qui vous entourent.",
           "rules": [
             {
-              "headline": "Confirmez l'inhabituel, ensemble.",
-              "body": "Un virement, une réinitialisation de mot de passe, un fichier urgent : vérifiez par un autre canal. Un appel téléphonique coûte une minute."
+              "headline": "L'inhabituel se confirme à deux.",
+              "body": "Un virement, une réinitialisation de mot de passe, un fichier « urgent » : vérifiez par un autre canal. Un coup de fil prend une minute."
             }
           ],
-          "sign_off": "Une équipe en qui l'on peut avoir confiance est une équipe où l'on veille les uns sur les autres."
+          "sign_off": "Les équipes solides que j'ai connues n'avaient rien d'extraordinaire. Elles avaient simplement pris l'habitude de se prévenir."
         }
       ]
     },
@@ -49,39 +49,39 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "J'ai caché trois ruses dans cet e-mail. Cliquez sur tout ce qui vous semble un piège. Je ne dirai pas si vous vous approchez...",
+        "intro": "Cet e-mail cache trois ruses. Cliquez sur tout ce qui vous paraît piégé. Et ne comptez pas sur moi pour vous dire si vous chauffez...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "L'adresse",
-            "spider_says": "J'ai échangé deux lettres et déplacé un mot. Qui lit chaque lettre quand il s'inquiète ?"
+            "spider_says": "Deux lettres inversées, un mot en plus. Sous le stress, qui prend le temps de lire chaque lettre ?"
           },
           {
             "hotspot_id": "hs-clock",
             "title": "Le compte à rebours",
-            "spider_says": "« Dans les 2 heures. » La panique est ma complice préférée. Elle endort la partie de vous qui vérifie."
+            "spider_says": "J'ai écrit « d'ici 2 heures » et la panique a fait le reste. Elle endort la partie de vous qui vérifie."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "La demande",
-            "spider_says": "ThisIsTea ne vous demanderait jamais votre mot de passe par e-mail. Mais je ressemblais à ThisIsTea, et cela a suffi."
+            "spider_says": "ThisIsTea ne vous demandera jamais votre mot de passe par e-mail. Moi, si. Il me suffisait de lui ressembler."
           }
         ],
-        "debrief": "Chaque ruse dont il vient de se vanter correspond à l'une de mes trois règles. Adresse, précipitation, mot de passe. Retournez les relire une fois."
+        "debrief": "Les trois ruses dont l'Araignée vient de se vanter correspondent à mes trois règles : adresse, précipitation, mot de passe. Relisez-les une fois."
       },
       "recovery": {
-        "title_caught": "Si un vrai piège vous attrape un jour, ma chère, faites ceci.",
-        "lead_caught": "Cette fois, ce n'était qu'un entraînement et rien n'a été pris. Un vrai piège arrive aussi aux gens prudents, et ce qui compte alors, c'est la vitesse à laquelle on referme la porte. Voici la liste.",
-        "title_default": "Gardez ce plan dans votre poche",
-        "lead_default": "Vous êtes passé à côté de celui-ci. Un jour, il y en aura un plus convaincant. Voici les deux premières étapes du plan de secours : les connaître par cœur, c'est déjà la moitié du remède.",
+        "title_caught": "Si un vrai piège vous attrape un jour, voici quoi faire.",
+        "lead_caught": "Ici, c'était un exercice : rien n'a été volé. Les vrais pièges attrapent aussi les gens prudents, et ce qui compte alors, c'est la vitesse à laquelle on referme la porte. Voici la marche à suivre.",
+        "title_default": "Gardez ce plan sous la main",
+        "lead_default": "Celui-ci ne vous a pas eu. Un jour, un autre sera mieux fait. Voici les deux premières étapes du plan de secours : les connaître par cœur, c'est déjà avoir fait la moitié du chemin.",
         "steps": [
           {
             "headline": "Changez le mot de passe, sur le vrai site.",
-            "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse, jamais par l'e-mail. Changez ensuite ce même mot de passe partout où vous l'avez réutilisé."
+            "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse, jamais depuis l'e-mail. Puis changez ce mot de passe partout où vous l'aviez réutilisé."
           },
           {
             "headline": "Activez l'authentification multifacteur.",
-            "body": "Une seconde serrure signifie qu'un mot de passe volé ne suffit plus à ouvrir la porte."
+            "body": "Avec une deuxième serrure, un mot de passe volé ne suffit plus à ouvrir la porte."
           }
         ]
       }

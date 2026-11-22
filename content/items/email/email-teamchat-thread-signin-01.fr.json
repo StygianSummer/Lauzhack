@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "J'ai déplacé les notes sur une nouvelle page TeamChat pour que tout le monde puisse les modifier. Vous devrez peut-être vous reconnecter pour la voir."
+        "v": "J'ai transféré les notes sur une nouvelle page TeamChat pour que tout le monde puisse les modifier. Il faudra peut-être vous reconnecter pour y accéder."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Vous écriviez mercredi : « Les notes sont finales, je les partagerai après l'appel. »"
+        "v": "Mercredi, vous avez écrit : « Les notes sont définitives, je les partagerai après l'appel. »"
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse est bien celle de Jonas et la discussion est réelle. Un compte piraté réussit tous les contrôles d'adresse."
+      "explain": "L'adresse est bien celle de Jonas, la conversation aussi. Mais quand un compte est piraté, l'adresse ne prouve plus rien."
     },
     {
       "id": "hs-habit",
       "target": "body:1",
       "step": "who",
       "red_flag": true,
-      "explain": "Jonas partage d'ordinaire les notes dans le dossier partagé. Une nouvelle page qui exige une nouvelle connexion ne lui ressemble pas, et une vraie adresse ne prouve pas que la vraie personne a écrit."
+      "explain": "D'habitude, Jonas dépose les notes dans le dossier partagé. Une nouvelle page qui exige de se reconnecter, ce n'est pas son genre. Et une vraie adresse ne prouve pas que c'est bien lui qui écrit."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "teamchat-signin.example n'est pas le domaine de TeamChat. Un voleur qui utilise le compte de Jonas peut envoyer n'importe quel lien."
+      "explain": "teamchat-signin.example n'est pas le domaine de TeamChat. Quelqu'un qui contrôle le compte de Jonas peut envoyer n'importe quel lien."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Citer vos propres mots colle à une vraie discussion, mais quiconque lit la boîte de réception peut les copier."
+      "explain": "Citer vos propres mots colle à une vraie conversation. Mais n'importe qui ayant accès à la boîte de réception peut les recopier."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Peut-être pas Jonas. L'adresse et la discussion sont réelles, donc son compte a pu être piraté. Seul un appel permet de le savoir.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Peut-être pas Jonas. L'adresse et le fil sont authentiques, ce qui n'exclut pas un compte piraté. Un appel tranchera.",
       "choices": [
-        "Sûrement Jonas, puisque la discussion est réelle",
+        "Forcément Jonas, puisque la conversation est authentique",
         "Un inconnu avec une adresse presque identique",
-        "Peut-être Jonas, peut-être quelqu'un qui utilise son compte piraté"
+        "Peut-être Jonas, peut-être quelqu'un qui a piraté son compte"
       ],
       "correct": 2,
       "cues": [
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "De la serviabilité : un collègue a simplifié la vie de toute l'équipe.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "L'envie de rendre service : un collègue vient de simplifier la vie de toute l'équipe, ce n'est pas le moment de traîner.",
       "choices": [
         "La peur d'une sanction",
-        "L'envie de gagner un prix",
-        "L'envie de rendre service et de suivre l'équipe"
+        "L'espoir de gagner un prix",
+        "L'envie de suivre l'équipe et d'aider"
       ],
       "correct": 2,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Vous connecter à nouveau via un lien, ce qui donnerait votre identifiant TeamChat à celui qui contrôle le compte de Jonas.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Vous reconnecter via un lien. Vos identifiants TeamChat iraient à celui qui contrôle le compte de Jonas.",
       "choices": [
         "Envoyer la liste des bénévoles",
         "Ouvrir une pièce jointe",
-        "Vous connecter à nouveau via un lien"
+        "Vous reconnecter via un lien"
       ],
       "correct": 2,
       "cues": [
@@ -138,12 +138,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "N'utilisez pas le lien. Ouvrez TeamChat vous-même et cherchez les notes, ou appelez Jonas au numéro que vous avez déjà.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Laissez le lien de côté. Ouvrez TeamChat vous-même pour chercher les notes, ou appelez Jonas au numéro que vous avez déjà.",
       "choices": [
-        "Cliquer sur le lien, puisque la discussion est réelle",
+        "Cliquer, puisque la conversation est authentique",
         "Répondre pour demander si c'est bien lui",
-        "Ouvrir TeamChat vous-même, ou appeler Jonas sur un numéro connu"
+        "Ouvrir TeamChat vous-même, ou appeler Jonas"
       ],
       "correct": 2,
       "cues": [
@@ -166,28 +166,28 @@
   "actions": [
     {
       "id": "open-yourself",
-      "label": "Ouvrir TeamChat vous-même et chercher les notes, ou appeler Jonas",
+      "label": "Ouvrir TeamChat vous-même pour chercher les notes, ou appeler Jonas",
       "outcome": "safe",
-      "consequence": "Cette nouvelle page n'existe pas. Jonas ne sait rien de cet e-mail."
+      "consequence": "Aucune nouvelle page dans TeamChat. Et Jonas n'a jamais envoyé cet e-mail."
     },
     {
       "id": "click",
-      "label": "Cliquer sur le lien et vous connecter, puisque la discussion est réelle",
+      "label": "Cliquer sur le lien et vous connecter, puisque la conversation est authentique",
       "outcome": "unsafe",
-      "consequence": "La page de connexion copie votre identifiant pour celui qui contrôle le compte."
+      "consequence": "La fausse page de connexion copie vos identifiants pour celui qui contrôle le compte."
     },
     {
       "id": "reply-ask",
-      "label": "Répondre et demander « Est-ce bien vous ? »",
+      "label": "Répondre : « C'est bien vous ? »",
       "outcome": "unsafe",
-      "consequence": "Celui qui contrôle le compte répond oui. Vous n'avez interrogé que l'imposteur."
+      "consequence": "Le pirate répond oui, évidemment. Vous avez posé la question à celui qui tient le compte."
     },
     {
       "id": "tell-lead",
-      "label": "Prévenir le service informatique ou votre responsable que le compte de Jonas a peut-être été piraté",
+      "label": "Signaler au service informatique ou à votre responsable que le compte de Jonas est peut-être piraté",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Le compte peut être bloqué avant de toucher d'autres collègues."
+      "consequence": "Le compte peut être bloqué avant de piéger d'autres collègues."
     }
   ],
-  "attacker_reveal": "Le vrai compte de Jonas, sa vraie discussion, même vos propres mots cités en retour... Pas besoin d'adresse imitée. Il ne restait qu'une porte : lui demander par un autre moyen."
+  "attacker_reveal": "Pourquoi imiter une adresse quand on peut emprunter la vraie ? Le compte de Jonas, son fil, vos propres phrases... Il ne vous restait qu'une parade : l'appeler, lui."
 }

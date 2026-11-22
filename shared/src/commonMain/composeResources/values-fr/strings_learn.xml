@@ -45,8 +45,8 @@
 
     <!-- Placement (plan §6.2, §9.3) -->
     <string name="placement_intro_title">Voyons par où commencer</string>
-    <string name="placement_intro_body">Environ 3 minutes. Sans note.</string>
-    <string name="placement_intro_cat">Je vais vous montrer quelques e-mails et vous demander ce que vous en pensez. Rien ici ne joue contre vous. Je veux simplement savoir par où commencer.</string>
+    <string name="placement_intro_body">Deux e-mails. Environ une minute. Sans note.</string>
+    <string name="placement_intro_cat">Je vais vous montrer deux e-mails et vous demander ce que vous en pensez. Rien ici ne joue contre vous. Je veux simplement savoir par où commencer.</string>
     <string name="placement_intro_dont_know">Vous hésitez sur un e-mail ? Dites-le. « Je ne sais pas encore » est une très bonne réponse.</string>
     <string name="placement_start">Commencer</string>
     <string name="placement_resume">Reprendre là où vous vous étiez arrêté</string>
@@ -209,4 +209,18 @@
     <string name="summary_empty">Il n'y a pas encore de bilan d'entraînement.</string>
     <string name="lesson_to_drill">Ouvrir cinq comptes</string>
     <string name="lesson_to_drill_demo">Ouvrir deux comptes</string>
+    <string name="placement_level_label">Votre test de niveau</string>
+    <string name="placement_level_basics_title">Vous connaissez les bases</string>
+    <string name="placement_level_basics_body">Vous avez repéré l'arnaque et fait confiance au vrai e-mail. Vous pouvez suivre l'entraînement au phishing à un niveau plus difficile.</string>
+    <string name="placement_level_basics_action">M'entraîner à un niveau plus difficile</string>
+    <string name="placement_level_start_title">Commençons par les bases</string>
+    <string name="placement_level_start_body">L'un des deux e-mails vous a piégé. C'est normal au début : la leçon 1 vous montre les quatre étapes qui permettent de le repérer.</string>
+    <string name="lesson_readiness_preview_title">Hors ligne : voici l'e-mail que vous recevriez</string>
+    <string name="lesson_readiness_preview_body">Vous utilisez ThisIsTea hors ligne, donc rien n'est envoyé. En ligne, terminer cette leçon envoie un vrai e-mail de phishing d'entraînement dans votre boîte, à un moment aléatoire dans les minutes qui suivent. Il ressemblerait à ceci :</string>
+    <string name="lesson_readiness_preview_from">De</string>
+    <string name="lesson_readiness_preview_to">À</string>
+    <string name="lesson_readiness_preview_subject">Objet</string>
+    <string name="lesson_readiness_preview_link">[lien d'entraînement]</string>
+    <string name="lesson_readiness_preview_settings_link">[lien des réglages e-mail]</string>
+    <string name="lesson_readiness_preview_note">Il est sans danger : le lien ouvre seulement une page qui vous montre les indices manqués, et rien ne vous demande jamais de mot de passe.</string>
 </resources>

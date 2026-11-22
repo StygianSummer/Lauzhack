@@ -38,15 +38,15 @@
       },
       {
         "t": "text",
-        "v": "Merci d'avoir réglé le planning hier. Encore une chose avant que j'oublie."
+        "v": "Merci d'avoir réglé le planning hier. Encore une chose, avant que j'oublie."
       },
       {
         "t": "text",
-        "v": "Pouvez-vous m'envoyer la liste complète des bénévoles avec leurs numéros de téléphone et leurs adresses personnelles ? Répondez simplement ici en la collant dans le message. Je voyage et je ne peux pas ouvrir le dossier partagé."
+        "v": "Pourriez-vous m'envoyer la liste complète des bénévoles, avec leurs numéros de téléphone et leurs adresses personnelles ? Collez-la simplement en réponse à ce message : je suis en déplacement et je n'arrive pas à ouvrir le dossier partagé."
       },
       {
         "t": "text",
-        "v": "Vous écriviez mardi : « Le planning est final, et la fiche de contacts est dans le dossier partagé. »"
+        "v": "Vous écriviez mardi : « Le planning est définitif, et la fiche de contacts se trouve dans le dossier partagé. »"
       },
       {
         "t": "signature",
@@ -60,21 +60,21 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse est bien celle de Mara, et la discussion est réelle. C'est ce qui rend ce message dangereux : un compte piraté réussit tous les contrôles d'adresse."
+      "explain": "L'adresse est bien celle de Mara et la discussion existe vraiment. Un compte piraté passe tous les contrôles d'adresse sans broncher."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "Une liste complète de noms, de téléphones et d'adresses personnelles est sensible. La réclamer collée dans une réponse, parce que le dossier partagé « ne s'ouvre pas », ne lui ressemble pas."
+      "explain": "Les noms, téléphones et adresses personnelles de tous les bénévoles sont des données sensibles. Les réclamer collés dans une réponse, sous prétexte que le dossier partagé ne s'ouvre pas, ne ressemble pas à Mara."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Citer vos propres mots donne un air d'authenticité, mais quiconque lit la boîte de réception peut les copier."
+      "explain": "Citer vos propres mots donne un air authentique, mais quiconque lit la boîte de réception peut les recopier."
     },
     {
       "id": "hs-subject",
@@ -86,11 +86,11 @@
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Peut-être pas Mara. L'adresse et la discussion sont réelles, donc quelqu'un utilise peut-être son compte piraté. Seul un appel à Mara permet de le savoir.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Peut-être pas Mara. L'adresse et la discussion sont authentiques : quelqu'un utilise peut-être son compte piraté. Seul un appel à Mara permet de trancher.",
       "choices": [
-        "Peut-être Mara, peut-être quelqu'un qui a pris le contrôle de son compte",
-        "Sûrement Mara, puisque la discussion est réelle",
+        "Peut-être Mara, peut-être quelqu'un qui a pris son compte",
+        "Mara, forcément, puisque la discussion est réelle",
         "Un inconnu avec une adresse presque identique"
       ],
       "correct": 0,
@@ -102,12 +102,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "De la serviabilité et un peu de hâte : une collègue en difficulté qui a besoin de votre aide.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "L'envie de rendre service, avec un peu d'empressement : une collègue en déplacement a besoin de vous.",
       "choices": [
-        "De la serviabilité envers une collègue en difficulté",
+        "L'envie d'aider une collègue coincée",
         "La peur de perdre votre emploi",
-        "L'excitation d'une prime"
+        "L'excitation d'une prime de fin d'année"
       ],
       "correct": 0,
       "cues": [
@@ -118,12 +118,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Répondre avec les données personnelles des bénévoles. Cela ferait fuiter des noms, des téléphones et des adresses.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Répondre avec les données personnelles des bénévoles. Noms, téléphones et adresses sortiraient de l'association.",
       "choices": [
-        "Répondre avec les données personnelles des bénévoles",
+        "Répondre avec les données des bénévoles",
         "Cliquer sur un lien et vous connecter",
-        "Ouvrir une pièce jointe"
+        "Ouvrir une pièce jointe du message"
       ],
       "correct": 0,
       "cues": [
@@ -134,10 +134,10 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ne répondez pas. Appelez Mara au numéro que vous avez déjà, ou demandez-lui en personne ou dans TeamChat, pour vérifier qu'elle l'a bien envoyé.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne répondez pas. Appelez Mara au numéro que vous avez déjà, ou demandez-lui en personne ou sur TeamChat, pour vérifier qu'elle a bien envoyé ce message.",
       "choices": [
-        "Appeler Mara sur un numéro que vous connaissez déjà",
+        "Appeler Mara au numéro que vous connaissez",
         "Répondre pour demander si c'est bien elle",
         "N'envoyer que la moitié de la liste"
       ],
@@ -153,9 +153,9 @@
   "actions": [
     {
       "id": "call-mara",
-      "label": "Appeler Mara sur son numéro habituel et lui poser la question",
+      "label": "Appeler Mara à son numéro habituel et lui poser la question",
       "outcome": "safe",
-      "consequence": "Mara ne sait rien de cet e-mail. Son compte a été piraté et vous la prévenez à temps."
+      "consequence": "Mara ne sait rien de cet e-mail. Son compte a été piraté, et vous la prévenez à temps."
     },
     {
       "id": "reply-data",
@@ -165,16 +165,16 @@
     },
     {
       "id": "reply-ask",
-      "label": "Répondre et demander « Est-ce bien vous ? »",
+      "label": "Répondre en demandant « C'est bien vous ? »",
       "outcome": "unsafe",
-      "consequence": "Celui qui contrôle le compte répond « oui, bien sûr ». Vous n'avez interrogé que l'imposteur."
+      "consequence": "Celui qui tient le compte répond « Oui, bien sûr ». Vous avez posé la question à l'imposteur."
     },
     {
       "id": "tell-it",
-      "label": "Prévenir le service informatique ou votre responsable que le compte de Mara a peut-être été piraté",
+      "label": "Prévenir le service informatique ou votre responsable que le compte de Mara est peut-être piraté",
       "outcome": "safe",
-      "consequence": "Bon réflexe. L'équipe peut bloquer le compte avant qu'il ne serve contre quelqu'un d'autre."
+      "consequence": "L'équipe peut bloquer le compte avant qu'il ne serve contre quelqu'un d'autre."
     }
   ],
-  "attacker_reveal": "Je n'ai rien eu à falsifier... Le propre compte de Mara vous a écrit, avec ses propres mots dans la discussion. La seule chose qui paraissait bizarre, c'était ce que je demandais. Regardez la demande, et vérifiez-la autrement."
+  "attacker_reveal": "Je n'ai rien eu à falsifier. C'est le compte de Mara qui vous a écrit, avec vos propres mots cités dans la discussion. Une seule chose clochait : ce que je demandais. Regardez la demande, et vérifiez-la par un autre chemin."
 }

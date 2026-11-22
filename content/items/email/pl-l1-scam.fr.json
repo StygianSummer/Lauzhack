@@ -31,7 +31,7 @@
     "from_name": "Parcel Point Livraision",
     "from_address": "delivery.agent77@free-mailbox.example",
     "to": "{{email}}",
-    "subject": "Votre colis vous atend !!! payez petits frais",
+    "subject": "Votre colis vous atend !!! payez les petit frais",
     "received": "-PT25M",
     "body": [
       {
@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Votre colis est retnu dans notre dépôt. Vous devez payer de petits frais de CHF 2.50 aujourd'hui sinon il sera renvoyer."
+        "v": "Votre colis est retenu a notre dépot. Vous devez réglé des petits frais de CHF 2.50 aujourdhui sinon il sera renvoyer."
       },
       {
         "t": "link",
@@ -50,11 +50,11 @@
       },
       {
         "t": "text",
-        "v": "Merci pour votre patiance."
+        "v": "Merci pour votre patiance et bonne journé."
       },
       {
         "t": "signature",
-        "v": "Équipe Parcel Point Livraision"
+        "v": "L'équipe Parcel Point Livraision"
       }
     ]
   },
@@ -64,45 +64,45 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "Une adresse de boîte gratuite, pas parcelpoint.example. Une vraie société de colis écrit depuis son propre domaine."
+      "explain": "Une boîte de messagerie gratuite, pas parcelpoint.example. Un transporteur écrit depuis son propre domaine, pas depuis une adresse jetable."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": true,
-      "explain": "« Cher cliant » est générique et mal orthographié. Votre vraie société de colis connaît votre nom."
+      "explain": "« Cher cliant » : pas de nom, et une faute dès le premier mot. Le transporteur chez qui vous avez un compte sait comment vous vous appelez."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Aujourd'hui sinon il sera renvoyé » sert à vous presser."
+      "explain": "« aujourdhui sinon il sera renvoyer » : un délai de quelques heures, pour que vous payiez avant de réfléchir."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Une adresse bizarre sur un autre domaine, sans aucun rapport avec ParcelPoint."
+      "explain": "Le bouton mène vers une adresse inconnue, sur un domaine qui n'a rien à voir avec ParcelPoint."
     },
     {
       "id": "hs-typos",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Encore des fautes d'orthographe. Les entreprises se relisent ; les escrocs, souvent non."
+      "explain": "Encore des fautes, jusque dans la formule de politesse. Une entreprise relit ses messages ; un escroc pressé, rarement."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Pas ParcelPoint. L'adresse est sur free-mailbox.example, pas sur parcelpoint.example, et les fautes d'orthographe ne sont pas la façon d'écrire d'une vraie société de colis.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Pas ParcelPoint. L'adresse est sur free-mailbox.example au lieu de parcelpoint.example, et un transporteur n'envoie pas de message truffé de fautes.",
       "choices": [
         "L'équipe de livraison de ParcelPoint",
-        "Quelqu'un qui utilise une boîte jetable, pas ParcelPoint",
-        "Un voisin qui garde votre colis"
+        "Un inconnu derrière une boîte gratuite",
+        "Un voisin qui a réceptionné votre colis"
       ],
       "correct": 1,
       "cues": [
@@ -113,12 +113,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La hâte : payez aujourd'hui ou perdez le colis.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La précipitation : payer aujourd'hui, sinon le colis repart.",
       "choices": [
-        "La curiosité pour un prix",
-        "La hâte : payer aujourd'hui sinon le colis repart",
-        "Aucune : c'est un simple avis"
+        "La curiosité : un cadeau à récupérer",
+        "La précipitation : payer aujourd'hui",
+        "Aucune : c'est un simple avis de passage"
       ],
       "correct": 1,
       "cues": [
@@ -129,12 +129,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Payer des frais via un lien, ce qui donnerait les données de votre carte à l'expéditeur.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Payer des frais via le lien. La page de paiement récupérerait les données de votre carte.",
       "choices": [
-        "Récupérer le colis chez un voisin",
-        "Payer des frais via un lien",
-        "Rien, c'est pour information"
+        "Aller chercher le colis chez un voisin",
+        "Payer des frais via le lien",
+        "Rien, il vous informe juste"
       ],
       "correct": 1,
       "cues": [
@@ -145,11 +145,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ignorez le lien. Ouvrez l'application ParcelPoint, ou tapez vous-même l'adresse, et consultez vos colis.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Laissez le lien de côté. Ouvrez vous-même l'application ParcelPoint, ou tapez son adresse, et regardez vos envois en cours.",
       "choices": [
-        "Payer les petits frais, au cas où",
-        "Consulter vos colis dans l'application ParcelPoint, ouverte par vous-même",
+        "Payer les petits frais, par précaution",
+        "Vérifier dans l'application ParcelPoint",
         "Répondre pour demander un autre lien"
       ],
       "correct": 1,
@@ -164,22 +164,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ouvrir vous-même l'application ParcelPoint et vérifier vos colis",
+      "label": "Ouvrir vous-même l'application ParcelPoint et vérifier vos envois",
       "outcome": "safe",
-      "consequence": "Aucun colis n'est en attente. L'e-mail était faux et vous n'avez rien donné."
+      "consequence": "Aucun colis en attente, rien à payer. L'e-mail était faux, et vous n'avez rien donné."
     },
     {
       "id": "pay",
       "label": "Payer les frais via le lien",
       "outcome": "unsafe",
-      "consequence": "Les données de votre carte vont chez l'escroc, qui peut dépenser votre argent."
+      "consequence": "Les données de votre carte partent chez l'escroc. Les petits frais n'étaient qu'un prétexte : il peut maintenant débiter bien davantage."
     },
     {
       "id": "report-delete",
-      "label": "Signaler l'e-mail comme hameçonnage et le supprimer",
+      "label": "Signaler l'e-mail comme hameçonnage, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Rien n'a été cliqué et votre messagerie apprend à repérer le prochain."
+      "consequence": "Rien n'a été cliqué, et votre messagerie saura mieux reconnaître le suivant."
     }
   ],
-  "attacker_reveal": "Des fautes d'orthographe, l'adresse d'un inconnu et des frais assez petits pour que personne ne vérifie... Je n'ai même pas essayé. Cela piège encore des gens qui attendent un colis."
+  "attacker_reveal": "Trois fautes par ligne, une adresse jetable et des frais trop petits pour qu'on se méfie. Je n'ai fait aucun effort. Quelqu'un qui attend un colis paie quand même."
 }

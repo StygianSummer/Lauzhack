@@ -280,16 +280,14 @@ class AppUiFlowTest {
         shot("02-email-offline")
         click("Continue without an account")
 
-        // 3. Onboarding: answer the first, skip the rest.
+        // 3. Onboarding (two questions): text size answered, past experience skipped.
         waitScreen(app) { it == Screen.Onboarding(0) }
-        click("Myself")
-        shot("03-onboarding-0")
+        click("No, keep it as it is")
+        shot("03-onboarding-large-text")
         click("Continue")
-        repeat(8) { i ->
-            waitScreen(app) { it == Screen.Onboarding(i + 1) }
-            if (i == 6) shot("03-onboarding-large-text")
-            click("Skip")
-        }
+        waitScreen(app) { it == Screen.Onboarding(1) }
+        shot("03-onboarding-past")
+        click("Skip")
 
         // 4. Terms.
         waitScreen(app) { it == Screen.Terms }
@@ -303,14 +301,17 @@ class AppUiFlowTest {
         waitText("Boardroom crisis")
         click("Start the test")
         waitScreen(app) { it == Screen.PlacementIntro }
-        waitText("About 3 minutes. No score.")
+        waitText("Two emails. About a minute. No score.")
         shot("05-placement-intro")
         click("Start")
         waitScreen(app) { it == Screen.Placement }
         val pool = runBlocking { app.content.items("en") }
         val modes = placement(app, pool, knownLevel = 2)
-        assertTrue(modes.size >= 5, "placement modes seen: $modes")
+        // The quick test: one scam/legit pair at difficulty 2, nothing else.
+        assertEquals(setOf(ItemMode.VERDICT), modes)
         waitScreen(app) { it == Screen.PlacementResult }
+        assertEquals(2, app.load(LearnKeys.PLACEMENT_SEEN, LearnKeys.STRING_SET)?.size)
+        waitText("You know the basics")
         shot("06-placement-result")
         click("Start lesson 1")
 
@@ -412,7 +413,7 @@ class AppUiFlowTest {
         type(0, "Kettle whistles at 7 near the lake")
         click("Save password")
         waitScreen(app) { it == Screen.Onboarding(0) }
-        repeat(9) { i ->
+        repeat(2) { i ->
             waitScreen(app) { it == Screen.Onboarding(i) }
             click("Skip")
         }

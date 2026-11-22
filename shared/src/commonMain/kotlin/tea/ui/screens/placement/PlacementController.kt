@@ -37,10 +37,12 @@ class PlacementController(
     private val app: TeaApp,
     private val pool: List<Item>,
     random: Random = Random.Default,
+    /** The two-email test of the demo (default). False = the full placement of plan §6.2. */
+    quick: Boolean = true,
 ) {
     var state: PlacementState by mutableStateOf(
         app.load(LearnKeys.PLACEMENT_STATE, PlacementState.serializer())
-            ?: Placement.start(pool, random).also { app.save(LearnKeys.PLACEMENT_STATE, PlacementState.serializer(), it) },
+            ?: Placement.start(pool, random, quick).also { app.save(LearnKeys.PLACEMENT_STATE, PlacementState.serializer(), it) },
     )
         private set
 
@@ -54,7 +56,7 @@ class PlacementController(
     /** What to show now, or null when the test is over (then call [finish]). */
     val current: PlacementStep? get() = Placement.next(state, pool)
 
-    /** Progress bar estimate (answered / 11, capped at 95%). */
+    /** Progress bar estimate (answered / 11 or / 2 when quick, capped at 95%). */
     val progress: Float get() = Placement.progress(state)
 
     val answered: Int get() = state.answers.size

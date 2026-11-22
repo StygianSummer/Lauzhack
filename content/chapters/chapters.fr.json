@@ -7,7 +7,7 @@
       "demo_target": "email-demo",
       "persona": "cat",
       "title": "Repérer un e-mail d'hameçonnage",
-      "blurb": "Lisez l'expéditeur, le lien et la pression. Quatre étapes, un e-mail à la fois.",
+      "blurb": "Expéditeur, lien, pression : quatre étapes, un e-mail à la fois.",
       "minutes": 10,
       "status": "available"
     },
@@ -16,8 +16,8 @@
       "kind": "lesson",
       "target": "password-01",
       "persona": "dog",
-      "title": "Mots de passe : arretez de les retenir",
-      "blurb": "Quatre regles, puis cinq comptes pour le prouver.",
+      "title": "Mots de passe : arrêtez de les retenir",
+      "blurb": "Quatre règles, et cinq comptes pour les mettre à l'épreuve.",
       "minutes": 6,
       "status": "available"
     },
@@ -27,8 +27,8 @@
       "target": "boardroom-crisis",
       "demo_target": "boardroom-crisis-demo",
       "persona": "turtle",
-      "title": "Crise au conseil",
-      "blurb": "Une attaque est en cours et le conseil vous regarde. Cinq décisions, six heures.",
+      "title": "Crise en salle du conseil",
+      "blurb": "Une attaque est en cours et tout le conseil se tourne vers vous. Cinq décisions, six heures.",
       "minutes": 12,
       "status": "available"
     },
@@ -38,7 +38,7 @@
       "target": null,
       "persona": "spider",
       "title": "Appels et messages frauduleux",
-      "blurb": "La fausse banque, le petit-fils en difficulté, le groupe qui a « déménagé ».",
+      "blurb": "La fausse banque, le petit-fils en détresse, le groupe qui a « déménagé ».",
       "minutes": 10,
       "status": "soon"
     }

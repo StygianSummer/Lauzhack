@@ -219,6 +219,22 @@ class AppStateTest {
     }
 
     @Test
+    fun offlineDemoCodeContinuesAsGuestWithoutPassword() = runTest {
+        val api = FakeApi().apply { onlineFlow.value = false }
+        val app = env(api = api).app
+        app.startEmailOffline(" ada@mail.example ")
+        assertEquals("ada@mail.example", app.local.pendingEmail)
+        assertFalse(app.verifyOffline("123456"))
+        assertFalse(app.flags.value.guest)
+        assertTrue(app.verifyOffline(AppState.OFFLINE_DEMO_CODE))
+        assertTrue(app.flags.value.guest)
+        assertEquals(Screen.Name, app.nextAfterSignIn())
+        app.updateProfile { it.copy(firstName = "Ada") }
+        // A guest has no server account, so the password step is skipped.
+        assertEquals(Screen.Onboarding(0), app.nextAfterSignIn())
+    }
+
+    @Test
     fun guestProgressIsUploadedAfterRegistering() = runTest {
         val api = FakeApi().apply { onlineFlow.value = false }
         val e = env(api = api)

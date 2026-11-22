@@ -41,7 +41,7 @@
       },
       {
         "t": "text",
-        "v": "Votre équipe a créé un espace de travail ThisIsTea partagé. Connectez-vous pour le rejoindre."
+        "v": "Votre équipe a créé un espace de travail partagé sur ThisIsTea. Connectez-vous pour le rejoindre."
       },
       {
         "t": "link",
@@ -51,7 +51,7 @@
       },
       {
         "t": "text",
-        "v": "Les invitations expirent après 48 heures."
+        "v": "Les invitations expirent au bout de 48 heures."
       },
       {
         "t": "signature",
@@ -65,37 +65,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "thisistae-app.example échange deux lettres et ajoute un mot. Ce n'est pas thisistea.example."
+      "explain": "thisistae-app.example : deux lettres inversées et un mot en plus. Ce n'est pas thisistea.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Expirent après 48 heures » est un délai doux, pour vous faire agir d'abord et vérifier ensuite."
+      "explain": "« Expirent au bout de 48 heures » : un délai en douceur, pour que vous agissiez d'abord et vérifiiez ensuite."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Le texte affiche thisistea.example, mais le lien mène en réalité à thisistae-app.example. Seule une adresse avec thisistea.example juste avant le premier slash appartient à ThisIsTea. Les autres échangent des lettres ou cachent un autre propriétaire, comme secure-login.example ou thisistea-support.example."
+      "explain": "Le texte affiche thisistea.example, mais le lien mène en réalité à thisistae-app.example. Seule une adresse où thisistea.example se trouve juste avant le premier « / » appartient à ThisIsTea. Les autres inversent des lettres ou cachent un autre propriétaire, comme secure-login.example ou thisistea-support.example."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Votre prénom est facile à trouver. Cela ne prouve pas qui a écrit l'e-mail."
+      "explain": "Votre prénom se trouve facilement. Il ne prouve rien sur l'expéditeur."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui imite ThisIsTea. L'expéditeur est sur thisistae-app.example, avec deux lettres échangées. Lisez le propriétaire, pas l'apparence.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui imite ThisIsTea. L'expéditeur est sur thisistae-app.example, avec deux lettres inversées. Fiez-vous au propriétaire du domaine, pas à son allure.",
       "choices": [
-        "ThisIsTea lui-même",
-        "Quelqu'un qui utilise un domaine presque identique",
+        "ThisIsTea, depuis son vrai domaine",
+        "Quelqu'un avec un domaine presque identique",
         "L'administrateur de votre équipe"
       ],
       "correct": 1,
@@ -107,11 +107,11 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La curiosité et un peu de hâte : un nouvel espace de travail pour votre équipe, avec une date d'expiration.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La curiosité, et un peu de hâte : un nouvel espace pour votre équipe, avec une date d'expiration.",
       "choices": [
-        "La peur d'être arrêté",
-        "La curiosité pour un nouvel espace de travail, avec un délai",
+        "La peur d'une arrestation",
+        "La curiosité, avec un délai pour agir",
         "Aucune : c'est de la routine"
       ],
       "correct": 1,
@@ -123,12 +123,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Vous connecter via le lien, ce qui donnerait vos identifiants à l'expéditeur.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Vous connecter via le lien, et donc remettre vos identifiants à l'expéditeur.",
       "choices": [
         "Ouvrir une pièce jointe",
         "Vous connecter via un lien",
-        "Payer des frais"
+        "Régler des frais"
       ],
       "correct": 1,
       "cues": [
@@ -139,11 +139,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "N'utilisez pas le lien. Ouvrez ThisIsTea vous-même, depuis un favori ou en tapant l'adresse, et cherchez l'espace de travail.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Laissez le lien. Ouvrez ThisIsTea vous-même, depuis un favori ou en tapant l'adresse, et cherchez l'espace de travail.",
       "choices": [
         "Cliquer sur le lien s'il a l'air correct",
-        "Ouvrir ThisIsTea vous-même en tapant son adresse",
+        "Ouvrir ThisIsTea en tapant vous-même l'adresse",
         "Répondre pour demander si c'est vrai"
       ],
       "correct": 1,
@@ -167,28 +167,28 @@
   "actions": [
     {
       "id": "type-address",
-      "label": "Ouvrir ThisIsTea vous-même en tapant son adresse et chercher l'espace de travail",
+      "label": "Ouvrir ThisIsTea en tapant vous-même l'adresse, puis chercher l'espace de travail",
       "outcome": "safe",
-      "consequence": "Il n'y a pas de nouvel espace de travail. L'e-mail était faux."
+      "consequence": "Aucun nouvel espace de travail. L'e-mail était un faux."
     },
     {
       "id": "click",
       "label": "Cliquer sur le lien et vous connecter",
       "outcome": "unsafe",
-      "consequence": "La page ressemble à ThisIsTea, mais vos identifiants vont chez l'escroc."
+      "consequence": "La page a tout de ThisIsTea, mais vos identifiants partent chez l'escroc."
     },
     {
       "id": "hover-click",
-      "label": "Survoler d'abord, puis vous connecter parce que l'adresse affichée a l'air correcte",
+      "label": "Survoler le lien d'abord, puis vous connecter parce que l'adresse affichée semble correcte",
       "outcome": "unsafe",
-      "consequence": "Le texte affiché était un appât. La vraie adresse était tout autre."
+      "consequence": "Le texte affiché servait d'appât. La vraie adresse, celle que montrait le survol, était tout autre."
     },
     {
       "id": "report-it",
-      "label": "Le signaler au service informatique et le supprimer",
+      "label": "Le signaler au service informatique, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. L'équipe peut prévenir les autres."
+      "consequence": "Le service informatique peut prévenir vos collègues avant qu'ils cliquent."
     }
   ],
-  "attacker_reveal": "Le lien disait thisistea.example, parce que les mots d'un lien, c'est moi qui les choisis... C'est l'adresse en dessous qui décide où vous allez. Lesquels sont vrais ? Seulement ceux dont le propriétaire se trouve avant le premier slash."
+  "attacker_reveal": "Le texte d'un lien, c'est moi qui l'écris : thisistea.example, ça ne coûte rien à taper. L'adresse cachée dessous, elle, décide où vous atterrissez. Regardez ce qui précède le premier « / », rien d'autre."
 }

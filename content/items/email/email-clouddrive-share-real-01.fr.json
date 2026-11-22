@@ -39,7 +39,7 @@
       },
       {
         "t": "text",
-        "v": "Mara Keller a partagé un dossier avec vous : Photos de l'événement."
+        "v": "Mara Keller a partagé un dossier avec vous : « Photos de l'événement »."
       },
       {
         "t": "link",
@@ -49,7 +49,7 @@
       },
       {
         "t": "text",
-        "v": "Si vous ne vous y attendiez pas, vérifiez auprès de Mara avant de l'ouvrir."
+        "v": "Vous ne vous attendiez pas à ce partage ? Vérifiez auprès de Mara avant de l'ouvrir."
       },
       {
         "t": "signature",
@@ -63,37 +63,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse se termine par clouddrive.example, le vrai domaine."
+      "explain": "L'adresse se termine par clouddrive.example : c'est bien le domaine de CloudDrive."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "Le lien mène à clouddrive.example. CloudDrive partage par lien, pas par pièce jointe."
+      "explain": "Le lien pointe vers clouddrive.example. CloudDrive partage par lien, pas en pièce jointe : le fichier reste sur ses serveurs."
     },
     {
       "id": "hs-unexpected",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Vous ne vous y attendiez peut-être pas. Un vrai e-mail peut aussi être inattendu : un petit mot à Mara ne coûte rien."
+      "explain": "Un partage inattendu peut très bien être authentique. Un mot à Mara pour confirmer ne coûte rien."
     },
     {
       "id": "hs-no-attachment",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "Il n'y a aucune pièce jointe. Le fichier reste sur CloudDrive."
+      "explain": "Aucune pièce jointe : le dossier reste sur CloudDrive, vous n'avez rien à télécharger."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "CloudDrive lui-même : la notification vient de clouddrive.example. Le nom de Mara figure dans l'objet parce que c'est elle qui a partagé le dossier.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "CloudDrive, depuis clouddrive.example. Le nom de Mara apparaît dans l'objet parce que c'est elle qui a partagé le dossier.",
       "choices": [
         "Quelqu'un qui utilise une adresse presque identique",
-        "Mara, qui vous écrit en privé",
+        "Mara, depuis sa messagerie personnelle",
         "CloudDrive, depuis son vrai domaine"
       ],
       "correct": 2,
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Au plus, un peu de curiosité. Il n'y a ni délai ni menace.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Un peu de curiosité, tout au plus. Aucun délai, aucune menace.",
       "choices": [
-        "La peur d'une sanction",
-        "L'envie de gagner un prix",
-        "Un peu de curiosité : ni délai ni menace"
+        "La peur d'une sanction si vous tardez",
+        "L'espoir d'avoir gagné quelque chose",
+        "Un peu de curiosité, sans plus"
       ],
       "correct": 2,
       "cues": [
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ouvrir un dossier partagé si vous le souhaitez. Aucun fichier n'est joint et rien ne demande d'argent ni de mot de passe.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ouvrir un dossier partagé, si vous le voulez. Rien n'est joint, et personne ne réclame d'argent ni de mot de passe.",
       "choices": [
-        "Ouvrir une pièce jointe cachée",
-        "Répondre avec votre mot de passe",
-        "Ouvrir un dossier partagé, si vous le souhaitez"
+        "Ouvrir une pièce jointe dissimulée",
+        "Répondre en donnant votre mot de passe",
+        "Ouvrir un dossier partagé, si vous voulez"
       ],
       "correct": 2,
       "cues": [
@@ -135,12 +135,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Si vous ne vous y attendiez pas, demandez à Mara par téléphone ou en personne, ou ouvrez CloudDrive vous-même et regardez.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Si ce partage vous surprend, demandez à Mara par téléphone ou de vive voix, ou ouvrez CloudDrive vous-même pour voir si le dossier y figure.",
       "choices": [
-        "Répondre à l'adresse « ne pas répondre »",
-        "Le transférer à un ami",
-        "Demander à Mara par un canal que vous connaissez, ou ouvrir CloudDrive vous-même"
+        "Répondre à l'adresse no-reply pour en savoir plus",
+        "Le transférer à un ami pour avoir son avis",
+        "Demander à Mara, ou ouvrir CloudDrive vous-même"
       ],
       "correct": 2,
       "cues": [
@@ -154,22 +154,22 @@
   "actions": [
     {
       "id": "ask-mara",
-      "label": "Demander à Mara si elle a partagé le dossier, puis l'ouvrir",
+      "label": "Demander à Mara si elle a bien partagé ce dossier, puis l'ouvrir",
       "outcome": "safe",
-      "consequence": "Elle répond que oui, les photos viennent de l'événement."
+      "consequence": "« Oui, ce sont les photos de l'événement », répond-elle. Vous pouvez ouvrir le dossier."
     },
     {
       "id": "open-site",
       "label": "Ouvrir CloudDrive vous-même et chercher le dossier",
       "outcome": "safe",
-      "consequence": "Le dossier apparaît dans « Partagés avec moi »."
+      "consequence": "Le dossier figure bien dans « Partagés avec moi »."
     },
     {
       "id": "reply",
-      "label": "Répondre à l'adresse « ne pas répondre » pour demander ce que c'est",
+      "label": "Répondre à l'adresse no-reply pour demander de quoi il s'agit",
       "outcome": "neutral",
-      "consequence": "Personne ne lit cette adresse. Demandez plutôt à Mara."
+      "consequence": "Personne ne lit ce qui arrive à cette adresse. Posez plutôt la question à Mara."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère, même si vous ne l'attendiez pas. Il vient du vrai domaine et ne joint rien. Un petit mot à Mara reste la manière la plus aimable d'en être sûr."
+  "attacker_reveal": "Vrai domaine, aucune pièce jointe : CloudDrive a bien envoyé celui-ci, même si vous ne l'attendiez pas. Et si un doute vous reste, Mara vous répondra elle-même ; je ne peux pas décrocher à sa place."
 }

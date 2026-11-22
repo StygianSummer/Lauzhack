@@ -114,6 +114,8 @@ class ChallengeScreenshotsTest {
         shot("home_wide", width = 1280, height = 1400) { HomeContent(homeUi(), HomeActions()) }
         shot("home_wide_dark", dark = true, width = 1280, height = 1400) { HomeContent(homeUi(), HomeActions()) }
         shot("home_medium", width = 800, height = 2000) { HomeContent(homeUi(placement = false), HomeActions()) }
+        shot("home_level_basics", width = 800, height = 2200) { HomeContent(homeUi(placement = false).copy(placementLevel = 3), HomeActions()) }
+        shot("home_level_start_compact", width = 380, height = 2600) { HomeContent(homeUi(placement = false).copy(placementLevel = 1), HomeActions()) }
         shot("home_compact_guest", width = 400, height = 3000) {
             HomeContent(homeUi(ranking = RankingUi.Guest, loggedIn = false), HomeActions())
         }

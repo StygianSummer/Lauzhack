@@ -65,7 +65,7 @@
     <string name="home_ch_best">Mejor: %1$d / %2$d · %3$s</string>
     <string name="home_ch_not_started">Aún sin empezar</string>
     <string name="home_placement_title">Pon a prueba tu nivel</string>
-    <string name="home_placement_body">Unos 3 minutos, sin nota. Nos sirve para elegir por dónde empiezas.</string>
+    <string name="home_placement_body">Dos correos, más o menos un minuto, sin nota. Nos sirve para elegir por dónde empiezas.</string>
     <string name="home_placement_start">Empezar la prueba</string>
     <string name="home_score_title">Tu puntuación</string>
     <string name="home_rank_title">Clasificación de la semana</string>

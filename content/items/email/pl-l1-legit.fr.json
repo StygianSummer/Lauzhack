@@ -27,7 +27,7 @@
     "from_name": "ParcelPoint",
     "from_address": "notifications@parcelpoint.example",
     "to": "{{email}}",
-    "subject": "Votre colis est en route",
+    "subject": "Votre colis est en chemin",
     "received": "-PT40M",
     "body": [
       {
@@ -36,17 +36,17 @@
       },
       {
         "t": "text",
-        "v": "Votre colis a quitté notre dépôt et sera livré demain. Vous n'avez rien à faire."
+        "v": "Votre colis a quitté notre dépôt et vous sera livré demain. Vous n'avez rien à faire."
       },
       {
         "t": "link",
-        "v": "Suivre votre colis",
+        "v": "Suivre mon colis",
         "href": "https://parcelpoint.example/track",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "Vous pouvez aussi le suivre dans l'application ParcelPoint."
+        "v": "Vous pouvez aussi suivre l'envoi dans l'application ParcelPoint."
       },
       {
         "t": "signature",
@@ -60,38 +60,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse se termine par parcelpoint.example, le vrai domaine de l'entreprise."
+      "explain": "L'adresse se termine par parcelpoint.example : le vrai domaine du transporteur."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Aucun délai et aucun paiement. Il se contente de vous dire ce qui se passe."
+      "explain": "Ni délai ni paiement : on vous dit seulement où en est le colis."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "Le lien mène à parcelpoint.example, le vrai domaine. Malgré tout, l'application reste le moyen le plus sûr de regarder."
+      "explain": "Le lien pointe vers parcelpoint.example, le vrai domaine. L'application reste quand même le chemin le plus sûr."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il vous renvoie vers l'application, un canal que vous contrôlez déjà."
+      "explain": "Il vous renvoie vers l'application, un canal que vous avez déjà en main."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "ParcelPoint lui-même : l'adresse est sur parcelpoint.example et l'orthographe est propre.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "ParcelPoint : l'adresse est sur parcelpoint.example et le texte est propre.",
       "choices": [
         "Un escroc avec une adresse presque identique",
-        "ParcelPoint, depuis son vrai domaine",
-        "Un inconnu avec une boîte e-mail gratuite"
+        "ParcelPoint, depuis son propre domaine",
+        "Un inconnu derrière une boîte gratuite"
       ],
       "correct": 1,
       "cues": [
@@ -101,11 +101,11 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Aucune. C'est une information calme, sans délai.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Aucune. Le message informe, sans délai ni pression.",
       "choices": [
         "La peur de perdre le colis",
-        "Aucune : c'est une information calme",
+        "Aucune : il se contente d'informer",
         "L'envie d'un cadeau gratuit"
       ],
       "correct": 1,
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Rien. Il vous dit seulement que le colis est en route et propose un lien de suivi.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Rien. On vous annonce la livraison et on vous propose un lien de suivi.",
       "choices": [
         "Payer des frais de manutention",
-        "Rien : il ne fait que vous informer",
+        "Rien : on vous tient au courant",
         "Envoyer votre numéro de carte"
       ],
       "correct": 1,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Vous n'avez rien à faire. Si vous voulez regarder, ouvrez vous-même l'application ParcelPoint.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Rien d'urgent à vérifier. Si vous voulez suivre l'envoi, ouvrez vous-même l'application ParcelPoint.",
       "choices": [
-        "Répondre avec votre adresse",
-        "Ouvrir vous-même l'application ParcelPoint si vous voulez regarder",
-        "Le transférer à un ami pour qu'il vérifie"
+        "Répondre en donnant votre adresse",
+        "Ouvrir vous-même l'application ParcelPoint",
+        "Le transférer à un proche pour avis"
       ],
       "correct": 1,
       "cues": [
@@ -150,22 +150,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ouvrir vous-même l'application ParcelPoint si vous voulez vérifier",
+      "label": "Ouvrir vous-même l'application ParcelPoint pour vérifier",
       "outcome": "safe",
-      "consequence": "Vous voyez la même date de livraison. Il n'y avait rien à faire."
+      "consequence": "La même date de livraison s'affiche. Il n'y avait rien à faire."
     },
     {
       "id": "ignore",
       "label": "Ne rien faire et attendre le colis",
       "outcome": "safe",
-      "consequence": "Le colis arrive demain. Il n'y avait rien à faire."
+      "consequence": "Le colis arrive demain, comme annoncé."
     },
     {
       "id": "reply",
-      "label": "Répondre avec votre adresse personnelle, au cas où",
+      "label": "Répondre avec votre adresse personnelle, par précaution",
       "outcome": "neutral",
-      "consequence": "L'adresse « ne pas répondre » ne répond pas. Vous n'avez rien donné d'utile, mais il n'y avait rien à faire non plus."
+      "consequence": "Personne ne lit les réponses envoyées à cette adresse de notification. Pas de dégât, mais pas d'utilité non plus."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. Il vient du domaine propre de l'entreprise, ne demande rien et ne fixe aucun délai. Un avis de colis qui ne fait que vous informer, voilà à quoi ressemble un vrai."
+  "attacker_reveal": "Celui-là n'est pas de moi. Il part du domaine de ParcelPoint, ne réclame rien et ne fixe aucun délai. Un vrai avis de colis vous tient au courant ; il ne vous fait rien faire."
 }

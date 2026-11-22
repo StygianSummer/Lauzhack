@@ -28,7 +28,7 @@
     "from_name": "ThisIsTea",
     "from_address": "notifications@thisistea.example",
     "to": "{{email}}",
-    "subject": "Le résumé hebdomadaire de votre équipe",
+    "subject": "Votre équipe cette semaine",
     "received": "-PT1H",
     "body": [
       {
@@ -37,7 +37,7 @@
       },
       {
         "t": "text",
-        "v": "Trois collègues ont terminé la leçon 1 cette semaine. Consultez le résumé complet dans l'application ThisIsTea quand vous voulez."
+        "v": "Trois collègues ont terminé la leçon 1 cette semaine. Le résumé complet vous attend dans l'application ThisIsTea, à lire quand vous voulez."
       },
       {
         "t": "link",
@@ -57,38 +57,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "Le domaine est exactement thisistea.example."
+      "explain": "Le domaine est exactement thisistea.example, sans rien d'ajouté."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Pas de mot de passe, pas de délai et aucune pression."
+      "explain": "Ni mot de passe, ni délai, ni pression."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "thisistea.example se trouve juste avant le premier slash : le lien est donc authentique. Vous pourriez quand même l'ignorer et ouvrir l'application."
+      "explain": "thisistea.example se trouve juste avant le premier « / » : le lien est authentique. Vous pouvez quand même l'ignorer et passer par l'application."
     },
     {
       "id": "hs-app",
       "target": "body:1",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il dit que vous pouvez lire le résumé dans l'application quand vous voulez."
+      "explain": "L'e-mail vous laisse lire le résumé dans l'application, quand vous voulez."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "ThisIsTea lui-même : le domaine est exactement thisistea.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "ThisIsTea, depuis son domaine exact : thisistea.example.",
       "choices": [
-        "Quelqu'un qui utilise un domaine presque identique",
+        "Quelqu'un avec un domaine presque identique",
         "ThisIsTea, depuis son vrai domaine",
-        "Votre support informatique"
+        "Le support informatique de votre équipe"
       ],
       "correct": 1,
       "cues": [
@@ -98,12 +98,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Aucune. Il n'y a ni délai ni menace.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Aucune. Pas de délai, pas de menace.",
       "choices": [
         "La peur de perdre votre mot de passe",
-        "Aucune : c'est calme et sans délai",
-        "L'envie de gagner un prix"
+        "Aucune : pas de délai, rien de pressant",
+        "L'espoir de gagner un prix"
       ],
       "correct": 1,
       "cues": [
@@ -113,12 +113,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Rien : il propose un résumé à lire. Pas de mot de passe, pas de paiement, pas de pression.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Rien, à part lire un résumé si ça vous intéresse. Pas de mot de passe, pas de paiement, pas de pression.",
       "choices": [
         "Vous connecter pour garder votre mot de passe",
-        "Rien, sauf lire un résumé",
-        "Payer des frais"
+        "Rien, à part lire un résumé",
+        "Régler des frais d'abonnement"
       ],
       "correct": 1,
       "cues": [
@@ -128,11 +128,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Même ainsi, vous pourriez ignorer le lien et ouvrir vous-même l'application ThisIsTea.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Même pour un e-mail authentique, vous pouvez laisser le lien et ouvrir l'application ThisIsTea vous-même.",
       "choices": [
-        "Répondre pour demander un résumé plus long",
-        "Ouvrir vous-même l'application ThisIsTea si vous voulez regarder",
+        "Répondre pour demander un résumé plus détaillé",
+        "Ouvrir l'application ThisIsTea vous-même",
         "Le transférer au service informatique"
       ],
       "correct": 1,
@@ -154,14 +154,14 @@
       "id": "click",
       "label": "Cliquer sur le lien pour lire le résumé",
       "outcome": "safe",
-      "consequence": "Il mène au vrai domaine, donc aucun mal. L'application reste pourtant la meilleure habitude."
+      "consequence": "Il mène au vrai domaine, donc rien de grave. Passer par l'application reste la meilleure habitude."
     },
     {
       "id": "report",
       "label": "Le signaler au service informatique comme e-mail suspect",
       "outcome": "neutral",
-      "consequence": "Le service informatique vous remercie et confirme qu'il est authentique. Vérifier n'est jamais une erreur, mais celui-ci est correct."
+      "consequence": "Le service informatique vous remercie et confirme que l'e-mail est authentique. Vérifier n'est jamais une faute ; simplement, celui-ci était correct."
     }
   ],
-  "attacker_reveal": "Celui-ci est correct, ma chère. Le domaine est exactement thisistea.example et il ne demande rien. Un e-mail calme peut être vrai, et un e-mail avec un lien aussi. Ce qui compte, c'est à qui appartient le domaine et ce qu'on attend de vous."
+  "attacker_reveal": "Je n'ai pas touché à celui-ci : thisistea.example sans une lettre de trop, et rien à faire à part lire. Un lien n'a rien de suspect en soi ; ce qui compte, c'est à qui appartient le domaine et ce qu'il vous demande."
 }

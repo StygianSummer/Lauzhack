@@ -36,7 +36,7 @@
       },
       {
         "t": "text",
-        "v": "Nous avons remarqué une connexion à votre compte TeamChat depuis un nouvel appareil. Si c'était vous, il n'y a rien à faire."
+        "v": "Nous avons détecté une connexion à votre compte TeamChat depuis un nouvel appareil. Si c'était vous, vous n'avez rien à faire."
       },
       {
         "t": "text",
@@ -61,31 +61,31 @@
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "« Si c'était vous, il n'y a rien à faire. » Ni menace ni délai."
+      "explain": "« Si c'était vous, vous n'avez rien à faire. » Pas de menace, pas de délai."
     },
     {
       "id": "hs-own-channel",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il vous dit d'ouvrir vous-même l'application au lieu de vous donner un lien."
+      "explain": "Au lieu d'un lien, il vous indique le chemin dans l'application, à suivre vous-même."
     },
     {
       "id": "hs-no-link",
       "target": "body:3",
       "step": "ask",
       "red_flag": false,
-      "explain": "Il n'y a ni lien ni bouton. Rien ici ne réclame vos identifiants."
+      "explain": "Aucun lien, aucun bouton : rien dans ce message ne peut récupérer vos identifiants."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "TeamChat lui-même : l'adresse est sur le vrai domaine, teamchat.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "TeamChat : l'adresse est sur son vrai domaine, teamchat.example.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique",
-        "Un collègue qui vous teste",
-        "TeamChat, depuis son vrai domaine"
+        "Quelqu'un avec une adresse presque identique",
+        "Un collègue qui vous met à l'épreuve",
+        "TeamChat, depuis son propre domaine"
       ],
       "correct": 2,
       "cues": [
@@ -95,12 +95,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Pratiquement aucune. Il est calme et vous dit qu'il n'arrivera rien de mal si c'était vous.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Presque aucune. Le ton est calme, et si la connexion était la vôtre, l'affaire s'arrête là.",
       "choices": [
         "La panique face à une intrusion",
         "L'excitation d'avoir gagné un prix",
-        "Aucune : c'est calme et sans délai"
+        "Aucune : le ton est calme, sans délai"
       ],
       "correct": 2,
       "cues": [
@@ -110,12 +110,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Rien pour le moment. Si la connexion n'était pas la vôtre, il vous dit d'aller vous-même dans l'application.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Rien pour l'instant. Si la connexion n'était pas la vôtre, il vous envoie dans l'application, par vos propres moyens.",
       "choices": [
         "Cliquer sur un lien et vous connecter",
-        "Payer pour sécuriser le compte",
-        "Rien, sauf vérifier dans l'application si ce n'était pas vous"
+        "Payer une option pour sécuriser le compte",
+        "Rien, sauf vérifier l'application au besoin"
       ],
       "correct": 2,
       "cues": [
@@ -126,12 +126,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Vous connaissez déjà le chemin : ouvrez vous-même l'application TeamChat et regardez vos appareils.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Le message donne lui-même la marche à suivre : ouvrez l'application TeamChat et regardez vos appareils.",
       "choices": [
         "Répondre pour dire que ce n'était pas vous",
         "Le transférer d'abord à un ami",
-        "Ouvrir vous-même l'application TeamChat et vérifier vos appareils"
+        "Ouvrir vous-même l'application et voir vos appareils"
       ],
       "correct": 2,
       "cues": [
@@ -146,20 +146,20 @@
       "id": "check-app",
       "label": "Ouvrir vous-même l'application TeamChat et regarder vos appareils",
       "outcome": "safe",
-      "consequence": "Vous voyez votre propre téléphone et votre ordinateur. Rien à faire."
+      "consequence": "Vous y voyez votre téléphone et votre ordinateur. Rien à signaler."
     },
     {
       "id": "ignore",
-      "label": "L'ignorer, car vous reconnaissez le nouvel appareil",
+      "label": "L'ignorer : vous reconnaissez le nouvel appareil",
       "outcome": "safe",
-      "consequence": "Vous savez que la connexion était la vôtre, donc il n'y a rien à faire."
+      "consequence": "La connexion était la vôtre. Il n'y avait rien à faire."
     },
     {
       "id": "reply",
       "label": "Répondre à l'e-mail pour dire que ce n'était pas vous",
       "outcome": "neutral",
-      "consequence": "L'adresse « ne pas répondre » ne répond pas. Si ce n'était pas vous, passez plutôt par l'application."
+      "consequence": "Personne ne lit les réponses envoyées à cette adresse. Si la connexion n'était pas la vôtre, c'est dans l'application qu'il faut agir."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. Il vient du domaine propre de TeamChat, ne contient aucun lien et vous dit d'utiliser vous-même l'application. Une alerte de sécurité peut être authentique. Ce qui compte, c'est que celle-ci ne vous demande rien."
+  "attacker_reveal": "Authentique, je vous l'accorde. Domaine de TeamChat, pas un seul lien, et on vous envoie dans l'application par vos propres moyens. Une alerte de sécurité peut être vraie : celle-ci ne réclame rien, c'est à ça qu'on la reconnaît."
 }

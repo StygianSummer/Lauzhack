@@ -33,7 +33,7 @@
     "from_name": "SwissAlpBank",
     "from_address": "service@swissa1pbank.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, nouvelles conditions pour votre e-banking",
+    "subject": "{{first_name}}, les conditions de votre e-banking changent",
     "received": "-PT45M",
     "body": [
       {
@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "Nous avons mis à jour les conditions de votre contrat d'e-banking. Merci de vous connecter pour les accepter d'ici la fin de la semaine."
+        "v": "Les conditions de votre contrat d'e-banking ont été mises à jour. Nous vous prions de vous connecter pour les accepter d'ici la fin de la semaine."
       },
       {
         "t": "link",
@@ -52,7 +52,7 @@
       },
       {
         "t": "text",
-        "v": "Sans acceptation, votre accès pourrait être limité."
+        "v": "Sans acceptation de votre part, votre accès pourrait être limité."
       },
       {
         "t": "signature",
@@ -66,38 +66,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "swissa1pbank.example contient le chiffre 1 à la place de la lettre l. Ce n'est pas swissalpbank.example."
+      "explain": "swissa1pbank.example : le chiffre 1 a pris la place de la lettre l. Ce n'est pas swissalpbank.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« D'ici la fin de la semaine » vous impose un délai que vous n'avez pas choisi."
+      "explain": "« d'ici la fin de la semaine » : c'est l'expéditeur qui fixe le délai, pas vous."
     },
     {
       "id": "hs-limited",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Votre accès pourrait être limité » est une menace pour vous faire agir."
+      "explain": "« votre accès pourrait être limité » : une menace assez vague pour inquiéter, assez précise pour vous faire agir."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "La page de connexion est sur le domaine qui imite celui de la banque et copierait vos identifiants."
+      "explain": "La page de connexion est sur le domaine d'imitation. Les identifiants que vous y taperiez seraient copiés."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui utilise le nom de la banque. L'adresse contient un chiffre 1 là où il faut la lettre l : swissa1pbank.example n'est pas swissalpbank.example. Votre œil peut rater un échange d'un seul caractère, mais jamais un gestionnaire de mots de passe.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui emprunte le nom de la banque. L'adresse contient un chiffre 1 à la place de la lettre l : swissa1pbank.example n'est pas swissalpbank.example. L'œil saute facilement un caractère ; un gestionnaire de mots de passe compare l'adresse caractère par caractère.",
       "choices": [
-        "SwissAlpBank, parce qu'il connaît votre prénom",
-        "Quelqu'un qui utilise un domaine imitant celui de la banque",
-        "Votre conseiller personnel"
+        "SwissAlpBank, puisqu'il connaît votre prénom",
+        "Quelqu'un qui imite le domaine de la banque",
+        "Votre conseiller personnel à la banque"
       ],
       "correct": 1,
       "cues": [
@@ -108,12 +108,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La peur et la hâte : vous pourriez perdre l'accès si vous n'agissez pas d'ici la fin de la semaine.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La peur et la précipitation : vous risquez de perdre l'accès si vous n'agissez pas avant la fin de la semaine.",
       "choices": [
-        "La curiosité pour un prix",
+        "La curiosité pour un prix à gagner",
         "La peur de perdre l'accès, avec un délai",
-        "Aucune : c'est de la routine"
+        "Aucune, c'est une simple formalité"
       ],
       "correct": 1,
       "cues": [
@@ -124,12 +124,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Vous connecter pour « accepter » de nouvelles conditions, ce qui donnerait vos identifiants à l'expéditeur.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Vous connecter pour « accepter » les nouvelles conditions. Vos identifiants iraient à l'expéditeur.",
       "choices": [
-        "Ouvrir une pièce jointe",
+        "Ouvrir le contrat en pièce jointe",
         "Vous connecter via un lien",
-        "Répondre avec votre numéro de compte"
+        "Renvoyer votre numéro de compte"
       ],
       "correct": 1,
       "cues": [
@@ -140,12 +140,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Utilisez l'identifiant SwissAlpBank enregistré dans votre gestionnaire de mots de passe. Il vérifie l'adresse exacte du site et ne remplira rien sur un site imité : s'il reste muet, c'est votre alerte. Ou ouvrez vous-même l'application de la banque.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Passez par l'identifiant SwissAlpBank enregistré dans votre gestionnaire de mots de passe. Il compare l'adresse exacte du site et ne remplit rien sur une imitation : s'il reste muet, c'est votre signal d'alerte. Vous pouvez aussi ouvrir vous-même l'application de la banque.",
       "choices": [
-        "Cliquer sur le lien et vérifier que la page a l'air correcte",
-        "Ouvrir l'identifiant enregistré dans votre gestionnaire de mots de passe, ou l'application vous-même",
-        "Saisir votre mot de passe à la main si le gestionnaire ne le remplit pas"
+        "Cliquer sur le lien et vérifier que la page a l'air normale",
+        "Passer par l'identifiant de votre gestionnaire, ou par l'application",
+        "Taper le mot de passe à la main si le gestionnaire ne remplit rien"
       ],
       "correct": 1,
       "cues": [
@@ -168,28 +168,28 @@
   "actions": [
     {
       "id": "manager",
-      "label": "Ouvrir la banque depuis l'identifiant enregistré dans votre gestionnaire de mots de passe, ou l'application",
+      "label": "Ouvrir la banque depuis l'identifiant enregistré dans votre gestionnaire de mots de passe, ou par l'application",
       "outcome": "safe",
-      "consequence": "Il n'y a rien à accepter. Si vous aviez cliqué sur l'e-mail, le gestionnaire n'aurait rien rempli."
+      "consequence": "Rien à accepter. Et sur la page de l'e-mail, le gestionnaire n'aurait rien rempli."
     },
     {
       "id": "click-type",
       "label": "Cliquer sur le lien et saisir votre mot de passe",
       "outcome": "unsafe",
-      "consequence": "La page a l'air correcte, mais vos identifiants partent directement chez l'escroc."
+      "consequence": "La page a l'air normale, mais vos identifiants partent tout droit chez l'escroc."
     },
     {
       "id": "type-by-hand",
-      "label": "Le gestionnaire ne remplit rien, donc saisir le mot de passe à la main",
+      "label": "Le gestionnaire ne remplit rien : taper le mot de passe à la main",
       "outcome": "unsafe",
-      "consequence": "Le gestionnaire est resté muet parce que l'adresse était fausse. Vous avez ignoré votre meilleure alerte."
+      "consequence": "Il restait muet parce que l'adresse était fausse. C'était votre meilleur avertissement, et vous l'avez ignoré."
     },
     {
       "id": "report-delete",
       "label": "Le signaler comme hameçonnage et le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Vous n'avez rien donné."
+      "consequence": "Vos identifiants ne sont jamais sortis de chez vous."
     }
   ],
-  "attacker_reveal": "Un seul chiffre à la place d'une lettre... Votre œil le saute, mais un gestionnaire de mots de passe compare chaque caractère. Quand il refuse de remplir, croyez-le."
+  "attacker_reveal": "Vos yeux ont corrigé tout seuls : un chiffre glissé à la place d'une lettre, et vous lisiez encore le nom de la banque. Votre gestionnaire de mots de passe, lui, compare caractère par caractère ; quand il refuse de remplir, c'est lui qu'il faut croire."
 }

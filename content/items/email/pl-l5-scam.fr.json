@@ -38,17 +38,17 @@
       },
       {
         "t": "text",
-        "v": "Votre colis d'une boutique étrangère est arrivé en Suisse. Des frais de traitement douanier de CHF 3.20 sont à régler avant la livraison."
+        "v": "Votre colis en provenance d'une boutique à l'étranger est arrivé en Suisse. Des frais de traitement douanier de CHF 3.20 doivent être réglés avant la livraison."
       },
       {
         "t": "link",
-        "v": "Payer les frais de CHF 3.20",
+        "v": "Régler les frais de CHF 3.20",
         "href": "https://parcelpoint-delivery.example/charge/58213",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "Une fois le paiement effectué, votre colis sera livré sous deux jours ouvrables."
+        "v": "Dès réception du paiement, votre colis vous sera livré sous deux jours ouvrables."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "parcelpoint-delivery.example n'est pas le domaine de ParcelPoint, parcelpoint.example. C'est le seul faux pas de tout l'e-mail."
+      "explain": "parcelpoint-delivery.example n'est pas parcelpoint.example, le domaine de ParcelPoint. C'est le seul faux pas de tout l'e-mail."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Aucun délai, aucune menace, aucune faute. Une arnaque n'a pas besoin de crier."
+      "explain": "Ni délai, ni menace, ni faute. Une arnaque peut très bien parler à voix basse."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Le lien correspond à l'expéditeur, mais les deux sont sur le domaine imité. Se ressembler entre eux ne les rend pas vrais."
+      "explain": "Le lien correspond à l'expéditeur, mais les deux sont sur le domaine imité. Qu'ils concordent entre eux ne prouve rien."
     },
     {
       "id": "hs-amount",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "De petits frais : vous ne réfléchirez donc pas à deux fois avant de payer. La page de paiement prendrait les données de votre carte."
+      "explain": "Un petit montant, pour que vous payiez sans y penser. La page de paiement récupérerait les données de votre carte."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui se fait passer pour ParcelPoint. Tout est correct sauf le domaine : parcelpoint-delivery.example n'est pas parcelpoint.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour ParcelPoint. Tout est juste, sauf le domaine : parcelpoint-delivery.example au lieu de parcelpoint.example.",
       "choices": [
-        "ParcelPoint, parce que tout le reste est correct",
-        "Un douanier",
-        "Quelqu'un qui utilise un domaine presque identique"
+        "ParcelPoint, puisque tout le reste est correct",
+        "Le service des douanes",
+        "Quelqu'un avec un domaine presque identique"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "À peine. C'est calme et routinier, ce qui donne davantage confiance.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Presque aucune. Le ton est calme et routinier, ce qui inspire justement confiance.",
       "choices": [
         "La panique face à une amende",
-        "La colère face à un retard",
-        "Très peu : c'est calme et routinier"
+        "L'agacement face à un retard",
+        "Très peu : le ton est calme et routinier"
       ],
       "correct": 2,
       "cues": [
@@ -120,11 +120,11 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Payer de petits frais via un lien. Cela livrerait les données de votre carte à l'auteur du message.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Payer de petits frais via un lien. Les données de votre carte partiraient chez l'auteur du message.",
       "choices": [
-        "Récupérer un colis vous-même",
-        "Rien, c'est pour information",
+        "Aller chercher le colis vous-même",
+        "Rien, c'est une simple information",
         "Payer de petits frais via un lien"
       ],
       "correct": 2,
@@ -136,10 +136,10 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ignorez le lien. Ouvrez l'application ParcelPoint, ou tapez vous-même son adresse, et regardez si des frais sont vraiment dus.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ignorez le lien. Ouvrez l'application ParcelPoint, ou tapez vous-même son adresse, et voyez si des frais sont réellement dus.",
       "choices": [
-        "Payer : ce n'est que CHF 3.20",
+        "Payer, ce n'est que CHF 3.20",
         "Répondre pour demander le formulaire de douane",
         "Ouvrir vous-même l'application ParcelPoint"
       ],
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ouvrir vous-même l'application ParcelPoint et chercher d'éventuels frais",
+      "label": "Ouvrir vous-même l'application ParcelPoint et chercher des frais en attente",
       "outcome": "safe",
-      "consequence": "Aucun frais n'est indiqué. L'e-mail était faux."
+      "consequence": "Rien à payer n'apparaît. L'e-mail était faux."
     },
     {
       "id": "pay",
-      "label": "Payer les CHF 3.20, car c'est si peu",
+      "label": "Payer les CHF 3.20, ce n'est presque rien",
       "outcome": "unsafe",
-      "consequence": "Les données de votre carte vont chez l'escroc. C'est avec de petits frais qu'ils les obtiennent."
+      "consequence": "Les données de votre carte partent chez l'escroc. C'est grâce à ces petits montants qu'il les obtient si facilement."
     },
     {
       "id": "report-delete",
-      "label": "Le signaler comme hameçonnage et le supprimer",
+      "label": "Le signaler comme hameçonnage, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Rien n'a été cliqué."
+      "consequence": "Rien n'a été cliqué ni payé."
     },
     {
       "id": "reply",
       "label": "Répondre pour demander le formulaire de douane",
       "outcome": "neutral",
-      "consequence": "L'escroc vous envoie un faux formulaire. Votre réponse lui montre aussi que votre adresse est utilisée."
+      "consequence": "L'escroc vous envoie un faux formulaire, et sait désormais que votre adresse est active."
     }
   ],
-  "attacker_reveal": "Pas de hâte, pas de fautes, pas de menaces... Les indices de surface, c'est pour les débutants. Un e-mail calme sur un domaine imité bat à chaque fois un e-mail bruyant."
+  "attacker_reveal": "Aucune faute, aucune menace, aucune hâte. Les indices de surface, c'est bon pour les amateurs. Un e-mail calme sur un domaine imité passe là où un e-mail tapageur se fait repérer."
 }
