@@ -1,0 +1,175 @@
+{
+  "id": "email-teamchat-mention-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 3,
+  "twin_of": "email-teamchat-ceo-export-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "display_name_match",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "TeamChat",
+    "from_address": "no-reply@teamchat.example",
+    "to": "{{email}}",
+    "subject": "Alex Morgan mentioned you in #board-prep",
+    "received": "-PT10M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Alex Morgan wrote: \"Could you add the latest client numbers to the board slides by Friday?\""
+      },
+      {
+        "t": "link",
+        "v": "Open the conversation in TeamChat",
+        "href": "https://teamchat.example/board-prep",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "You can also open the TeamChat app yourself to reply."
+      },
+      {
+        "t": "signature",
+        "v": "The TeamChat Team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The notification comes from teamchat.example, the real domain."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "The request is ordinary: numbers on slides, with Friday as a deadline you can discuss. It is not a data export and not urgent in minutes."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "The link leads to teamchat.example."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It reminds you that the app is available."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "TeamChat: a notification from its real domain, quoting a colleague's message.",
+      "choices": [
+        "TeamChat, from its real domain",
+        "The CEO, writing directly",
+        "A scammer with a lookalike address"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "notification"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Little. A normal work request with a reasonable deadline.",
+      "choices": [
+        "Little: a normal work request",
+        "Panic about ten minutes",
+        "Fear of arrest"
+      ],
+      "correct": 0,
+      "cues": [
+        "friday",
+        "normal",
+        "deadline",
+        "reasonable"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Add client numbers to the board slides by Friday. It is ordinary work and no data export is demanded.",
+      "choices": [
+        "Update some slides by Friday",
+        "Send the full client export in a reply",
+        "Sign in through an odd link"
+      ],
+      "correct": 0,
+      "cues": [
+        "slides",
+        "numbers",
+        "friday",
+        "work"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the TeamChat app yourself and reply there. If you ever doubt a request from the boss, a quick call helps.",
+      "choices": [
+        "Open the TeamChat app yourself and reply there",
+        "Reply to the no-reply address",
+        "Forward it to a friend"
+      ],
+      "correct": 0,
+      "cues": [
+        "teamchat",
+        "app",
+        "yourself",
+        "call"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the TeamChat app yourself and reply to Alex there",
+      "outcome": "safe",
+      "consequence": "You see Alex's message in the real conversation."
+    },
+    {
+      "id": "click",
+      "label": "Click the link in the notification",
+      "outcome": "safe",
+      "consequence": "It leads to the real domain."
+    },
+    {
+      "id": "send-all",
+      "label": "Send the entire client database to Alex straight away",
+      "outcome": "unsafe",
+      "consequence": "That was not asked for. Do not send sensitive data when it was never requested."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. It is a notification from TeamChat's own domain about ordinary work. Compare it with the 'ten minutes' message: here nothing is rushed and no data is demanded."
+}

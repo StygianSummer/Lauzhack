@@ -1,0 +1,185 @@
+{
+  "id": "pl-l1-scam",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "typos",
+      "odd_sender",
+      "generic_greeting",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Parcel Point Livraision",
+    "from_address": "delivery.agent77@free-mailbox.example",
+    "to": "{{email}}",
+    "subject": "Votre colis vous atend !!! payez petits frais",
+    "received": "-PT25M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Cher cliant,"
+      },
+      {
+        "t": "text",
+        "v": "Votre colis est retnu dans notre dépôt. Vous devez payer de petits frais de CHF 2.50 aujourd'hui sinon il sera renvoyer."
+      },
+      {
+        "t": "link",
+        "v": "Payer les frais maintenant",
+        "href": "http://parcel-pay-fee.example/x7q",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Merci pour votre patiance."
+      },
+      {
+        "t": "signature",
+        "v": "Équipe Parcel Point Livraision"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Une adresse de boîte gratuite, pas parcelpoint.example. Une vraie société de colis écrit depuis son propre domaine."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "« Cher cliant » est générique et mal orthographié. Votre vraie société de colis connaît votre nom."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Aujourd'hui sinon il sera renvoyé » sert à vous presser."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Une adresse bizarre sur un autre domaine, sans aucun rapport avec ParcelPoint."
+    },
+    {
+      "id": "hs-typos",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Encore des fautes d'orthographe. Les entreprises se relisent ; les escrocs, souvent non."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Pas ParcelPoint. L'adresse est sur free-mailbox.example, pas sur parcelpoint.example, et les fautes d'orthographe ne sont pas la façon d'écrire d'une vraie société de colis.",
+      "choices": [
+        "L'équipe de livraison de ParcelPoint",
+        "Quelqu'un qui utilise une boîte jetable, pas ParcelPoint",
+        "Un voisin qui garde votre colis"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "domaine",
+        "orthographe",
+        "formule d'appel"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La hâte : payez aujourd'hui ou perdez le colis.",
+      "choices": [
+        "La curiosité pour un prix",
+        "La hâte : payer aujourd'hui sinon le colis repart",
+        "Aucune : c'est un simple avis"
+      ],
+      "correct": 1,
+      "cues": [
+        "aujourd'hui",
+        "délai",
+        "hâte",
+        "presser"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Payer des frais via un lien, ce qui donnerait les données de votre carte à l'expéditeur.",
+      "choices": [
+        "Récupérer le colis chez un voisin",
+        "Payer des frais via un lien",
+        "Rien, c'est pour information"
+      ],
+      "correct": 1,
+      "cues": [
+        "payer",
+        "frais",
+        "lien",
+        "carte"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ignorez le lien. Ouvrez l'application ParcelPoint, ou tapez vous-même l'adresse, et consultez vos colis.",
+      "choices": [
+        "Payer les petits frais, au cas où",
+        "Consulter vos colis dans l'application ParcelPoint, ouverte par vous-même",
+        "Répondre pour demander un autre lien"
+      ],
+      "correct": 1,
+      "cues": [
+        "application",
+        "vous-même",
+        "officiel",
+        "suivi"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application ParcelPoint et vérifier vos colis",
+      "outcome": "safe",
+      "consequence": "Aucun colis n'est en attente. L'e-mail était faux et vous n'avez rien donné."
+    },
+    {
+      "id": "pay",
+      "label": "Payer les frais via le lien",
+      "outcome": "unsafe",
+      "consequence": "Les données de votre carte vont chez l'escroc, qui peut dépenser votre argent."
+    },
+    {
+      "id": "report-delete",
+      "label": "Signaler l'e-mail comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Rien n'a été cliqué et votre messagerie apprend à repérer le prochain."
+    }
+  ],
+  "attacker_reveal": "Des fautes d'orthographe, l'adresse d'un inconnu et des frais assez petits pour que personne ne vérifie... Je n'ai même pas essayé. Cela piège encore des gens qui attendent un colis."
+}

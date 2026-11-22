@@ -1,0 +1,170 @@
+{
+  "id": "pl-l4-legit",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 4,
+  "twin_of": "pl-l4-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "first_name_used",
+      "real_domain",
+      "has_attachment"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank Statements",
+    "from_address": "statements@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Your October statement is ready",
+    "received": "-PT30M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your October statement is attached as a PDF. You can also read it in the SwissAlpBank app, under Documents."
+      },
+      {
+        "t": "text",
+        "v": "Replies to this address are not read."
+      },
+      {
+        "t": "signature",
+        "v": "SwissAlpBank Customer Service"
+      }
+    ],
+    "attachments": [
+      "statement-october.pdf"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on swissalpbank.example, the bank's real domain, and there is no different reply-to."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "A plain .pdf, not .pdf.html. The file type matches what the email says."
+    },
+    {
+      "id": "hs-no-reply",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It says plainly that replies are not read, so nothing is sent to a strange address."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:1",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It tells you where to find the same statement yourself, in the app."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "SwissAlpBank: the sender address is on the real domain and there is no reply-to pointing anywhere else.",
+      "choices": [
+        "Someone faking the bank's address",
+        "SwissAlpBank, from its real domain",
+        "Your personal adviser"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "domain",
+        "reply-to",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. It is routine mail with no deadline or threat.",
+      "choices": [
+        "Fear of a fee",
+        "None: it is routine mail",
+        "Excitement about an offer"
+      ],
+      "correct": 1,
+      "cues": [
+        "routine",
+        "calm",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing. It delivers your statement as a PDF. There is no sign-in, link or payment.",
+      "choices": [
+        "Sign in to see it",
+        "Nothing: it only delivers a statement",
+        "Pay a fee"
+      ],
+      "correct": 1,
+      "cues": [
+        "nothing",
+        "attachment",
+        "pdf",
+        "sign"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "If you are unsure, open the SwissAlpBank app yourself and read the same statement there.",
+      "choices": [
+        "Reply to ask for a paper copy",
+        "Open the SwissAlpBank app yourself",
+        "Forward it to a friend first"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "yourself",
+        "documents"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the SwissAlpBank app yourself and read the statement there",
+      "outcome": "safe",
+      "consequence": "The same statement is there. You never needed the attachment."
+    },
+    {
+      "id": "open-pdf",
+      "label": "Open the PDF attachment",
+      "outcome": "safe",
+      "consequence": "It is a normal statement. A real .pdf from the real domain is fine to open."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to ask a question about the statement",
+      "outcome": "neutral",
+      "consequence": "Nobody reads replies to this address. Use the app or the number on your card."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. Same bank, same kind of attachment as the fake, but the file really is a PDF and nothing points to another address. Read file names to the end, and check the reply-to too."
+}

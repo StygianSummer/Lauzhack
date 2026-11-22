@@ -1,0 +1,173 @@
+{
+  "id": "pl-l3-legit",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 3,
+  "twin_of": "pl-l3-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "real_domain",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, your premium statement is ready",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your premium statement for this year is ready for you to read."
+      },
+      {
+        "t": "link",
+        "v": "Open the HelvetiCare app",
+        "href": "https://helveticare.example/app",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "You can also find it by opening the app yourself."
+      },
+      {
+        "t": "signature",
+        "v": "Your HelvetiCare team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on helveticare.example, the real domain."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Your first name is nice, but it is the domain that tells you who wrote it."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "The link text and the real address both belong to helveticare.example."
+    },
+    {
+      "id": "hs-own-channel",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It reminds you that you can open the app yourself."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "HelvetiCare: the address is on helveticare.example and the link goes to the same domain.",
+      "choices": [
+        "HelvetiCare, from its real domain",
+        "A scammer who copied the name",
+        "A broker who bought your data"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. It is a calm notice with no deadline.",
+      "choices": [
+        "None: it is a calm notice",
+        "Fear of losing cover",
+        "Greed for a refund"
+      ],
+      "correct": 0,
+      "cues": [
+        "calm",
+        "deadline",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing important: it offers a link to read your statement, and asks for no login or payment.",
+      "choices": [
+        "Nothing: it only offers a link to read a statement",
+        "Pay a late fee",
+        "Send your bank details"
+      ],
+      "correct": 0,
+      "cues": [
+        "nothing",
+        "statement",
+        "link",
+        "payment"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the HelvetiCare app yourself. The email says so too, so you never have to trust the link.",
+      "choices": [
+        "Open the HelvetiCare app yourself",
+        "Reply and ask for a printed copy",
+        "Forward it to a friend"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "yourself",
+        "official"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the HelvetiCare app yourself and read the statement",
+      "outcome": "safe",
+      "consequence": "The statement is there, exactly as promised."
+    },
+    {
+      "id": "click",
+      "label": "Click the link in the email to read it",
+      "outcome": "neutral",
+      "consequence": "It leads to the real site, so no harm. Opening the app yourself is still the safer habit."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignore it and read the statement later",
+      "outcome": "safe",
+      "consequence": "Nothing is lost. The statement waits in the app."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. Compare it with its look-alike: same name, same greeting, same link text, but the domain is the insurer's own and nothing is rushed. The domain is what to read."
+}

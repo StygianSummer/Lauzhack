@@ -1,0 +1,182 @@
+{
+  "id": "email-clouddrive-shared-file-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 24000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [
+      "curiosity",
+      "helpfulness"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "display_name_match",
+      "first_name_used",
+      "lookalike_sender",
+      "unexpected_attachment",
+      "has_attachment"
+    ],
+    "verify": "ask_colleague_in_person_or_phone"
+  },
+  "email": {
+    "from_name": "CloudDrive",
+    "from_address": "share@clouddrive-files.example",
+    "to": "{{email}}",
+    "subject": "Mara Keller a partagé « Facture 2291 » avec vous",
+    "received": "-PT55M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Mara Keller a partagé un fichier avec vous : Facture 2291."
+      },
+      {
+        "t": "text",
+        "v": "Ouvrez le fichier joint pour le consulter."
+      },
+      {
+        "t": "signature",
+        "v": "L'équipe CloudDrive"
+      }
+    ],
+    "attachments": [
+      "Facture_2291.pdf"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "clouddrive-files.example n'est pas le domaine de CloudDrive, clouddrive.example."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "CloudDrive partage les fichiers par lien, pas en pièce jointe. Un fichier inattendu est une raison de s'arrêter."
+    },
+    {
+      "id": "hs-name",
+      "target": "subject",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Le nom d'un collègue dans l'objet rassure, mais on copie facilement un nom depuis une liste de contacts volée."
+    },
+    {
+      "id": "hs-curiosity",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Facture 2291 » est volontairement vague, pour que vous l'ouvriez afin de savoir ce que c'est."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui imite CloudDrive. L'expéditeur est sur clouddrive-files.example, pas sur clouddrive.example. Le nom de la collègue n'est qu'un appât.",
+      "choices": [
+        "Quelqu'un qui utilise une adresse presque identique",
+        "CloudDrive lui-même",
+        "Mara Keller"
+      ],
+      "correct": 0,
+      "cues": [
+        "adresse",
+        "domaine",
+        "imitation",
+        "expéditeur"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La curiosité, et l'envie de rendre service à une collègue : vous voulez voir ce qu'elle a envoyé.",
+      "choices": [
+        "La curiosité pour le fichier d'une collègue",
+        "La peur d'une sanction",
+        "Aucune : c'est de la routine"
+      ],
+      "correct": 0,
+      "cues": [
+        "curiosité",
+        "facture",
+        "collègue",
+        "vague"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Ouvrir une pièce jointe que vous n'attendiez pas. Elle pourrait installer un logiciel malveillant ou afficher une fausse page de connexion.",
+      "choices": [
+        "Ouvrir une pièce jointe inattendue",
+        "Cliquer sur un lien et vous connecter",
+        "Répondre avec vos coordonnées"
+      ],
+      "correct": 0,
+      "cues": [
+        "pièce jointe",
+        "ouvrir",
+        "fichier",
+        "inattendu"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne l'ouvrez pas. Demandez à Mara par téléphone ou en personne, ou ouvrez CloudDrive vous-même et regardez si quelque chose a été partagé.",
+      "choices": [
+        "Demander à Mara par un canal que vous connaissez, ou ouvrir CloudDrive vous-même",
+        "Ouvrir le fichier au cas où il serait sans danger",
+        "Répondre à l'expéditeur pour demander ce que c'est"
+      ],
+      "correct": 0,
+      "cues": [
+        "demander",
+        "mara",
+        "téléphone",
+        "vous-même"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "ask-mara",
+      "label": "Demander à Mara par téléphone ou en personne si elle a partagé quelque chose",
+      "outcome": "safe",
+      "consequence": "Mara n'a rien partagé. Vous avez arrêté la pièce jointe avant qu'elle ne s'exécute."
+    },
+    {
+      "id": "open",
+      "label": "Ouvrir la pièce jointe pour voir ce que c'est",
+      "outcome": "unsafe",
+      "consequence": "Le fichier s'exécute et affiche une fausse page, ou installe un logiciel malveillant sur votre ordinateur."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre à l'expéditeur pour demander ce qu'est le fichier",
+      "outcome": "neutral",
+      "consequence": "L'escroc répond avec une histoire plus convaincante. Votre réponse lui montre aussi que votre adresse est active."
+    },
+    {
+      "id": "open-site",
+      "label": "Ouvrir CloudDrive vous-même et chercher les fichiers partagés",
+      "outcome": "safe",
+      "consequence": "Rien n'est partagé avec vous. L'e-mail était faux."
+    }
+  ],
+  "attacker_reveal": "Le nom d'une amie, une facture vague et un fichier prêt à ouvrir... Vous vouliez savoir ce que c'était. C'est tout ce qu'il me fallait."
+}

@@ -1,0 +1,4 @@
+# gradlew must keep LF endings or it breaks on Linux (CI, Docker), even when committed from Windows.
+/gradlew        text eol=lf
+*.bat           text eol=crlf
+*.jar           binary

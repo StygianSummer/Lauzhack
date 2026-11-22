@@ -1,0 +1,194 @@
+{
+  "id": "email-thisistea-lookalike-link-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [
+      "curiosity",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "link_text_mismatch",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea",
+    "from_address": "notifications@thisistae-app.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, your team workspace is ready",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your team has set up a shared ThisIsTea workspace. Sign in to join it."
+      },
+      {
+        "t": "link",
+        "v": "https://thisistea.example/signin",
+        "href": "https://thisistae-app.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Invitations expire after 48 hours."
+      },
+      {
+        "t": "signature",
+        "v": "The ThisIsTea team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "thisistae-app.example swaps two letters and adds a word. It is not thisistea.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Expire after 48 hours\" is a soft deadline to make you act first and check later."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The text shows thisistea.example, but the link really goes to thisistae-app.example. Only an address with thisistea.example right before the first slash belongs to ThisIsTea. The others swap letters or hide a different owner, like secure-login.example or thisistea-support.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Your first name is easy to find. It does not prove who wrote the email."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone imitating ThisIsTea. The sender is on thisistae-app.example, with two letters swapped. Read the owner, not the look.",
+      "choices": [
+        "ThisIsTea itself",
+        "Someone using a lookalike domain",
+        "Your team administrator"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "swapped",
+        "domain",
+        "lookalike"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Curiosity and a little hurry: a new workspace for your team, with an expiry.",
+      "choices": [
+        "Fear of arrest",
+        "Curiosity about a new workspace, with a deadline",
+        "None: it is routine"
+      ],
+      "correct": 1,
+      "cues": [
+        "workspace",
+        "invitation",
+        "48 hours",
+        "curiosity"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Sign in through the link, which would give your login to the sender.",
+      "choices": [
+        "Open an attachment",
+        "Sign in through a link",
+        "Pay a fee"
+      ],
+      "correct": 1,
+      "cues": [
+        "sign",
+        "link",
+        "login",
+        "click"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not use the link. Open ThisIsTea yourself, from a bookmark or by typing the address, and look for the workspace.",
+      "choices": [
+        "Click the link if it looks right",
+        "Open ThisIsTea yourself by typing its address",
+        "Reply to ask whether it is real"
+      ],
+      "correct": 1,
+      "cues": [
+        "yourself",
+        "bookmark",
+        "type",
+        "workspace"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "https://thisistea.example/signin",
+    "options": [
+      "thisistea.example",
+      "thisistae-app.example",
+      "thisistea-support.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "type-address",
+      "label": "Open ThisIsTea yourself by typing its address and look for the workspace",
+      "outcome": "safe",
+      "consequence": "There is no new workspace. The email was fake."
+    },
+    {
+      "id": "click",
+      "label": "Click the link and sign in",
+      "outcome": "unsafe",
+      "consequence": "The page looks like ThisIsTea, but your login goes to the scammer."
+    },
+    {
+      "id": "hover-click",
+      "label": "Hover first, then sign in because the shown address looks right",
+      "outcome": "unsafe",
+      "consequence": "The shown text was bait. The real address was something else."
+    },
+    {
+      "id": "report-it",
+      "label": "Report it to IT and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. The team can warn others."
+    }
+  ],
+  "attacker_reveal": "The link said thisistea.example, because the words on a link are mine to choose... The address underneath is where you really go. Which ones are real? Only the owner before the first slash."
+}

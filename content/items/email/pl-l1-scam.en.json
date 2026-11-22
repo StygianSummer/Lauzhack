@@ -1,0 +1,185 @@
+{
+  "id": "pl-l1-scam",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "typos",
+      "odd_sender",
+      "generic_greeting",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Parcel Point Delivary",
+    "from_address": "delivery.agent77@free-mailbox.example",
+    "to": "{{email}}",
+    "subject": "Your parcel is waiting!!! pay small fee",
+    "received": "-PT25M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Dear costumer,"
+      },
+      {
+        "t": "text",
+        "v": "Your parcle is held at our depot. You must pay a small fee of CHF 2.50 today or it will be send back."
+      },
+      {
+        "t": "link",
+        "v": "Pay fee now",
+        "href": "http://parcel-pay-fee.example/x7q",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Thank you for you patience."
+      },
+      {
+        "t": "signature",
+        "v": "Parcel Point Delivary Team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "A free-looking mailbox address, not parcelpoint.example. A real parcel company writes from its own domain."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"Dear costumer\" is generic and misspelt. Your real parcel company knows your name."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Today or it will be sent back\" is there to rush you."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A strange address on a different domain that has nothing to do with ParcelPoint."
+    },
+    {
+      "id": "hs-typos",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "More spelling mistakes. Companies proofread; scammers often do not."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Not ParcelPoint. The address is on free-mailbox.example, not parcelpoint.example, and the spelling mistakes are not how a real parcel company writes.",
+      "choices": [
+        "ParcelPoint's delivery team",
+        "Someone using a throwaway mailbox, not ParcelPoint",
+        "A neighbour holding your parcel"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "domain",
+        "spelling",
+        "greeting"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Hurry: pay today or lose the parcel.",
+      "choices": [
+        "Curiosity about a prize",
+        "Hurry: pay today or the parcel goes back",
+        "None: it is a plain notice"
+      ],
+      "correct": 1,
+      "cues": [
+        "today",
+        "deadline",
+        "hurry",
+        "rush"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Pay a fee through a link, which would hand your card details to the sender.",
+      "choices": [
+        "Collect the parcel from a neighbour",
+        "Pay a fee through a link",
+        "Nothing, it is for information"
+      ],
+      "correct": 1,
+      "cues": [
+        "pay",
+        "fee",
+        "link",
+        "card"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Ignore the link. Open the ParcelPoint app, or type the address yourself, and look up your parcels.",
+      "choices": [
+        "Pay the small fee, just in case",
+        "Look up your parcels in the ParcelPoint app, opened yourself",
+        "Reply and ask for a different link"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "yourself",
+        "official",
+        "tracking"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the ParcelPoint app yourself and check your parcels",
+      "outcome": "safe",
+      "consequence": "No parcel is on hold. The email was fake and you gave nothing away."
+    },
+    {
+      "id": "pay",
+      "label": "Pay the fee through the link",
+      "outcome": "unsafe",
+      "consequence": "Your card details go to the scammer, who can spend your money."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report the email as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. Nothing was clicked and your mail provider learns to catch the next one."
+    }
+  ],
+  "attacker_reveal": "Spelling mistakes, a stranger's address and a fee small enough that nobody checks... I did not even try. This still catches people who are waiting for a parcel."
+}

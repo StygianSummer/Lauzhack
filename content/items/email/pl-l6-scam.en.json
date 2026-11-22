@@ -1,0 +1,180 @@
+{
+  "id": "pl-l6-scam",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 32000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "colleague",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Mara Keller",
+    "from_address": "mara.keller@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re: Volunteer rota for December",
+    "received": "-PT15M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Thanks for sorting the rota yesterday. One more thing before I forget."
+      },
+      {
+        "t": "text",
+        "v": "Can you send me the full volunteer list with phone numbers and home addresses? Just reply here with it pasted in. I am travelling and cannot open the shared folder."
+      },
+      {
+        "t": "text",
+        "v": "You wrote on Tuesday: \"The rota is final, and the contact sheet is in the shared folder.\""
+      },
+      {
+        "t": "signature",
+        "v": "Mara"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address really is Mara's, and the thread is real. That is what makes this dangerous: a hijacked account passes every address check."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A full list of names, phones and home addresses is sensitive. Asking for it pasted into a reply, because the shared folder \"cannot be opened\", is out of character."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Quoting your own words makes this feel real, but whoever reads the inbox can copy them."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "who",
+      "red_flag": false,
+      "explain": "A genuine reply to a real thread. Nothing wrong here, and nothing reassuring either."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Possibly not Mara. The address and the thread are real, so someone may be using her hijacked account. Only a call to Mara can tell.",
+      "choices": [
+        "Maybe Mara, maybe someone who took over her account",
+        "Definitely Mara, since the thread is real",
+        "A stranger with a lookalike address"
+      ],
+      "correct": 0,
+      "cues": [
+        "thread",
+        "hijacked",
+        "account",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Helpfulness and a little hurry: a colleague in a bind who needs your help.",
+      "choices": [
+        "Helpfulness towards a colleague in a bind",
+        "Fear of losing your job",
+        "Excitement about a bonus"
+      ],
+      "correct": 0,
+      "cues": [
+        "help",
+        "colleague",
+        "travelling",
+        "bind"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Reply with the volunteers' personal details. That would leak names, phones and addresses.",
+      "choices": [
+        "Reply with the volunteers' personal details",
+        "Click a link and sign in",
+        "Open an attachment"
+      ],
+      "correct": 0,
+      "cues": [
+        "reply",
+        "list",
+        "personal",
+        "addresses"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not reply. Call Mara on the number you already have, or ask in person or in TeamChat, to check she really sent it.",
+      "choices": [
+        "Call Mara on a number you already know",
+        "Reply to ask if it is really her",
+        "Send only half of the list"
+      ],
+      "correct": 0,
+      "cues": [
+        "call",
+        "known number",
+        "mara",
+        "another channel"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-mara",
+      "label": "Call Mara on her usual number and ask",
+      "outcome": "safe",
+      "consequence": "Mara knows nothing about the email. Her account was taken over and you warn her in time."
+    },
+    {
+      "id": "reply-data",
+      "label": "Reply with the volunteer list",
+      "outcome": "unsafe",
+      "consequence": "Every volunteer's phone number and home address is now in a stranger's hands."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Reply and ask \"Is this really you?\"",
+      "outcome": "unsafe",
+      "consequence": "Whoever controls the account answers \"yes, of course\". You only asked the impostor."
+    },
+    {
+      "id": "tell-it",
+      "label": "Tell IT or your lead that Mara's account may be taken over",
+      "outcome": "safe",
+      "consequence": "Good call. The team can lock the account before it is used on someone else."
+    }
+  ],
+  "attacker_reveal": "I did not need to fake anything... Mara's own account wrote to you, with her own words in the thread. The only thing that looked off was what I asked for. Look at the request, and check it another way."
+}

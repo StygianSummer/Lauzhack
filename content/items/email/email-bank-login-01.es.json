@@ -1,0 +1,84 @@
+{
+  "id": "email-bank-login-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": ["practice", "phase_b"],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": ["fear", "urgency"],
+    "ask": "click_login",
+    "surface_clues": ["lookalike_sender", "generic_greeting", "short_deadline", "lookalike_link"],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Seguridad de SwissAlpBank",
+    "from_address": "security@swissalpbank-alerts.example",
+    "to": "{{email}}",
+    "subject": "Urgente: van a sacar 2450,00 CHF de tu cuenta",
+    "received": "-PT12M",
+    "body": [
+      { "t": "text", "v": "Estimado cliente:" },
+      { "t": "text", "v": "Hemos detenido una transferencia de 2450,00 CHF desde tu cuenta a un destinatario que no reconocemos. Si no confirmas tu identidad en 30 minutos, la transferencia se realizará y no podrá revertirse." },
+      { "t": "link", "v": "Detener la transferencia ahora", "href": "https://swissalpbank-secure-login.example/stop", "hotspot": "hs-link" },
+      { "t": "text", "v": "Por tu seguridad, no ignores este mensaje." },
+      { "t": "signature", "v": "Equipo de protección al cliente de SwissAlpBank" }
+    ]
+  },
+  "hotspots": [
+    { "id": "hs-from-address", "target": "from_address", "step": "who", "red_flag": true, "explain": "La dirección termina en swissalpbank-alerts.example, no en el dominio real del banco, swissalpbank.example. Cualquiera puede registrar un nombre que se parezca." },
+    { "id": "hs-greeting", "target": "body:0", "step": "who", "red_flag": true, "explain": "\"Estimado cliente\": tu banco de verdad sabe cómo te llamas y lo usa." },
+    { "id": "hs-subject", "target": "subject", "step": "emotion", "red_flag": true, "explain": "Una cantidad grande y la palabra \"Urgente\" en el asunto están ahí para que entres en pánico antes de pensar." },
+    { "id": "hs-deadline", "target": "body:1", "step": "emotion", "red_flag": true, "explain": "Un plazo de 30 minutos no te deja tiempo para comprobar. Tu banco de verdad te da tiempo y otras formas de contactar con él." },
+    { "id": "hs-link", "target": "link", "step": "ask", "red_flag": true, "explain": "El botón dice \"Detener la transferencia ahora\", pero lleva a swissalpbank-secure-login.example, un dominio distinto que solo se parece al del banco." },
+    { "id": "hs-signature", "target": "body:4", "step": "who", "red_flag": false, "explain": "Una firma es fácil de copiar. Por sí sola no es una señal de alarma, pero tampoco demuestra nada." }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por SwissAlpBank. El nombre dice SwissAlpBank, pero la dirección es de swissalpbank-alerts.example, que no es el dominio del banco.",
+      "choices": ["SwissAlpBank, porque lo dice el nombre", "Alguien que usa una dirección que solo se parece a la del banco", "Tu asesor personal del banco"],
+      "correct": 1,
+      "cues": ["Compara la dirección del remitente con swissalpbank.example.", "Un nombre visible puede ser cualquier cosa."]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Miedo y prisa: una cantidad grande de dinero está a punto de salir de tu cuenta y solo tienes 30 minutos.",
+      "choices": ["Miedo a perder dinero, con prisa por actuar", "Curiosidad por una oferta nueva", "Ninguna: es un aviso rutinario y tranquilo"],
+      "correct": 0,
+      "cues": ["Mira el asunto.", "¿Hay un plazo?"]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pulsar el enlace e iniciar sesión, lo que entregaría tus datos de acceso a quien escribió el correo.",
+      "choices": ["Pulsar un enlace e iniciar sesión", "Llamar al número del reverso de tu tarjeta", "Nada: es solo informativo"],
+      "correct": 0,
+      "cues": ["¿Adónde lleva el botón?"]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ignora el enlace. Abre la app de SwissAlpBank, o escribe tú mismo la dirección del banco, y mira tus movimientos recientes.",
+      "choices": ["Pulsar el enlace para ver si es real", "Abrir tú mismo la app de SwissAlpBank y revisar tu cuenta", "Responder al correo y preguntar si es auténtico"],
+      "correct": 1,
+      "cues": ["Un canal que controlas es uno que abres tú mismo, no el que te da el correo."]
+    }
+  },
+  "link_question": {
+    "shown_text": "Detener la transferencia ahora",
+    "options": ["swissalpbank.example", "swissalpbank-secure-login.example", "thisistea.example"],
+    "correct": 1
+  },
+  "actions": [
+    { "id": "open-app", "label": "Abrir tú mismo la app de SwissAlpBank y revisar tus movimientos recientes", "outcome": "safe", "consequence": "No aparece ninguna transferencia. El correo era falso y no entregaste nada." },
+    { "id": "click-link", "label": "Pulsar \"Detener la transferencia ahora\" e iniciar sesión", "outcome": "unsafe", "consequence": "La página se parece a tu banco, pero tus datos de acceso van directos al estafador, que ahora puede entrar en tu cuenta." },
+    { "id": "reply", "label": "Responder y preguntar si el correo es auténtico", "outcome": "neutral", "consequence": "El estafador responde que es auténtico y te presiona más. Tu respuesta también le dice que tu dirección está en uso." },
+    { "id": "report-delete", "label": "Denunciar el correo como phishing y borrarlo", "outcome": "safe", "consequence": "Buena decisión. No se pulsó nada y tu proveedor de correo aprende a detectar correos parecidos." }
+  ],
+  "attacker_reveal": "Copié el nombre del banco, elegí una dirección que se parece lo bastante e inventé un pago para asustarte. El plazo de 30 minutos estaba ahí para que pulsaras antes de comprobar. Si hubieras iniciado sesión en mi página, tendría tu contraseña."
+}

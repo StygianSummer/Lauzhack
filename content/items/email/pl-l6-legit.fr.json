@@ -1,0 +1,171 @@
+{
+  "id": "pl-l6-legit",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 6,
+  "twin_of": "pl-l6-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 31000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "colleague",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Mara Keller",
+    "from_address": "mara.keller@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re : Planning des bénévoles pour décembre",
+    "received": "-PT20M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Merci d'avoir réglé le planning hier. Encore une chose avant que j'oublie."
+      },
+      {
+        "t": "text",
+        "v": "Pourriez-vous déposer le planning de cette semaine dans le dossier partagé TeamChat ? S'il ne s'ouvre pas chez vous, appelez-moi et nous trouverons une solution."
+      },
+      {
+        "t": "text",
+        "v": "Vous écriviez mardi : « Le planning est final, et la fiche de contacts est dans le dossier partagé. »"
+      },
+      {
+        "t": "signature",
+        "v": "Mara"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse est celle de Mara et la discussion est réelle. Seule, cette preuve ne vaut pas grand-chose, mais ici le reste concorde."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Une demande normale : un planning, pas de données personnelles, et il va dans le dossier partagé, pas dans une réponse privée."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Il cite vos propres mots, ce qui correspond à une vraie conversation."
+    },
+    {
+      "id": "hs-ring",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Elle propose un appel téléphonique en cas de souci. C'est un canal que vous pouvez utiliser."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Mara, très probablement : une vraie discussion, une demande ordinaire et une proposition d'en parler par téléphone.",
+      "choices": [
+        "Mara, très probablement",
+        "Quelqu'un qui utilise une adresse presque identique",
+        "Un inconnu"
+      ],
+      "correct": 0,
+      "cues": [
+        "discussion",
+        "mara",
+        "demande",
+        "réel"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Pratiquement aucune. C'est une demande amicale et quotidienne.",
+      "choices": [
+        "Aucune : c'est une demande de tous les jours",
+        "La peur de perdre votre emploi",
+        "L'envie d'une prime"
+      ],
+      "correct": 0,
+      "cues": [
+        "quotidien",
+        "amical",
+        "calme"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Déposer le planning dans le dossier partagé. Ce n'est pas sensible et rien n'est envoyé en privé.",
+      "choices": [
+        "Déposer le planning dans le dossier partagé TeamChat",
+        "Envoyer par réponse la liste des numéros de téléphone des bénévoles",
+        "Cliquer sur un lien et vous connecter"
+      ],
+      "correct": 0,
+      "cues": [
+        "planning",
+        "dossier",
+        "partagé",
+        "rien"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Si quoi que ce soit vous gêne, appelez Mara au numéro que vous avez déjà. Pour cette demande, vous pouvez simplement le faire vous-même dans TeamChat.",
+      "choices": [
+        "Utiliser TeamChat vous-même, ou appeler Mara en cas de doute",
+        "Répondre pour demander si c'est bien elle",
+        "L'ignorer pour toujours"
+      ],
+      "correct": 0,
+      "cues": [
+        "teamchat",
+        "appeler",
+        "numéro connu"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "upload",
+      "label": "Déposer le planning dans le dossier partagé TeamChat, comme demandé",
+      "outcome": "safe",
+      "consequence": "C'est fait. Rien de sensible n'a été envoyé et rien n'a été saisi sur une page étrange."
+    },
+    {
+      "id": "call-mara",
+      "label": "Appeler d'abord Mara, par excès de prudence",
+      "outcome": "safe",
+      "consequence": "Elle confirme. Un petit appel n'est jamais perdu."
+    },
+    {
+      "id": "reply-list",
+      "label": "Répondre en ajoutant les numéros de téléphone des bénévoles, pour gagner du temps",
+      "outcome": "unsafe",
+      "consequence": "Elle ne l'a pas demandé. N'envoyez pas de données personnelles que personne n'a réclamées."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère. Il ressemble presque à celui qui réclamait toute la liste de contacts, mais cette demande est ordinaire et reste dans le dossier partagé. À ce niveau, la question est toujours ce qu'on vous demande."
+}

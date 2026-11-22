@@ -1,0 +1,18 @@
+{
+  "id": "practice-email-01",
+  "subject": "Inicio de sesión inusual en tu cuenta de ThisIsTea",
+  "text": "Hola {{first_name}},\n\nHemos detectado un inicio de sesión en tu cuenta de ThisIsTea desde un dispositivo que no reconocemos. Si no fuiste tú, tu cuenta y tu progreso pueden estar en riesgo.\n\nPor tu seguridad, confirma que eres tú e inicia sesión en tu cuenta ahora:\n{{click_url}}\n\nGracias por ayudarnos a mantener ThisIsTea seguro.\nEl equipo de seguridad de ThisIsTea\n\nGestionar los correos de ThisIsTea: {{settings_url}}\n",
+  "html": "<p>Hola {{first_name}},</p>\n<p>Hemos detectado un inicio de sesión en tu cuenta de ThisIsTea desde un dispositivo que no reconocemos. Si no fuiste tú, tu cuenta y tu progreso pueden estar en riesgo.</p>\n<p>Por tu seguridad, confirma que eres tú e inicia sesión en tu cuenta ahora:</p>\n<p><a href=\"{{click_url}}\" style=\"display:inline-block;background:#1f8f6b;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none\">Iniciar sesión en mi cuenta</a></p>\n<p>Gracias por ayudarnos a mantener ThisIsTea seguro.<br>El equipo de seguridad de ThisIsTea</p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gestionar los correos de ThisIsTea</a></p>\n",
+  "reveal": {
+    "steps": {
+      "who": "El nombre decía ThisIsTea, pero un nombre en un correo es fácil de falsificar. ThisIsTea nunca te pide iniciar sesión desde un enlace en un correo, así que no era un mensaje normal de ThisIsTea.",
+      "emotion": "Usaba la preocupación: la idea de que un desconocido ya estaba en tu cuenta, para que hicieras clic de inmediato en vez de comprobarlo primero.",
+      "ask": "Quería que hicieras clic y escribieras tu contraseña de ThisIsTea en una página que no era la nuestra.",
+      "verify": "Abre ThisIsTea tú mismo, desde tu marcador o escribiendo la dirección, y revisa tu cuenta allí. Nunca inicies sesión desde un enlace de un correo que no esperabas."
+    },
+    "hints": [
+      "Un enlace de inicio de sesión que no pediste es una señal de alarma, aunque el correo use el nombre correcto.",
+      "Los servicios reales te permiten iniciar sesión desde la aplicación o tu propio marcador, no solo desde un enlace de correo."
+    ]
+  }
+}

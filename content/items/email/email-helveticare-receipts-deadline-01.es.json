@@ -1,0 +1,173 @@
+{
+  "id": "email-helveticare-receipts-deadline-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Reembolsos HelvetiCare",
+    "from_address": "claims@helveticare.example",
+    "to": "{{email}}",
+    "subject": "Envía tus recibos antes del 31 de diciembre",
+    "received": "-PT6H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Los recibos de este año solo se pueden reembolsar si los subes antes del 31 de diciembre."
+      },
+      {
+        "t": "text",
+        "v": "Súbelos en la app de HelvetiCare, en el apartado Reembolsos. Lleva unos minutos."
+      },
+      {
+        "t": "text",
+        "v": "Nunca pedimos recibos ni datos bancarios por correo."
+      },
+      {
+        "t": "signature",
+        "v": "Reembolsos HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de helveticare.example, el dominio real de la aseguradora."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Es un plazo real, pero no se oculta nada: dice qué, dónde y para cuándo. La urgencia por sí sola no convierte un correo en una estafa."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te dice que uses la app, no un enlace."
+    },
+    {
+      "id": "hs-never",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Dice claramente que nunca pide recibos ni datos bancarios por correo."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "HelvetiCare: la dirección es de helveticare.example.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "HelvetiCare, desde su dominio real",
+        "Tu empresa"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "dominio",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Algo de urgencia, por un plazo real, pero sin amenazas ni trucos.",
+      "choices": [
+        "Miedo a que te detengan",
+        "Algo de urgencia, por un plazo real",
+        "Ninguna en absoluto"
+      ],
+      "correct": 1,
+      "cues": [
+        "plazo",
+        "diciembre",
+        "urgencia",
+        "real"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Subir tus recibos en la app. Ningún recibo ni dato bancario va por correo.",
+      "choices": [
+        "Responder con tus datos bancarios",
+        "Subir los recibos en la app",
+        "Pulsar un enlace e iniciar sesión"
+      ],
+      "correct": 1,
+      "cues": [
+        "subir",
+        "app",
+        "recibos",
+        "reembolsos"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de HelvetiCare. El correo te lo indica.",
+      "choices": [
+        "Responder con los recibos adjuntos",
+        "Abrir tú mismo la app de HelvetiCare",
+        "Pulsar un enlace del correo"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "tú mismo",
+        "reembolsos"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de HelvetiCare y subir los recibos",
+      "outcome": "safe",
+      "consequence": "La subida funciona y tu solicitud llega a tiempo."
+    },
+    {
+      "id": "later",
+      "label": "Anotarlo y subirlos la semana que viene",
+      "outcome": "safe",
+      "consequence": "Está bien: el plazo es real, así que solo tenlo presente."
+    },
+    {
+      "id": "reply",
+      "label": "Responder con los recibos adjuntos",
+      "outcome": "unsafe",
+      "consequence": "El correo decía que nunca piden recibos por correo. Usa la app."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Tiene un plazo, pero el dominio es el correcto, no hay ningún enlace y dice qué hacer en la app. Un plazo no es prueba de una trampa."
+}

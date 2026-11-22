@@ -1,0 +1,5 @@
+{
+  "id": "lesson-reminder-01",
+  "subject": "Your ThisIsTea lesson is waiting",
+  "text": "Hello {{first_name}},\n\nYour practice lesson is waiting whenever you are ready. You can pick up where you left off:\n{{lesson_url}}\n\nManage ThisIsTea emails: {{settings_url}}\n"
+}

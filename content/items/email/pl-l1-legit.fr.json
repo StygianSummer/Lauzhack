@@ -1,0 +1,171 @@
+{
+  "id": "pl-l1-legit",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 1,
+  "twin_of": "pl-l1-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "notifications@parcelpoint.example",
+    "to": "{{email}}",
+    "subject": "Votre colis est en route",
+    "received": "-PT40M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "Votre colis a quitté notre dépôt et sera livré demain. Vous n'avez rien à faire."
+      },
+      {
+        "t": "link",
+        "v": "Suivre votre colis",
+        "href": "https://parcelpoint.example/track",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Vous pouvez aussi le suivre dans l'application ParcelPoint."
+      },
+      {
+        "t": "signature",
+        "v": "ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse se termine par parcelpoint.example, le vrai domaine de l'entreprise."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Aucun délai et aucun paiement. Il se contente de vous dire ce qui se passe."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Le lien mène à parcelpoint.example, le vrai domaine. Malgré tout, l'application reste le moyen le plus sûr de regarder."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il vous renvoie vers l'application, un canal que vous contrôlez déjà."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "ParcelPoint lui-même : l'adresse est sur parcelpoint.example et l'orthographe est propre.",
+      "choices": [
+        "Un escroc avec une adresse presque identique",
+        "ParcelPoint, depuis son vrai domaine",
+        "Un inconnu avec une boîte e-mail gratuite"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "domaine",
+        "vrai"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Aucune. C'est une information calme, sans délai.",
+      "choices": [
+        "La peur de perdre le colis",
+        "Aucune : c'est une information calme",
+        "L'envie d'un cadeau gratuit"
+      ],
+      "correct": 1,
+      "cues": [
+        "calme",
+        "délai",
+        "pression"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Rien. Il vous dit seulement que le colis est en route et propose un lien de suivi.",
+      "choices": [
+        "Payer des frais de manutention",
+        "Rien : il ne fait que vous informer",
+        "Envoyer votre numéro de carte"
+      ],
+      "correct": 1,
+      "cues": [
+        "rien",
+        "information",
+        "suivi",
+        "paiement"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Vous n'avez rien à faire. Si vous voulez regarder, ouvrez vous-même l'application ParcelPoint.",
+      "choices": [
+        "Répondre avec votre adresse",
+        "Ouvrir vous-même l'application ParcelPoint si vous voulez regarder",
+        "Le transférer à un ami pour qu'il vérifie"
+      ],
+      "correct": 1,
+      "cues": [
+        "application",
+        "vous-même",
+        "officiel"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application ParcelPoint si vous voulez vérifier",
+      "outcome": "safe",
+      "consequence": "Vous voyez la même date de livraison. Il n'y avait rien à faire."
+    },
+    {
+      "id": "ignore",
+      "label": "Ne rien faire et attendre le colis",
+      "outcome": "safe",
+      "consequence": "Le colis arrive demain. Il n'y avait rien à faire."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre avec votre adresse personnelle, au cas où",
+      "outcome": "neutral",
+      "consequence": "L'adresse « ne pas répondre » ne répond pas. Vous n'avez rien donné d'utile, mais il n'y avait rien à faire non plus."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère. Il vient du domaine propre de l'entreprise, ne demande rien et ne fixe aucun délai. Un avis de colis qui ne fait que vous informer, voilà à quoi ressemble un vrai."
+}

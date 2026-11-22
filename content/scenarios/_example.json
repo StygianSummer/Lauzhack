@@ -1,0 +1,57 @@
+{
+  "_comment": "DRAFT contract between content, engine and phone UI. Change the shape only with a decision entry. Fictional names only. Slot values and categories: docs/scenario-engine.md. 'category': scam | legit | misaligned_incentive. 'variant_of': id of the seed this was generated from (null for human-written seeds). 'operators': variation operators applied.",
+  "id": "seniors-fake-bank-sms-01",
+  "pack": "seniors",
+  "category": "scam",
+  "language": "en",
+  "country": "CH",
+  "variant_of": null,
+  "operators": [],
+  "held_out": false,
+  "slots": {
+    "identity": "bank",
+    "channel": "sms",
+    "emotion": ["fear", "urgency"],
+    "ask": "click_login",
+    "isolation": null,
+    "surface_clues": ["odd_sender", "lookalike_link"],
+    "length": "single",
+    "verify": "official_app_or_card_number"
+  },
+  "channel": "sms",
+  "sender": { "display": "SwissAlpBank", "address": "+41 79 000 00 00" },
+  "messages": [
+    {
+      "from": "sender",
+      "text": "SwissAlpBank: Unusual login detected. Your account will be blocked in 2 hours. Confirm your identity: swissalp-secure-login.example"
+    }
+  ],
+  "actions": [
+    { "id": "tap_link", "label": "Open the link", "outcome": "unsafe", "consequence": "The page asks for your e-banking login and the code from your app. The scammers empty the account." },
+    { "id": "reply", "label": "Reply to ask if it's real", "outcome": "unsafe", "consequence": "The scammer confirms it's urgent and pushes harder." },
+    { "id": "call_card_number", "label": "Call the number on your bank card", "outcome": "safe", "consequence": "The bank confirms they sent nothing. You report the SMS." },
+    { "id": "ignore", "label": "Ignore and delete", "outcome": "safe", "consequence": "Nothing happens. Reporting it would help others too." }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really talking to you?",
+      "answer": "Anyone can type a bank's name as the SMS sender. The number and the link are not the bank's.",
+      "cues": ["sender name can be faked", "unknown mobile number", "link domain is not the bank's"]
+    },
+    "emotion": {
+      "prompt": "What feeling are they trying to create?",
+      "answer": "Fear and urgency: 'blocked in 2 hours'.",
+      "cues": ["deadline", "threat of losing access"]
+    },
+    "ask": {
+      "prompt": "What exactly do they want you to do?",
+      "answer": "Open a link and type your login, which gives them your credentials.",
+      "cues": ["click a link", "enter credentials"]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Call the number printed on your bank card, or open the bank's app yourself.",
+      "cues": ["number on the card", "official app opened by yourself"]
+    }
+  }
+}

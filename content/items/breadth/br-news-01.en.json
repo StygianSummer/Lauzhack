@@ -1,0 +1,41 @@
+{
+  "id": "br-news-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "news",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 20000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "news_outlet",
+    "channel": "web",
+    "emotion": [
+      "curiosity",
+      "social_proof"
+    ],
+    "ask": "forward_message",
+    "surface_clues": [
+      "no_named_source",
+      "share_before_deleted"
+    ],
+    "verify": "check_other_outlets"
+  },
+  "news": {
+    "headline": "Free train passes for everyone over 60 from Monday, says insider. Share before it is deleted!",
+    "source": "The Daily Lantern Online",
+    "date": "2026-11-18",
+    "real": false,
+    "tells": [
+      "It quotes only an unnamed \"insider\" and no official body.",
+      "No other news outlet you know reports it.",
+      "It urges you to share before it is \"deleted\", which is a pressure tactic.",
+      "Check the railway company's own website before you forward anything."
+    ]
+  },
+  "attacker_reveal": "A big free gift and a reason to hurry... you did the spreading for me. Always check a second source before you forward."
+}

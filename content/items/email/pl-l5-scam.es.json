@@ -1,0 +1,182 @@
+{
+  "id": "pl-l5-scam",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "routine"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "first_name_used",
+      "lookalike_sender",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "service@parcelpoint-delivery.example",
+    "to": "{{email}}",
+    "subject": "Cargo de aduana por tu paquete",
+    "received": "-PT3H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Tu paquete de una tienda del extranjero ha llegado a Suiza. Antes de la entrega hay que abonar un cargo de gestión aduanera de 3,20 CHF."
+      },
+      {
+        "t": "link",
+        "v": "Pagar el cargo de 3,20 CHF",
+        "href": "https://parcelpoint-delivery.example/charge/58213",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Una vez pagado, tu paquete se entregará en un plazo de dos días laborables."
+      },
+      {
+        "t": "signature",
+        "v": "Atención al cliente de ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "parcelpoint-delivery.example no es el dominio de ParcelPoint, parcelpoint.example. Es el único descuido de todo el correo."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Sin plazo, sin amenaza y sin erratas. Una estafa no tiene por qué gritar."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "El enlace coincide con el remitente, pero los dos están en el dominio parecido. Que coincidan entre sí no los hace reales."
+    },
+    {
+      "id": "hs-amount",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Una tasa pequeña, para que no te lo pienses dos veces antes de pagar. La página de pago se llevaría los datos de tu tarjeta."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por ParcelPoint. Todo es correcto salvo el dominio: parcelpoint-delivery.example no es parcelpoint.example.",
+      "choices": [
+        "ParcelPoint, porque todo lo demás es correcto",
+        "Un agente de aduanas",
+        "Alguien que usa un dominio parecido"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "parecido",
+        "remitente"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Apenas ninguna. Es tranquilo y rutinario, lo que hace que sea más fácil fiarse.",
+      "choices": [
+        "Pánico por una multa",
+        "Enfado por un retraso",
+        "Muy poca: es tranquilo y rutinario"
+      ],
+      "correct": 2,
+      "cues": [
+        "tranquilo",
+        "rutinario",
+        "pequeño",
+        "confianza"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pagar un cargo pequeño mediante un enlace. Eso entregaría los datos de tu tarjeta a quien lo escribió.",
+      "choices": [
+        "Recoger tú mismo un paquete",
+        "Nada, es solo informativo",
+        "Pagar un cargo pequeño mediante un enlace"
+      ],
+      "correct": 2,
+      "cues": [
+        "pagar",
+        "cargo",
+        "enlace",
+        "tarjeta"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ignora el enlace. Abre la app de ParcelPoint, o escribe tú mismo su dirección, y mira si de verdad hay un cargo pendiente.",
+      "choices": [
+        "Pagar: son solo 3,20 CHF",
+        "Responder para pedir el formulario de aduanas",
+        "Abrir tú mismo la app de ParcelPoint"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "tú mismo",
+        "cargo",
+        "oficial"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de ParcelPoint y buscar si hay un cargo",
+      "outcome": "safe",
+      "consequence": "No aparece ningún cargo. El correo era falso."
+    },
+    {
+      "id": "pay",
+      "label": "Pagar los 3,20 CHF, porque es muy poco",
+      "outcome": "unsafe",
+      "consequence": "Los datos de tu tarjeta van al estafador. Las tasas pequeñas son su forma de conseguirlos."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No se pulsó nada."
+    },
+    {
+      "id": "reply",
+      "label": "Responder y pedir el formulario de aduanas",
+      "outcome": "neutral",
+      "consequence": "El estafador te envía un formulario falso. Tu respuesta también demuestra que tu dirección está en uso."
+    }
+  ],
+  "attacker_reveal": "Sin prisas, sin erratas, sin amenazas... Las señales superficiales son para principiantes. Un correo tranquilo en un dominio parecido gana siempre a uno ruidoso."
+}

@@ -1,0 +1,164 @@
+{
+  "id": "pl-l2-legit-b",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "pl-l2-scam-b",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare.example",
+    "to": "{{email}}",
+    "subject": "Tu extracto de reembolsos está listo",
+    "received": "-PT3H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola:"
+      },
+      {
+        "t": "text",
+        "v": "Tu último extracto de reembolsos está listo. Puedes leerlo en la app de HelvetiCare, en el apartado Documentos."
+      },
+      {
+        "t": "text",
+        "v": "Nunca enviamos extractos por correo y nunca pedimos datos bancarios por correo."
+      },
+      {
+        "t": "signature",
+        "v": "HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de helveticare.example, el dominio real de la aseguradora."
+    },
+    {
+      "id": "hs-no-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "No pide nada. Solo te dice dónde mirar."
+    },
+    {
+      "id": "hs-never-asks",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Una aseguradora de verdad dice claramente que nunca pide datos bancarios por correo."
+    },
+    {
+      "id": "hs-calm",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Un asunto sencillo, sin cifras llamativas y sin plazo."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "El propio HelvetiCare: la dirección es de helveticare.example.",
+      "choices": [
+        "HelvetiCare, desde su dominio real",
+        "Un estafador que usa una dirección parecida",
+        "Un corredor que te vende un plan nuevo"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "aseguradora"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Ninguna. Es un aviso sencillo y tranquilo.",
+      "choices": [
+        "Ninguna: es un aviso tranquilo",
+        "Ganas de recibir un reembolso",
+        "Miedo a perder la cobertura"
+      ],
+      "correct": 0,
+      "cues": [
+        "tranquilo",
+        "sencillo",
+        "presión"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Nada, aparte de leer tu extracto en la app si quieres.",
+      "choices": [
+        "Nada, aparte de leerlo en la app",
+        "Responder con tu número de cuenta bancaria",
+        "Pulsar un enlace e iniciar sesión"
+      ],
+      "correct": 0,
+      "cues": [
+        "nada",
+        "app",
+        "extracto"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de HelvetiCare y mira en Documentos. El propio correo te lo dice.",
+      "choices": [
+        "Abrir tú mismo la app de HelvetiCare",
+        "Responder y pedir el extracto",
+        "Llamar al número que aparece en el correo"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "tú mismo",
+        "documentos"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de HelvetiCare y leer el extracto",
+      "outcome": "safe",
+      "consequence": "El extracto está ahí. No hacía falta nada del correo."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignorar el correo, porque leerás el extracto más tarde",
+      "outcome": "safe",
+      "consequence": "No se pierde nada. El extracto espera en la app."
+    },
+    {
+      "id": "reply",
+      "label": "Responder con tu número de cuenta bancaria para que te paguen antes",
+      "outcome": "unsafe",
+      "consequence": "El correo decía que nunca lo piden. No envíes nunca datos bancarios por correo, ni siquiera a un remitente real."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Viene del dominio de la propia aseguradora, no tiene enlace y dice en voz alta que nunca pide datos bancarios. Compáralo con el correo del reembolso: la misma empresa, una petición muy distinta."
+}

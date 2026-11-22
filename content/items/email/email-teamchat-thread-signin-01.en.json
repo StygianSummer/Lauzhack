@@ -1,0 +1,193 @@
+{
+  "id": "email-teamchat-thread-signin-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Jonas Meier",
+    "from_address": "jonas.meier@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re: Thursday meeting notes",
+    "received": "-PT22M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "I moved the notes to a new TeamChat page so everyone can edit them. You may need to sign in again to see it."
+      },
+      {
+        "t": "link",
+        "v": "Open the notes in TeamChat",
+        "href": "https://teamchat-signin.example/s/9",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "You wrote on Wednesday: \"The notes are final, I will share them after the call.\""
+      },
+      {
+        "t": "signature",
+        "v": "Jonas"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address really is Jonas's and the thread is real. A hijacked account passes every address check."
+    },
+    {
+      "id": "hs-habit",
+      "target": "body:1",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Jonas normally shares notes in the shared folder. A new page that needs a fresh sign-in is out of character, and a real address does not prove the real person wrote it."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "teamchat-signin.example is not TeamChat's domain. A thief using Jonas's account can send any link."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Quoting your own words fits a real thread, but anyone reading the inbox can copy them."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Possibly not Jonas. The address and the thread are real, so his account may have been taken over. Only a call can tell.",
+      "choices": [
+        "Definitely Jonas, since the thread is real",
+        "A stranger with a lookalike address",
+        "Maybe Jonas, maybe someone using his hijacked account"
+      ],
+      "correct": 2,
+      "cues": [
+        "thread",
+        "hijacked",
+        "account",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Helpfulness: a colleague made things easier for the whole team.",
+      "choices": [
+        "Fear of a penalty",
+        "Greed for a prize",
+        "A wish to be helpful and to keep up with the team"
+      ],
+      "correct": 2,
+      "cues": [
+        "help",
+        "colleague",
+        "team",
+        "notes"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Sign in again through a link, which would give your TeamChat login to whoever controls Jonas's account.",
+      "choices": [
+        "Send the volunteer list",
+        "Open an attachment",
+        "Sign in again through a link"
+      ],
+      "correct": 2,
+      "cues": [
+        "sign in",
+        "link",
+        "login",
+        "again"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not use the link. Open TeamChat yourself and look for the notes, or call Jonas on the number you already have.",
+      "choices": [
+        "Click the link, because the thread is real",
+        "Reply to ask if it is him",
+        "Open TeamChat yourself, or call Jonas on a known number"
+      ],
+      "correct": 2,
+      "cues": [
+        "teamchat",
+        "yourself",
+        "call",
+        "known number"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Open the notes in TeamChat",
+    "options": [
+      "teamchat.example",
+      "teamchat-signin.example",
+      "northfield-aid.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-yourself",
+      "label": "Open TeamChat yourself and look for the notes, or call Jonas",
+      "outcome": "safe",
+      "consequence": "No new page exists. Jonas knows nothing about the email."
+    },
+    {
+      "id": "click",
+      "label": "Click the link and sign in, since the thread is real",
+      "outcome": "unsafe",
+      "consequence": "The sign-in page copies your login for whoever controls the account."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Reply and ask \"Is this really you?\"",
+      "outcome": "unsafe",
+      "consequence": "Whoever controls the account answers yes. You only asked the impostor."
+    },
+    {
+      "id": "tell-lead",
+      "label": "Tell IT or your lead that Jonas's account may be taken over",
+      "outcome": "safe",
+      "consequence": "Good call. The account can be locked before it hits more colleagues."
+    }
+  ],
+  "attacker_reveal": "Jonas's real account, Jonas's real thread, even your own words quoted back... No lookalike address was needed. Only one door was left: ask him another way."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "br-image-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "image",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 20000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "image",
+    "channel": "web",
+    "emotion": [
+      "curiosity"
+    ],
+    "ask": "forward_message",
+    "surface_clues": [
+      "generated_image"
+    ],
+    "verify": "reverse_image_search"
+  },
+  "image": {
+    "file": "br-image-01.png",
+    "alt": "Una ilustración de un puesto de mercado con toldo a rayas, un cartel, un montón de fruta y una persona que extiende una mano. Una de las manos tiene seis dedos.",
+    "ai_generated": true,
+    "tells": [
+      "La mano tiene seis dedos.",
+      "El texto del cartel no significa nada: \"FRSH FRQITS\".",
+      "Las sombras apuntan en direcciones distintas.",
+      "Esta imagen es una ilustración hecha con código, no una fotografía."
+    ]
+  },
+  "attacker_reveal": "Las manos, los carteles y las sombras son donde fallan las imágenes generadas... Fíjate en los detalles pequeños antes de fiarte de una imagen."
+}

@@ -1,0 +1,165 @@
+{
+  "id": "pl-l2-legit-a",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "pl-l2-scam-a",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "TeamChat",
+    "from_address": "no-reply@teamchat.example",
+    "to": "{{email}}",
+    "subject": "Nuevo inicio de sesión en tu cuenta de TeamChat",
+    "received": "-PT4M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola:"
+      },
+      {
+        "t": "text",
+        "v": "Hemos detectado un inicio de sesión en tu cuenta de TeamChat desde un dispositivo nuevo. Si fuiste tú, no tienes que hacer nada."
+      },
+      {
+        "t": "text",
+        "v": "Si no fuiste tú, abre tú mismo la app de TeamChat, ve a Ajustes, luego a Dispositivos, y cierra la sesión de ese dispositivo."
+      },
+      {
+        "t": "signature",
+        "v": "El equipo de TeamChat"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de teamchat.example, el dominio real."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "\"Si fuiste tú, no tienes que hacer nada.\" Ni amenaza ni plazo."
+    },
+    {
+      "id": "hs-own-channel",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te dice que abras tú mismo la app en lugar de darte un enlace."
+    },
+    {
+      "id": "hs-no-link",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "No hay enlace ni botón. Nada aquí te pide tus datos de acceso."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "El propio TeamChat: la dirección es del dominio real, teamchat.example.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "Un compañero que te está poniendo a prueba",
+        "TeamChat, desde su dominio real"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Prácticamente ninguna. Es tranquilo y te dice que no pasará nada malo si fuiste tú.",
+      "choices": [
+        "Pánico por un acceso no autorizado",
+        "Ilusión por un premio",
+        "Ninguna: es tranquilo y no tiene plazo"
+      ],
+      "correct": 2,
+      "cues": [
+        "tranquilo",
+        "plazo",
+        "presión"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Nada por ahora. Si el inicio de sesión no fue tuyo, te dice que vayas tú mismo a la app.",
+      "choices": [
+        "Pulsar un enlace e iniciar sesión",
+        "Pagar para proteger la cuenta",
+        "Nada, aparte de revisar en la app si no fuiste tú"
+      ],
+      "correct": 2,
+      "cues": [
+        "nada",
+        "app",
+        "enlace",
+        "contraseña"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ya sabes cómo: abre tú mismo la app de TeamChat y mira tus dispositivos.",
+      "choices": [
+        "Responder diciendo que no fuiste tú",
+        "Reenviarlo antes a un amigo",
+        "Abrir tú mismo la app de TeamChat y revisar tus dispositivos"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "tú mismo",
+        "dispositivos"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "check-app",
+      "label": "Abrir tú mismo la app de TeamChat y mirar tus dispositivos",
+      "outcome": "safe",
+      "consequence": "Ves tu propio móvil y tu portátil. No hay nada que hacer."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignorarlo, porque reconoces el dispositivo nuevo",
+      "outcome": "safe",
+      "consequence": "Sabes que el inicio de sesión fue tuyo, así que no hace falta nada."
+    },
+    {
+      "id": "reply",
+      "label": "Responder al correo para decir que no fuiste tú",
+      "outcome": "neutral",
+      "consequence": "La dirección no-reply no contesta. Si no fuiste tú, usa mejor la app."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Viene del dominio de TeamChat, no tiene enlace y te dice que uses tú mismo la app. Las alertas de seguridad pueden ser auténticas. Lo que importa es que esta no te pide nada."
+}

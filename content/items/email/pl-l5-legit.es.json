@@ -1,0 +1,174 @@
+{
+  "id": "pl-l5-legit",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "twin_of": "pl-l5-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "notifications@parcelpoint.example",
+    "to": "{{email}}",
+    "subject": "Última oportunidad para recoger tu paquete",
+    "received": "-PT5H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Tu paquete lleva 6 días esperando en el punto de recogida. Mañana volverá al remitente si no se recoge."
+      },
+      {
+        "t": "text",
+        "v": "Recogerlo no cuesta nada. Lleva tu documento de identidad y el código que aparece en la app de ParcelPoint."
+      },
+      {
+        "t": "text",
+        "v": "Puedes ver el horario de apertura en la app."
+      },
+      {
+        "t": "signature",
+        "v": "Atención al cliente de ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de parcelpoint.example, el dominio real."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Es un plazo real, pero no te pide nada salvo que recojas tu paquete. La urgencia por sí sola no convierte un correo en una estafa."
+    },
+    {
+      "id": "hs-free",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Recogerlo no cuesta nada. Una estafa pediría aquí una tasa."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te envía a la app que ya tienes, no a un enlace."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "ParcelPoint: la dirección es del dominio real y todo apunta a la app.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "Tu vecino",
+        "ParcelPoint, desde su dominio real"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Algo de urgencia, porque el paquete se devuelve mañana. Pero la presión es un plazo real, no un truco.",
+      "choices": [
+        "Ganas de conseguir un premio",
+        "Ninguna en absoluto",
+        "Algo de urgencia, por un plazo real"
+      ],
+      "correct": 2,
+      "cues": [
+        "plazo",
+        "mañana",
+        "urgencia",
+        "real"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Recoger tu paquete en persona. No hay pago, ni inicio de sesión, ni enlace.",
+      "choices": [
+        "Pagar una tasa en línea",
+        "Responder con el número de tu tarjeta",
+        "Recoger el paquete, sin coste"
+      ],
+      "correct": 2,
+      "cues": [
+        "recoger",
+        "gratis",
+        "identidad",
+        "nada"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de ParcelPoint para ver el punto de recogida y el código. El correo te remite allí.",
+      "choices": [
+        "Pulsar un enlace del correo",
+        "Responder y pedir más tiempo",
+        "Abrir tú mismo la app de ParcelPoint"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "tú mismo",
+        "código"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de ParcelPoint y mirar los datos de recogida",
+      "outcome": "safe",
+      "consequence": "El paquete y su código de recogida aparecen en la lista."
+    },
+    {
+      "id": "collect",
+      "label": "Recoger el paquete en el punto de recogida",
+      "outcome": "safe",
+      "consequence": "Entregas tu documento de identidad y el código. No te piden dinero."
+    },
+    {
+      "id": "reply-pay",
+      "label": "Responder para ofrecer pagar una prórroga",
+      "outcome": "neutral",
+      "consequence": "La dirección no-reply no contesta. De todos modos no hacía falta nada."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido, aunque tenga un plazo. El dominio es el correcto, nadie pide dinero y te envía a la app. Un plazo por sí solo no es una señal de alarma. Pregúntate qué quieren de ti."
+}

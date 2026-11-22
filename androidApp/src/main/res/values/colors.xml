@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Same values as TeaColors.paper / DarkNarrator.paper in :shared. -->
+    <color name="tea_paper">#FFEEF2F9</color>
+    <color name="tea_icon_background">#FF3B82F6</color>
+</resources>

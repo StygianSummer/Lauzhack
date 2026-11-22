@@ -1,0 +1,174 @@
+{
+  "id": "pl-l5-legit",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "twin_of": "pl-l5-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "notifications@parcelpoint.example",
+    "to": "{{email}}",
+    "subject": "Dernière chance pour retirer votre colis",
+    "received": "-PT5H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Votre colis attend au point de retrait depuis 6 jours. Il retournera à l'expéditeur demain s'il n'est pas retiré."
+      },
+      {
+        "t": "text",
+        "v": "Le retrait est gratuit. Apportez une pièce d'identité et le code affiché dans l'application ParcelPoint."
+      },
+      {
+        "t": "text",
+        "v": "Vous pouvez consulter les heures d'ouverture dans l'application."
+      },
+      {
+        "t": "signature",
+        "v": "Service clientèle ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse se termine par parcelpoint.example, le vrai domaine."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "C'est un vrai délai, mais on ne vous demande rien d'autre que de retirer votre colis. Une urgence seule ne suffit pas à faire d'un e-mail une arnaque."
+    },
+    {
+      "id": "hs-free",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Le retrait est gratuit. Une arnaque réclamerait ici des frais."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il vous renvoie vers l'application que vous avez déjà, pas vers un lien."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "ParcelPoint : l'adresse est sur le vrai domaine et tout renvoie vers l'application.",
+      "choices": [
+        "Quelqu'un qui utilise une adresse presque identique",
+        "Votre voisin",
+        "ParcelPoint, depuis son vrai domaine"
+      ],
+      "correct": 2,
+      "cues": [
+        "adresse",
+        "domaine",
+        "vrai"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Un peu d'urgence, puisque le colis repart demain. Mais la pression vient d'un vrai délai, pas d'une ruse.",
+      "choices": [
+        "L'envie de gagner un prix",
+        "Aucune",
+        "Un peu d'urgence, due à un vrai délai"
+      ],
+      "correct": 2,
+      "cues": [
+        "délai",
+        "demain",
+        "urgence",
+        "vrai"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Retirer votre colis en personne. Il n'y a ni paiement, ni connexion, ni lien.",
+      "choices": [
+        "Payer des frais en ligne",
+        "Répondre avec votre numéro de carte",
+        "Retirer le colis, sans rien payer"
+      ],
+      "correct": 2,
+      "cues": [
+        "retirer",
+        "gratuit",
+        "identité",
+        "rien"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application ParcelPoint pour voir le point de retrait et le code. L'e-mail vous y renvoie.",
+      "choices": [
+        "Cliquer sur un lien dans l'e-mail",
+        "Répondre pour demander plus de temps",
+        "Ouvrir vous-même l'application ParcelPoint"
+      ],
+      "correct": 2,
+      "cues": [
+        "application",
+        "vous-même",
+        "code"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application ParcelPoint et consulter les détails du retrait",
+      "outcome": "safe",
+      "consequence": "Le colis et son code de retrait y figurent."
+    },
+    {
+      "id": "collect",
+      "label": "Retirer le colis au point de retrait",
+      "outcome": "safe",
+      "consequence": "Vous présentez votre pièce d'identité et le code. On ne vous demande pas d'argent."
+    },
+    {
+      "id": "reply-pay",
+      "label": "Répondre pour proposer de payer une prolongation",
+      "outcome": "neutral",
+      "consequence": "L'adresse « ne pas répondre » ne répond pas. Il n'y avait de toute façon rien à faire."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère, même s'il fixe un délai. Le domaine est le bon, personne ne demande d'argent et on vous renvoie vers l'application. Un délai seul n'est pas un signal d'alerte. Demandez ce qu'on attend de vous."
+}

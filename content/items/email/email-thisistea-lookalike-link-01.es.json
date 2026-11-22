@@ -1,0 +1,194 @@
+{
+  "id": "email-thisistea-lookalike-link-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [
+      "curiosity",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "link_text_mismatch",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea",
+    "from_address": "notifications@thisistae-app.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, el espacio de trabajo de tu equipo está listo",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Tu equipo ha creado un espacio de trabajo compartido en ThisIsTea. Inicia sesión para unirte."
+      },
+      {
+        "t": "link",
+        "v": "https://thisistea.example/signin",
+        "href": "https://thisistae-app.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Las invitaciones caducan a las 48 horas."
+      },
+      {
+        "t": "signature",
+        "v": "El equipo de ThisIsTea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "thisistae-app.example cambia dos letras y añade una palabra. No es thisistea.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Caducan a las 48 horas\" es un plazo suave para que actúes primero y compruebes después."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "El texto muestra thisistea.example, pero el enlace en realidad va a thisistae-app.example. Solo una dirección con thisistea.example justo antes de la primera barra pertenece a ThisIsTea. Las demás cambian letras o esconden a otro propietario, como secure-login.example o thisistea-support.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Tu nombre es fácil de encontrar. No demuestra quién escribió el correo."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que imita a ThisIsTea. El remitente es de thisistae-app.example, con dos letras cambiadas. Lee quién es el propietario, no el aspecto.",
+      "choices": [
+        "El propio ThisIsTea",
+        "Alguien que usa un dominio parecido",
+        "El administrador de tu equipo"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "cambiadas",
+        "dominio",
+        "parecido"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Curiosidad y algo de prisa: un espacio de trabajo nuevo para tu equipo, con caducidad.",
+      "choices": [
+        "Miedo a que te detengan",
+        "Curiosidad por un espacio de trabajo nuevo, con un plazo",
+        "Ninguna: es algo rutinario"
+      ],
+      "correct": 1,
+      "cues": [
+        "espacio de trabajo",
+        "invitación",
+        "48 horas",
+        "curiosidad"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Iniciar sesión mediante el enlace, lo que entregaría tus datos de acceso a quien escribe.",
+      "choices": [
+        "Abrir un archivo adjunto",
+        "Iniciar sesión mediante un enlace",
+        "Pagar una cuota"
+      ],
+      "correct": 1,
+      "cues": [
+        "sesión",
+        "enlace",
+        "acceso",
+        "pulsar"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No uses el enlace. Abre tú mismo ThisIsTea, desde un marcador o escribiendo la dirección, y busca el espacio de trabajo.",
+      "choices": [
+        "Pulsar el enlace si parece correcto",
+        "Abrir tú mismo ThisIsTea escribiendo su dirección",
+        "Responder para preguntar si es real"
+      ],
+      "correct": 1,
+      "cues": [
+        "tú mismo",
+        "marcador",
+        "escribir",
+        "espacio de trabajo"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "https://thisistea.example/signin",
+    "options": [
+      "thisistea.example",
+      "thisistae-app.example",
+      "thisistea-support.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "type-address",
+      "label": "Abrir tú mismo ThisIsTea escribiendo su dirección y buscar el espacio de trabajo",
+      "outcome": "safe",
+      "consequence": "No hay ningún espacio de trabajo nuevo. El correo era falso."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar el enlace e iniciar sesión",
+      "outcome": "unsafe",
+      "consequence": "La página se parece a ThisIsTea, pero tus datos de acceso van al estafador."
+    },
+    {
+      "id": "hover-click",
+      "label": "Pasar primero el ratón e iniciar sesión porque la dirección mostrada parece correcta",
+      "outcome": "unsafe",
+      "consequence": "El texto mostrado era un cebo. La dirección real era otra."
+    },
+    {
+      "id": "report-it",
+      "label": "Avisar a informática y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. El equipo puede avisar a los demás."
+    }
+  ],
+  "attacker_reveal": "El enlace decía thisistea.example, porque las palabras de un enlace las elijo yo... La dirección de debajo es adonde vas de verdad. ¿Cuáles son reales? Solo las que tienen al propietario antes de la primera barra."
+}

@@ -1,0 +1,171 @@
+{
+  "id": "pl-l6-legit",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 6,
+  "twin_of": "pl-l6-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 31000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "colleague",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Mara Keller",
+    "from_address": "mara.keller@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "RE: Turnos de voluntariado de diciembre",
+    "received": "-PT20M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Gracias por organizar los turnos ayer. Una cosa más antes de que se me olvide."
+      },
+      {
+        "t": "text",
+        "v": "¿Podrías poner los turnos de esta semana en la carpeta compartida de TeamChat? Si no se te abre, dame un toque y lo arreglamos."
+      },
+      {
+        "t": "text",
+        "v": "El martes escribiste: \"Los turnos son definitivos y la hoja de contactos está en la carpeta compartida\"."
+      },
+      {
+        "t": "signature",
+        "v": "Mara"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es la de Mara y la conversación es real. Por sí solo, eso prueba poco, pero aquí el resto encaja."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Una petición normal: unos turnos, no datos personales, y va a la carpeta compartida, no a una respuesta privada."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Cita tus propias palabras, lo cual encaja con una conversación real."
+    },
+    {
+      "id": "hs-ring",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Ofrece una llamada si hay algún problema. Es un canal que puedes usar."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Lo más probable es que sea Mara: una conversación real, una petición corriente y una oferta de hablar por teléfono.",
+      "choices": [
+        "Lo más probable es que Mara",
+        "Alguien que usa una dirección parecida",
+        "Un desconocido"
+      ],
+      "correct": 0,
+      "cues": [
+        "conversación",
+        "mara",
+        "petición",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Prácticamente ninguna. Es una petición amistosa y cotidiana.",
+      "choices": [
+        "Ninguna: es una petición cotidiana",
+        "Miedo a perder el trabajo",
+        "Ganas de conseguir una prima"
+      ],
+      "correct": 0,
+      "cues": [
+        "cotidiana",
+        "amistosa",
+        "tranquilo"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Poner los turnos en la carpeta compartida. No es nada delicado y no se envía nada en privado.",
+      "choices": [
+        "Poner los turnos en la carpeta compartida de TeamChat",
+        "Enviar por respuesta la lista de teléfonos de los voluntarios",
+        "Pulsar un enlace e iniciar sesión"
+      ],
+      "correct": 0,
+      "cues": [
+        "turnos",
+        "carpeta",
+        "compartida",
+        "nada"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Si algo te inquieta, llama a Mara al número que ya tienes. Para esta petición puedes hacerlo tú mismo directamente en TeamChat.",
+      "choices": [
+        "Usar TeamChat tú mismo, o llamar a Mara si dudas",
+        "Responder y preguntar si es ella de verdad",
+        "Ignorarlo para siempre"
+      ],
+      "correct": 0,
+      "cues": [
+        "teamchat",
+        "llamar",
+        "número conocido"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "upload",
+      "label": "Poner los turnos en la carpeta compartida de TeamChat, como se pide",
+      "outcome": "safe",
+      "consequence": "Hecho. No se envió nada delicado y no se escribió nada en una página extraña."
+    },
+    {
+      "id": "call-mara",
+      "label": "Llamar antes a Mara, para ir sobre seguro",
+      "outcome": "safe",
+      "consequence": "Lo confirma. Una llamada corta nunca es una pérdida de tiempo."
+    },
+    {
+      "id": "reply-list",
+      "label": "Responder añadiendo también los teléfonos de los voluntarios, para ahorrar tiempo",
+      "outcome": "unsafe",
+      "consequence": "Ella no pidió eso. No envíes datos personales que nadie ha pedido."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Se parece casi igual al que quería toda la lista de contactos, pero esta petición es corriente y se queda dentro de la carpeta compartida. En este nivel la pregunta es siempre qué se te está pidiendo."
+}

@@ -1,0 +1,193 @@
+{
+  "id": "email-teamchat-thread-signin-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Jonas Meier",
+    "from_address": "jonas.meier@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re : Notes de la réunion de jeudi",
+    "received": "-PT22M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "J'ai déplacé les notes sur une nouvelle page TeamChat pour que tout le monde puisse les modifier. Vous devrez peut-être vous reconnecter pour la voir."
+      },
+      {
+        "t": "link",
+        "v": "Ouvrir les notes dans TeamChat",
+        "href": "https://teamchat-signin.example/s/9",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Vous écriviez mercredi : « Les notes sont finales, je les partagerai après l'appel. »"
+      },
+      {
+        "t": "signature",
+        "v": "Jonas"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse est bien celle de Jonas et la discussion est réelle. Un compte piraté réussit tous les contrôles d'adresse."
+    },
+    {
+      "id": "hs-habit",
+      "target": "body:1",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Jonas partage d'ordinaire les notes dans le dossier partagé. Une nouvelle page qui exige une nouvelle connexion ne lui ressemble pas, et une vraie adresse ne prouve pas que la vraie personne a écrit."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "teamchat-signin.example n'est pas le domaine de TeamChat. Un voleur qui utilise le compte de Jonas peut envoyer n'importe quel lien."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Citer vos propres mots colle à une vraie discussion, mais quiconque lit la boîte de réception peut les copier."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Peut-être pas Jonas. L'adresse et la discussion sont réelles, donc son compte a pu être piraté. Seul un appel permet de le savoir.",
+      "choices": [
+        "Sûrement Jonas, puisque la discussion est réelle",
+        "Un inconnu avec une adresse presque identique",
+        "Peut-être Jonas, peut-être quelqu'un qui utilise son compte piraté"
+      ],
+      "correct": 2,
+      "cues": [
+        "discussion",
+        "piraté",
+        "compte",
+        "réel"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "De la serviabilité : un collègue a simplifié la vie de toute l'équipe.",
+      "choices": [
+        "La peur d'une sanction",
+        "L'envie de gagner un prix",
+        "L'envie de rendre service et de suivre l'équipe"
+      ],
+      "correct": 2,
+      "cues": [
+        "aider",
+        "collègue",
+        "équipe",
+        "notes"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Vous connecter à nouveau via un lien, ce qui donnerait votre identifiant TeamChat à celui qui contrôle le compte de Jonas.",
+      "choices": [
+        "Envoyer la liste des bénévoles",
+        "Ouvrir une pièce jointe",
+        "Vous connecter à nouveau via un lien"
+      ],
+      "correct": 2,
+      "cues": [
+        "connecter",
+        "lien",
+        "identifiant",
+        "nouveau"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "N'utilisez pas le lien. Ouvrez TeamChat vous-même et cherchez les notes, ou appelez Jonas au numéro que vous avez déjà.",
+      "choices": [
+        "Cliquer sur le lien, puisque la discussion est réelle",
+        "Répondre pour demander si c'est bien lui",
+        "Ouvrir TeamChat vous-même, ou appeler Jonas sur un numéro connu"
+      ],
+      "correct": 2,
+      "cues": [
+        "teamchat",
+        "vous-même",
+        "appeler",
+        "numéro connu"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Ouvrir les notes dans TeamChat",
+    "options": [
+      "teamchat.example",
+      "teamchat-signin.example",
+      "northfield-aid.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-yourself",
+      "label": "Ouvrir TeamChat vous-même et chercher les notes, ou appeler Jonas",
+      "outcome": "safe",
+      "consequence": "Cette nouvelle page n'existe pas. Jonas ne sait rien de cet e-mail."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur le lien et vous connecter, puisque la discussion est réelle",
+      "outcome": "unsafe",
+      "consequence": "La page de connexion copie votre identifiant pour celui qui contrôle le compte."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Répondre et demander « Est-ce bien vous ? »",
+      "outcome": "unsafe",
+      "consequence": "Celui qui contrôle le compte répond oui. Vous n'avez interrogé que l'imposteur."
+    },
+    {
+      "id": "tell-lead",
+      "label": "Prévenir le service informatique ou votre responsable que le compte de Jonas a peut-être été piraté",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Le compte peut être bloqué avant de toucher d'autres collègues."
+    }
+  ],
+  "attacker_reveal": "Le vrai compte de Jonas, sa vraie discussion, même vos propres mots cités en retour... Pas besoin d'adresse imitée. Il ne restait qu'une porte : lui demander par un autre moyen."
+}

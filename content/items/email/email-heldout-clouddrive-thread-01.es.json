@@ -1,0 +1,192 @@
+{
+  "id": "email-heldout-clouddrive-thread-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": true,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Elena Roth",
+    "from_address": "elena.roth@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "RE: Informe anual: cifras definitivas",
+    "received": "-PT40M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Genial, me parece bien. He subido las cifras definitivas a CloudDrive para que podamos editarlas las dos. Te pedirá que inicies sesión con tu correo del trabajo."
+      },
+      {
+        "t": "link",
+        "v": "Ver \"Cifras definitivas\" en CloudDrive",
+        "href": "https://clouddrive-view.example/f/annual-final",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "El lunes me escribiste: \"Envíame las cifras cuando sean definitivas y las reviso\"."
+      },
+      {
+        "t": "signature",
+        "v": "Elena"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es realmente la de Elena y la conversación es real. Una cuenta secuestrada supera cualquier comprobación de la dirección."
+    },
+    {
+      "id": "hs-signin",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Un archivo compartido nuevo que te exige iniciar sesión con tu correo del trabajo es la forma de copiar unos datos de acceso."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "clouddrive-view.example no es el dominio de CloudDrive, clouddrive.example. Un ladrón que use la cuenta de Elena puede enviar cualquier enlace."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Citar tus propias palabras hace que parezca real, pero quien lea la bandeja de entrada puede copiarlas."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Quizá no sea Elena. La dirección y la conversación son reales, así que su cuenta puede haber sido tomada por otra persona. Solo una llamada lo aclara.",
+      "choices": [
+        "Quizá Elena, quizá alguien que usa su cuenta secuestrada",
+        "Seguro que Elena, porque la conversación es real",
+        "El propio CloudDrive"
+      ],
+      "correct": 0,
+      "cues": [
+        "conversación",
+        "secuestrada",
+        "cuenta",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Ganas de ayudar y algo de prisa por terminar el informe juntas.",
+      "choices": [
+        "Deseo de ayudar a terminar el informe",
+        "Miedo a una multa",
+        "Ganas de conseguir una prima"
+      ],
+      "correct": 0,
+      "cues": [
+        "ayudar",
+        "informe",
+        "cifras",
+        "juntas"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Iniciar sesión en CloudDrive mediante un enlace, lo que entregaría tus datos de acceso del trabajo a quien controle la cuenta de Elena.",
+      "choices": [
+        "Iniciar sesión mediante un enlace",
+        "Pagar una cuota",
+        "Responder con tu fecha de nacimiento"
+      ],
+      "correct": 0,
+      "cues": [
+        "iniciar sesión",
+        "enlace",
+        "acceso",
+        "correo del trabajo"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No uses el enlace. Abre tú mismo CloudDrive y busca el archivo, o llama a Elena a un número que ya conozcas.",
+      "choices": [
+        "Abrir tú mismo CloudDrive, o llamar a Elena a un número conocido",
+        "Iniciar sesión, porque la conversación es real",
+        "Responder para preguntar si es ella"
+      ],
+      "correct": 0,
+      "cues": [
+        "clouddrive",
+        "tú mismo",
+        "llamar",
+        "número conocido"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Ver \"Cifras definitivas\" en CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "clouddrive-view.example",
+      "northfield-aid.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-yourself",
+      "label": "Abrir tú mismo CloudDrive y buscar el archivo, o llamar a Elena",
+      "outcome": "safe",
+      "consequence": "No existe tal archivo. Elena no sabe nada de ese correo."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar el enlace e iniciar sesión",
+      "outcome": "unsafe",
+      "consequence": "La página copia tus datos de acceso del trabajo para quien controle la cuenta de Elena."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Responder y preguntar \"¿Eres tú de verdad?\"",
+      "outcome": "unsafe",
+      "consequence": "Quien controla la cuenta contesta que sí. Solo le has preguntado al impostor."
+    },
+    {
+      "id": "tell-it",
+      "label": "Avisar a informática de que la cuenta de Elena puede haber sido tomada",
+      "outcome": "safe",
+      "consequence": "Buena decisión. La cuenta se puede bloquear antes de que llegue a más personas."
+    }
+  ],
+  "attacker_reveal": "Un tipo nuevo de correo para compartir archivos, en una conversación de confianza, de alguien de confianza... Nunca habías visto este truco exacto, pero la pregunta era la de siempre: ¿quién escribe realmente y cómo puedes comprobarlo?"
+}

@@ -1,0 +1,255 @@
+<resources>
+    <!-- Learning screens: placement, lesson, practice, summary (tea.ui.screens.placement / lesson / practice / learn).
+         English only for now. British spelling, no em dashes, short sentences, blame-free. -->
+
+    <!-- The four steps (plan §1.1). Short labels for bars, full questions everywhere else. -->
+    <string name="step_who">Who</string>
+    <string name="step_emotion">Feeling</string>
+    <string name="step_ask">Ask</string>
+    <string name="step_verify">Check</string>
+    <string name="step_who_question">Who is really writing?</string>
+    <string name="step_emotion_question">What feeling are they pushing?</string>
+    <string name="step_ask_question">What exactly do they want me to do?</string>
+    <string name="step_verify_question">How can I check through a channel I control?</string>
+
+    <!-- Item renderer (placement and practice) -->
+    <string name="item_dont_know">I don't know yet</string>
+    <string name="item_how_sure">How sure are you?</string>
+    <string name="item_confidence_guessing">Guessing</string>
+    <string name="item_confidence_fairly_sure">Fairly sure</string>
+    <string name="item_confidence_certain">Certain</string>
+    <string name="item_continue">Continue</string>
+    <string name="item_verdict_question">Is this email trying to trick you, or is it fine?</string>
+    <string name="item_verdict_trick">Trying to trick me</string>
+    <string name="item_verdict_fine">Fine</string>
+    <string name="item_verdict_not_sure">Not sure</string>
+    <string name="item_tap_question">Tap anything in this email that looks like a warning sign. Tap it again to undo.</string>
+    <string name="item_tap_done">That's what I see</string>
+    <plurals name="item_tap_count">
+        <item quantity="one">%1$d part marked</item>
+        <item quantity="other">%1$d parts marked</item>
+    </plurals>
+    <string name="item_link_question">Where does the link “%1$s” really go?</string>
+    <string name="item_link_tip">Tip: hover over the link, or press and hold it, to see where it goes.</string>
+    <string name="item_emotion_question">Which feeling is this email pushing?</string>
+    <string name="item_action_question">What do you do next?</string>
+    <string name="item_news_label">Shared with you</string>
+    <string name="item_news_question">Would you forward this to your friends?</string>
+    <string name="item_news_forward">Yes, forward it</string>
+    <string name="item_news_dont">No, don't forward it</string>
+    <string name="item_image_label">A picture someone sent you</string>
+    <string name="item_image_question">Is this a real photo, or made by a computer?</string>
+    <string name="item_image_real">Real photo</string>
+    <string name="item_image_ai">Made by a computer</string>
+    <string name="item_image_missing">The picture could not be loaded.</string>
+    <string name="item_check">Check my answer</string>
+
+    <!-- Placement (plan §6.2, §9.3) -->
+    <string name="placement_intro_title">Let's see where to start</string>
+    <string name="placement_intro_body">About 3 minutes. No score.</string>
+    <string name="placement_intro_cat">I'll show you a few emails and ask what you think. Nothing here counts against you. I just want to know where to begin.</string>
+    <string name="placement_intro_dont_know">Not sure about one? Say so. “I don't know yet” is a perfectly good answer.</string>
+    <string name="placement_start">Start</string>
+    <string name="placement_resume">Carry on where you left off</string>
+    <string name="placement_title">Where to start</string>
+    <string name="placement_progress">Finding your starting point</string>
+    <string name="placement_ack_got_it">Got it. Here's the next one.</string>
+    <string name="placement_ack_together">No problem. We'll look at this together later.</string>
+    <string name="placement_loading">Getting a few emails ready</string>
+    <string name="placement_empty">There are no emails to show right now.</string>
+    <string name="placement_result_title">Here's where we start</string>
+    <string name="placement_result_intro">Thanks. No score, just a starting point for your lessons.</string>
+    <string name="placement_strength_who">You look closely at who is really writing.</string>
+    <string name="placement_strength_emotion">You spot the feeling an email pushes, like urgency.</string>
+    <string name="placement_strength_ask">You notice what an email really wants you to do.</string>
+    <string name="placement_strength_verify">You know to check through a channel you control.</string>
+    <string name="placement_strength_general">You took the first step: looking before acting.</string>
+    <string name="placement_focus_who">Let's work on checking who is really writing.</string>
+    <string name="placement_focus_emotion">Let's work on noticing the feeling they push.</string>
+    <string name="placement_focus_ask">Let's work on spotting exactly what they want you to do.</string>
+    <string name="placement_focus_verify">Let's work on checking through your own channel.</string>
+    <string name="placement_result_strength_label">What you already do well</string>
+    <string name="placement_result_focus_label">What we'll work on</string>
+    <string name="placement_result_turtle">Every lesson builds on what you already know, dear. We'll go one step at a time.</string>
+    <string name="placement_start_lesson">Start lesson 1</string>
+    <string name="placement_no_result">We don't have a starting point for you yet.</string>
+    <string name="placement_take_test">Find my starting point</string>
+
+    <!-- Lesson (plan §9.4) -->
+    <string name="lesson_section_content">Rules</string>
+    <string name="lesson_section_tools">Tools</string>
+    <string name="lesson_section_attacks">Attacks</string>
+    <string name="lesson_section_status">Status</string>
+    <string name="lesson_section_practice">Practice</string>
+    <string name="lesson_section_readiness">Finish</string>
+    <string name="lesson_minutes">About %1$d minutes</string>
+    <string name="lesson_continue">Continue</string>
+    <string name="lesson_home">Back to Home</string>
+    <string name="lesson_loading">Loading the lesson</string>
+    <string name="lesson_missing">This lesson isn't available right now.</string>
+    <string name="lesson_rules_title">The rules</string>
+    <string name="lesson_rules_tap">Tap a card to read it larger.</string>
+    <string name="lesson_rules_open">Read it larger</string>
+    <string name="lesson_tools_title">Tools</string>
+    <string name="lesson_tool_dog_role">Your tools</string>
+    <string name="lesson_attacks_title">Attacks</string>
+    <string name="lesson_attacks_caught">Ah... there you are. We've already met. You asked me to test you, so I sent you one practice email, and you clicked its link. That is all I recorded: no password, nothing you typed.</string>
+    <string name="lesson_hunt_title">Can you catch me?</string>
+    <string name="lesson_hunt_done_title">How I caught you</string>
+    <string name="lesson_hunt_done_intro">Tap a trick to find it in the email again.</string>
+    <string name="lesson_hunt_found">%1$d of %2$d found</string>
+    <plurals name="lesson_hunt_wrong">
+        <item quantity="one">%1$d wrong guess</item>
+        <item quantity="other">%1$d wrong guesses</item>
+    </plurals>
+    <string name="lesson_hunt_show_rest">Show me the rest</string>
+    <string name="lesson_hunt_start">Go on. Look closely.</string>
+    <string name="lesson_hunt_gave_up">Giving up so soon? Very well. The ones you missed are marked now.</string>
+    <string name="lesson_hunt_perfect">All of them, and not one wasted guess. Hm. You would have been difficult to catch.</string>
+    <string name="lesson_hunt_finished">All of them, in the end. Next time, look for what the email wants from you.</string>
+    <string name="lesson_hunt_decoy">Just words. Anyone could write that. Keep looking.</string>
+    <string name="lesson_hunt_locked_title">Trick %1$d: not found yet</string>
+    <string name="lesson_hunt_locked_body">Find it in the email and I'll tell you how it worked.</string>
+    <string name="lesson_hunt_missed">You walked past this one</string>
+    <string name="lesson_spot_difference">Spot the difference</string>
+    <string name="lesson_back_to_rules">Read Cat's rules again</string>
+    <string name="lesson_recovery_role">If it already happened</string>
+    <string name="lesson_recovery_progress">%1$d of %2$d done</string>
+    <string name="lesson_status_title">Status</string>
+    <string name="lesson_status_now">Right now: %1$s</string>
+    <string name="lesson_status_not_rated">Not rated yet</string>
+    <string name="lesson_practice_title">Practice</string>
+    <string name="lesson_practice_intro">Your turn. Use the four steps on each email. Cat helps where you need it and steps back as you get better.</string>
+    <string name="lesson_complete">Lesson complete</string>
+    <string name="lesson_complete_body">Well done. The four steps now go with you to every inbox.</string>
+    <string name="lesson_readiness_title">Test yourself for real</string>
+    <string name="lesson_readiness_not_now">Not now</string>
+    <string name="lesson_readiness_offline">Needs a connection</string>
+    <string name="lesson_readiness_guest">Practice emails need an account, because we send them to the address you registered.</string>
+    <string name="lesson_readiness_guest_address">the address you register</string>
+    <string name="lesson_readiness_sending">One moment</string>
+    <string name="lesson_readiness_failed">We couldn't reach the server just now. Please try again in a moment.</string>
+    <string name="lesson_readiness_reason_paused">Practice emails are paused in Settings.</string>
+    <string name="lesson_readiness_reason_stopped">Practice emails are switched off in Settings.</string>
+    <string name="lesson_readiness_reason_not_verified">Verify your email first.</string>
+    <string name="lesson_readiness_reason_already_done">You already did this lesson's test.</string>
+    <string name="lesson_readiness_reason_terms_missing">Please accept the terms of use first.</string>
+    <string name="lesson_readiness_reason_other">We can't send one right now.</string>
+    <string name="lesson_readiness_dismissed">No problem. You can come back to this lesson any time.</string>
+
+    <!-- Practice (plan §9.5) -->
+    <string name="practice_title">Practice</string>
+    <string name="practice_loading">Getting your emails ready</string>
+    <string name="practice_empty">There are no practice emails to show right now.</string>
+    <string name="practice_progress">Email %1$d of %2$d</string>
+    <string name="practice_final_check">Final check</string>
+    <string name="practice_final_banner">Final check: a kind of email you haven't practised. No prompts this time. Use the four steps on your own.</string>
+    <string name="practice_xp">%1$d XP</string>
+    <string name="practice_xp_hint">Press and hold to see the raw numbers</string>
+    <plurals name="practice_streak">
+        <item quantity="one">%1$d-day streak</item>
+        <item quantity="other">%1$d-day streak</item>
+    </plurals>
+    <string name="practice_support_worked">Shown</string>
+    <string name="practice_support_prompted">Asked</string>
+    <string name="practice_support_hint">Hint</string>
+    <string name="practice_support_faded">Solo</string>
+    <string name="practice_worked_got_it">Got it</string>
+    <string name="practice_need_hint">Need a hint? %1$s</string>
+    <string name="practice_hints_label">Want a nudge on a step?</string>
+    <string name="practice_try_again">Not that one. Have another go.</string>
+    <string name="practice_answer_was">Here's the answer: %1$s</string>
+    <string name="practice_next_step">Next step</string>
+    <string name="practice_verdict_title">Your call</string>
+    <string name="practice_why_label">Why? (optional)</string>
+    <string name="practice_why_placeholder">In a few words: why do you think so?</string>
+    <string name="practice_next">Next email</string>
+    <string name="practice_see_summary">See how you did</string>
+    <string name="practice_you_chose">You chose: %1$s</string>
+    <string name="practice_outcome_safe">Safe choice</string>
+    <string name="practice_outcome_unsafe">Risky choice</string>
+    <string name="practice_outcome_neutral">Not risky, not much help</string>
+    <string name="practice_four_steps_title">The four steps for this email</string>
+    <string name="practice_why_ticks_title">Your reason touched on</string>
+    <string name="practice_why_touched">covered</string>
+    <string name="practice_why_missed">not mentioned</string>
+    <string name="practice_was_scam">This one was trying to trick you.</string>
+    <string name="practice_was_legit">This one was real.</string>
+    <string name="practice_gentle_correct">Well spotted</string>
+    <string name="practice_gentle_not_quite">Easy to miss</string>
+    <string name="practice_gentle_line">These emails are made by people whose job is to fool others. Every one you look at closely makes the next one easier.</string>
+    <string name="practice_dog_intro">If this happens for real, here's what to do now, buddy!</string>
+    <string name="practice_dog_generic">If this happens for real, buddy: stop, and don't type or pay anything more. Gave a password? Change it on the real site, typed in yourself. Paid or shared card details? Call your bank on the number on your card. Then tell someone you trust. You've got this!</string>
+    <string name="practice_link_unchecked">Link not yet checked</string>
+    <string name="practice_open">Open</string>
+
+    <!-- Practice summary -->
+    <string name="summary_title">Practice done</string>
+    <plurals name="summary_items">
+        <item quantity="one">You worked through %1$d email.</item>
+        <item quantity="other">You worked through %1$d emails.</item>
+    </plurals>
+    <string name="summary_held_out_right">You caught the final email on your own.</string>
+    <string name="summary_held_out_wrong">The final email got past you this time. Now you know what that kind looks like.</string>
+    <string name="summary_steps_title">Your four steps</string>
+    <string name="summary_before">Before</string>
+    <string name="summary_now">Now</string>
+    <string name="summary_xp">%1$d XP earned</string>
+    <string name="summary_lesson_bonus">Plus %1$d XP for finishing the lesson</string>
+    <string name="summary_traps_title">Watch out for</string>
+    <string name="summary_trap_miss">missing the sign “%1$s”</string>
+    <string name="summary_trap_flag">distrusting real emails because of “%1$s”</string>
+    <string name="summary_no_traps">No repeated slips. Nice work.</string>
+    <string name="summary_leaderboard">Leaderboard</string>
+    <string name="summary_home">Home</string>
+    <string name="summary_practise_again">Practise again</string>
+    <string name="summary_continue">Continue</string>
+    <string name="summary_empty">There's no practice summary yet.</string>
+    <!-- Gotcha interview -->
+    <string name="gotcha_header">Spider's practice check</string>
+    <string name="gotcha_title">Look what we did</string>
+    <string name="gotcha_intro">Before the lesson, Spider has something to show you.</string>
+    <string name="gotcha_role">A practice message from Spider</string>
+    <string name="gotcha_loading">Loading the practice message…</string>
+    <string name="gotcha_load_failed">I can’t fetch the message right now. You can retry or continue to the lesson.</string>
+    <string name="gotcha_not_found">This practice check is no longer available. You can continue to the lesson.</string>
+    <string name="gotcha_retry">Try again</string>
+    <string name="gotcha_continue">Continue to lesson</string>
+    <string name="gotcha_spider_open">I sent you a little something. Take a good look.</string>
+    <string name="gotcha_email_heading">Do you know this email?</string>
+    <string name="gotcha_recognition_question">Does it sound familiar? Did it look real to you?</string>
+    <string name="gotcha_yes">Yes, I know it. It looked real</string>
+    <string name="gotcha_no">No, I've never seen it</string>
+    <string name="gotcha_yes_spider">Aha! You fell for it. You clicked my link. I sent you that email: it was a practice trap.</string>
+    <string name="gotcha_fact_clicked">You clicked it %1$s.</string>
+    <string name="gotcha_fact_email">The email: “%1$s”</string>
+    <string name="gotcha_fact_gave">What you gave me: one click, and I know it worked. That's all a real scammer needs to start.</string>
+    <string name="gotcha_no_spider">Never seen it? It landed in your inbox, and the link was clicked %1$s. So why did it work on you?</string>
+    <string name="gotcha_reason_question">Why do you think it worked?</string>
+    <string name="gotcha_reason_who">I trusted who it seemed to come from</string>
+    <string name="gotcha_reason_emotion">It made me feel I had to act fast</string>
+    <string name="gotcha_reason_ask">What it asked for seemed normal</string>
+    <string name="gotcha_reason_verify">I didn't check it another way</string>
+    <string name="gotcha_no_spider_who">I borrowed a familiar name. The real sender is the first clue.</string>
+    <string name="gotcha_no_spider_emotion">I tried to rush you. A pause gives you room to think.</string>
+    <string name="gotcha_no_spider_ask">I made a small request seem ordinary. Let’s check what it asks.</string>
+    <string name="gotcha_no_spider_verify">I hid behind my own link. Check through a route you control.</string>
+    <string name="gotcha_steps_heading">Your four checks</string>
+    <string name="gotcha_hints_heading">A clue to keep</string>
+    <string name="gotcha_time_just_now">just now</string>
+    <string name="gotcha_time_yesterday">yesterday</string>
+    <string name="gotcha_time_earlier">some time ago</string>
+    <plurals name="gotcha_time_minutes_ago">
+        <item quantity="one">%1$d minute ago</item>
+        <item quantity="other">%1$d minutes ago</item>
+    </plurals>
+    <plurals name="gotcha_time_hours_ago">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+    <plurals name="gotcha_time_days_ago">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+    <string name="lesson_pending_label">Practice check waiting</string>
+</resources>

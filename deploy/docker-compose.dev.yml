@@ -1,0 +1,40 @@
+# Local development: Postgres + the API on http://localhost:8080. Zero setup, no .env needed.
+# From the repo root:
+#   docker compose -f deploy/docker-compose.dev.yml up --build
+# then run the web app with hot reload, which talks to http://localhost:8080 by default:
+#   ./gradlew :composeApp:wasmJsBrowserDevelopmentRun          (http://localhost:8081)
+#
+# To try the production layout locally instead (web app + /api behind Caddy, no TLS), stop the
+# Gradle dev server (same port) and add the "web" profile; then open http://localhost:8081:
+#   docker compose -f deploy/docker-compose.dev.yml --profile web up --build
+#
+# Mail goes to the app log (docker compose ... logs -f app) and the debug code 426769 is accepted.
+name: tea-dev
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tea
+      POSTGRES_USER: tea
+      POSTGRES_PASSWORD: tea-dev        # local only: the port is not published
+    volumes: [ "db:/var/lib/postgresql/data" ]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U tea -d tea"], interval: 5s, retries: 10 }
+  app:
+    build: { context: .., dockerfile: deploy/Dockerfile, target: server }
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/tea
+      DATABASE_USER: tea
+      DATABASE_PASSWORD: tea-dev
+      RATE_LIMITS: "off"
+      APP_PUBLIC_URL: http://localhost:8081/
+      API_PUBLIC_URL: http://localhost:8080
+    ports: [ "127.0.0.1:8080:8080" ]
+    depends_on: { db: { condition: service_healthy } }
+  web:
+    profiles: [ web ]
+    build: { context: .., dockerfile: deploy/Dockerfile, target: web }
+    environment:
+      PUBLIC_URL: http://localhost:8081
+    ports: [ "127.0.0.1:8081:8081" ]
+    depends_on: [ app ]
+volumes: { db: {} }

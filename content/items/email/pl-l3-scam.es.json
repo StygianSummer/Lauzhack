@@ -1,0 +1,184 @@
+{
+  "id": "pl-l3-scam",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "link_text_mismatch",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare-online.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, confirma los datos de tu cuenta",
+    "received": "-PT50M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Tu cuenta en línea de HelvetiCare necesita una comprobación rápida tras la actualización de nuestro sistema. Lleva un minuto."
+      },
+      {
+        "t": "link",
+        "v": "helveticare.example/account",
+        "href": "https://helveticare-online.example/account/confirm",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Si no lo confirmas, algunos servicios podrían quedar en pausa."
+      },
+      {
+        "t": "signature",
+        "v": "Tu equipo de HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "El nombre visible dice HelvetiCare, pero helveticare-online.example no es el dominio de la aseguradora, helveticare.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Usar tu nombre suena personal, pero los estafadores lo encuentran fácilmente. No demuestra quién escribió el correo."
+    },
+    {
+      "id": "hs-pause",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Algunos servicios podrían quedar en pausa\" es una amenaza suave, para que actúes antes de pensar."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "El texto parece helveticare.example, pero el enlace en realidad va a helveticare-online.example. El texto puede decir cualquier cosa."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que usa el nombre de HelvetiCare. El nombre visible y el saludo son correctos, pero la dirección es de helveticare-online.example.",
+      "choices": [
+        "Alguien que usa una dirección parecida y tu nombre de pila",
+        "HelvetiCare, porque sabe tu nombre",
+        "Tu asesor de salud"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "nombre visible",
+        "nombre de pila"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Un miedo discreto a perder servicios, con la insinuación de que es rápido y fácil.",
+      "choices": [
+        "Un miedo discreto a perder servicios",
+        "Alegría por una prima",
+        "Ninguna: es un aviso rutinario"
+      ],
+      "correct": 0,
+      "cues": [
+        "pausa",
+        "miedo",
+        "servicios",
+        "amenaza"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pulsar el enlace e iniciar sesión para 'confirmar' tus datos, lo que entregaría tus datos de acceso a quien escribe.",
+      "choices": [
+        "Pulsar el enlace e iniciar sesión",
+        "Abrir un archivo adjunto",
+        "Llamar a un teléfono de atención"
+      ],
+      "correct": 0,
+      "cues": [
+        "pulsar",
+        "enlace",
+        "confirmar",
+        "acceso"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ignora el enlace. Abre la app de HelvetiCare, o escribe tú mismo la dirección de la aseguradora, y mira si hay algo que confirmar.",
+      "choices": [
+        "Abrir tú mismo la app de HelvetiCare",
+        "Pulsar el enlace y comprobar que la página se ve bien",
+        "Responder para preguntar si es auténtico"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "tú mismo",
+        "escribir",
+        "oficial"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de HelvetiCare y buscar algún aviso",
+      "outcome": "safe",
+      "consequence": "No hay ningún aviso. El correo era falso."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar el enlace e iniciar sesión, porque sabe tu nombre",
+      "outcome": "unsafe",
+      "consequence": "La página parece correcta, pero tus datos de acceso van directos al estafador."
+    },
+    {
+      "id": "hover",
+      "label": "Pasar el ratón por el enlace e iniciar sesión si la página parece correcta",
+      "outcome": "unsafe",
+      "consequence": "Una página parecida puede verse perfecta. Entregaste tus datos de acceso al estafador."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No entregaste nada."
+    }
+  ],
+  "attacker_reveal": "Usé tu nombre, el logotipo correcto y un lenguaje perfecto... y el texto del enlace mintió. Un nombre en el saludo es fácil de encontrar, así que nunca prueba quién escribe."
+}

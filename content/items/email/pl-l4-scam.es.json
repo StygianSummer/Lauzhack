@@ -1,0 +1,180 @@
+{
+  "id": "pl-l4-scam",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 4,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "curiosity"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "reply_to_differs",
+      "attachment_double_ext",
+      "first_name_used",
+      "has_attachment"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Extractos de SwissAlpBank",
+    "from_address": "statements@swissalpbank.example",
+    "reply_to": "statements.desk@swissalpbank-mail.example",
+    "to": "{{email}}",
+    "subject": "Tu extracto de octubre",
+    "received": "-PT35M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Adjuntamos tu extracto de octubre. Abre el archivo adjunto e inicia sesión para ver los detalles."
+      },
+      {
+        "t": "text",
+        "v": "Si tienes dudas, responde a este correo."
+      },
+      {
+        "t": "signature",
+        "v": "Atención al cliente de SwissAlpBank"
+      }
+    ],
+    "attachments": [
+      "statement-october.pdf.html"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Esta dirección parece correcta, pero la dirección de un remitente se puede falsificar. Comprueba adónde iría una respuesta."
+    },
+    {
+      "id": "hs-reply-to",
+      "target": "reply_to",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Las respuestas irían a swissalpbank-mail.example, un dominio distinto del del banco. Esa discrepancia es un truco clásico."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "\"statement-october.pdf.html\" termina en .html: es una página web disfrazada de PDF. Te mostraría un falso inicio de sesión."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Tu nombre es fácil de encontrar. No demuestra quién escribió el correo."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "No es el banco, a pesar de la dirección del remitente. La dirección de respuesta es de swissalpbank-mail.example, así que cualquier contestación iría a otra persona.",
+      "choices": [
+        "El equipo de extractos de SwissAlpBank",
+        "Alguien que falsifica la dirección del banco, con las respuestas yendo a otro sitio",
+        "Tu asesor personal"
+      ],
+      "correct": 1,
+      "cues": [
+        "respuesta",
+        "dirección",
+        "dominio",
+        "remitente"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Solo algo de curiosidad: es un extracto de aspecto corriente, y ese es el objetivo. Nada aquí te presiona.",
+      "choices": [
+        "Pánico por una deuda",
+        "Algo de curiosidad: parece correo rutinario",
+        "Enfado con el banco"
+      ],
+      "correct": 1,
+      "cues": [
+        "rutinario",
+        "curiosidad",
+        "tranquilo"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Abrir el archivo adjunto e iniciar sesión. El adjunto es una página web que recogería tus datos de acceso.",
+      "choices": [
+        "Pagar una cuota",
+        "Abrir el archivo adjunto e iniciar sesión",
+        "Responder con tu número de cuenta"
+      ],
+      "correct": 1,
+      "cues": [
+        "adjunto",
+        "abrir",
+        "sesión",
+        "html"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No lo abras. Busca tu extracto en la app de SwissAlpBank o llama al número de tu tarjeta.",
+      "choices": [
+        "Abrir el archivo adjunto para comprobarlo",
+        "Abrir tú mismo la app de SwissAlpBank para ver tus extractos",
+        "Responder y preguntar si es auténtico"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "tú mismo",
+        "tarjeta",
+        "extractos"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de SwissAlpBank y mirar en Documentos",
+      "outcome": "safe",
+      "consequence": "Tu extracto está allí, o todavía no. En cualquier caso, nunca tocaste el archivo adjunto."
+    },
+    {
+      "id": "open-attachment",
+      "label": "Abrir el archivo adjunto para ver el extracto",
+      "outcome": "unsafe",
+      "consequence": "Se abre una página falsa de inicio de sesión. Si escribes tus datos de acceso, van al estafador."
+    },
+    {
+      "id": "reply",
+      "label": "Responder y preguntar si el extracto es auténtico",
+      "outcome": "neutral",
+      "consequence": "Tu respuesta va a la dirección del estafador, no al banco. Te dicen que es auténtico."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No se abrió nada."
+    }
+  ],
+  "attacker_reveal": "El remitente parecía correcto, así que dejaste de comprobar... pero hice que tus respuestas me llegaran a mí, y el \"PDF\" era una página web con máscara. Lee siempre un nombre de archivo hasta el final."
+}

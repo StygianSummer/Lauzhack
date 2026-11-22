@@ -1,0 +1,184 @@
+{
+  "id": "pl-l2-scam-a",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Seguridad de TeamChat",
+    "from_address": "security@teamchat-support.example",
+    "to": "{{email}}",
+    "subject": "Nuevo inicio de sesión en tu cuenta de TeamChat",
+    "received": "-PT9M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola:"
+      },
+      {
+        "t": "text",
+        "v": "Hemos detectado un inicio de sesión en tu cuenta de TeamChat desde un dispositivo nuevo en otro país. Si no fuiste tú, protege tu cuenta en las próximas horas."
+      },
+      {
+        "t": "link",
+        "v": "Proteger mi cuenta",
+        "href": "https://teamchat-secure.example/account",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Gracias por ayudarnos a mantener TeamChat seguro."
+      },
+      {
+        "t": "signature",
+        "v": "El equipo de seguridad de TeamChat"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "teamchat-support.example no es el dominio de TeamChat, teamchat.example. Cualquiera puede registrar un nombre que suene oficial."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Un inicio de sesión desde el extranjero y \"las próximas horas\" buscan asustarte para que actúes deprisa."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "El botón lleva a teamchat-secure.example, un dominio distinto del real."
+    },
+    {
+      "id": "hs-signature",
+      "target": "body:4",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Las firmas son fáciles de copiar. Esta no demuestra nada en un sentido ni en otro."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por TeamChat. El nombre parece correcto, pero la dirección es de teamchat-support.example, no de teamchat.example.",
+      "choices": [
+        "El equipo de seguridad de TeamChat",
+        "Un compañero de tu equipo",
+        "Alguien que usa una dirección que solo se parece a la de TeamChat"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "parecida",
+        "remitente"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Miedo y prisa: puede que un desconocido esté en tu cuenta y debas actuar en pocas horas.",
+      "choices": [
+        "Curiosidad por una función nueva",
+        "Ninguna: es un aviso rutinario",
+        "Miedo a que alguien esté en tu cuenta, con prisa"
+      ],
+      "correct": 2,
+      "cues": [
+        "miedo",
+        "horas",
+        "prisa",
+        "cuenta"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pulsar el enlace e iniciar sesión, lo que entregaría tus datos de acceso a quien escribe.",
+      "choices": [
+        "Llamar al soporte de TeamChat",
+        "Nada, es solo informativo",
+        "Pulsar un enlace e iniciar sesión"
+      ],
+      "correct": 2,
+      "cues": [
+        "pulsar",
+        "enlace",
+        "sesión",
+        "acceso"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ignora el enlace. Abre tú mismo la app de TeamChat y mira tus dispositivos y tus últimos inicios de sesión.",
+      "choices": [
+        "Pulsar el enlace para ver si es real",
+        "Responder y preguntar si la alerta es auténtica",
+        "Abrir tú mismo la app de TeamChat y revisar tus dispositivos"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "tú mismo",
+        "dispositivos",
+        "propia"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de TeamChat y revisar tus dispositivos",
+      "outcome": "safe",
+      "consequence": "Solo aparecen tus propios dispositivos. La alerta era falsa."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar \"Proteger mi cuenta\" e iniciar sesión",
+      "outcome": "unsafe",
+      "consequence": "La página se parece a TeamChat, pero tus datos de acceso van directos al estafador."
+    },
+    {
+      "id": "reply",
+      "label": "Responder y preguntar si la alerta es real",
+      "outcome": "neutral",
+      "consequence": "El estafador dice que sí y aprieta más. Tu respuesta también demuestra que tu dirección está en uso."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No se pulsó nada."
+    }
+  ],
+  "attacker_reveal": "Una alerta inventada, un país extranjero y unas horas para decidir... El miedo hace la mitad de mi trabajo. La dirección se parecía tanto que había que leer cada letra para darse cuenta."
+}

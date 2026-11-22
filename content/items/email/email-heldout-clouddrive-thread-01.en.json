@@ -1,0 +1,192 @@
+{
+  "id": "email-heldout-clouddrive-thread-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": true,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Elena Roth",
+    "from_address": "elena.roth@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re: Annual report: final figures",
+    "received": "-PT40M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Great, that works for me. I have put the final figures into CloudDrive so we can both edit them. It will ask you to sign in with your work email."
+      },
+      {
+        "t": "link",
+        "v": "View \"Final figures\" in CloudDrive",
+        "href": "https://clouddrive-view.example/f/annual-final",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "You wrote on Monday: \"Send me the figures when they are final and I will check them.\""
+      },
+      {
+        "t": "signature",
+        "v": "Elena"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address really is Elena's and the thread is real. A hijacked account passes every address check."
+    },
+    {
+      "id": "hs-signin",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A new shared file that needs you to sign in with your work email is how a login gets copied."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "clouddrive-view.example is not CloudDrive's domain, clouddrive.example. A thief using Elena's account can send any link."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Quoting your own words makes it feel real, but whoever reads the inbox can copy them."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Possibly not Elena. The address and the thread are real, so her account may have been taken over. Only a call can tell.",
+      "choices": [
+        "Maybe Elena, maybe someone using her hijacked account",
+        "Definitely Elena, since the thread is real",
+        "CloudDrive itself"
+      ],
+      "correct": 0,
+      "cues": [
+        "thread",
+        "hijacked",
+        "account",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Helpfulness and a little hurry to finish the report together.",
+      "choices": [
+        "A wish to help finish the report",
+        "Fear of a fine",
+        "Greed for a bonus"
+      ],
+      "correct": 0,
+      "cues": [
+        "help",
+        "report",
+        "figures",
+        "together"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Sign in to CloudDrive through a link, which would give your work login to whoever controls Elena's account.",
+      "choices": [
+        "Sign in through a link",
+        "Pay a fee",
+        "Reply with your date of birth"
+      ],
+      "correct": 0,
+      "cues": [
+        "sign in",
+        "link",
+        "login",
+        "work email"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not use the link. Open CloudDrive yourself and look for the file, or call Elena on a number you already know.",
+      "choices": [
+        "Open CloudDrive yourself, or call Elena on a known number",
+        "Sign in, since the thread is real",
+        "Reply to ask if it is her"
+      ],
+      "correct": 0,
+      "cues": [
+        "clouddrive",
+        "yourself",
+        "call",
+        "known number"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "View \"Final figures\" in CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "clouddrive-view.example",
+      "northfield-aid.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-yourself",
+      "label": "Open CloudDrive yourself and look for the file, or call Elena",
+      "outcome": "safe",
+      "consequence": "No such file exists. Elena knows nothing about the email."
+    },
+    {
+      "id": "click",
+      "label": "Click the link and sign in",
+      "outcome": "unsafe",
+      "consequence": "The page copies your work login for whoever controls Elena's account."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Reply and ask \"Is this really you?\"",
+      "outcome": "unsafe",
+      "consequence": "Whoever controls the account answers yes. You only asked the impostor."
+    },
+    {
+      "id": "tell-it",
+      "label": "Tell IT that Elena's account may be taken over",
+      "outcome": "safe",
+      "consequence": "Good call. The account can be locked before it reaches more people."
+    }
+  ],
+  "attacker_reveal": "A new kind of file-sharing email, in a thread you trusted, from someone you trust... You had never seen this exact trick, but the question was the same as ever: who is really writing, and how can you check?"
+}

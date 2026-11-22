@@ -1,0 +1,164 @@
+{
+  "id": "pl-l2-legit-b",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "pl-l2-scam-b",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare.example",
+    "to": "{{email}}",
+    "subject": "Your claim statement is ready",
+    "received": "-PT3H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello,"
+      },
+      {
+        "t": "text",
+        "v": "Your latest claim statement is ready. You can read it in the HelvetiCare app, under Documents."
+      },
+      {
+        "t": "text",
+        "v": "We never send statements by email, and we never ask for bank details by email."
+      },
+      {
+        "t": "signature",
+        "v": "HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on helveticare.example, the insurer's real domain."
+    },
+    {
+      "id": "hs-no-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "It asks for nothing. It only tells you where to look."
+    },
+    {
+      "id": "hs-never-asks",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "A real insurer says plainly that it never asks for bank details by email."
+    },
+    {
+      "id": "hs-calm",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "A plain subject with no big number and no deadline."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "HelvetiCare itself: the address is on helveticare.example.",
+      "choices": [
+        "HelvetiCare, from its real domain",
+        "A scammer using a lookalike address",
+        "A broker selling you a new plan"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "insurer"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. It is a plain, calm notice.",
+      "choices": [
+        "None: it is a calm notice",
+        "Greed for a refund",
+        "Fear of losing cover"
+      ],
+      "correct": 0,
+      "cues": [
+        "calm",
+        "plain",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing, apart from reading your statement in the app if you wish.",
+      "choices": [
+        "Nothing, apart from reading it in the app",
+        "Reply with your bank account number",
+        "Click a link and sign in"
+      ],
+      "correct": 0,
+      "cues": [
+        "nothing",
+        "app",
+        "statement"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the HelvetiCare app yourself and look under Documents. The email even tells you to.",
+      "choices": [
+        "Open the HelvetiCare app yourself",
+        "Reply and ask for the statement",
+        "Call the number in the email"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "yourself",
+        "documents"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the HelvetiCare app yourself and read the statement",
+      "outcome": "safe",
+      "consequence": "The statement is there. Nothing was needed from the email."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignore the email, because you will read the statement later",
+      "outcome": "safe",
+      "consequence": "Nothing is lost. The statement waits in the app."
+    },
+    {
+      "id": "reply",
+      "label": "Reply with your bank account number so they can pay you faster",
+      "outcome": "unsafe",
+      "consequence": "The email said they never ask for this. Never send bank details by email, even to a real sender."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. It comes from the insurer's own domain, has no link and says out loud that it never asks for bank details. Compare it with the refund email: the same company, a very different request."
+}

@@ -1,0 +1,195 @@
+{
+  "id": "email-bank-terms-lookalike-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "lookalike_link",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank",
+    "from_address": "service@swissa1pbank.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, new terms for your e-banking",
+    "received": "-PT45M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "We have updated the terms of your e-banking agreement. Please sign in to accept them by the end of the week."
+      },
+      {
+        "t": "link",
+        "v": "Review and accept the terms",
+        "href": "https://swissa1pbank.example/terms",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Without acceptance your access may be limited."
+      },
+      {
+        "t": "signature",
+        "v": "Your SwissAlpBank team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "swissa1pbank.example has the digit 1 in place of the letter l. It is not swissalpbank.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"By the end of the week\" gives you a deadline you did not choose."
+    },
+    {
+      "id": "hs-limited",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Access may be limited\" is a threat to make you act."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The sign-in page is on the lookalike domain and would copy your login."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone using the bank's name. The address has a digit 1 where the letter l belongs: swissa1pbank.example is not swissalpbank.example. Your eyes can miss a one-letter swap, but a password manager never does.",
+      "choices": [
+        "SwissAlpBank, because it knows your name",
+        "Someone using a lookalike domain",
+        "Your personal adviser"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "digit",
+        "domain",
+        "lookalike"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Fear and hurry: you could lose access if you do not act by the end of the week.",
+      "choices": [
+        "Curiosity about a prize",
+        "Fear of losing access, with a deadline",
+        "None: it is routine"
+      ],
+      "correct": 1,
+      "cues": [
+        "limited",
+        "access",
+        "deadline",
+        "week"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Sign in to 'accept' new terms, which would give your login to the sender.",
+      "choices": [
+        "Open an attachment",
+        "Sign in through a link",
+        "Reply with your account number"
+      ],
+      "correct": 1,
+      "cues": [
+        "sign",
+        "link",
+        "terms",
+        "login"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Use your password manager's saved SwissAlpBank login. It checks the exact web address and will not fill in on a lookalike site: if it stays quiet, that is your warning. Or open the bank's app yourself.",
+      "choices": [
+        "Click the link and check that the page looks right",
+        "Open the saved login in your password manager, or the app yourself",
+        "Type your password by hand if the manager does not fill it in"
+      ],
+      "correct": 1,
+      "cues": [
+        "password manager",
+        "app",
+        "yourself",
+        "address"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Review and accept the terms",
+    "options": [
+      "swissalpbank.example",
+      "swissa1pbank.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "manager",
+      "label": "Open the bank from your password manager's saved login, or the app",
+      "outcome": "safe",
+      "consequence": "Nothing to accept. If you had clicked the email, the manager would not have filled anything in."
+    },
+    {
+      "id": "click-type",
+      "label": "Click the link and type your password",
+      "outcome": "unsafe",
+      "consequence": "The page looks right, but your login goes straight to the scammer."
+    },
+    {
+      "id": "type-by-hand",
+      "label": "The password manager does not fill in, so type the password by hand",
+      "outcome": "unsafe",
+      "consequence": "The manager stayed quiet because the address was wrong. You overrode your best warning."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. You gave nothing away."
+    }
+  ],
+  "attacker_reveal": "A single digit in place of a letter... Your eyes skip it, but a password manager compares every character. When it refuses to fill in, believe it."
+}

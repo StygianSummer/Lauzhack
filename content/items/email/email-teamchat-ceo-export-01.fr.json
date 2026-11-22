@@ -1,0 +1,191 @@
+{
+  "id": "email-teamchat-ceo-export-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "authority",
+      "urgency"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "display_name_match",
+      "first_name_used",
+      "urgency",
+      "lookalike_sender",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Alex Morgan (directeur)",
+    "from_address": "alex.morgan@teamchat-mail.example",
+    "to": "{{email}}",
+    "subject": "Il me faut l'export clients pour le conseil",
+    "received": "-PT6M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "J'ai besoin de l'export complet des clients pour le conseil dans 10 minutes. Déposez-le ici. Je suis en déplacement et je ne peux pas parler."
+      },
+      {
+        "t": "link",
+        "v": "Répondre dans TeamChat",
+        "href": "https://teamchat-mail.example/m/884",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "Alex"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Le nom est celui du directeur, mais teamchat-mail.example n'est pas le domaine de TeamChat, teamchat.example. Un nom affiché peut dire n'importe quoi."
+    },
+    {
+      "id": "hs-urgency",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Dix minutes et « je ne peux pas parler » vous poussent à sauter la vérification. Celui qui emprunte le nom du patron compte sur votre politesse ou votre précipitation pour ne pas poser de question."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Une base clients complète est exactement ce que veut un criminel. L'envoyer par message ferait fuiter les données de chaque client."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le lien de réponse mène à teamchat-mail.example, pas à TeamChat lui-même."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour Alex Morgan. Le nom affiché est celui du directeur, mais l'adresse est sur teamchat-mail.example.",
+      "choices": [
+        "Alex Morgan, le directeur",
+        "Quelqu'un qui utilise le nom du directeur et une adresse presque identique",
+        "Un administrateur de TeamChat"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "nom affiché",
+        "domaine",
+        "directeur"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "L'autorité et la hâte : le patron veut quelque chose dans dix minutes et on ne peut pas l'interroger.",
+      "choices": [
+        "La curiosité pour un nouveau projet",
+        "L'autorité et la hâte venant du patron",
+        "Aucune : c'est une demande normale"
+      ],
+      "correct": 1,
+      "cues": [
+        "patron",
+        "autorité",
+        "minutes",
+        "hâte"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Envoyer l'export complet de la base clients. Cela ferait fuiter les données personnelles de tous les clients.",
+      "choices": [
+        "Cliquer sur un lien et vous connecter",
+        "Envoyer un export complet des données clients",
+        "Valider un paiement"
+      ],
+      "correct": 1,
+      "cues": [
+        "export",
+        "base de données",
+        "clients",
+        "données"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Confirmez la demande par un autre canal que vous connaissez déjà, par exemple un appel au numéro habituel d'Alex. Poser la question dans le même message, c'est interroger l'imposteur.",
+      "choices": [
+        "Demander « est-ce bien vous ? » dans la même discussion",
+        "Appeler Alex sur un numéro que vous connaissez déjà",
+        "N'envoyer qu'une partie des données"
+      ],
+      "correct": 1,
+      "cues": [
+        "appeler",
+        "numéro connu",
+        "autre canal",
+        "confirmer"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Répondre dans TeamChat",
+    "options": [
+      "teamchat.example",
+      "teamchat-mail.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "call-alex",
+      "label": "Confirmer par un autre canal que vous connaissez déjà, par exemple un appel au numéro habituel d'Alex",
+      "outcome": "safe",
+      "consequence": "Alex est en réunion et n'a rien envoyé. Les données restent où elles sont."
+    },
+    {
+      "id": "send",
+      "label": "L'envoyer tout de suite : un conseil, ce n'est pas le moment de poser des questions",
+      "outcome": "unsafe",
+      "consequence": "La base clients est maintenant chez un inconnu. Tous les clients sont en danger."
+    },
+    {
+      "id": "ask-same",
+      "label": "Demander « est-ce bien vous ? » dans la même discussion et l'envoyer s'ils répondent oui",
+      "outcome": "unsafe",
+      "consequence": "L'imposteur répond oui. Vous n'avez interrogé que la personne dont vous vous méfiiez."
+    },
+    {
+      "id": "send-part",
+      "label": "N'envoyer qu'une partie des données, pour limiter les dégâts",
+      "outcome": "unsafe",
+      "consequence": "Une partie d'une base clients reste une fuite de données."
+    }
+  ],
+  "attacker_reveal": "Je n'ai rien eu à pirater... Il m'a suffi du nom du patron et d'un compte à rebours de dix minutes. Les gens polis détestent dire « laissez-moi vérifier ». Un court appel sur un numéro de confiance ruine tout."
+}

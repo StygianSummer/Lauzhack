@@ -1,0 +1,171 @@
+{
+  "id": "pl-l6-legit",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 6,
+  "twin_of": "pl-l6-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 31000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "colleague",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Mara Keller",
+    "from_address": "mara.keller@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re: Volunteer rota for December",
+    "received": "-PT20M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Thanks for sorting the rota yesterday. One more thing before I forget."
+      },
+      {
+        "t": "text",
+        "v": "Could you put this week's rota into the shared TeamChat folder? If it does not open for you, give me a ring and we will sort it."
+      },
+      {
+        "t": "text",
+        "v": "You wrote on Tuesday: \"The rota is final, and the contact sheet is in the shared folder.\""
+      },
+      {
+        "t": "signature",
+        "v": "Mara"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is Mara's and the thread is real. Alone, that proves little, but here the rest matches."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "A normal request: a rota, not personal data, and it goes to the shared folder, not to a private reply."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "It quotes your own words, which fits a real conversation."
+    },
+    {
+      "id": "hs-ring",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "She offers a phone call if there is any trouble. That is a channel you can use."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Mara, most likely: a real thread, an ordinary request and an offer to talk by phone.",
+      "choices": [
+        "Mara, most likely",
+        "Someone using a lookalike address",
+        "A stranger"
+      ],
+      "correct": 0,
+      "cues": [
+        "thread",
+        "mara",
+        "request",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None to speak of. It is a friendly, everyday request.",
+      "choices": [
+        "None: it is an everyday request",
+        "Fear of losing your job",
+        "Greed for a bonus"
+      ],
+      "correct": 0,
+      "cues": [
+        "everyday",
+        "friendly",
+        "calm"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Put the rota in the shared folder. It is not sensitive and nothing is sent privately.",
+      "choices": [
+        "Put the rota in the shared TeamChat folder",
+        "Send the volunteer phone list by reply",
+        "Click a link and sign in"
+      ],
+      "correct": 0,
+      "cues": [
+        "rota",
+        "folder",
+        "shared",
+        "nothing"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "If anything about it bothers you, call Mara on the number you already have. For this request you can simply do it in TeamChat yourself.",
+      "choices": [
+        "Use TeamChat yourself, or call Mara if unsure",
+        "Reply and ask if it is really her",
+        "Ignore it forever"
+      ],
+      "correct": 0,
+      "cues": [
+        "teamchat",
+        "call",
+        "known number"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "upload",
+      "label": "Put the rota into the shared TeamChat folder, as asked",
+      "outcome": "safe",
+      "consequence": "Done. Nothing sensitive was sent and nothing was typed into a strange page."
+    },
+    {
+      "id": "call-mara",
+      "label": "Call Mara first, to be extra careful",
+      "outcome": "safe",
+      "consequence": "She confirms. A short call is never wasted."
+    },
+    {
+      "id": "reply-list",
+      "label": "Reply with the volunteers' phone numbers as well, to save time",
+      "outcome": "unsafe",
+      "consequence": "She did not ask for that. Do not send personal data that nobody asked for."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. It looks almost the same as the one that wanted the whole contact list, but this request is ordinary and stays inside the shared folder. At this level the question is always what is being asked."
+}

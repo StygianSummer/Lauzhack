@@ -1,0 +1,191 @@
+{
+  "id": "email-mailbox-full-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "account_support",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "typos",
+      "urgency",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "Assistance CloudDrive",
+    "from_address": "security@cl0uddrive-support.example",
+    "to": "{{email}}",
+    "subject": "Boîte pleine : connectez-vous maintenant",
+    "received": "-PT18M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Cher utilisateur,"
+      },
+      {
+        "t": "text",
+        "v": "Votre boîte de réception est pleine à 99 %. Connectez-vous dans l'heure, sinon les e-mails entrants seront rejetés."
+      },
+      {
+        "t": "link",
+        "v": "Se connecter à CloudDrive",
+        "href": "https://cl0uddrive-support.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "Assistance CloudDrive"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "« cl0uddrive » contient un zéro à la place du o, et ce n'est de toute façon pas le domaine de CloudDrive, clouddrive.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "« Cher utilisateur » : un vrai service connaît votre nom."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Qui a choisi le délai d'une heure, vous ou eux ? La menace de perdre des e-mails sert à vous faire presser."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le bouton mène à cl0uddrive-support.example, un domaine imité. Un lien imité peut paraître tout à fait raisonnable quand on le survole."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour CloudDrive. « cl0uddrive » contient un zéro à la place du o, et ce n'est de toute façon pas le domaine de CloudDrive.",
+      "choices": [
+        "L'équipe d'assistance de CloudDrive",
+        "Quelqu'un qui utilise une adresse presque identique",
+        "Votre service informatique"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "zéro",
+        "domaine",
+        "imitation"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La peur et la hâte : on vous dit que vous perdrez des e-mails si vous n'agissez pas dans l'heure.",
+      "choices": [
+        "La curiosité pour une nouvelle fonction",
+        "La peur de perdre des e-mails, avec une heure pour agir",
+        "Aucune : c'est un avis de routine"
+      ],
+      "correct": 1,
+      "cues": [
+        "heure",
+        "délai",
+        "peur",
+        "hâte"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Vous connecter via le lien, ce qui donnerait vos identifiants à l'expéditeur.",
+      "choices": [
+        "Supprimer de vieux fichiers",
+        "Vous connecter via un lien",
+        "Appeler l'assistance"
+      ],
+      "correct": 1,
+      "cues": [
+        "connecter",
+        "lien",
+        "identifiants",
+        "cliquer"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne cliquez sur rien. Signalez-le au service informatique, puis vérifiez votre boîte en ouvrant vous-même le site officiel.",
+      "choices": [
+        "Répondre pour demander si le message est authentique",
+        "Ouvrir vous-même le site officiel et signaler l'e-mail",
+        "Survoler le lien et se connecter s'il a l'air correct"
+      ],
+      "correct": 1,
+      "cues": [
+        "officiel",
+        "vous-même",
+        "signaler",
+        "site"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Se connecter à CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "cl0uddrive-support.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "report-open",
+      "label": "Ne cliquer sur rien, le signaler au service informatique, puis ouvrir vous-même le site officiel",
+      "outcome": "safe",
+      "consequence": "Votre boîte va bien. L'e-mail était faux et votre signalement peut protéger un collègue."
+    },
+    {
+      "id": "sign-in",
+      "label": "Vous connecter via le lien, vite",
+      "outcome": "unsafe",
+      "consequence": "La page ressemble à CloudDrive, mais vos identifiants vont directement chez l'escroc."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre à l'expéditeur pour demander si le message est authentique",
+      "outcome": "neutral",
+      "consequence": "L'escroc répond que oui, bien sûr. Votre réponse lui montre aussi que votre adresse est active."
+    },
+    {
+      "id": "hover",
+      "label": "Survoler le lien et vous connecter si l'adresse a l'air correcte",
+      "outcome": "unsafe",
+      "consequence": "Une adresse imitée peut avoir l'air correcte. Vous avez donné vos identifiants."
+    }
+  ],
+  "attacker_reveal": "Un zéro à la place d'un o, et un compte à rebours... Vous avez lu les mots, pas les lettres. Quand on s'inquiète pour sa messagerie, on vérifie rarement l'expéditeur."
+}

@@ -1,0 +1,193 @@
+{
+  "id": "email-parcel-fee-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "short_deadline",
+      "generic_greeting",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "alerts@parcelpoint-fees.example",
+    "to": "{{email}}",
+    "subject": "Paquete retenido: tasa pendiente",
+    "received": "-PT30M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola:"
+      },
+      {
+        "t": "text",
+        "v": "ParcelPoint: tu paquete está retenido. Paga la tasa de 1,99 CHF en un plazo de 24 horas para liberarlo."
+      },
+      {
+        "t": "link",
+        "v": "parcelpoint-fees.example/pay",
+        "href": "https://parcelpoint-fees.example/pay",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Los paquetes que no se liberen a tiempo se devuelven al remitente."
+      },
+      {
+        "t": "signature",
+        "v": "ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "parcelpoint-fees.example no es el dominio de ParcelPoint, parcelpoint.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"En un plazo de 24 horas\" está ahí para meterte prisa. La tasa minúscula hace que pagar parezca inofensivo."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "La página te pediría los datos de tu tarjeta. Un transportista de verdad no cobra tasas mediante un enlace en un mensaje."
+    },
+    {
+      "id": "hs-return",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "La amenaza de perder el paquete suma presión a la que ya genera el plazo."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que usa el nombre de ParcelPoint. La dirección es de parcelpoint-fees.example, no de parcelpoint.example. Es el mismo truco que en las versiones por SMS.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "El equipo de reparto de ParcelPoint",
+        "La tienda donde hiciste el pedido"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "parecida",
+        "remitente"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Prisa y algo de preocupación: paga en 24 horas o el paquete se devuelve.",
+      "choices": [
+        "Prisa: paga en 24 horas o pierdes el paquete",
+        "Ganas de conseguir un regalo gratis",
+        "Ninguna: es un aviso sencillo"
+      ],
+      "correct": 0,
+      "cues": [
+        "24 horas",
+        "plazo",
+        "prisa",
+        "devuelve"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pagar una tasa pequeña mediante un enlace, lo que entregaría los datos de tu tarjeta a quien escribe.",
+      "choices": [
+        "Pagar una tasa pequeña mediante un enlace",
+        "Recoger el paquete en casa de un vecino",
+        "Responder con tu dirección"
+      ],
+      "correct": 0,
+      "cues": [
+        "pagar",
+        "tasa",
+        "enlace",
+        "tarjeta"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No uses el camino que te dan. Consulta el envío en la app o la web del propio transportista, que abres tú mismo. Incluso pulsar para mirar puede bastar, y responder STOP les dice que tu dirección está activa.",
+      "choices": [
+        "Consultar el envío en la app de ParcelPoint, abierta por ti mismo",
+        "Pagarla, porque son solo 1,99 CHF",
+        "Responder STOP para que te den de baja de la lista"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "tú mismo",
+        "propia",
+        "oficial"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "parcelpoint-fees.example/pay",
+    "options": [
+      "parcelpoint.example",
+      "parcelpoint-fees.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ignorar el enlace y consultar tú mismo el envío en la app de ParcelPoint",
+      "outcome": "safe",
+      "consequence": "No hay ningún paquete retenido. El correo era falso."
+    },
+    {
+      "id": "pay",
+      "label": "Pagarla, porque son solo 1,99 CHF",
+      "outcome": "unsafe",
+      "consequence": "Los datos de tu tarjeta van al estafador, que ahora puede llevarse mucho más que 1,99 CHF."
+    },
+    {
+      "id": "look",
+      "label": "Pulsar el enlace solo para mirar, sin introducir nada",
+      "outcome": "unsafe",
+      "consequence": "Incluso mirar puede confirmar que tu dirección está activa, y algunas páginas intentan ejecutar código en segundo plano."
+    },
+    {
+      "id": "reply-stop",
+      "label": "Responder STOP para que te den de baja de la lista",
+      "outcome": "neutral",
+      "consequence": "Responder les dice que tu dirección es real. Te envían más."
+    }
+  ],
+  "attacker_reveal": "El mismo truco con otra mano de pintura... Una tasa pequeña, un reloj corto y un enlace que ellos te dan. Entra por una puerta que ya conoces y no me queda nada."
+}

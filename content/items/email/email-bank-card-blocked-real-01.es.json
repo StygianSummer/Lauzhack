@@ -1,0 +1,176 @@
+{
+  "id": "email-bank-card-blocked-real-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "twin_of": "email-bank-fraud-desk-code-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 31000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link",
+      "do_not_share_warning"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Equipo antifraude de SwissAlpBank",
+    "from_address": "fraud@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Hemos pausado tu tarjeta tras un pago inusual",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Hemos pausado un pago con tarjeta de 389,00 CHF que parecía inusual. Tu tarjeta seguirá pausada hasta que lo confirmes."
+      },
+      {
+        "t": "text",
+        "v": "Abre la app de SwissAlpBank en las próximas 24 horas y dinos si el pago era tuyo."
+      },
+      {
+        "t": "text",
+        "v": "Nunca te pediremos un código, una contraseña ni el número de tu tarjeta por correo, SMS o teléfono."
+      },
+      {
+        "t": "signature",
+        "v": "Equipo antifraude de SwissAlpBank"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de swissalpbank.example, el dominio real del banco."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:2",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Es un plazo real, pero te pide usar la app que ya tienes. La urgencia por sí sola no convierte un correo en una estafa."
+    },
+    {
+      "id": "hs-never",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Dice claramente que nunca te pedirá un código ni una contraseña."
+    },
+    {
+      "id": "hs-no-link",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "No hay ningún enlace. Te envía a la app, un canal que tú controlas."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "SwissAlpBank: la dirección es de swissalpbank.example y nada apunta a otro dominio.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "Una persona que llama al azar",
+        "SwissAlpBank, desde su dominio real"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Algo de urgencia, porque se pausó un pago y hay un margen de 24 horas. Pero la presión es un plazo real, sin amenazas.",
+      "choices": [
+        "Ganas de recibir un reembolso",
+        "Ninguna en absoluto",
+        "Algo de urgencia, por un plazo real"
+      ],
+      "correct": 2,
+      "cues": [
+        "24 horas",
+        "pausado",
+        "plazo",
+        "urgencia"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Abrir la app y decir si el pago era tuyo. Sin código, sin enlace, sin contraseña.",
+      "choices": [
+        "Responder con el código de tu móvil",
+        "Iniciar sesión mediante un enlace",
+        "Revisar un pago en la app del banco"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "pago",
+        "confirmar",
+        "código"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de SwissAlpBank o llama al número que figura en el reverso de tu tarjeta.",
+      "choices": [
+        "Responder al correo",
+        "Pulsar un enlace del correo",
+        "Abrir tú mismo la app de SwissAlpBank"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "tú mismo",
+        "tarjeta",
+        "llamar"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de SwissAlpBank y revisar el pago",
+      "outcome": "safe",
+      "consequence": "El pago aparece en la lista y lo confirmas o lo niegas."
+    },
+    {
+      "id": "call-card",
+      "label": "Llamar al número del reverso de tu tarjeta",
+      "outcome": "safe",
+      "consequence": "El banco confirma el pago pausado."
+    },
+    {
+      "id": "reply-code",
+      "label": "Responder con el código si te llega uno",
+      "outcome": "unsafe",
+      "consequence": "El correo decía que nunca lo pedirían. Un código no se entrega jamás, ni siquiera a un banco de verdad."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido, aunque tenga un plazo. El dominio es el del propio banco, nadie pide un código y te envían a la app. Compáralo con el correo del 'caso 7731': los dos son tranquilos, pero solo uno te pide que leas un código en voz alta."
+}

@@ -1,0 +1,18 @@
+{
+  "id": "practice-email-01",
+  "subject": "Connexion inhabituelle à votre compte ThisIsTea",
+  "text": "Bonjour {{first_name}},\n\nNous avons détecté une connexion à votre compte ThisIsTea depuis un appareil que nous ne reconnaissons pas. Si ce n'était pas vous, votre compte et votre progression sont peut-être en danger.\n\nPour votre sécurité, confirmez que c'est bien vous et connectez-vous à votre compte maintenant :\n{{click_url}}\n\nMerci de nous aider à garder ThisIsTea sûr.\nL'équipe de sécurité ThisIsTea\n\nGérer les e-mails ThisIsTea : {{settings_url}}\n",
+  "html": "<p>Bonjour {{first_name}},</p>\n<p>Nous avons détecté une connexion à votre compte ThisIsTea depuis un appareil que nous ne reconnaissons pas. Si ce n'était pas vous, votre compte et votre progression sont peut-être en danger.</p>\n<p>Pour votre sécurité, confirmez que c'est bien vous et connectez-vous à votre compte maintenant :</p>\n<p><a href=\"{{click_url}}\" style=\"display:inline-block;background:#1f8f6b;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none\">Me connecter à mon compte</a></p>\n<p>Merci de nous aider à garder ThisIsTea sûr.<br>L'équipe de sécurité ThisIsTea</p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gérer les e-mails ThisIsTea</a></p>\n",
+  "reveal": {
+    "steps": {
+      "who": "Le nom disait ThisIsTea, mais un nom dans un e-mail se falsifie facilement. ThisIsTea ne vous demande jamais de vous connecter via un lien dans un e-mail : ce n'était donc pas un message normal de ThisIsTea.",
+      "emotion": "Il jouait sur l'inquiétude : l'idée qu'un inconnu était déjà dans votre compte, pour que vous cliquiez tout de suite au lieu de vérifier d'abord.",
+      "ask": "Il voulait vous faire cliquer et saisir votre mot de passe ThisIsTea sur une page qui n'était pas la nôtre.",
+      "verify": "Ouvrez ThisIsTea vous-même, depuis votre favori ou en tapant l'adresse, et vérifiez votre compte là-bas. Ne vous connectez jamais depuis un lien reçu dans un e-mail inattendu."
+    },
+    "hints": [
+      "Un lien de connexion que vous n'avez pas demandé est un signal d'alerte, même si l'e-mail utilise le bon nom.",
+      "Les vrais services vous laissent vous connecter depuis l'application ou votre propre favori, pas seulement depuis un lien d'e-mail."
+    ]
+  }
+}

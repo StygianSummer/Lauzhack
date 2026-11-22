@@ -1,0 +1,167 @@
+{
+  "id": "email-thisistea-digest-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 4,
+  "twin_of": "email-thisistea-password-expiry-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea",
+    "from_address": "notifications@thisistea.example",
+    "to": "{{email}}",
+    "subject": "Your team's weekly digest",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Three colleagues finished Lesson 1 this week. See the full digest in the ThisIsTea app whenever you like."
+      },
+      {
+        "t": "link",
+        "v": "Open digest",
+        "href": "https://thisistea.example/digest",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "ThisIsTea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The domain is exactly thisistea.example."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "No password, no deadline and no pressure."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "thisistea.example sits right before the first slash, so the link is genuine. You could still skip it and open the app."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:1",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It says you can read the digest in the app whenever you like."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "ThisIsTea itself: the domain is exactly thisistea.example.",
+      "choices": [
+        "Someone using a lookalike domain",
+        "ThisIsTea, from its real domain",
+        "Your IT helpdesk"
+      ],
+      "correct": 1,
+      "cues": [
+        "domain",
+        "exact",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. There is no deadline and no threat.",
+      "choices": [
+        "Fear of losing your password",
+        "None: it is calm and has no deadline",
+        "Greed for a prize"
+      ],
+      "correct": 1,
+      "cues": [
+        "calm",
+        "deadline",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing: it offers a digest to read. There is no password, no payment and no pressure.",
+      "choices": [
+        "Sign in to keep your password",
+        "Nothing, apart from reading a digest",
+        "Pay a fee"
+      ],
+      "correct": 1,
+      "cues": [
+        "nothing",
+        "digest",
+        "password"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Even then, you could skip the link and open the ThisIsTea app yourself.",
+      "choices": [
+        "Reply to ask for a longer digest",
+        "Open the ThisIsTea app yourself if you want to look",
+        "Forward it to IT"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "yourself",
+        "bookmark"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the ThisIsTea app yourself and read the digest",
+      "outcome": "safe",
+      "consequence": "The same digest is waiting there."
+    },
+    {
+      "id": "click",
+      "label": "Click the link to read the digest",
+      "outcome": "safe",
+      "consequence": "It leads to the real domain, so no harm. The app is still the safer habit."
+    },
+    {
+      "id": "report",
+      "label": "Report it to IT as a suspicious email",
+      "outcome": "neutral",
+      "consequence": "IT thanks you and confirms it is genuine. Checking is never wrong, but this one is fine."
+    }
+  ],
+  "attacker_reveal": "This one is fine, dear. The domain is exactly thisistea.example, and it asks for nothing. A calm email can be real, and so can one with a link. What matters is who owns the domain and what it wants from you."
+}

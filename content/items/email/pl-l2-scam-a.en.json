@@ -1,0 +1,184 @@
+{
+  "id": "pl-l2-scam-a",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "TeamChat Security",
+    "from_address": "security@teamchat-support.example",
+    "to": "{{email}}",
+    "subject": "New sign-in to your TeamChat account",
+    "received": "-PT9M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello,"
+      },
+      {
+        "t": "text",
+        "v": "We noticed a sign-in to your TeamChat account from a new device in another country. If this was not you, please secure your account within the next few hours."
+      },
+      {
+        "t": "link",
+        "v": "Secure my account",
+        "href": "https://teamchat-secure.example/account",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Thank you for helping us keep TeamChat safe."
+      },
+      {
+        "t": "signature",
+        "v": "The TeamChat Security Team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "teamchat-support.example is not TeamChat's domain, teamchat.example. Anyone can register a name that sounds official."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "A sign-in from abroad and \"the next few hours\" are meant to scare you into acting fast."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The button leads to teamchat-secure.example, a different domain from the real one."
+    },
+    {
+      "id": "hs-signature",
+      "target": "body:4",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Signatures are easy to copy. This one proves nothing either way."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be TeamChat. The name looks right, but the address is on teamchat-support.example, not teamchat.example.",
+      "choices": [
+        "TeamChat's security team",
+        "A colleague on your team",
+        "Someone using an address that only looks like TeamChat's"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "lookalike",
+        "sender"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Fear and hurry: a stranger may be in your account and you must act within hours.",
+      "choices": [
+        "Curiosity about a new feature",
+        "None: it is a routine notice",
+        "Fear that someone is in your account, with a rush"
+      ],
+      "correct": 2,
+      "cues": [
+        "fear",
+        "hours",
+        "rush",
+        "account"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Click the link and sign in, which would hand your login to the sender.",
+      "choices": [
+        "Call TeamChat support",
+        "Nothing, it is only for information",
+        "Click a link and sign in"
+      ],
+      "correct": 2,
+      "cues": [
+        "click",
+        "link",
+        "sign",
+        "login"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Ignore the link. Open the TeamChat app yourself and look at your devices and recent sign-ins.",
+      "choices": [
+        "Click the link to see whether it is real",
+        "Reply and ask if the alert is genuine",
+        "Open the TeamChat app yourself and check your devices"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "yourself",
+        "devices",
+        "own"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the TeamChat app yourself and check your devices",
+      "outcome": "safe",
+      "consequence": "Only your own devices are listed. The alert was fake."
+    },
+    {
+      "id": "click",
+      "label": "Click \"Secure my account\" and sign in",
+      "outcome": "unsafe",
+      "consequence": "The page looks like TeamChat, but your login goes straight to the scammer."
+    },
+    {
+      "id": "reply",
+      "label": "Reply and ask whether the alert is real",
+      "outcome": "neutral",
+      "consequence": "The scammer says yes and pushes harder. Your reply also shows your address is in use."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. Nothing was clicked."
+    }
+  ],
+  "attacker_reveal": "A made-up alert, a foreign country and a few hours to decide... Fear does half my work. The address was close enough that you had to read every letter to catch it."
+}

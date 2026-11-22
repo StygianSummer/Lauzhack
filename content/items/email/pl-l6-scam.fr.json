@@ -1,0 +1,180 @@
+{
+  "id": "pl-l6-scam",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 32000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "colleague",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Mara Keller",
+    "from_address": "mara.keller@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re : Planning des bénévoles pour décembre",
+    "received": "-PT15M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Merci d'avoir réglé le planning hier. Encore une chose avant que j'oublie."
+      },
+      {
+        "t": "text",
+        "v": "Pouvez-vous m'envoyer la liste complète des bénévoles avec leurs numéros de téléphone et leurs adresses personnelles ? Répondez simplement ici en la collant dans le message. Je voyage et je ne peux pas ouvrir le dossier partagé."
+      },
+      {
+        "t": "text",
+        "v": "Vous écriviez mardi : « Le planning est final, et la fiche de contacts est dans le dossier partagé. »"
+      },
+      {
+        "t": "signature",
+        "v": "Mara"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse est bien celle de Mara, et la discussion est réelle. C'est ce qui rend ce message dangereux : un compte piraté réussit tous les contrôles d'adresse."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Une liste complète de noms, de téléphones et d'adresses personnelles est sensible. La réclamer collée dans une réponse, parce que le dossier partagé « ne s'ouvre pas », ne lui ressemble pas."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Citer vos propres mots donne un air d'authenticité, mais quiconque lit la boîte de réception peut les copier."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Une vraie réponse dans une vraie discussion. Rien d'anormal ici, et rien de rassurant non plus."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Peut-être pas Mara. L'adresse et la discussion sont réelles, donc quelqu'un utilise peut-être son compte piraté. Seul un appel à Mara permet de le savoir.",
+      "choices": [
+        "Peut-être Mara, peut-être quelqu'un qui a pris le contrôle de son compte",
+        "Sûrement Mara, puisque la discussion est réelle",
+        "Un inconnu avec une adresse presque identique"
+      ],
+      "correct": 0,
+      "cues": [
+        "discussion",
+        "piraté",
+        "compte",
+        "réel"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "De la serviabilité et un peu de hâte : une collègue en difficulté qui a besoin de votre aide.",
+      "choices": [
+        "De la serviabilité envers une collègue en difficulté",
+        "La peur de perdre votre emploi",
+        "L'excitation d'une prime"
+      ],
+      "correct": 0,
+      "cues": [
+        "aider",
+        "collègue",
+        "voyage",
+        "difficulté"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Répondre avec les données personnelles des bénévoles. Cela ferait fuiter des noms, des téléphones et des adresses.",
+      "choices": [
+        "Répondre avec les données personnelles des bénévoles",
+        "Cliquer sur un lien et vous connecter",
+        "Ouvrir une pièce jointe"
+      ],
+      "correct": 0,
+      "cues": [
+        "répondre",
+        "liste",
+        "personnel",
+        "adresses"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne répondez pas. Appelez Mara au numéro que vous avez déjà, ou demandez-lui en personne ou dans TeamChat, pour vérifier qu'elle l'a bien envoyé.",
+      "choices": [
+        "Appeler Mara sur un numéro que vous connaissez déjà",
+        "Répondre pour demander si c'est bien elle",
+        "N'envoyer que la moitié de la liste"
+      ],
+      "correct": 0,
+      "cues": [
+        "appeler",
+        "numéro connu",
+        "mara",
+        "autre canal"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-mara",
+      "label": "Appeler Mara sur son numéro habituel et lui poser la question",
+      "outcome": "safe",
+      "consequence": "Mara ne sait rien de cet e-mail. Son compte a été piraté et vous la prévenez à temps."
+    },
+    {
+      "id": "reply-data",
+      "label": "Répondre avec la liste des bénévoles",
+      "outcome": "unsafe",
+      "consequence": "Les numéros de téléphone et les adresses personnelles de tous les bénévoles sont maintenant entre les mains d'un inconnu."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Répondre et demander « Est-ce bien vous ? »",
+      "outcome": "unsafe",
+      "consequence": "Celui qui contrôle le compte répond « oui, bien sûr ». Vous n'avez interrogé que l'imposteur."
+    },
+    {
+      "id": "tell-it",
+      "label": "Prévenir le service informatique ou votre responsable que le compte de Mara a peut-être été piraté",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. L'équipe peut bloquer le compte avant qu'il ne serve contre quelqu'un d'autre."
+    }
+  ],
+  "attacker_reveal": "Je n'ai rien eu à falsifier... Le propre compte de Mara vous a écrit, avec ses propres mots dans la discussion. La seule chose qui paraissait bizarre, c'était ce que je demandais. Regardez la demande, et vérifiez-la autrement."
+}

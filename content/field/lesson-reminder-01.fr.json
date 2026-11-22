@@ -1,0 +1,5 @@
+{
+  "id": "lesson-reminder-01",
+  "subject": "Votre leçon ThisIsTea vous attend",
+  "text": "Bonjour {{first_name}},\n\nVotre leçon de pratique vous attend. Vous pourrez la reprendre quand vous le souhaitez :\n{{lesson_url}}\n\nGérer les e-mails ThisIsTea : {{settings_url}}\n"
+}

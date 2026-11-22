@@ -1,0 +1,192 @@
+{
+  "id": "email-heldout-clouddrive-thread-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 6,
+  "held_out": true,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [
+      "helpfulness"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Elena Roth",
+    "from_address": "elena.roth@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re : Rapport annuel : chiffres définitifs",
+    "received": "-PT40M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Parfait, ça me convient. J'ai mis les chiffres définitifs dans CloudDrive pour que nous puissions les modifier tous les deux. Il vous demandera de vous connecter avec votre e-mail professionnel."
+      },
+      {
+        "t": "link",
+        "v": "Consulter « Chiffres définitifs » dans CloudDrive",
+        "href": "https://clouddrive-view.example/f/annual-final",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Vous écriviez lundi : « Envoyez-moi les chiffres quand ils seront définitifs et je les vérifierai. »"
+      },
+      {
+        "t": "signature",
+        "v": "Elena"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse est bien celle d'Elena et la discussion est réelle. Un compte piraté réussit tous les contrôles d'adresse."
+    },
+    {
+      "id": "hs-signin",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Un nouveau fichier partagé qui exige de vous connecter avec votre e-mail professionnel : c'est ainsi qu'on copie un identifiant."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "clouddrive-view.example n'est pas le domaine de CloudDrive, clouddrive.example. Un voleur qui utilise le compte d'Elena peut envoyer n'importe quel lien."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Citer vos propres mots donne un air d'authenticité, mais quiconque lit la boîte de réception peut les copier."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Peut-être pas Elena. L'adresse et la discussion sont réelles, donc son compte a pu être piraté. Seul un appel permet de le savoir.",
+      "choices": [
+        "Peut-être Elena, peut-être quelqu'un qui utilise son compte piraté",
+        "Sûrement Elena, puisque la discussion est réelle",
+        "CloudDrive lui-même"
+      ],
+      "correct": 0,
+      "cues": [
+        "discussion",
+        "piraté",
+        "compte",
+        "réel"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "De la serviabilité et un peu de hâte pour finir le rapport ensemble.",
+      "choices": [
+        "L'envie d'aider à terminer le rapport",
+        "La peur d'une amende",
+        "L'envie d'une prime"
+      ],
+      "correct": 0,
+      "cues": [
+        "aider",
+        "rapport",
+        "chiffres",
+        "ensemble"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Vous connecter à CloudDrive via un lien, ce qui donnerait votre identifiant professionnel à celui qui contrôle le compte d'Elena.",
+      "choices": [
+        "Vous connecter via un lien",
+        "Payer des frais",
+        "Répondre avec votre date de naissance"
+      ],
+      "correct": 0,
+      "cues": [
+        "connecter",
+        "lien",
+        "identifiant",
+        "e-mail professionnel"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "N'utilisez pas le lien. Ouvrez CloudDrive vous-même et cherchez le fichier, ou appelez Elena sur un numéro que vous connaissez déjà.",
+      "choices": [
+        "Ouvrir CloudDrive vous-même, ou appeler Elena sur un numéro connu",
+        "Vous connecter, puisque la discussion est réelle",
+        "Répondre pour demander si c'est bien elle"
+      ],
+      "correct": 0,
+      "cues": [
+        "clouddrive",
+        "vous-même",
+        "appeler",
+        "numéro connu"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Consulter « Chiffres définitifs » dans CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "clouddrive-view.example",
+      "northfield-aid.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-yourself",
+      "label": "Ouvrir CloudDrive vous-même et chercher le fichier, ou appeler Elena",
+      "outcome": "safe",
+      "consequence": "Ce fichier n'existe pas. Elena ne sait rien de cet e-mail."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur le lien et vous connecter",
+      "outcome": "unsafe",
+      "consequence": "La page copie votre identifiant professionnel pour celui qui contrôle le compte d'Elena."
+    },
+    {
+      "id": "reply-ask",
+      "label": "Répondre et demander « Est-ce bien vous ? »",
+      "outcome": "unsafe",
+      "consequence": "Celui qui contrôle le compte répond que oui. Vous n'avez interrogé que l'imposteur."
+    },
+    {
+      "id": "tell-it",
+      "label": "Prévenir le service informatique que le compte d'Elena a peut-être été piraté",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Le compte peut être bloqué avant de toucher d'autres personnes."
+    }
+  ],
+  "attacker_reveal": "Un nouveau genre d'e-mail de partage de fichier, dans une discussion de confiance, de la part de quelqu'un de confiance... Vous n'aviez jamais vu cette astuce précise, mais la question restait la même : qui écrit vraiment, et comment le vérifier ?"
+}

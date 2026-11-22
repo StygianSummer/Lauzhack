@@ -1,0 +1,181 @@
+{
+  "id": "pl-l2-scam-b",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "greed",
+      "urgency"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "lookalike_sender",
+      "short_deadline",
+      "unsolicited"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "HelvetiCare Refunds",
+    "from_address": "refunds@helveticare-claims.example",
+    "to": "{{email}}",
+    "subject": "Refund of CHF 86.40 waiting for you",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello,"
+      },
+      {
+        "t": "text",
+        "v": "Our records show that you overpaid your last premium. We would like to refund CHF 86.40."
+      },
+      {
+        "t": "text",
+        "v": "To process it, please reply to this email with your full name, date of birth and bank account number."
+      },
+      {
+        "t": "text",
+        "v": "Refunds that are not claimed this month are returned to our pool."
+      },
+      {
+        "t": "signature",
+        "v": "HelvetiCare Refunds Department"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "helveticare-claims.example is not HelvetiCare's domain, helveticare.example."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Free money you did not ask for. It is meant to make you curious and greedy."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Your name, birth date and bank account number by email is far more than a refund needs. A real insurer never asks for this in a reply."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Not claimed this month\" is a deadline invented to hurry you."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be HelvetiCare. The address is on helveticare-claims.example, not the insurer's own domain.",
+      "choices": [
+        "Someone using a lookalike address",
+        "HelvetiCare's refunds team",
+        "Your employer's accounts office"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "lookalike",
+        "insurer"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Greed and a little hurry: money for nothing, but only this month.",
+      "choices": [
+        "Greed for free money, with a small deadline",
+        "Fear of a fine",
+        "None: it is a routine statement"
+      ],
+      "correct": 0,
+      "cues": [
+        "refund",
+        "money",
+        "month",
+        "deadline"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Reply with your full name, date of birth and bank account number. That is enough to steal your identity.",
+      "choices": [
+        "Reply with personal and bank details",
+        "Click a link and sign in",
+        "Call a helpline"
+      ],
+      "correct": 0,
+      "cues": [
+        "reply",
+        "details",
+        "bank",
+        "birth"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not reply. Call the number on your insurance card, or open the HelvetiCare app, and ask whether you are owed a refund.",
+      "choices": [
+        "Call the number on your insurance card",
+        "Reply and ask for the refund form",
+        "Wait a week to see if it comes again"
+      ],
+      "correct": 0,
+      "cues": [
+        "card",
+        "number",
+        "app",
+        "call"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Call the number on your insurance card and ask about a refund",
+      "outcome": "safe",
+      "consequence": "They confirm nothing is owed. The email was fake."
+    },
+    {
+      "id": "reply-data",
+      "label": "Reply with your name, birth date and account number",
+      "outcome": "unsafe",
+      "consequence": "The scammer now has what they need to open accounts and take loans in your name."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignore the email and do nothing",
+      "outcome": "neutral",
+      "consequence": "Nothing is lost, but the scam stays in your inbox for the next time."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. You gave nothing away."
+    }
+  ],
+  "attacker_reveal": "Everyone likes a refund... I just asked you to help me pay it. The extra details I asked for are worth far more to me than CHF 86.40."
+}

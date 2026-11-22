@@ -1,0 +1,181 @@
+{
+  "id": "pl-l2-scam-b",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "greed",
+      "urgency"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "lookalike_sender",
+      "short_deadline",
+      "unsolicited"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "Reembolsos HelvetiCare",
+    "from_address": "refunds@helveticare-claims.example",
+    "to": "{{email}}",
+    "subject": "Te esperan 86,40 CHF de reembolso",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola:"
+      },
+      {
+        "t": "text",
+        "v": "Según nuestros registros, pagaste de más en tu última prima. Queremos reembolsarte 86,40 CHF."
+      },
+      {
+        "t": "text",
+        "v": "Para tramitarlo, responde a este correo con tu nombre completo, tu fecha de nacimiento y tu número de cuenta bancaria."
+      },
+      {
+        "t": "text",
+        "v": "Los reembolsos que no se reclamen este mes vuelven a nuestro fondo."
+      },
+      {
+        "t": "signature",
+        "v": "Departamento de reembolsos de HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "helveticare-claims.example no es el dominio de HelvetiCare, helveticare.example."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Dinero gratis que no has pedido. Busca despertar tu curiosidad y tu codicia."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Tu nombre, tu fecha de nacimiento y tu número de cuenta por correo es mucho más de lo que necesita un reembolso. Una aseguradora de verdad nunca pide esto en una respuesta."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Que no se reclamen este mes\" es un plazo inventado para meterte prisa."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por HelvetiCare. La dirección es de helveticare-claims.example, no del dominio de la propia aseguradora.",
+      "choices": [
+        "Alguien que usa una dirección parecida",
+        "El equipo de reembolsos de HelvetiCare",
+        "La oficina de contabilidad de tu empresa"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "parecida",
+        "aseguradora"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Codicia y algo de prisa: dinero a cambio de nada, pero solo este mes.",
+      "choices": [
+        "Codicia por dinero gratis, con un plazo corto",
+        "Miedo a una multa",
+        "Ninguna: es un extracto rutinario"
+      ],
+      "correct": 0,
+      "cues": [
+        "reembolso",
+        "dinero",
+        "mes",
+        "plazo"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Responder con tu nombre completo, tu fecha de nacimiento y tu número de cuenta bancaria. Eso basta para suplantar tu identidad.",
+      "choices": [
+        "Responder con datos personales y bancarios",
+        "Pulsar un enlace e iniciar sesión",
+        "Llamar a un teléfono de atención"
+      ],
+      "correct": 0,
+      "cues": [
+        "responder",
+        "datos",
+        "banco",
+        "nacimiento"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No respondas. Llama al número de tu tarjeta del seguro, o abre la app de HelvetiCare, y pregunta si te deben un reembolso.",
+      "choices": [
+        "Llamar al número de tu tarjeta del seguro",
+        "Responder y pedir el formulario de reembolso",
+        "Esperar una semana a ver si vuelve a llegar"
+      ],
+      "correct": 0,
+      "cues": [
+        "tarjeta",
+        "número",
+        "app",
+        "llamar"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Llamar al número de tu tarjeta del seguro y preguntar por un reembolso",
+      "outcome": "safe",
+      "consequence": "Confirman que no se te debe nada. El correo era falso."
+    },
+    {
+      "id": "reply-data",
+      "label": "Responder con tu nombre, tu fecha de nacimiento y tu número de cuenta",
+      "outcome": "unsafe",
+      "consequence": "El estafador ya tiene lo que necesita para abrir cuentas y pedir préstamos a tu nombre."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignorar el correo y no hacer nada",
+      "outcome": "neutral",
+      "consequence": "No pierdes nada, pero la estafa se queda en tu bandeja para la próxima vez."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No entregaste nada."
+    }
+  ],
+  "attacker_reveal": "A todo el mundo le gusta un reembolso... Solo te pedí que me ayudaras a pagarlo. Los datos extra que te pedí valen para mí mucho más que 86,40 CHF."
+}

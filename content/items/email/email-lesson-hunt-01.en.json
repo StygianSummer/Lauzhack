@@ -1,0 +1,206 @@
+{
+  "id": "email-lesson-hunt-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "lesson"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "urgency",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea Support",
+    "from_address": "support@thisistae-app.example",
+    "to": "{{email}}",
+    "subject": "Action required: problem creating your ThisIsTea account",
+    "received": "-PT14M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi there,"
+      },
+      {
+        "t": "text",
+        "v": "We ran into an error finalising your account."
+      },
+      {
+        "t": "text",
+        "v": "Please re-enter your email and password to finish."
+      },
+      {
+        "t": "text",
+        "v": "You have 2 hours, then your account is deactivated automatically."
+      },
+      {
+        "t": "link",
+        "v": "Verify account now",
+        "href": "https://thisistae-app.example/login",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "ThisIsTea Support"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "I swapped two letters and moved one word: thisistae-app.example is not thisistea.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "A plain hello. Honest companies say hello too."
+    },
+    {
+      "id": "hs-error",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Just words. Anyone could write that sentence. Look for the part that wants something from you."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "ThisIsTea would never ask for your password by email."
+    },
+    {
+      "id": "hs-clock",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"2 hours\" is there to quiet the part of you that checks."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The button leads to the same lookalike domain."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone imitating ThisIsTea. The address is thisistae-app.example, with two letters swapped and an extra word.",
+      "choices": [
+        "ThisIsTea support",
+        "A colleague",
+        "Someone using a lookalike address"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "swapped",
+        "lookalike"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Fear and hurry: your account is deactivated unless you act within two hours.",
+      "choices": [
+        "Curiosity about an update",
+        "None: it is routine",
+        "Fear and hurry: two hours to act"
+      ],
+      "correct": 2,
+      "cues": [
+        "2 hours",
+        "deactivated",
+        "deadline",
+        "rush"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Re-enter your email and password. That would hand your login to the sender.",
+      "choices": [
+        "Download an update",
+        "Pay a fee",
+        "Re-enter your email and password"
+      ],
+      "correct": 2,
+      "cues": [
+        "password",
+        "re-enter",
+        "email",
+        "login"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Never type a password after clicking an email link. Open ThisIsTea yourself, from a bookmark or by typing the address.",
+      "choices": [
+        "Click the link and check the page",
+        "Reply to ask for help",
+        "Open ThisIsTea yourself, by typing the address or using a bookmark"
+      ],
+      "correct": 2,
+      "cues": [
+        "yourself",
+        "bookmark",
+        "type",
+        "address"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Verify account now",
+    "options": [
+      "thisistea.example",
+      "thisistae-app.example",
+      "secure-login.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "type-address",
+      "label": "Open ThisIsTea yourself, by typing its address",
+      "outcome": "safe",
+      "consequence": "Your account is fine. The email was fake."
+    },
+    {
+      "id": "click",
+      "label": "Click the link and re-enter your password",
+      "outcome": "unsafe",
+      "consequence": "Your login goes straight to the scammer."
+    },
+    {
+      "id": "report",
+      "label": "Report it to IT and delete it",
+      "outcome": "safe",
+      "consequence": "Good call."
+    }
+  ],
+  "attacker_reveal": "I swapped two letters, started a clock, and asked for a password. ThisIsTea would never ask for it, but I sounded like ThisIsTea, and that was enough."
+}

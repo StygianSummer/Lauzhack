@@ -1,0 +1,313 @@
+<resources>
+    <!-- Español (neutro, de España). Mismas claves que values/strings.xml, mismo orden. Tuteo, frases cortas, sin rayas largas. -->
+    <string name="app_name">ThisIsTea</string>
+
+    <!-- Shared -->
+    <string name="shell_continue">Continuar</string>
+    <string name="shell_cancel">Cancelar</string>
+    <string name="shell_needs_connection">Necesita conexión</string>
+    <string name="shell_error_generic">Algo ha salido mal. Inténtalo de nuevo.</string>
+    <string name="shell_offline_try">No tienes conexión. Inténtalo de nuevo cuando vuelvas a estar conectado.</string>
+    <string name="shell_back_home">Volver al inicio</string>
+    <string name="shell_step_who">¿Quién escribe realmente?</string>
+    <string name="shell_step_emotion">¿Qué emoción intentan provocar?</string>
+    <string name="shell_step_ask">¿Qué me piden exactamente?</string>
+    <string name="shell_step_verify">¿Cómo puedo comprobarlo por un canal que yo controlo?</string>
+    <string name="shell_session_expired">Inicia sesión de nuevo para que tu progreso siga sincronizándose.</string>
+    <string name="shell_sign_in">Iniciar sesión</string>
+
+    <!-- 1. Language -->
+    <string name="language_title">Elige tu idioma</string>
+    <string name="language_intro">Puedes cambiarlo más tarde en los ajustes.</string>
+    <string name="language_label">Idioma</string>
+    <string name="language_country">País</string>
+    <string name="language_country_help">Lo usamos para sugerir ayuda que existe donde vives.</string>
+    <string name="country_CH">Suiza</string>
+    <string name="country_FR">Francia</string>
+    <string name="country_ES">España</string>
+    <string name="country_DE">Alemania</string>
+    <string name="country_IT">Italia</string>
+    <string name="country_GB">Reino Unido</string>
+    <string name="country_IN">India</string>
+    <string name="country_PK">Pakistán</string>
+    <string name="country_OTHER">Otro</string>
+
+    <!-- 2. Email -->
+    <string name="email_title">Tu correo electrónico</string>
+    <string name="email_intro">Te enviamos un código de 6 dígitos para comprobar que la dirección es tuya.</string>
+    <string name="email_login_title">Te damos la bienvenida de nuevo</string>
+    <string name="email_login_intro">Inicia sesión con tu correo electrónico y tu contraseña.</string>
+    <string name="email_label">Correo electrónico</string>
+    <string name="email_placeholder">tu@example.com</string>
+    <string name="email_send">Envíame un código</string>
+    <string name="email_error_invalid">Esto no parece una dirección de correo electrónico.</string>
+    <string name="email_error_rate">Espera un minuto antes de pedir otro código.</string>
+    <string name="email_error_mail">No hemos podido enviar el correo. Inténtalo de nuevo más tarde.</string>
+    <string name="email_offline">No tienes conexión, así que ahora no podemos enviarte un código. Puedes empezar sin cuenta y registrarte más tarde.</string>
+    <string name="email_guest">Continuar sin cuenta</string>
+    <string name="email_have_account">Ya tengo una cuenta</string>
+    <string name="email_new_account">Soy nuevo aquí</string>
+    <string name="email_password_label">Contraseña</string>
+    <string name="email_sign_in">Iniciar sesión</string>
+    <string name="email_error_credentials">El correo electrónico o la contraseña no son correctos.</string>
+    <string name="email_error_login_rate">Demasiados intentos. Espera un rato e inténtalo de nuevo.</string>
+
+    <!-- 3. Code -->
+    <string name="code_title">Revisa tu bandeja de entrada</string>
+    <string name="code_intro">Hemos enviado un código de 6 dígitos a %1$s. Es válido durante 10 minutos.</string>
+    <string name="code_label">Tu código</string>
+    <string name="code_never">Nunca te pediremos este código ni tu contraseña en un correo o en un mensaje.</string>
+    <string name="code_resend">Enviar un código nuevo</string>
+    <string name="code_resend_wait">Podrás pedir un código nuevo dentro de %1$d segundos.</string>
+    <string name="code_resent">Un código nuevo está en camino.</string>
+    <string name="code_error_invalid">Este código no es correcto. Compruébalo e inténtalo de nuevo.</string>
+    <string name="code_error_expired">Este código ha caducado. Pide uno nuevo.</string>
+    <string name="code_error_tries">Demasiados intentos incorrectos. Pide un código nuevo.</string>
+    <string name="code_verify">Comprobar el código</string>
+    <string name="code_change_email">Usar otra dirección</string>
+
+    <!-- 4. Name -->
+    <string name="name_title">¿Cómo quieres que te llamemos?</string>
+    <string name="name_intro">Usamos tu nombre para saludarte y personalizar los ejemplos.</string>
+    <string name="name_first">Nombre</string>
+    <string name="name_last">Apellidos (opcional)</string>
+    <string name="name_display">Nombre en la clasificación</string>
+    <string name="name_display_help">Los demás alumnos ven este nombre. Un apodo sirve perfectamente.</string>
+    <string name="name_error_first">Escribe tu nombre.</string>
+
+    <!-- 5. Password -->
+    <string name="password_title">Elige una contraseña</string>
+    <string name="password_intro">La usarás para iniciar sesión en otro dispositivo.</string>
+    <string name="password_label">Contraseña</string>
+    <string name="password_rule">Al menos 10 caracteres. Los que quieras.</string>
+    <string name="password_honest">Comprobamos tu contraseña con las filtraciones de datos conocidas sin enviarla nunca completa, y guardamos algunos datos de la que elijas (como su longitud) para tu lección sobre contraseñas. Nunca la contraseña en sí.</string>
+    <string name="password_error_short">Al menos 10 caracteres, por favor.</string>
+    <string name="password_error_breached">Esta contraseña aparece en filtraciones de datos conocidas. Elige otra.</string>
+    <string name="password_save">Guardar contraseña</string>
+
+    <!-- 6. Onboarding (one question per screen, all skippable) -->
+    <string name="onboarding_progress">Pregunta %1$d de %2$d</string>
+    <string name="onboarding_skip">Omitir</string>
+    <string name="onboarding_pick_all">Elige todas las que correspondan.</string>
+    <string name="onboarding_here_for_title">¿Para quién estás aquí?</string>
+    <string name="onboarding_here_for_intro">Elegimos ejemplos que encajen.</string>
+    <string name="onboarding_here_for_myself">Para mí</string>
+    <string name="onboarding_here_for_relative">Un familiar o un amigo</string>
+    <string name="onboarding_here_for_ngo">Mi ONG o mi grupo de voluntarios</string>
+    <string name="onboarding_here_for_company">Mi empresa</string>
+    <string name="onboarding_age_title">¿Cuántos años tienes?</string>
+    <string name="onboarding_age_intro">Opcional. Nos ayuda a elegir ejemplos que encajen.</string>
+    <string name="onboarding_age_under25">Menos de 25</string>
+    <string name="onboarding_age_25_44">De 25 a 44</string>
+    <string name="onboarding_age_45_64">De 45 a 64</string>
+    <string name="onboarding_age_65">65 o más</string>
+    <string name="onboarding_channels_title">¿Cómo te contactan?</string>
+    <string name="onboarding_channel_email">Correo electrónico</string>
+    <string name="onboarding_channel_sms">Mensajes de texto</string>
+    <string name="onboarding_channel_messengers">Aplicaciones de mensajería</string>
+    <string name="onboarding_channel_calls">Llamadas de teléfono</string>
+    <string name="onboarding_channel_social">Redes sociales</string>
+    <string name="onboarding_email_app_title">¿Cómo sueles leer tu correo?</string>
+    <string name="onboarding_email_app_intro">Los consejos cambian según el lugar.</string>
+    <string name="onboarding_email_app_webmail">En un navegador web</string>
+    <string name="onboarding_email_app_outlook">En un programa de correo de mi ordenador</string>
+    <string name="onboarding_email_app_phone">En una aplicación de mi móvil</string>
+    <string name="onboarding_interests_title">¿Qué haces en internet?</string>
+    <string name="onboarding_interests_intro">Elige todas las que correspondan. Las usamos para elegir los ejemplos.</string>
+    <string name="onboarding_interest_banking">Operaciones bancarias</string>
+    <string name="onboarding_interest_parcels">Paquetes y envíos</string>
+    <string name="onboarding_interest_jobs">Buscar trabajo</string>
+    <string name="onboarding_interest_investing">Inversiones</string>
+    <string name="onboarding_interest_donations">Donaciones a organizaciones benéficas</string>
+    <string name="onboarding_interest_social">Redes sociales</string>
+    <string name="onboarding_interest_invoices">Pago de facturas</string>
+    <string name="onboarding_interest_grants">Solicitud de subvenciones</string>
+    <string name="onboarding_interest_shared_accounts">Cuentas de trabajo compartidas</string>
+    <string name="onboarding_interest_beneficiary_data">Manejo de datos personales de otras personas</string>
+    <string name="onboarding_past_title">¿Has recibido alguna vez un mensaje del que dudabas, o has perdido dinero?</string>
+    <string name="onboarding_past_intro">Sin juicios. Nos ayuda a elegir el tono.</string>
+    <string name="onboarding_past_none">No</string>
+    <string name="onboarding_past_unsure">Sí, un mensaje del que dudaba</string>
+    <string name="onboarding_past_lost">Sí, perdí dinero</string>
+    <string name="onboarding_past_prefer_not">Prefiero no decirlo</string>
+    <string name="onboarding_past_text">¿Quieres contarnos más? (opcional)</string>
+    <string name="onboarding_past_text_help">Si lo haces, las lecciones usarán un tono más suave.</string>
+    <string name="onboarding_rating_title">¿Qué tal se te da detectar estafas?</string>
+    <string name="onboarding_rating_intro">Tu opinión sincera. No hay respuestas incorrectas.</string>
+    <string name="onboarding_rating_low">1 = nada</string>
+    <string name="onboarding_rating_high">5 = muy bien</string>
+    <string name="onboarding_text_title">¿Quieres un texto más grande?</string>
+    <string name="onboarding_text_intro">Cambia al instante. Puedes cambiarlo cuando quieras en los ajustes.</string>
+    <string name="onboarding_text_yes">Sí, texto más grande</string>
+    <string name="onboarding_text_no">No, dejarlo como está</string>
+    <string name="onboarding_goal_title">¿Cuánto tiempo al día?</string>
+    <string name="onboarding_goal_intro">Un pequeño objetivo diario. Sin presión.</string>
+    <string name="onboarding_goal_minutes">%1$d minutos</string>
+
+    <!-- 7. Terms -->
+    <string name="terms_title">Condiciones de uso</string>
+    <string name="terms_intro">Lee y acepta las condiciones para empezar.</string>
+    <string name="terms_summary_title">Lo que guardamos, en resumen</string>
+    <string name="terms_summary_1">Tu correo electrónico, tu nombre y tus respuestas, para enseñarte y conservar tu progreso.</string>
+    <string name="terms_summary_2">Algunos datos de la contraseña que elijas (como su longitud). Nunca la contraseña en sí.</string>
+    <string name="terms_summary_3">Una breve lista de ajustes del dispositivo (como el modo oscuro y el tamaño del texto) para adaptar la aplicación.</string>
+    <string name="terms_summary_4">Los correos de práctica están desactivados. Solo enviamos uno si lo pides al final de una lección.</string>
+    <string name="terms_summary_5">Puedes ver todo lo que guardamos, y eliminar tu cuenta, en cualquier momento.</string>
+    <string name="terms_read">Leer las condiciones</string>
+    <string name="terms_hide">Ocultar las condiciones</string>
+    <string name="terms_version">Versión %1$s</string>
+    <string name="terms_body">ThisIsTea te enseña a detectar estafas con lecciones cortas y práctica. Es un proyecto educativo gratuito creado en LauzHack 2026. Al usarlo, aceptas estas condiciones.</string>
+    <string name="terms_data_title">Lo que guardamos y por qué</string>
+    <string name="terms_data_body">Guardamos tu correo electrónico, tu nombre, tus respuestas y tu progreso, para enseñarte y mantener tu progreso a salvo. De la contraseña que elijas, guardamos algunos datos (como su longitud y si aparece en filtraciones de datos conocidas) para tu lección sobre contraseñas, nunca la contraseña en sí. Guardamos una breve lista de ajustes del dispositivo (como el modo oscuro, el tamaño del texto y la zona horaria) para adaptar la aplicación. No leemos tus contactos ni te seguimos en otros sitios. La página «Lo que sabemos de ti» enumera todo lo que guardamos, con el motivo.</string>
+    <string name="terms_practice_title">Correos de práctica</string>
+    <string name="terms_practice_body">Solo si lo pides al final de una lección, enviamos un correo de phishing de práctica a la dirección con la que te registraste. No sabrás exactamente cuándo llega ni qué aspecto tiene: esa es la prueba. Nunca te pide una contraseña, y solo registramos si se hizo clic en su enlace y si lo denunciaste. Puedes pausar o detener los correos de práctica cuando quieras en los ajustes.</string>
+    <string name="terms_use_title">Uso de las lecciones</string>
+    <string name="terms_use_body">Las lecciones usan empresas, personas y mensajes inventados. No envíes nunca contraseñas, códigos ni datos bancarios reales a nadie por algo que hayas visto en una lección. Si crees que te han estafado, ponte en contacto con tu banco y con la policía.</string>
+    <string name="terms_rights_title">Tus opciones</string>
+    <string name="terms_rights_body">Puedes cambiar tus respuestas, pausar o detener los correos de práctica y eliminar tu cuenta en cualquier momento en los ajustes. Al eliminar tu cuenta se borra todo lo que guardamos sobre ti.</string>
+    <string name="terms_accept">Acepto las condiciones de uso</string>
+    <string name="terms_start">Empezar</string>
+
+    <!-- Home -->
+    <string name="home_hello">Hola, %1$s</string>
+    <string name="home_hello_guest">Hola</string>
+    <string name="home_intro">Unos minutos al día te mantienen alerta.</string>
+    <string name="home_start_lesson">Empezar la lección 1</string>
+    <string name="home_continue_lesson">Continuar la lección 1</string>
+    <string name="home_review_lesson">Repasar la lección 1</string>
+    <string name="home_practise">Practicar otra vez</string>
+    <string name="home_lesson_title">Lección 1: el phishing por correo</string>
+    <string name="home_lesson_done">Lección completada. Sigue practicando para que los cuatro pasos se conviertan en un hábito.</string>
+    <plurals name="home_streak_days">
+        <item quantity="one">%1$d día seguido</item>
+        <item quantity="other">%1$d días seguidos</item>
+    </plurals>
+    <string name="home_streak_none">Practica hoy para empezar una racha.</string>
+    <string name="home_streak_label">Racha</string>
+    <string name="home_xp_label">Puntos</string>
+    <string name="home_xp">%1$d XP</string>
+    <string name="home_goal">Objetivo diario: %1$d minutos</string>
+    <string name="home_leaderboard">Clasificación</string>
+    <string name="home_about">Lo que sabemos de ti</string>
+    <string name="home_settings">Ajustes</string>
+    <string name="home_suspicious">¿Has recibido un correo sospechoso?</string>
+    <string name="home_suspicious_body">Si venía de nosotros, bien hecho por comprobarlo. Si no, podría ser una estafa de verdad: repasemos los cuatro pasos.</string>
+    <string name="home_suspicious_never">No hagas clic en sus enlaces ni respondas. Comprueba por un canal que controles, como la aplicación oficial o un número que ya conozcas.</string>
+    <string name="home_suspicious_practise">Practicar los cuatro pasos</string>
+    <string name="home_debrief_caught_title">Hiciste clic en el correo de práctica</string>
+    <string name="home_debrief_caught_body">No pasa nada: era nuestro y no se llevó nada. Así aprende todo el mundo. Veamos qué lo delataba.</string>
+    <string name="home_debrief_dodged_title">Detectaste el correo de práctica</string>
+    <string name="home_debrief_dodged_body">Lo denunciaste en vez de hacer clic. Es exactamente lo correcto.</string>
+    <string name="home_debrief_open">Ver qué lo delataba</string>
+    <string name="home_debrief_practise">Practicar este tipo de estafa</string>
+    <string name="home_guest_title">Todavía no tienes cuenta</string>
+    <string name="home_guest_body">Tu progreso se queda en este dispositivo. Crea una cuenta para mantenerlo a salvo y aparecer en la clasificación.</string>
+    <string name="home_guest_action">Crear una cuenta</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_display">Pantalla</string>
+    <string name="settings_theme">Modo oscuro</string>
+    <string name="settings_theme_system">Como mi dispositivo</string>
+    <string name="settings_theme_light">Claro</string>
+    <string name="settings_theme_dark">Oscuro</string>
+    <string name="settings_large_text">Texto más grande</string>
+    <string name="settings_goal">Objetivo diario</string>
+    <string name="settings_goal_minutes">%1$d min</string>
+    <string name="settings_practice_title">Correos de práctica</string>
+    <string name="settings_practice_intro">Solo enviamos un correo de práctica cuando lo pides al final de una lección. Puedes pausarlos o detenerlos aquí en cualquier momento.</string>
+    <string name="settings_practice_allowed">Permitidos</string>
+    <string name="settings_practice_paused">Pausados</string>
+    <string name="settings_practice_stopped">Detenidos</string>
+    <string name="settings_practice_off">Desactivados: no has pedido un correo de práctica.</string>
+    <string name="settings_practice_pending">Un correo de práctica está en camino.</string>
+    <string name="settings_practice_none_pending">No hay ningún correo de práctica pendiente de envío.</string>
+    <string name="settings_practice_guest">Los correos de práctica necesitan una cuenta.</string>
+    <string name="settings_account">Cuenta</string>
+    <string name="settings_signed_in_as">Sesión iniciada como %1$s</string>
+    <string name="settings_guest">Estás usando ThisIsTea sin cuenta.</string>
+    <string name="settings_create_account">Crear una cuenta</string>
+    <string name="settings_logout">Cerrar sesión</string>
+    <string name="settings_logout_title">¿Cerrar sesión?</string>
+    <string name="settings_logout_body">Primero subimos tu progreso y después borramos tus datos de este dispositivo. Tu cuenta se mantiene.</string>
+    <string name="settings_delete">Eliminar mi cuenta</string>
+    <string name="settings_delete_guest">Eliminar mis datos de este dispositivo</string>
+    <string name="settings_delete_title">¿Eliminar tu cuenta?</string>
+    <string name="settings_delete_body">Esto elimina tu cuenta y todo lo que guardamos sobre ti, en nuestro servidor y en este dispositivo. No se puede deshacer.</string>
+    <string name="settings_delete_guest_body">Esto elimina todo lo que ThisIsTea guardó en este dispositivo. No se puede deshacer.</string>
+    <string name="settings_delete_confirm">Eliminar</string>
+    <string name="settings_delete_failed">No hemos podido conectar con el servidor, así que no se ha eliminado nada. Inténtalo de nuevo cuando tengas conexión.</string>
+    <string name="settings_backend">Dirección del servidor</string>
+    <string name="settings_backend_help">El servidor de ThisIsTea con el que habla esta aplicación. Cámbiala solo si tu equipo te lo pide.</string>
+    <string name="settings_backend_save">Guardar</string>
+    <string name="settings_backend_reset">Usar la predeterminada</string>
+    <string name="settings_backend_invalid">Escribe una dirección que empiece por http:// o https://</string>
+    <string name="settings_backend_env">El ajuste TEA_API de este ordenador tiene prioridad: %1$s</string>
+    <string name="settings_backend_active">En uso: %1$s</string>
+
+    <!-- About: What we know about you -->
+    <string name="about_title">Lo que sabemos de ti</string>
+    <string name="about_intro">Todo lo que ThisIsTea guarda sobre ti, y por qué.</string>
+    <string name="about_server">En nuestro servidor</string>
+    <string name="about_device">En este dispositivo</string>
+    <string name="about_purpose">¿Por qué? %1$s</string>
+    <string name="about_guest">No tienes cuenta, así que no se guarda nada sobre ti en nuestro servidor.</string>
+    <string name="about_offline">No tienes conexión. Esto es lo que guarda este dispositivo. Conéctate para ver lo que guarda nuestro servidor.</string>
+    <string name="about_loading">Cargando</string>
+    <string name="about_not_given">No indicado</string>
+    <string name="about_local_language">Idioma y país</string>
+    <string name="about_local_language_why">Para mostrar la aplicación en tu idioma y sugerir ayuda local.</string>
+    <string name="about_local_name">Nombre</string>
+    <string name="about_local_name_why">Para saludarte.</string>
+    <string name="about_local_answers">Respuestas a las primeras preguntas</string>
+    <string name="about_local_answers_value">%1$d de %2$d respondidas</string>
+    <string name="about_local_answers_why">Para elegir los ejemplos y el tono de los comentarios.</string>
+    <string name="about_local_display">Opciones de pantalla</string>
+    <string name="about_local_display_why">Para mostrar la aplicación como pediste.</string>
+    <string name="about_local_display_value">Modo oscuro: %1$s. Texto más grande: %2$s. Objetivo diario: %3$d minutos.</string>
+    <string name="about_local_attempts">Respuestas de práctica</string>
+    <string name="about_local_attempts_value">%1$d respuestas (solo se guardan las últimas 500)</string>
+    <string name="about_local_attempts_why">Para adaptar el siguiente ejercicio a ti.</string>
+    <string name="about_local_skills">Niveles de habilidad</string>
+    <string name="about_local_skills_value">%1$d habilidades registradas, %2$d XP</string>
+    <string name="about_local_skills_why">Para ir retirando la ayuda a medida que mejoras.</string>
+    <string name="about_local_progress">Progreso en las lecciones</string>
+    <string name="about_local_progress_value">%1$d elementos guardados</string>
+    <string name="about_local_progress_why">Para continuar donde lo dejaste.</string>
+    <string name="about_local_queue">Pendiente de subir</string>
+    <string name="about_local_queue_value">%1$d elementos</string>
+    <string name="about_local_queue_why">Se guarda hasta que tengas conexión y hayas iniciado sesión, y entonces se envía a tu cuenta.</string>
+    <string name="about_local_session">Clave de sesión</string>
+    <string name="about_local_session_value">Para %1$s</string>
+    <string name="about_local_session_why">Para mantener tu sesión iniciada. Tu contraseña nunca se guarda en este dispositivo.</string>
+    <string name="about_yes">activado</string>
+    <string name="about_no">desactivado</string>
+    <string name="about_system">como mi dispositivo</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard_title">Clasificación</string>
+    <string name="leaderboard_intro">Puntos por practicar. Todo el mundo empieza por algún sitio.</string>
+    <string name="leaderboard_week">Esta semana</string>
+    <string name="leaderboard_all">De siempre</string>
+    <string name="leaderboard_you">Tú</string>
+    <string name="leaderboard_empty">Aún no hay puntos. Practica para ser el primero.</string>
+    <string name="leaderboard_offline">La clasificación necesita conexión.</string>
+    <string name="leaderboard_guest">Crea una cuenta para aparecer en la clasificación.</string>
+    <string name="leaderboard_invite">Invitar a un amigo</string>
+    <string name="leaderboard_invite_text">Estoy aprendiendo a detectar estafas con ThisIsTea. Pruébalo: %1$s</string>
+    <string name="leaderboard_copied">Enlace copiado. Pégalo en un mensaje a un amigo.</string>
+    <string name="leaderboard_shared">Gracias por compartir.</string>
+    <string name="leaderboard_privacy">Nunca leemos ni subimos tus contactos. Tú eliges quién recibe el enlace.</string>
+    <string name="leaderboard_xp">%1$d XP</string>
+    <string name="leaderboard_rank">%1$d.</string>
+
+    <!-- Reveal (reached from the practice email's link) -->
+    <string name="reveal_title">Correo de práctica</string>
+    <string name="reveal_lead">Este era el correo de práctica de ThisIsTea que pediste. Solo guardamos que se hizo clic en el enlace.</string>
+    <string name="reveal_spider">Esta vez te pillé. No pasa nada: no se llevó nada, y ahora ya conoces el truco.</string>
+    <string name="reveal_steps_title">Los cuatro pasos para este correo</string>
+    <string name="reveal_hints_title">Qué lo delataba</string>
+    <string name="reveal_practise">Practicar este tipo de estafa</string>
+    <string name="reveal_not_found">No hemos encontrado este correo de práctica. Puede que se haya eliminado junto con su cuenta.</string>
+    <string name="reveal_offline">Necesitamos conexión para mostrar los detalles de este correo de práctica.</string>
+</resources>

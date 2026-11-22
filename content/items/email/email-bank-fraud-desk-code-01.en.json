@@ -1,0 +1,198 @@
+{
+  "id": "email-bank-fraud-desk-code-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 32000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "authority",
+      "helpfulness"
+    ],
+    "ask": "give_code",
+    "surface_clues": [
+      "first_name_used",
+      "lookalike_sender",
+      "has_code",
+      "has_link"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "SwissAlpBank Fraud Desk",
+    "from_address": "fraud.desk@swissalpbank-desk.example",
+    "to": "{{email}}",
+    "subject": "Case 7731: a card payment we blocked",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "We blocked a card payment of CHF 389.00 at an online shop. To close the case we need to confirm that it was you who stopped it."
+      },
+      {
+        "t": "text",
+        "v": "In a moment you will receive a six-digit code by text message. Please reply to this email with that code and we will finish the case."
+      },
+      {
+        "t": "link",
+        "v": "View your case",
+        "href": "https://swissalpbank-desk.example/case/7731",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Thank you for your help."
+      },
+      {
+        "t": "signature",
+        "v": "Marc, Fraud Desk"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "swissalpbank-desk.example is not the bank's domain, swissalpbank.example."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "No deadline and no threat. The tone is calm and helpful, which is why it works."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A code sent to your phone is a key. A real bank never asks you to read it back or reply with it. With it, the sender can approve their own payment."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The case page is on the lookalike domain."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be the bank's fraud desk. The address is on swissalpbank-desk.example, not swissalpbank.example.",
+      "choices": [
+        "SwissAlpBank's fraud desk",
+        "A friendly colleague of yours",
+        "Someone using a lookalike address"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "fraud desk",
+        "lookalike"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Little pressure here: authority and helpfulness. The calm tone makes you want to cooperate.",
+      "choices": [
+        "Panic about a deadline",
+        "Greed for a refund",
+        "Authority and a wish to help"
+      ],
+      "correct": 2,
+      "cues": [
+        "calm",
+        "authority",
+        "helpful",
+        "case"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Reply with the code that arrives on your phone. That code approves a transaction or a login for the sender.",
+      "choices": [
+        "Click a link and sign in",
+        "Pay a fee",
+        "Hand over a code sent to your phone"
+      ],
+      "correct": 2,
+      "cues": [
+        "code",
+        "reply",
+        "text message",
+        "phone"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not reply. Call the number on the back of your card, or open the SwissAlpBank app yourself, and ask about case 7731.",
+      "choices": [
+        "Reply with the code to close the case",
+        "View the case on the page they give you",
+        "Call the number on the back of your card"
+      ],
+      "correct": 2,
+      "cues": [
+        "card",
+        "number",
+        "call",
+        "app"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "View your case",
+    "options": [
+      "swissalpbank.example",
+      "swissalpbank-desk.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Call the number on the back of your card and ask about the case",
+      "outcome": "safe",
+      "consequence": "The bank knows nothing about case 7731. The email was fake."
+    },
+    {
+      "id": "reply-code",
+      "label": "Reply with the code when it arrives",
+      "outcome": "unsafe",
+      "consequence": "The sender uses your code to approve a payment or log in as you."
+    },
+    {
+      "id": "view-case",
+      "label": "View the case on the page they give you",
+      "outcome": "unsafe",
+      "consequence": "The page asks for your login and card details. Both go to the scammer."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. You gave nothing away."
+    }
+  ],
+  "attacker_reveal": "No rush, no threats, a case number and a friendly name... I only wanted six digits from your phone. A real bank never asks you to read a code back to anyone."
+}

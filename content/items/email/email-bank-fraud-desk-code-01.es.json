@@ -1,0 +1,198 @@
+{
+  "id": "email-bank-fraud-desk-code-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 32000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "authority",
+      "helpfulness"
+    ],
+    "ask": "give_code",
+    "surface_clues": [
+      "first_name_used",
+      "lookalike_sender",
+      "has_code",
+      "has_link"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "Departamento de fraude de SwissAlpBank",
+    "from_address": "fraud.desk@swissalpbank-desk.example",
+    "to": "{{email}}",
+    "subject": "Caso 7731: un pago con tarjeta que bloqueamos",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Hemos bloqueado un pago con tarjeta de 389,00 CHF en una tienda en línea. Para cerrar el caso necesitamos confirmar que fuiste tú quien lo detuvo."
+      },
+      {
+        "t": "text",
+        "v": "En unos instantes recibirás un código de seis dígitos por SMS. Responde a este correo con ese código y terminaremos el caso."
+      },
+      {
+        "t": "link",
+        "v": "Ver tu caso",
+        "href": "https://swissalpbank-desk.example/case/7731",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Gracias por tu ayuda."
+      },
+      {
+        "t": "signature",
+        "v": "Marc, Departamento de fraude"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "swissalpbank-desk.example no es el dominio del banco, swissalpbank.example."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Ni plazo ni amenaza. El tono es tranquilo y servicial, y por eso funciona."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Un código enviado a tu móvil es una llave. Un banco de verdad nunca te pide que lo leas de vuelta ni que respondas con él. Con él, quien escribe puede aprobar su propio pago."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "La página del caso está en el dominio parecido."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por el departamento de fraude del banco. La dirección es de swissalpbank-desk.example, no de swissalpbank.example.",
+      "choices": [
+        "El departamento de fraude de SwissAlpBank",
+        "Un compañero amable tuyo",
+        "Alguien que usa una dirección parecida"
+      ],
+      "correct": 2,
+      "cues": [
+        "dirección",
+        "dominio",
+        "departamento de fraude",
+        "parecida"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Aquí hay poca presión: autoridad y ganas de ayudar. El tono tranquilo hace que quieras colaborar.",
+      "choices": [
+        "Pánico por un plazo",
+        "Ganas de recibir un reembolso",
+        "Autoridad y deseo de ayudar"
+      ],
+      "correct": 2,
+      "cues": [
+        "tranquilo",
+        "autoridad",
+        "ayuda",
+        "caso"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Responder con el código que llega a tu móvil. Ese código aprueba una operación o un inicio de sesión para quien escribe.",
+      "choices": [
+        "Pulsar un enlace e iniciar sesión",
+        "Pagar una cuota",
+        "Entregar un código enviado a tu móvil"
+      ],
+      "correct": 2,
+      "cues": [
+        "código",
+        "responder",
+        "SMS",
+        "móvil"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No respondas. Llama al número del reverso de tu tarjeta, o abre tú mismo la app de SwissAlpBank, y pregunta por el caso 7731.",
+      "choices": [
+        "Responder con el código para cerrar el caso",
+        "Ver el caso en la página que te dan",
+        "Llamar al número del reverso de tu tarjeta"
+      ],
+      "correct": 2,
+      "cues": [
+        "tarjeta",
+        "número",
+        "llamar",
+        "app"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Ver tu caso",
+    "options": [
+      "swissalpbank.example",
+      "swissalpbank-desk.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Llamar al número del reverso de tu tarjeta y preguntar por el caso",
+      "outcome": "safe",
+      "consequence": "El banco no sabe nada del caso 7731. El correo era falso."
+    },
+    {
+      "id": "reply-code",
+      "label": "Responder con el código cuando llegue",
+      "outcome": "unsafe",
+      "consequence": "Quien escribe usa tu código para aprobar un pago o para entrar como si fuera tú."
+    },
+    {
+      "id": "view-case",
+      "label": "Ver el caso en la página que te dan",
+      "outcome": "unsafe",
+      "consequence": "La página te pide tus datos de acceso y los de tu tarjeta. Ambos van a parar al estafador."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No entregaste nada."
+    }
+  ],
+  "attacker_reveal": "Sin prisas, sin amenazas, un número de caso y un nombre amable... Yo solo quería seis dígitos de tu móvil. Un banco de verdad nunca te pide que le leas un código a nadie."
+}

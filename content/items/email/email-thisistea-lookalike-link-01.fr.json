@@ -1,0 +1,194 @@
+{
+  "id": "email-thisistea-lookalike-link-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [
+      "curiosity",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "link_text_mismatch",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea",
+    "from_address": "notifications@thisistae-app.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, l'espace de travail de votre équipe est prêt",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Votre équipe a créé un espace de travail ThisIsTea partagé. Connectez-vous pour le rejoindre."
+      },
+      {
+        "t": "link",
+        "v": "https://thisistea.example/signin",
+        "href": "https://thisistae-app.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Les invitations expirent après 48 heures."
+      },
+      {
+        "t": "signature",
+        "v": "L'équipe ThisIsTea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "thisistae-app.example échange deux lettres et ajoute un mot. Ce n'est pas thisistea.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Expirent après 48 heures » est un délai doux, pour vous faire agir d'abord et vérifier ensuite."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le texte affiche thisistea.example, mais le lien mène en réalité à thisistae-app.example. Seule une adresse avec thisistea.example juste avant le premier slash appartient à ThisIsTea. Les autres échangent des lettres ou cachent un autre propriétaire, comme secure-login.example ou thisistea-support.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Votre prénom est facile à trouver. Cela ne prouve pas qui a écrit l'e-mail."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui imite ThisIsTea. L'expéditeur est sur thisistae-app.example, avec deux lettres échangées. Lisez le propriétaire, pas l'apparence.",
+      "choices": [
+        "ThisIsTea lui-même",
+        "Quelqu'un qui utilise un domaine presque identique",
+        "L'administrateur de votre équipe"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "échangées",
+        "domaine",
+        "imitation"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La curiosité et un peu de hâte : un nouvel espace de travail pour votre équipe, avec une date d'expiration.",
+      "choices": [
+        "La peur d'être arrêté",
+        "La curiosité pour un nouvel espace de travail, avec un délai",
+        "Aucune : c'est de la routine"
+      ],
+      "correct": 1,
+      "cues": [
+        "espace de travail",
+        "invitation",
+        "48 heures",
+        "curiosité"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Vous connecter via le lien, ce qui donnerait vos identifiants à l'expéditeur.",
+      "choices": [
+        "Ouvrir une pièce jointe",
+        "Vous connecter via un lien",
+        "Payer des frais"
+      ],
+      "correct": 1,
+      "cues": [
+        "connecter",
+        "lien",
+        "identifiants",
+        "cliquer"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "N'utilisez pas le lien. Ouvrez ThisIsTea vous-même, depuis un favori ou en tapant l'adresse, et cherchez l'espace de travail.",
+      "choices": [
+        "Cliquer sur le lien s'il a l'air correct",
+        "Ouvrir ThisIsTea vous-même en tapant son adresse",
+        "Répondre pour demander si c'est vrai"
+      ],
+      "correct": 1,
+      "cues": [
+        "vous-même",
+        "favori",
+        "taper",
+        "espace de travail"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "https://thisistea.example/signin",
+    "options": [
+      "thisistea.example",
+      "thisistae-app.example",
+      "thisistea-support.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "type-address",
+      "label": "Ouvrir ThisIsTea vous-même en tapant son adresse et chercher l'espace de travail",
+      "outcome": "safe",
+      "consequence": "Il n'y a pas de nouvel espace de travail. L'e-mail était faux."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur le lien et vous connecter",
+      "outcome": "unsafe",
+      "consequence": "La page ressemble à ThisIsTea, mais vos identifiants vont chez l'escroc."
+    },
+    {
+      "id": "hover-click",
+      "label": "Survoler d'abord, puis vous connecter parce que l'adresse affichée a l'air correcte",
+      "outcome": "unsafe",
+      "consequence": "Le texte affiché était un appât. La vraie adresse était tout autre."
+    },
+    {
+      "id": "report-it",
+      "label": "Le signaler au service informatique et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. L'équipe peut prévenir les autres."
+    }
+  ],
+  "attacker_reveal": "Le lien disait thisistea.example, parce que les mots d'un lien, c'est moi qui les choisis... C'est l'adresse en dessous qui décide où vous allez. Lesquels sont vrais ? Seulement ceux dont le propriétaire se trouve avant le premier slash."
+}

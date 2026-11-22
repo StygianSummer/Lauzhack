@@ -1,0 +1,25 @@
+# One origin for everything: the web app at /, the API at /api (prefix stripped before the server).
+# PUBLIC_URL is the site address, without trailing slash:
+#   https://tea.example.org  -> Caddy gets and renews a Let's Encrypt certificate (ports 80 + 443)
+#   http://localhost:8081    -> plain HTTP on 8081 (dev compose, profile "web")
+{$PUBLIC_URL}
+
+encode zstd gzip
+
+handle_path /api/* {
+	reverse_proxy app:8080
+}
+
+# Runtime backend URL for the app (contract C5): same origin, so no CORS and no ?api= needed.
+handle /config.json {
+	header Content-Type application/json
+	header Cache-Control no-store
+	respond `{"api":"{$PUBLIC_URL}/api"}` 200
+}
+
+handle {
+	root * /srv
+	# File names are not content-hashed: revalidate on every load (cheap with ETags).
+	header Cache-Control no-cache
+	file_server
+}

@@ -1,0 +1,180 @@
+{
+  "id": "pl-l4-scam",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 4,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "curiosity"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "reply_to_differs",
+      "attachment_double_ext",
+      "first_name_used",
+      "has_attachment"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank Statements",
+    "from_address": "statements@swissalpbank.example",
+    "reply_to": "statements.desk@swissalpbank-mail.example",
+    "to": "{{email}}",
+    "subject": "Your October statement",
+    "received": "-PT35M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your October statement is attached. Please open the attachment and sign in to view the details."
+      },
+      {
+        "t": "text",
+        "v": "If you have questions, just reply to this email."
+      },
+      {
+        "t": "signature",
+        "v": "SwissAlpBank Customer Service"
+      }
+    ],
+    "attachments": [
+      "statement-october.pdf.html"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "This address looks right, but a sender address can be forged. Check where a reply would go."
+    },
+    {
+      "id": "hs-reply-to",
+      "target": "reply_to",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Replies would go to swissalpbank-mail.example, a different domain from the bank's. That mismatch is a classic trick."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "\"statement-october.pdf.html\" ends in .html: it is a web page dressed up as a PDF. It would show you a fake sign-in."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Your first name is easy to find. It does not prove who wrote the email."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Not the bank, despite the sender address. The reply-to is on swissalpbank-mail.example, so any answer would go to someone else.",
+      "choices": [
+        "SwissAlpBank's statements team",
+        "Someone faking the bank's address, with replies going elsewhere",
+        "Your personal adviser"
+      ],
+      "correct": 1,
+      "cues": [
+        "reply-to",
+        "address",
+        "domain",
+        "sender"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Only mild curiosity: it is an ordinary-looking statement, which is the point. Nothing here is pushing you.",
+      "choices": [
+        "Panic about a debt",
+        "Mild curiosity: it looks like routine mail",
+        "Anger at the bank"
+      ],
+      "correct": 1,
+      "cues": [
+        "routine",
+        "curiosity",
+        "calm"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Open the attachment and sign in. The attachment is a web page that would collect your login.",
+      "choices": [
+        "Pay a fee",
+        "Open the attachment and sign in",
+        "Reply with your account number"
+      ],
+      "correct": 1,
+      "cues": [
+        "attachment",
+        "open",
+        "sign",
+        "html"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not open it. Look for your statement in the SwissAlpBank app, or call the number on your card.",
+      "choices": [
+        "Open the attachment to check it",
+        "Open the SwissAlpBank app yourself to see your statements",
+        "Reply and ask if it is genuine"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "yourself",
+        "card",
+        "statements"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the SwissAlpBank app yourself and look under Documents",
+      "outcome": "safe",
+      "consequence": "Your statement is there, or not yet. Either way you never touched the attachment."
+    },
+    {
+      "id": "open-attachment",
+      "label": "Open the attachment to see the statement",
+      "outcome": "unsafe",
+      "consequence": "A fake sign-in page opens. If you type your login, it goes to the scammer."
+    },
+    {
+      "id": "reply",
+      "label": "Reply and ask whether the statement is genuine",
+      "outcome": "neutral",
+      "consequence": "Your reply goes to the scammer's address, not the bank. They tell you it is genuine."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. Nothing was opened."
+    }
+  ],
+  "attacker_reveal": "The sender looked right, so you stopped checking... but I made your replies come to me, and the \"PDF\" was a web page with a mask on. Always read to the very end of a file name."
+}

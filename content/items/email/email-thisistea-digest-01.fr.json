@@ -1,0 +1,167 @@
+{
+  "id": "email-thisistea-digest-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 4,
+  "twin_of": "email-thisistea-password-expiry-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ThisIsTea",
+    "from_address": "notifications@thisistea.example",
+    "to": "{{email}}",
+    "subject": "Le résumé hebdomadaire de votre équipe",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Trois collègues ont terminé la leçon 1 cette semaine. Consultez le résumé complet dans l'application ThisIsTea quand vous voulez."
+      },
+      {
+        "t": "link",
+        "v": "Ouvrir le résumé",
+        "href": "https://thisistea.example/digest",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "ThisIsTea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Le domaine est exactement thisistea.example."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Pas de mot de passe, pas de délai et aucune pression."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "thisistea.example se trouve juste avant le premier slash : le lien est donc authentique. Vous pourriez quand même l'ignorer et ouvrir l'application."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:1",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il dit que vous pouvez lire le résumé dans l'application quand vous voulez."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "ThisIsTea lui-même : le domaine est exactement thisistea.example.",
+      "choices": [
+        "Quelqu'un qui utilise un domaine presque identique",
+        "ThisIsTea, depuis son vrai domaine",
+        "Votre support informatique"
+      ],
+      "correct": 1,
+      "cues": [
+        "domaine",
+        "exact",
+        "vrai"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Aucune. Il n'y a ni délai ni menace.",
+      "choices": [
+        "La peur de perdre votre mot de passe",
+        "Aucune : c'est calme et sans délai",
+        "L'envie de gagner un prix"
+      ],
+      "correct": 1,
+      "cues": [
+        "calme",
+        "délai",
+        "pression"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Rien : il propose un résumé à lire. Pas de mot de passe, pas de paiement, pas de pression.",
+      "choices": [
+        "Vous connecter pour garder votre mot de passe",
+        "Rien, sauf lire un résumé",
+        "Payer des frais"
+      ],
+      "correct": 1,
+      "cues": [
+        "rien",
+        "résumé",
+        "mot de passe"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Même ainsi, vous pourriez ignorer le lien et ouvrir vous-même l'application ThisIsTea.",
+      "choices": [
+        "Répondre pour demander un résumé plus long",
+        "Ouvrir vous-même l'application ThisIsTea si vous voulez regarder",
+        "Le transférer au service informatique"
+      ],
+      "correct": 1,
+      "cues": [
+        "application",
+        "vous-même",
+        "favori"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application ThisIsTea et lire le résumé",
+      "outcome": "safe",
+      "consequence": "Le même résumé vous y attend."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur le lien pour lire le résumé",
+      "outcome": "safe",
+      "consequence": "Il mène au vrai domaine, donc aucun mal. L'application reste pourtant la meilleure habitude."
+    },
+    {
+      "id": "report",
+      "label": "Le signaler au service informatique comme e-mail suspect",
+      "outcome": "neutral",
+      "consequence": "Le service informatique vous remercie et confirme qu'il est authentique. Vérifier n'est jamais une erreur, mais celui-ci est correct."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est correct, ma chère. Le domaine est exactement thisistea.example et il ne demande rien. Un e-mail calme peut être vrai, et un e-mail avec un lien aussi. Ce qui compte, c'est à qui appartient le domaine et ce qu'on attend de vous."
+}

@@ -1,0 +1,169 @@
+{
+  "id": "email-bank-code-unsolicited-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "email-bank-login-01",
+  "held_out": false,
+  "unsolicited": true,
+  "expected_ms": 25000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link",
+      "do_not_share_warning"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank",
+    "from_address": "no-reply@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Votre code de vérification SwissAlpBank",
+    "received": "-PT3M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "Quelqu'un est en train de s'inscrire à l'e-banking SwissAlpBank avec cette adresse e-mail. Pour continuer, cette personne a besoin du code de vérification suivant : 482 913"
+      },
+      {
+        "t": "text",
+        "v": "Le code est valable 10 minutes. Ne le communiquez à personne. Le personnel de SwissAlpBank ne vous le demandera jamais."
+      },
+      {
+        "t": "text",
+        "v": "Si ce n'était pas vous, vous n'avez rien à faire. Aucun compte ne peut être créé sans ce code."
+      },
+      {
+        "t": "signature",
+        "v": "SwissAlpBank"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse se termine par swissalpbank.example, le vrai domaine de la banque."
+    },
+    {
+      "id": "hs-unrequested",
+      "target": "body:1",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Vous n'avez rien demandé. Quelqu'un a saisi votre adresse, par erreur ou dans l'espoir de vous soutirer le code plus tard. L'e-mail est authentique, mais non sollicité."
+    },
+    {
+      "id": "hs-code-warning",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "« Ne le communiquez à personne » : c'est ce qu'écrivent les vrais services. Quiconque vous réclame ce code plus tard est un escroc."
+    },
+    {
+      "id": "hs-no-action",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il n'y a aucun lien à cliquer et rien à payer. Ne rien faire est sans danger."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "SwissAlpBank lui-même : l'adresse est sur le vrai domaine de la banque, swissalpbank.example. Mais vous n'avez pas demandé ce code, donc quelqu'un d'autre a lancé l'inscription.",
+      "choices": [
+        "SwissAlpBank, depuis son vrai domaine",
+        "Un escroc qui utilise une adresse ressemblant à celle de la banque",
+        "Un ami qui veut vous envoyer de l'argent"
+      ],
+      "correct": 0,
+      "cues": [
+        "Comparez l'adresse de l'expéditeur avec swissalpbank.example.",
+        "Avez-vous lancé vous-même une inscription ?"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Aucune. C'est un avis calme, sans menace ni pression sur vous.",
+      "choices": [
+        "La panique de perdre votre compte",
+        "Aucune : c'est un avis calme",
+        "L'excitation d'avoir gagné un prix"
+      ],
+      "correct": 1,
+      "cues": [
+        "Y a-t-il une menace ou un délai qui vous vise ?"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Rien. Il affiche seulement un code et vous dit de le garder pour vous.",
+      "choices": [
+        "Cliquer sur un lien et vous connecter",
+        "Rien, sauf garder le code pour vous",
+        "Payer des frais d'inscription"
+      ],
+      "correct": 1,
+      "cues": [
+        "Y a-t-il un lien, un paiement ou une demande de réponse ?"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Vous n'avez rien à faire. Si ces codes continuent d'arriver, ouvrez vous-même l'application SwissAlpBank ou appelez le numéro au dos de votre carte.",
+      "choices": [
+        "Répondre avec le code pour qu'ils annulent l'inscription",
+        "Si cela continue, ouvrir vous-même l'application SwissAlpBank",
+        "Transmettre le code à un ami pour qu'il vérifie"
+      ],
+      "correct": 1,
+      "cues": [
+        "Un canal que vous contrôlez est un canal que vous ouvrez vous-même, pas celui que l'e-mail vous indique."
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "ignore",
+      "label": "Garder le code pour vous et ignorer l'e-mail",
+      "outcome": "safe",
+      "consequence": "Il ne se passe rien. Sans le code, personne ne peut créer de compte avec votre adresse."
+    },
+    {
+      "id": "share-code",
+      "label": "Donner le code à quelqu'un qui appelle ou écrit pour le demander",
+      "outcome": "unsafe",
+      "consequence": "Celui qui a le code peut terminer l'inscription à votre nom. Une vraie banque ne vous le demande jamais."
+    },
+    {
+      "id": "open-app-if-repeat",
+      "label": "Si cela continue, ouvrir vous-même l'application SwissAlpBank et prévenir la banque",
+      "outcome": "safe",
+      "consequence": "La banque voit les tentatives et peut les bloquer. Vous êtes resté maître de la situation."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre pour demander ce qui se passe",
+      "outcome": "neutral",
+      "consequence": "L'adresse « ne pas répondre » ne répond pas. Il n'arrive rien de mal, mais vous n'apprenez rien non plus."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai : il vient du domaine de la banque, ne contient aucun lien et ne demande rien. Quelqu'un a saisi votre adresse, peut-être par erreur. Un e-mail authentique peut quand même être importun. Le seul danger est le code lui-même : ne le donnez jamais, même à quelqu'un qui dit travailler pour la banque.",
+  "resource_ask": "give_code"
+}

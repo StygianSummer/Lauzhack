@@ -1,0 +1,175 @@
+{
+  "id": "email-clouddrive-share-real-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 3,
+  "twin_of": "email-clouddrive-shared-file-01",
+  "held_out": false,
+  "unsolicited": true,
+  "expected_ms": 26000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "display_name_match",
+      "first_name_used",
+      "unsolicited",
+      "has_link"
+    ],
+    "verify": "ask_colleague_in_person_or_phone"
+  },
+  "email": {
+    "from_name": "CloudDrive",
+    "from_address": "no-reply@clouddrive.example",
+    "to": "{{email}}",
+    "subject": "Mara Keller shared \"Event photos\" with you",
+    "received": "-PT35M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Mara Keller has shared a folder with you: Event photos."
+      },
+      {
+        "t": "link",
+        "v": "Open in CloudDrive",
+        "href": "https://clouddrive.example/s/event-photos",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "If you were not expecting this, check with Mara before opening it."
+      },
+      {
+        "t": "signature",
+        "v": "The CloudDrive team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on clouddrive.example, the real domain."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "The link leads to clouddrive.example. CloudDrive shares by link, not by attachment."
+    },
+    {
+      "id": "hs-unexpected",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "You may not have expected it. Real emails can still be unexpected, so a quick check with Mara costs nothing."
+    },
+    {
+      "id": "hs-no-attachment",
+      "target": "subject",
+      "step": "who",
+      "red_flag": false,
+      "explain": "There is no attachment. The file stays on CloudDrive."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "CloudDrive itself: the notification is on clouddrive.example. Mara's name is in the subject because she shared the folder.",
+      "choices": [
+        "Someone using a lookalike address",
+        "Mara, writing privately",
+        "CloudDrive, from its real domain"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Mild curiosity at most. There is no deadline and no threat.",
+      "choices": [
+        "Fear of a penalty",
+        "Greed for a prize",
+        "Mild curiosity: no deadline or threat"
+      ],
+      "correct": 2,
+      "cues": [
+        "curiosity",
+        "calm",
+        "deadline"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Open a shared folder if you wish. No file is attached and nothing asks for money or a password.",
+      "choices": [
+        "Open a hidden attachment",
+        "Reply with your password",
+        "Open a shared folder, if you wish"
+      ],
+      "correct": 2,
+      "cues": [
+        "folder",
+        "link",
+        "nothing",
+        "attachment"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "If you did not expect it, ask Mara by phone or in person, or open CloudDrive yourself and look.",
+      "choices": [
+        "Reply to the no-reply address",
+        "Forward it to a friend",
+        "Ask Mara on a channel you know, or open CloudDrive yourself"
+      ],
+      "correct": 2,
+      "cues": [
+        "ask",
+        "mara",
+        "yourself",
+        "phone"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "ask-mara",
+      "label": "Ask Mara whether she shared the folder, then open it",
+      "outcome": "safe",
+      "consequence": "She says yes, the photos are from the event."
+    },
+    {
+      "id": "open-site",
+      "label": "Open CloudDrive yourself and look for the folder",
+      "outcome": "safe",
+      "consequence": "The folder is listed under Shared with me."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to the no-reply address to ask what it is",
+      "outcome": "neutral",
+      "consequence": "Nobody reads that address. Ask Mara instead."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear, even if you did not expect it. It comes from the real domain and attaches nothing. A quick word with Mara is still the kindest way to be sure."
+}

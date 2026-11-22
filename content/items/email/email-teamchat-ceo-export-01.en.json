@@ -1,0 +1,191 @@
+{
+  "id": "email-teamchat-ceo-export-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "authority",
+      "urgency"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "display_name_match",
+      "first_name_used",
+      "urgency",
+      "lookalike_sender",
+      "has_link"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Alex Morgan (CEO)",
+    "from_address": "alex.morgan@teamchat-mail.example",
+    "to": "{{email}}",
+    "subject": "Need the client export for the board",
+    "received": "-PT6M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hi {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Need the full client export for the board in 10 minutes. Drop it here. I am in transit and cannot talk."
+      },
+      {
+        "t": "link",
+        "v": "Reply in TeamChat",
+        "href": "https://teamchat-mail.example/m/884",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "Alex"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "The name is the CEO's, but teamchat-mail.example is not TeamChat's domain, teamchat.example. A display name can say anything."
+    },
+    {
+      "id": "hs-urgency",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Ten minutes and \"cannot talk\" push you to skip the check. Someone using the boss's name counts on you being too polite or too rushed to ask."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A full client database is exactly what a criminal wants. Sending it through a message would leak every client's data."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The reply link leads to teamchat-mail.example, not TeamChat itself."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be Alex Morgan. The display name is the CEO's, but the address is on teamchat-mail.example.",
+      "choices": [
+        "Alex Morgan, the CEO",
+        "Someone using the CEO's name and a lookalike address",
+        "A TeamChat administrator"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "display name",
+        "domain",
+        "ceo"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Authority and hurry: the boss wants something within ten minutes and cannot be questioned.",
+      "choices": [
+        "Curiosity about a new project",
+        "Authority and hurry from the boss",
+        "None: it is a normal request"
+      ],
+      "correct": 1,
+      "cues": [
+        "boss",
+        "authority",
+        "minutes",
+        "hurry"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Send the full client database export. That would leak every client's personal data.",
+      "choices": [
+        "Click a link and sign in",
+        "Send a full client data export",
+        "Approve a payment"
+      ],
+      "correct": 1,
+      "cues": [
+        "export",
+        "database",
+        "client",
+        "data"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Confirm the request through another channel you already know, such as a call to Alex's usual number. Asking inside the same message only asks the impostor.",
+      "choices": [
+        "Ask \"is this really you?\" in the same chat",
+        "Call Alex on a number you already know",
+        "Send only part of the data"
+      ],
+      "correct": 1,
+      "cues": [
+        "call",
+        "known number",
+        "another channel",
+        "confirm"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Reply in TeamChat",
+    "options": [
+      "teamchat.example",
+      "teamchat-mail.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "call-alex",
+      "label": "Confirm through another channel you already know, like a call to Alex's usual number",
+      "outcome": "safe",
+      "consequence": "Alex is in a meeting and sent nothing. The data stays where it is."
+    },
+    {
+      "id": "send",
+      "label": "Send it right away: a board meeting is no time for questions",
+      "outcome": "unsafe",
+      "consequence": "The client database is now with a stranger. Every client is at risk."
+    },
+    {
+      "id": "ask-same",
+      "label": "Ask \"is this really you?\" in the same chat and send it if they say yes",
+      "outcome": "unsafe",
+      "consequence": "The impostor answers yes. You only asked the person you were worried about."
+    },
+    {
+      "id": "send-part",
+      "label": "Send only part of the data, to limit the damage",
+      "outcome": "unsafe",
+      "consequence": "Part of a client database is still a breach."
+    }
+  ],
+  "attacker_reveal": "I did not need to hack anything... I just used the boss's name and a ten-minute clock. Polite people hate to say \"let me check\". A short call on a number you trust ruins everything."
+}

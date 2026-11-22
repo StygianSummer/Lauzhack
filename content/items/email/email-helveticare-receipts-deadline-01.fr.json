@@ -1,0 +1,173 @@
+{
+  "id": "email-helveticare-receipts-deadline-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Prestations HelvetiCare",
+    "from_address": "claims@helveticare.example",
+    "to": "{{email}}",
+    "subject": "Envoyez vos justificatifs avant le 31 décembre",
+    "received": "-PT6H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Les justificatifs de cette année ne sont remboursés que si vous les téléversez avant le 31 décembre."
+      },
+      {
+        "t": "text",
+        "v": "Téléversez-les dans l'application HelvetiCare, sous Prestations. Cela prend quelques minutes."
+      },
+      {
+        "t": "text",
+        "v": "Nous ne demandons jamais de justificatifs ni de coordonnées bancaires par e-mail."
+      },
+      {
+        "t": "signature",
+        "v": "Prestations HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse se termine par helveticare.example, le vrai domaine de l'assureur."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Un vrai délai, mais rien n'est caché : on dit quoi, où et pour quand. Une urgence seule ne suffit pas à faire d'un e-mail une arnaque."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il vous dit d'utiliser l'application, pas un lien."
+    },
+    {
+      "id": "hs-never",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Il dit clairement qu'il ne demande jamais de justificatifs ni de coordonnées bancaires par e-mail."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "HelvetiCare : l'adresse est sur helveticare.example.",
+      "choices": [
+        "Quelqu'un qui utilise une adresse presque identique",
+        "HelvetiCare, depuis son vrai domaine",
+        "Votre employeur"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "domaine",
+        "vrai"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Un peu d'urgence, due à un vrai délai, mais aucune menace et aucune ruse.",
+      "choices": [
+        "La peur d'être arrêté",
+        "Un peu d'urgence, due à un vrai délai",
+        "Aucune"
+      ],
+      "correct": 1,
+      "cues": [
+        "délai",
+        "décembre",
+        "urgence",
+        "vrai"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Téléverser vos justificatifs dans l'application. Aucun justificatif ni coordonnée bancaire ne passe par e-mail.",
+      "choices": [
+        "Répondre avec vos coordonnées bancaires",
+        "Téléverser les justificatifs dans l'application",
+        "Cliquer sur un lien et vous connecter"
+      ],
+      "correct": 1,
+      "cues": [
+        "téléverser",
+        "application",
+        "justificatifs",
+        "prestations"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application HelvetiCare. L'e-mail le dit lui-même.",
+      "choices": [
+        "Répondre en joignant les justificatifs",
+        "Ouvrir vous-même l'application HelvetiCare",
+        "Cliquer sur un lien dans l'e-mail"
+      ],
+      "correct": 1,
+      "cues": [
+        "application",
+        "vous-même",
+        "prestations"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application HelvetiCare et téléverser les justificatifs",
+      "outcome": "safe",
+      "consequence": "Le téléversement fonctionne et votre demande est dans les temps."
+    },
+    {
+      "id": "later",
+      "label": "Le noter et les téléverser la semaine prochaine",
+      "outcome": "safe",
+      "consequence": "C'est très bien : le délai est réel, il suffit de ne pas l'oublier."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre en joignant les justificatifs",
+      "outcome": "unsafe",
+      "consequence": "L'e-mail disait qu'on ne demande jamais de justificatifs par e-mail. Passez par l'application."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère. Il fixe un délai, mais le domaine est le bon, aucun lien n'est donné et il dit quoi faire dans l'application. Un délai n'est pas la preuve d'un piège."
+}

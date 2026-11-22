@@ -1,5 +1,8 @@
-# This Is Tea [DCST]
-This is Tea [DCST] --> Name of our app
+# ThisIsTea
+
+> **Satellite file.** What to build for MVP 0 is defined only in [docs/mvp0-plan.md](mvp0-plan.md). This file is the characters' backstory and personality. If this file disagrees with the plan, **the plan wins**.
+
+ThisIsTea --> Name of our app, a cyber security literacy course
 
 In order to make our application funny and easy to use we plan to have
 some characters be the ones that teach you and guide you through your
@@ -33,10 +36,9 @@ She is very intelligent aswell, cares a lot about people and their well
 being. She is also very all, that is why she has so much experienec. She 
 would be the one teaching you how to secure your organization, which are
 good practices, which are bad ones. Example:
-    - When someone is going to be laid off their access and accounts should
-      suspended before notifying him he is going to be suspended. As a lot
-      of cybersecurity incidents involve an unhappy worker inside the 
-      company.
+    - When someone leaves the organisation, their accounts and access are
+      removed on their last day, planned with HR, so no forgotten account
+      stays open.
     - Etc, more things related to company cybersecurity that know I can't 
       think of.
     - having systems up to date
@@ -58,16 +60,18 @@ your organization. Example:
 ## Spider
 Lastly, we have the spider. The spider is a he. He is very intelligent too,
 he is very elusive, machiavellian, he knows how to move, how to surf the
-web (xdd, beacuse he is a spider yeah). He is the one in charge of trying
-to fish you. The one that will try to catch you and will. Once it does it
-will show you how it did it and what resulted in you falling for it.
-Examples of attacks:
-    - Mail phishing with a slightly different domain from us asking for 
-      password
-    - Or a website asking for data it should not be asking, like we tell
-      you we dont charge but we ask you for your credit card, or for your
-      location or any other data that has nothing to do.
-    - Or we try to impersonaet someone by extracting information
-    - Or we send you a malicious sms or file
-    - We play with your feelings
+web (xdd, beacuse he is a spider yeah). He plays the scammer in practice
+scenarios, so you can meet the tricks where they can't hurt you. When you
+ask for a practice email, he is the one who sends it; afterwards he shows
+you how the trick worked and what gave it away. He teases, but he never
+takes anything: no passwords, no data, nothing you type.
+Examples of practice scenarios (fictional names, `.example` addresses, shown
+inside the app):
+    - An email from an address one letter away from ours, asking you to
+      "confirm your password" (you only judge it; there is no real form)
+    - A website asking for data it has no reason to ask for, like a credit
+      card for a free service, or your location
+    - A message from a "colleague" who wants information
+    - An SMS with a link, or an attachment called `invoice.pdf.html`
+    - Messages that push your feelings: urgency, fear, greed
 

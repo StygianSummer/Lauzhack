@@ -1,0 +1,182 @@
+{
+  "id": "email-helveticare-card-attachment-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 4,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "subdomain_trick",
+      "attachment_double_ext",
+      "first_name_used",
+      "short_deadline",
+      "has_attachment"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "HelvetiCare Cards",
+    "from_address": "cards@helveticare.example.card-service.example",
+    "to": "{{email}}",
+    "subject": "Please check your new insurance card",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your new insurance card for next year is attached. Please open it and check that your details are correct."
+      },
+      {
+        "t": "text",
+        "v": "Cards that are not confirmed are blocked on 1 January."
+      },
+      {
+        "t": "signature",
+        "v": "HelvetiCare Card Service"
+      }
+    ],
+    "attachments": [
+      "insurance-card.jpg.html"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "The owner is the last name before the first slash: card-service.example. helveticare.example is only decoration on its left."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:2",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Blocked on 1 January\" is a threat with a date, meant to make you open the file fast."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "\"insurance-card.jpg.html\" ends in .html. It is a web page pretending to be a picture, and it would show a fake sign-in."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Your first name is easy to find. It proves nothing."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone using HelvetiCare's name. The real owner of the address is card-service.example.",
+      "choices": [
+        "HelvetiCare's card team",
+        "Your employer",
+        "Someone whose real domain is card-service.example"
+      ],
+      "correct": 2,
+      "cues": [
+        "domain",
+        "right",
+        "card-service",
+        "subdomain"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Fear and hurry: your card will be blocked on 1 January unless you act.",
+      "choices": [
+        "Curiosity about a bonus",
+        "None: it is routine",
+        "Fear of a blocked card, with a date"
+      ],
+      "correct": 2,
+      "cues": [
+        "blocked",
+        "january",
+        "deadline",
+        "fear"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Open the attachment. The file is a web page that would collect your login.",
+      "choices": [
+        "Pay a fee",
+        "Reply with your date of birth",
+        "Open an attachment"
+      ],
+      "correct": 2,
+      "cues": [
+        "attachment",
+        "open",
+        "html",
+        "file"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not open it. Check your card in the HelvetiCare app, or call the number on your current card.",
+      "choices": [
+        "Open the file to see what it is",
+        "Reply to ask for a different format",
+        "Call the number on your current card or use the HelvetiCare app"
+      ],
+      "correct": 2,
+      "cues": [
+        "card",
+        "number",
+        "app",
+        "call"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Call the number on your current card and ask about the new one",
+      "outcome": "safe",
+      "consequence": "They say nothing is pending. The email was fake."
+    },
+    {
+      "id": "open-file",
+      "label": "Open the attachment to check your details",
+      "outcome": "unsafe",
+      "consequence": "A fake sign-in page opens. If you type, your login goes to the scammer."
+    },
+    {
+      "id": "reply",
+      "label": "Reply and ask for the card in a different format",
+      "outcome": "neutral",
+      "consequence": "The scammer sends another file. Your reply also shows your address is live."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. Nothing was opened."
+    }
+  ],
+  "attacker_reveal": "A picture file that ends in .html... Most people read the first extension and stop. The second one tells the browser what to do. A date on a threat helps, too."
+}

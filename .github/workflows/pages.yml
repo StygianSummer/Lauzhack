@@ -1,0 +1,50 @@
+# wasm build → GitHub Pages (plan §15), an optional mirror of the self-hosted web app.
+# Requires Settings → Pages → Source: GitHub Actions. Optional repository variable API_URL: the
+# production API (https://<domain>/api) written into config.json; empty → guest only.
+name: Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build wasm distribution
+        run: ./gradlew -Ptea.android=false :composeApp:wasmJsBrowserDistribution -Pstrict=true --console=plain
+      - name: Write runtime config
+        env:
+          API_URL: ${{ vars.API_URL }}
+        run: |
+          printf '{"api":"%s"}\n' "$API_URL" > composeApp/build/dist/wasmJs/productionExecutable/config.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: composeApp/build/dist/wasmJs/productionExecutable
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

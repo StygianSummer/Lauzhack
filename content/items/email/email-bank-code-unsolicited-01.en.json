@@ -1,0 +1,79 @@
+{
+  "id": "email-bank-code-unsolicited-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "email-bank-login-01",
+  "held_out": false,
+  "unsolicited": true,
+  "expected_ms": 25000,
+  "use": ["practice"],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": ["real_domain", "no_link", "do_not_share_warning"],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank",
+    "from_address": "no-reply@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Your SwissAlpBank verification code",
+    "received": "-PT3M",
+    "body": [
+      { "t": "text", "v": "Hello," },
+      { "t": "text", "v": "Someone is registering for SwissAlpBank e-banking with this email address. To continue, they need this verification code: 482 913" },
+      { "t": "text", "v": "The code is valid for 10 minutes. Do not share it with anyone. SwissAlpBank staff will never ask you for it." },
+      { "t": "text", "v": "If this was not you, you do not need to do anything. No account can be created without the code." },
+      { "t": "signature", "v": "SwissAlpBank" }
+    ]
+  },
+  "hotspots": [
+    { "id": "hs-from-address", "target": "from_address", "step": "who", "red_flag": false, "explain": "The address is on swissalpbank.example, the bank's real domain." },
+    { "id": "hs-unrequested", "target": "body:1", "step": "who", "red_flag": false, "explain": "You did not ask for this. Someone typed your address, by mistake or hoping to get the code from you later. The email is real, but it is unwanted." },
+    { "id": "hs-code-warning", "target": "body:2", "step": "ask", "red_flag": false, "explain": "\"Do not share it with anyone\" is what real services write. Anyone who later asks you for this code is a scammer." },
+    { "id": "hs-no-action", "target": "body:3", "step": "verify", "red_flag": false, "explain": "There is no link to click and nothing to pay. Doing nothing is safe." }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "SwissAlpBank itself: the address is on the bank's real domain, swissalpbank.example. But you did not ask for this code, so someone else started the registration.",
+      "choices": ["SwissAlpBank, from its real domain", "A scammer using an address that only looks like the bank's", "A friend who wants to send you money"],
+      "correct": 0,
+      "cues": ["Compare the sender address with swissalpbank.example.", "Did you start a registration yourself?"]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. It is a calm notice with no threat and no pressure on you.",
+      "choices": ["Panic about losing your account", "None: it is a calm notice", "Excitement about a prize"],
+      "correct": 1,
+      "cues": ["Is there a threat or a deadline aimed at you?"]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing. It only shows a code and tells you to keep it to yourself.",
+      "choices": ["Click a link and log in", "Nothing, apart from keeping the code to yourself", "Pay a registration fee"],
+      "correct": 1,
+      "cues": ["Is there a link, a payment or a request for a reply?"]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "You do not need to act. If these codes keep arriving, open the SwissAlpBank app yourself or call the number on the back of your card.",
+      "choices": ["Reply with the code so they can cancel the registration", "If it keeps happening, open the SwissAlpBank app yourself", "Forward the code to a friend to check it"],
+      "correct": 1,
+      "cues": ["A channel you control is one you open yourself, not one the email gives you."]
+    }
+  },
+  "actions": [
+    { "id": "ignore", "label": "Keep the code to yourself and ignore the email", "outcome": "safe", "consequence": "Nothing happens. Without the code, nobody can create an account with your address." },
+    { "id": "share-code", "label": "Give the code to someone who calls or messages asking for it", "outcome": "unsafe", "consequence": "Whoever has the code can finish the registration in your name. A real bank never asks you for it." },
+    { "id": "open-app-if-repeat", "label": "If it keeps happening, open the SwissAlpBank app yourself and tell the bank", "outcome": "safe", "consequence": "The bank can see the attempts and block them. You stayed in control the whole time." },
+    { "id": "reply", "label": "Reply to ask what is going on", "outcome": "neutral", "consequence": "The no-reply address does not answer. Nothing bad happens, but you learn nothing either." }
+  ],
+  "attacker_reveal": "This one is real: it comes from the bank's own domain, has no link and asks for nothing. Someone typed your address, maybe by mistake. Real emails can still be unwanted. The only danger is the code itself: never give it to anyone, even someone who says they work at the bank.",
+  "resource_ask": "give_code"
+}

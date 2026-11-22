@@ -1,0 +1,195 @@
+{
+  "id": "email-bank-terms-lookalike-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "lookalike_link",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank",
+    "from_address": "service@swissa1pbank.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, nuevas condiciones para tu banca en línea",
+    "received": "-PT45M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Hemos actualizado las condiciones de tu contrato de banca en línea. Inicia sesión para aceptarlas antes de que acabe la semana."
+      },
+      {
+        "t": "link",
+        "v": "Revisar y aceptar las condiciones",
+        "href": "https://swissa1pbank.example/terms",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Si no las aceptas, tu acceso podría quedar limitado."
+      },
+      {
+        "t": "signature",
+        "v": "Tu equipo de SwissAlpBank"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "swissa1pbank.example lleva el dígito 1 en lugar de la letra l. No es swissalpbank.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Antes de que acabe la semana\" te impone un plazo que tú no has elegido."
+    },
+    {
+      "id": "hs-limited",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Tu acceso podría quedar limitado\" es una amenaza para que actúes."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "La página de inicio de sesión está en el dominio parecido y copiaría tus datos de acceso."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que usa el nombre del banco. La dirección tiene un dígito 1 donde debería ir la letra l: swissa1pbank.example no es swissalpbank.example. A tus ojos se les puede escapar el cambio de un solo carácter, pero a un gestor de contraseñas nunca.",
+      "choices": [
+        "SwissAlpBank, porque sabe tu nombre",
+        "Alguien que usa un dominio parecido",
+        "Tu asesor personal"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "dígito",
+        "dominio",
+        "parecido"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Miedo y prisa: podrías perder el acceso si no actúas antes de que acabe la semana.",
+      "choices": [
+        "Curiosidad por un premio",
+        "Miedo a perder el acceso, con un plazo",
+        "Ninguna: es algo rutinario"
+      ],
+      "correct": 1,
+      "cues": [
+        "limitado",
+        "acceso",
+        "plazo",
+        "semana"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Iniciar sesión para 'aceptar' unas condiciones nuevas, lo que entregaría tus datos de acceso a quien escribe.",
+      "choices": [
+        "Abrir un archivo adjunto",
+        "Iniciar sesión mediante un enlace",
+        "Responder con tu número de cuenta"
+      ],
+      "correct": 1,
+      "cues": [
+        "sesión",
+        "enlace",
+        "condiciones",
+        "acceso"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Usa el acceso de SwissAlpBank guardado en tu gestor de contraseñas. Comprueba la dirección web exacta y no rellena nada en un sitio parecido: si se queda callado, esa es tu alarma. O abre tú mismo la app del banco.",
+      "choices": [
+        "Pulsar el enlace y comprobar que la página se ve bien",
+        "Abrir el acceso guardado en tu gestor de contraseñas, o la app tú mismo",
+        "Escribir la contraseña a mano si el gestor no la rellena"
+      ],
+      "correct": 1,
+      "cues": [
+        "gestor de contraseñas",
+        "app",
+        "tú mismo",
+        "dirección"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Revisar y aceptar las condiciones",
+    "options": [
+      "swissalpbank.example",
+      "swissa1pbank.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "manager",
+      "label": "Abrir el banco desde el acceso guardado en tu gestor de contraseñas, o desde la app",
+      "outcome": "safe",
+      "consequence": "No hay nada que aceptar. Si hubieras pulsado el enlace del correo, el gestor no habría rellenado nada."
+    },
+    {
+      "id": "click-type",
+      "label": "Pulsar el enlace y escribir tu contraseña",
+      "outcome": "unsafe",
+      "consequence": "La página parece correcta, pero tus datos de acceso van directos al estafador."
+    },
+    {
+      "id": "type-by-hand",
+      "label": "El gestor de contraseñas no rellena nada, así que escribes la contraseña a mano",
+      "outcome": "unsafe",
+      "consequence": "El gestor se quedó callado porque la dirección era incorrecta. Ignoraste tu mejor aviso."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciarlo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No entregaste nada."
+    }
+  ],
+  "attacker_reveal": "Un solo dígito en lugar de una letra... A tus ojos se les escapa, pero un gestor de contraseñas compara cada carácter. Cuando se niega a rellenar, créele."
+}

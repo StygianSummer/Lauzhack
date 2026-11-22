@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Phishing · ThisIsTea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- In Ktor, serve this from your static folder, e.g. /static/tea-theme.css -->
+    <link rel="stylesheet" href="tea-theme.css">
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="wrap">
+            <a class="brand" href="#top">ThisIsTea</a>
+            <ol class="steps" id="steps" aria-label="Lesson progress">
+                <li><a href="#content" data-step="content">Content</a></li>
+                <li><a href="#tools" data-step="tools">Tools</a></li>
+                <li><a href="#attacks" data-step="attacks">Attacks</a></li>
+                <li><a href="#status" data-step="status">Status</a></li>
+                <li><a href="#answers" data-step="answers">Answers</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div>
+                <span class="lesson-pill">Lesson 1</span>
+                <h1>Phishing: don't take the bait</h1>
+                <p class="subtitle">How attackers trick people into handing over their keys, and how to spot it before you do.</p>
+                <div class="hero-meta">
+                    <a class="btn btn-go" href="#content">Start the lesson</a>
+                    <span>About 10 minutes, 6 questions</span>
+                </div>
+            </div>
+
+            <div class="guides" aria-label="Your guides for this lesson">
+                <div class="guide voice-cat">
+                    <div class="char-tag"><span class="avatar sm" aria-hidden="true">🐱</span><span><span class="name">Cat</span><span class="role">You first</span></span></div>
+                    <p class="say">Me first. Then you. That's the order.</p>
+                </div>
+                <div class="guide voice-turtle">
+                    <div class="char-tag"><span class="avatar sm" aria-hidden="true">🐢</span><span><span class="name">Turtle</span><span class="role">Your team</span></span></div>
+                    <p class="say">Together, we're much harder to crack.</p>
+                </div>
+                <div class="guide voice-dog">
+                    <div class="char-tag"><span class="avatar sm" aria-hidden="true">🐶</span><span><span class="name">Dog</span><span class="role">Free tools</span></span></div>
+                    <p class="say">Oh, I know a tool for that!</p>
+                </div>
+                <div class="guide voice-spider">
+                    <div class="char-tag"><span class="avatar sm" aria-hidden="true">🕷️</span><span><span class="name">Spider</span><span class="role">The trickster</span></span></div>
+                    <p class="say">I've already written to you...</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <!-- 1. CONTENT — Cat and Turtle -->
+        <section id="content" class="lesson-section">
+            <div class="section-head">
+                <div class="step-no">1</div>
+                <h2>Content</h2>
+            </div>
+            <p class="section-intro">Two ideas cover most of phishing. Cat starts with you; Turtle widens it to everyone you work with. Tap a card to read it up close.</p>
+
+            <div class="grid-2">
+                <article class="card lesson-card voice-cat" id="card-cat">
+                    <button type="button" class="expand-btn" aria-label="Read Cat's card larger">⤢</button>
+                    <div class="top">
+                        <div class="char-tag">
+                            <span class="avatar" aria-hidden="true">🐱</span>
+                            <span><span class="name">Cat</span><span class="role">Personal security</span></span>
+                        </div>
+                        <h3 class="char-title">Protect yourself first</h3>
+                        <p class="say">I can't look after anyone if my own logins are wide open. Neither can you. So we start with you.</p>
+                    </div>
+                    <ol class="rules voice-cat">
+                        <li><b>Read the domain after the @.</b>Every letter. thisistea.example and thisistae-app.example belong to two different owners.</li>
+                        <li><b>Notice the rush.</b>A two-hour deadline is a feeling someone else put in you. Feelings aren't evidence.</li>
+                        <li><b>Never type a password after clicking an email link.</b>Open the site yourself, from a bookmark or by typing the address.</li>
+                    </ol>
+                    <p class="sign-off voice-line">Zero trust isn't paranoia. It's checking.</p>
+                </article>
+
+                <article class="card lesson-card voice-turtle" id="card-turtle">
+                    <button type="button" class="expand-btn" aria-label="Read Turtle's card larger">⤢</button>
+                    <div class="top">
+                        <div class="char-tag">
+                            <span class="avatar" aria-hidden="true">🐢</span>
+                            <span><span class="name">Turtle</span><span class="role">Organizational security</span></span>
+                        </div>
+                        <h3 class="char-title">Shield the whole shell</h3>
+                        <p class="say">In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too. It works a little like a vaccine.</p>
+                    </div>
+                    <ol class="rules voice-turtle">
+                        <li><b>Confirm the unusual, together.</b>A wire transfer, a password reset, an urgent file: check it on another channel. A phone call costs one minute.</li>
+                        <li><b>Tell the others.</b>If a strange email reached you, it reached your colleagues too. Report it to IT so we can warn everyone.</li>
+                        <li><b>Give the whole team a second lock.</b>With multi-factor authentication, one stolen password is a scratch, not a crack in the shell.</li>
+                    </ol>
+                    <p class="sign-off voice-line">A team we can trust is a team that looks out for each other.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2. TOOLS — Dog -->
+        <section id="tools" class="lesson-section voice-dog">
+            <div class="section-head">
+                <div class="step-no">2</div>
+                <h2>Tools</h2>
+            </div>
+            <div class="speaker" style="margin-bottom: 1.75rem; max-width: 46rem;">
+                <div class="char-tag"><span class="avatar" aria-hidden="true">🐶</span></div>
+                <p class="say on-soft">Hey, friend! I've sniffed out plenty of shady links in my time, and I never go in alone. Let me introduce you to my buddies. They're all free, and they've got your back.</p>
+            </div>
+
+            <div class="tools-list">
+                <div class="tool">
+                    <div class="tool-ico" aria-hidden="true">🔐</div>
+                    <div>
+                        <h3>Bitwarden</h3>
+                        <p class="what">Free, open-source password manager for you and your team.</p>
+                        <p class="dog-says voice-line">My oldest pal. He remembers every password for you, and he won't fill them in on a fake site. If he stays quiet, that's your warning.</p>
+                    </div>
+                    <a class="btn btn-sm" href="https://bitwarden.com" target="_blank" rel="noopener noreferrer">Open Bitwarden</a>
+                </div>
+                <div class="tool">
+                    <div class="tool-ico" aria-hidden="true">🛡️</div>
+                    <div>
+                        <h3>VirusTotal</h3>
+                        <p class="what">Checks a link or file against 70+ security scanners at once.</p>
+                        <p class="dog-says voice-line">Right-click the link, choose Copy link address, and paste it here. Ask before you click, not after!</p>
+                    </div>
+                    <a class="btn btn-sm" href="https://www.virustotal.com" target="_blank" rel="noopener noreferrer">Open VirusTotal</a>
+                </div>
+                <div class="tool">
+                    <div class="tool-ico" aria-hidden="true">🔎</div>
+                    <div>
+                        <h3>URLScan.io</h3>
+                        <p class="what">Opens a page in its own browser and shows you a screenshot.</p>
+                        <p class="dog-says voice-line">He walks into the dark alley so you don't have to. You see where the link goes; he takes the risk.</p>
+                    </div>
+                    <a class="btn btn-sm" href="https://urlscan.io" target="_blank" rel="noopener noreferrer">Open URLScan</a>
+                </div>
+                <div class="tool">
+                    <div class="tool-ico" aria-hidden="true">📬</div>
+                    <div>
+                        <h3>Have I Been Pwned</h3>
+                        <p class="what">Tells you whether your email address appeared in a known data breach.</p>
+                        <p class="dog-says voice-line">Ever wondered how the Spider got your address? Look yourself up here. Then change any password that showed up.</p>
+                    </div>
+                    <a class="btn btn-sm" href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">Check my email</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ATTACKS — Spider -->
+        <section id="attacks" class="lesson-section">
+            <div class="attack-panel voice-spider">
+                <div class="section-head">
+                    <div class="step-no">3</div>
+                    <h2>Attacks</h2>
+                    <span class="spacer"></span>
+                    <button type="button" id="demoToggleBtn" class="demo-toggle" onclick="toggleTrapState()">Demo toggle: switch to Dodged</button>
+                </div>
+
+                <div id="trapAlert" class="trap caught" role="status">
+                    <span class="avatar" aria-hidden="true">🕷️</span>
+                    <div>
+                        <strong id="trapAlertTitle">Ah... there you are. We've already met.</strong>
+                        <span id="trapAlertBody">You asked me to test you, so I sent you one practice email. You were in a hurry and you clicked its link. That is all I recorded: no password, nothing you typed. I only wanted you to feel how easy it is.</span>
+                        <a class="trap-link" id="trapLink" href="#recovery">What to do now, step by step &darr;</a>
+                    </div>
+                </div>
+
+                <div class="attack-grid">
+                    <div class="email hunting" id="emailMock">
+                        <div class="email-bar"><i></i><i></i><i></i><span>Inbox</span></div>
+                        <div class="email-head">
+                            <p><b>From</b> <span data-flag="domain">support@thisistae-app.example</span></p>
+                            <p><b>Subject</b> Action required: problem creating your ThisIsTea account</p>
+                        </div>
+                        <div class="email-body">
+                            <p><span data-decoy="greeting">Hi there,</span></p>
+                            <p><span data-decoy="error">We ran into an error finalising your account.</span> Please <span data-flag="credentials">re-enter your email and password</span> <span data-flag="urgency">within 2 hours</span> to avoid automatic deactivation.</p>
+                            <a class="fake-link" data-flag="domain" tabindex="-1">Verify account now</a>
+                            <span class="url-under" data-flag="domain">https://thisistae-app.example/login</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="char-title" style="margin-bottom: .3rem;" id="huntTitle">Can you catch me?</h3>
+                        <p id="huntIntro" style="color: var(--web-soft); font-size: var(--t-sm); margin-bottom: .8rem;">I hid three tricks in that email. Click whatever you think is a trap. I won't say whether you're getting warm.</p>
+                        <div class="hunt-bar">
+                            <span id="huntCount" aria-live="polite">0 of 3 found · 0 wrong guesses</span>
+                            <span class="spacer"></span>
+                            <button type="button" id="huntReveal" class="demo-toggle" onclick="revealHunt()">Show me the rest</button>
+                        </div>
+                        <p class="hunt-msg" id="huntMsg" aria-live="polite">Go on. Look closely.</p>
+                        <button type="button" class="flag-btn is-locked" data-flag-btn="domain" aria-pressed="false" disabled onclick="showFlag('domain', this)">
+                            <strong>The address</strong>
+                            <span>I swapped two letters and moved one word. Who reads every letter when they're worried?</span>
+                        </button>
+                        <button type="button" class="flag-btn is-locked" data-flag-btn="urgency" aria-pressed="false" disabled onclick="showFlag('urgency', this)">
+                            <strong>The clock</strong>
+                            <span>"Within 2 hours." Panic is my favourite accomplice. It quiets the part of you that checks.</span>
+                        </button>
+                        <button type="button" class="flag-btn is-locked" data-flag-btn="credentials" aria-pressed="false" disabled onclick="showFlag('credentials', this)">
+                            <strong>The ask</strong>
+                            <span>ThisIsTea would never ask for your password by email. But I sounded like ThisIsTea, and that was enough.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid-2" id="huntDebrief" style="gap: 1.25rem; align-items: start;" hidden>
+                    <div class="domain-diff">
+                        <h4 style="font-size: 1.05rem; margin-bottom: .6rem;">Spot the difference</h4>
+                        <div class="domain-row real"><small>Real</small><span>thisistea.example</span></div>
+                        <div class="domain-row"><small>Fake</small><span>thisist<span class="diff">ae</span><span class="diff">-app</span>.example</span></div>
+                    </div>
+                    <div class="speaker voice-cat">
+                        <div class="char-tag"><span class="avatar sm" aria-hidden="true">🐱</span></div>
+                        <p class="say" style="background: var(--cat-soft); color: var(--ink); border-color: var(--ink);">Every trick he just bragged about is one of my three rules. Address, rush, password. Go back and read them once more.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Your turn: two fresh emails, no highlights -->
+            <div class="card practice voice-cat" id="spotcheck">
+                <div class="speaker">
+                    <div class="char-tag"><span class="avatar sm" aria-hidden="true">🐱</span></div>
+                    <p class="say on-soft">Your turn, no hints from me. One of these is real and one is a trap. Safe or phish? Careful: not everything that mentions a deadline is a trick, and not everything that looks calm is safe.</p>
+                </div>
+                <div class="practice-grid">
+                    <div class="spot" data-spot="a" data-answer="safe">
+                        <div class="email">
+                            <div class="email-bar"><i></i><i></i><i></i><span>Inbox</span></div>
+                            <div class="email-head">
+                                <p><b>From</b> ThisIsTea &lt;notifications@thisistea.example&gt;</p>
+                                <p><b>Subject</b> Your team's weekly digest</p>
+                            </div>
+                            <div class="email-body">
+                                <p>Hi Sam,</p>
+                                <p>Three colleagues finished Lesson 1 this week. See the full digest in the ThisIsTea app whenever you like.</p>
+                                <a class="fake-link" tabindex="-1">Open digest</a>
+                                <span class="url-under">https://thisistea.example/digest</span>
+                            </div>
+                        </div>
+                        <div class="spot-actions">
+                            <button type="button" class="btn btn-sm" data-guess="safe">Looks safe</button>
+                            <button type="button" class="btn btn-sm" data-guess="phish">It's phishing</button>
+                        </div>
+                        <div class="feedback" hidden></div>
+                    </div>
+                    <div class="spot" data-spot="b" data-answer="phish">
+                        <div class="email">
+                            <div class="email-bar"><i></i><i></i><i></i><span>Inbox</span></div>
+                            <div class="email-head">
+                                <p><b>From</b> IT Helpdesk &lt;helpdesk@thisistea.example.secure-login.example&gt;</p>
+                                <p><b>Subject</b> Your password expires today</p>
+                            </div>
+                            <div class="email-body">
+                                <p>Hi Sam,</p>
+                                <p>Your ThisIsTea password expires at 17:00 today. Sign in now to keep your current password.</p>
+                                <a class="fake-link" tabindex="-1">Keep my password</a>
+                                <span class="url-under">https://thisistea.example.secure-login.example/keep</span>
+                            </div>
+                        </div>
+                        <div class="spot-actions">
+                            <button type="button" class="btn btn-sm" data-guess="safe">Looks safe</button>
+                            <button type="button" class="btn btn-sm" data-guess="phish">It's phishing</button>
+                        </div>
+                        <div class="feedback" hidden></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- If it already happened -->
+            <div class="card recovery voice-turtle" id="recovery">
+                <div class="top">
+                    <div class="char-tag">
+                        <span class="avatar" aria-hidden="true">🐢</span>
+                        <span><span class="name">Turtle</span><span class="role">If it already happened</span></span>
+                    </div>
+                    <h3 class="char-title" id="recoveryTitle">If a real one ever gets you, dear, do this.</h3>
+                    <p class="say" id="recoveryLead">This time it was only practice and nothing was taken. A real one happens to the careful ones too, and then what matters is how fast we close the door. Here is the list.</p>
+                </div>
+                <ul class="checklist" id="recoveryList">
+                    <li><label><input type="checkbox" data-step="1"><span><b>Change the password, on the real site.</b>Open the site yourself, from a bookmark or by typing the address, never through the email. Then change that same password anywhere else you reused it.</span></label></li>
+                    <li><label><input type="checkbox" data-step="2"><span><b>Turn on multi-factor authentication.</b>A second lock means a stolen password alone no longer opens the door.</span></label></li>
+                    <li><label><input type="checkbox" data-step="3"><span><b>Tell IT or security straight away.</b>If you can, forward the email as an attachment. Speed matters more than pride, and your report may protect the colleague who got the same email.</span></label></li>
+                    <li><label><input type="checkbox" data-step="4"><span><b>Look for strange activity.</b>Check the sign-in history and connected devices, and look for mail rules that forward or delete messages. Sign out anywhere you don't recognise.</span></label></li>
+                    <li><label><input type="checkbox" data-step="5"><span><b>Expect a second attempt.</b>Attackers often follow up with a message that mentions the first one. Stay suspicious for the next few weeks.</span></label></li>
+                </ul>
+                <p class="recovery-progress voice-line" id="recoveryProgress" aria-live="polite">0 of 5 done</p>
+            </div>
+        </section>
+
+        <!-- 4. STATUS -->
+        <section id="status" class="lesson-section">
+            <div class="section-head">
+                <div class="step-no">4</div>
+                <h2>Status</h2>
+            </div>
+            <div class="card" style="padding: 1.6rem;">
+                <p style="font-weight: 700; font-size: 1.15rem; margin-bottom: 1rem;">How confident do you feel? <span class="muted" style="font-weight: 500;">Right now: <strong id="statusLabel">Not rated yet</strong></span></p>
+                <div class="choice-row">
+                    <button type="button" id="btn-LOW" class="btn-choice" onclick="setStatus('LOW')"><span class="meter" style="--fill: 33%"></span>Still unsure</button>
+                    <button type="button" id="btn-MEDIUM" class="btn-choice" onclick="setStatus('MEDIUM')"><span class="meter" style="--fill: 66%"></span>Getting there</button>
+                    <button type="button" id="btn-HIGH" class="btn-choice" onclick="setStatus('HIGH')"><span class="meter" style="--fill: 100%"></span>Confident</button>
+                </div>
+                <div class="speaker" id="statusSpeaker" style="margin-top: 1.25rem;" hidden>
+                    <div class="char-tag"><span class="avatar sm" id="statusAvatar" aria-hidden="true"></span></div>
+                    <p id="statusFeedback" class="say on-soft" aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ANSWERS -->
+        <section id="answers" class="lesson-section">
+            <div class="section-head">
+                <div class="step-no">5</div>
+                <h2>Answers</h2>
+            </div>
+
+            <p class="section-intro">Six questions. Get one wrong and you won't be told the answer straight away: you'll get a hint and a second try first.</p>
+            <form id="quizForm" novalidate>
+                <div id="quizQuestions"></div>
+
+                <div id="scoreBanner" class="score" role="status" hidden>
+                    <span class="num" id="scoreNum"></span>
+                    <div class="char-tag"><span class="avatar sm" id="scoreAvatar" aria-hidden="true"></span></div>
+                    <p class="say plain" id="scoreText"></p>
+                </div>
+                <div class="quiz-actions">
+                    <button type="submit" id="quizSubmit" class="btn btn-go">Check my answers</button>
+                    <button type="button" id="quizReset" class="btn" hidden>Start over with fresh order</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap voice-spider">
+            <p class="voice-line" style="color: var(--ink);">Until next time... and do keep an eye on your phone. I won't be writing emails anymore.</p>
+        </div>
+    </footer>
+
+    <!-- Enlarged lesson card -->
+    <dialog id="cardDialog" class="card-dialog" aria-label="Lesson card">
+        <button type="button" class="dialog-close" aria-label="Close" onclick="document.getElementById('cardDialog').close()">×</button>
+        <div id="cardDialogSlot"></div>
+    </dialog>
+
+    <!-- Corner guide: the section's character pops up and speaks -->
+    <aside class="buddy" id="buddy" data-voice="cat" aria-label="Your guide">
+        <div class="say buddy-bubble">
+            <button type="button" class="buddy-close" id="buddyClose" aria-label="Dismiss">×</button>
+            <span class="buddy-name" id="buddyName"></span>
+            <span class="buddy-text" aria-hidden="true"><span class="ghost" id="buddyGhost"></span><span class="typed" id="buddyTyped"></span></span>
+        </div>
+        <span class="buddy-avatar" id="buddyAvatar" aria-hidden="true"></span>
+    </aside>
+    <p class="sr-only" id="buddyLive" aria-live="polite"></p>
+
+    <script>
+        // Characters: one place for the emoji of each voice
+        const CHARACTERS = {
+            cat:    { emoji: "🐱", name: "Cat" },
+            turtle: { emoji: "🐢", name: "Turtle" },
+            dog:    { emoji: "🐶", name: "Dog" },
+            spider: { emoji: "🕷️", name: "Spider" }
+        };
+
+        const statusMap = {
+            LOW: {
+                label: "Still unsure",
+                voice: "turtle",
+                feedback: "That's all right, dear. Nobody learns this in one sitting. Read the Cat's three rules once more, then try one of Dog's link checkers. We'll get there together."
+            },
+            MEDIUM: {
+                label: "Getting there",
+                voice: "cat",
+                feedback: "Good. Stay that way. The next trick won't look like this one."
+            },
+            HIGH: {
+                label: "Confident",
+                voice: "spider",
+                feedback: "Confident? How lovely. Confident people are my favourite kind... I'll be in touch."
+            }
+        };
+
+        // Renders a character's avatar + speech bubble as HTML
+        function speech(voice, verdict, text, extra) {
+            const c = CHARACTERS[voice];
+            const v = verdict ? '<span class="verdict">' + verdict + '</span>' : '';
+            return '<div class="char-tag"><span class="avatar sm" aria-hidden="true">' + c.emoji + '</span></div>' +
+                   '<p class="say">' + v + text + (extra || '') + '</p>';
+        }
+
+        // ------------------------------------------------------------------
+        // 1. Result of the practice email the learner asked for (click-only), and the recovery plan
+        // ------------------------------------------------------------------
+        let fellForTrap = true;
+
+        function renderTrap() {
+            const alertElem = document.getElementById('trapAlert');
+            const titleElem = document.getElementById('trapAlertTitle');
+            const bodyElem = document.getElementById('trapAlertBody');
+            const btnElem = document.getElementById('demoToggleBtn');
+            const linkElem = document.getElementById('trapLink');
+            const recTitle = document.getElementById('recoveryTitle');
+            const recLead = document.getElementById('recoveryLead');
+
+            if (fellForTrap) {
+                alertElem.className = 'trap caught';
+                titleElem.textContent = 'Ah... there you are. We\'ve already met.';
+                bodyElem.textContent = 'You asked me to test you, so I sent you one practice email. You were in a hurry and you clicked its link. That is all I recorded: no password, nothing you typed. I only wanted you to feel how easy it is.';
+                btnElem.textContent = 'Demo toggle: switch to Dodged';
+                linkElem.textContent = 'What to do now, step by step ↓';
+                recTitle.textContent = 'If a real one ever gets you, dear, do this.';
+                recLead.textContent = 'This time it was only practice and nothing was taken. A real one happens to the careful ones too, and then what matters is how fast we close the door. Here is the list.';
+            } else {
+                alertElem.className = 'trap dodged';
+                titleElem.textContent = 'Hm. You didn\'t bite.';
+                bodyElem.textContent = 'You asked me to test you, and you walked right past my practice email. Clever. Ask me again whenever you like... next time it won\'t look like this one.';
+                btnElem.textContent = 'Demo toggle: switch to Fell for it';
+                linkElem.textContent = 'Keep the rescue plan for next time ↓';
+                recTitle.textContent = 'Keep this plan in your pocket';
+                recLead.textContent = 'You walked past this one. Someday one will look better. Here is the five-step rescue plan: knowing it by heart is half the cure.';
+            }
+        }
+
+        function toggleTrapState() {
+            fellForTrap = !fellForTrap;
+            renderTrap();
+        }
+        renderTrap();
+
+        // Recovery checklist: ticks survive a reload
+        (function () {
+            const list = document.getElementById('recoveryList');
+            const boxes = Array.from(list.querySelectorAll('input'));
+            const progress = document.getElementById('recoveryProgress');
+            const KEY = 'tea.phishing.recovery';
+
+            function load() {
+                try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+            }
+            function save() {
+                try { localStorage.setItem(KEY, JSON.stringify(boxes.filter(b => b.checked).map(b => b.dataset.step))); } catch (e) { /* storage blocked: fine */ }
+            }
+            function render() {
+                const n = boxes.filter(b => b.checked).length;
+                progress.textContent = n === boxes.length
+                    ? 'All five. The whole shell is closed again. Well done.'
+                    : n + ' of ' + boxes.length + ' done';
+            }
+
+            const saved = load();
+            boxes.forEach(b => { b.checked = saved.indexOf(b.dataset.step) !== -1; });
+            list.addEventListener('change', () => { save(); render(); });
+            render();
+        })();
+
+        // ------------------------------------------------------------------
+        // 2. Find the Spider's tricks yourself before he explains them
+        // ------------------------------------------------------------------
+        const HUNT_TOTAL = 3;
+        const HUNT_LINES = {
+            domain:      "The address. Most people never read it.",
+            urgency:     "The clock. You felt it too, didn't you?",
+            credentials: "The ask. You're a careful one. I don't like careful."
+        };
+        const DECOY_LINES = {
+            greeting: "A plain hello. Honest companies say hello too. Keep looking.",
+            error:    "Just words. Anyone could write that sentence. Look for the part that wants something from you."
+        };
+        const hunt = { found: new Set(), misses: 0, over: false };
+        const emailMock = document.getElementById('emailMock');
+        const huntMsg = document.getElementById('huntMsg');
+
+        function huntRefresh() {
+            document.getElementById('huntCount').textContent =
+                hunt.found.size + ' of ' + HUNT_TOTAL + ' found · ' + hunt.misses + ' wrong ' + (hunt.misses === 1 ? 'guess' : 'guesses');
+        }
+
+        function huntUnlock(name, missed) {
+            emailMock.querySelectorAll('[data-flag="' + name + '"]').forEach(el => el.classList.add(missed ? 'is-missed' : 'is-found'));
+            const btn = document.querySelector('[data-flag-btn="' + name + '"]');
+            btn.disabled = false;
+            btn.classList.remove('is-locked');
+            btn.innerHTML = btn.dataset.real;
+        }
+
+        function huntFinish(gaveUp) {
+            hunt.over = true;
+            emailMock.classList.remove('hunting');
+            document.getElementById('huntTitle').textContent = 'How I caught you';
+            document.getElementById('huntIntro').textContent = 'Tap a trick to find it in the email again.';
+            document.getElementById('huntReveal').hidden = true;
+            document.getElementById('huntDebrief').hidden = false;   // the domain comparison would spoil the hunt, so it waits
+            if (gaveUp) huntMsg.textContent = 'Giving up so soon? Very well. The yellow ones you found. The pink ones, you missed.';
+            else if (hunt.misses === 0) huntMsg.textContent = 'All three, and not one wasted guess. Hm. You would have been difficult to catch.';
+            else huntMsg.textContent = 'All three, in the end. Next time, look for what the email wants from you.';
+        }
+
+        function huntClick(el) {
+            if (hunt.over) return;
+            const flag = el.dataset.flag;
+            if (flag) {
+                if (hunt.found.has(flag)) return;
+                hunt.found.add(flag);
+                huntUnlock(flag, false);
+                huntMsg.textContent = HUNT_LINES[flag];
+                if (hunt.found.size === HUNT_TOTAL) huntFinish(false);
+            } else {
+                hunt.misses++;
+                el.classList.add('is-nope');
+                setTimeout(() => el.classList.remove('is-nope'), 700);
+                huntMsg.textContent = DECOY_LINES[el.dataset.decoy];
+            }
+            huntRefresh();
+        }
+
+        function revealHunt() {
+            if (hunt.over) return;
+            Object.keys(HUNT_LINES).forEach(name => {
+                if (!hunt.found.has(name)) huntUnlock(name, true);
+            });
+            huntFinish(true);
+        }
+
+        (function () {
+            // Hide each trick's explanation until it has been found
+            document.querySelectorAll('[data-flag-btn]').forEach((btn, i) => {
+                btn.dataset.real = btn.innerHTML;
+                btn.innerHTML = '<strong>Trick ' + (i + 1) + ': not found yet</strong><span>Find it in the email and I\'ll tell you how it worked.</span>';
+            });
+            // Clickable parts of the email, also reachable by keyboard
+            emailMock.querySelectorAll('[data-flag], [data-decoy]').forEach(el => {
+                el.tabIndex = 0;
+                el.setAttribute('role', 'button');
+                el.addEventListener('click', () => huntClick(el));
+                el.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); huntClick(el); }
+                });
+            });
+            huntRefresh();
+        })();
+
+        // After the hunt: show one trick again inside the email
+        function showFlag(name, btn) {
+            const wasOn = btn.getAttribute('aria-pressed') === 'true';
+            emailMock.classList.remove('hint-domain', 'hint-urgency', 'hint-credentials');
+            document.querySelectorAll('.flag-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
+            if (!wasOn) {
+                emailMock.classList.add('hint-' + name);
+                btn.setAttribute('aria-pressed', 'true');
+            }
+        }
+
+        // Spot check: two fresh emails, safe or phish?
+        const SPOT_TEXT = {
+            a: "The domain is exactly thisistea.example. It asks for nothing: no password, no deadline, no pressure. And even then, you could skip the link and open the app yourself.",
+            b: "Read a web address from the right: the owner is the last name before the first slash, and here that's secure-login.example. The thisistea.example on the left is just decoration. Add a 17:00 deadline and a link to keep your password, and you have the full set."
+        };
+        document.querySelectorAll('#spotcheck .spot').forEach(spot => {
+            spot.addEventListener('click', e => {
+                const btn = e.target.closest('[data-guess]');
+                if (!btn || spot.dataset.done) return;
+                spot.dataset.done = '1';
+                const right = btn.dataset.guess === spot.dataset.answer;
+                spot.querySelectorAll('[data-guess]').forEach(b => {
+                    b.disabled = true;
+                    if (b.dataset.guess === spot.dataset.answer) b.classList.add('is-right');
+                    else if (b === btn) b.classList.add('is-wrong');
+                });
+                const fb = spot.querySelector('.feedback');
+                fb.hidden = false;
+                fb.className = 'feedback ' + (right ? 'is-ok' : 'is-bad');
+                fb.dataset.voice = 'cat';
+                fb.innerHTML = speech('cat', right ? 'Correct' : 'Not quite', SPOT_TEXT[spot.dataset.spot]);
+            });
+        });
+
+        // ------------------------------------------------------------------
+        // 3. Confidence rating; a different character answers each level
+        // ------------------------------------------------------------------
+        function setStatus(level) {
+            const data = statusMap[level];
+            document.getElementById('statusLabel').textContent = data.label;
+            const speaker = document.getElementById('statusSpeaker');
+            speaker.hidden = false;
+            speaker.dataset.voice = data.voice;
+            document.getElementById('statusAvatar').textContent = CHARACTERS[data.voice].emoji;
+            document.getElementById('statusFeedback').textContent = data.feedback;
+
+            ['LOW', 'MEDIUM', 'HIGH'].forEach(key => {
+                document.getElementById('btn-' + key).className = key === level ? 'btn-active' : 'btn-choice';
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // 4. Content cards open larger in a dialog (also used by the quiz to point back)
+        // ------------------------------------------------------------------
+        const CardDialog = (function () {
+            const dialog = document.getElementById('cardDialog');
+            const slot = document.getElementById('cardDialogSlot');
+
+            function open(card, ruleIndex) {
+                const big = card.cloneNode(true);
+                big.removeAttribute('id');
+                big.classList.remove('is-expandable');
+                big.classList.add('is-big');
+                big.querySelector('.expand-btn').remove();
+                slot.replaceChildren(big);
+                dialog.setAttribute('aria-label', card.querySelector('.char-title').textContent);
+                dialog.showModal();
+                big.scrollTop = 0;
+                if (typeof ruleIndex === 'number') {
+                    const li = big.querySelectorAll('.rules li')[ruleIndex];
+                    if (li) { li.classList.add('is-ref'); li.scrollIntoView({ block: 'center' }); }
+                }
+            }
+
+            document.querySelectorAll('#content .lesson-card').forEach(card => {
+                card.classList.add('is-expandable');
+                card.addEventListener('click', () => open(card));
+            });
+
+            // Click on the dimmed backdrop closes it (Esc works natively)
+            dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+
+            return { openById: (id, ruleIndex) => open(document.getElementById(id), ruleIndex) };
+        })();
+
+        // ------------------------------------------------------------------
+        // 5. Quiz: shuffled options, a hint and a second try before the answer is shown
+        // ------------------------------------------------------------------
+        // To grade on the server instead (Ktor POST /lesson/phishing/answers), replace isCorrect() below:
+        // anything in this file can be read by the learner, including the "ok" flags.
+        const QUESTIONS = [
+            {
+                id: 'q1', voice: 'cat', type: 'single',
+                text: 'This email just landed in your inbox. What do you do?',
+                artifact: '<div class="email"><div class="email-bar"><i></i><i></i><i></i><span>Inbox</span></div><div class="email-head"><p><b>From</b> security@cl0uddrive-support.example</p><p><b>Subject</b> Mailbox full: sign in now</p></div><div class="email-body"><p>Your inbox is 99% full. Sign in within 1 hour or incoming mail will be rejected.</p><a class="fake-link" tabindex="-1">Sign in to CloudDrive</a></div></div>',
+                options: [
+                    { t: "Sign in through the link, quickly. A full mailbox could make you miss important mail.", ok: false },
+                    { t: "Reply and ask the sender whether the message is genuine.", ok: false },
+                    { t: "Hover over the link and sign in if the address looks reasonable.", ok: false },
+                    { t: "Click nothing. Report it to IT, then check your mailbox by opening the official site yourself.", ok: true }
+                ],
+                hint: "Read the sender's address letter by letter. Then ask yourself: who chose the deadline, you or them?",
+                explain: "'cl0uddrive' has a zero where the o belongs, and it isn't CloudDrive's domain anyway. Replying tells them your address is live, and a lookalike link can look perfectly reasonable when you hover over it. Report it, then open your account yourself.",
+                review: { card: 'card-cat', rule: 0, label: "Cat's first rule: read the domain" }
+            },
+            {
+                id: 'q2', voice: 'turtle', type: 'single',
+                text: "Your CEO messages you on TeamChat and wants a client database export before a board meeting. What's the safest move?",
+                artifact: '<div class="chat-mock"><span class="pic" aria-hidden="true">AM</span><div><b>Alex Morgan</b> <span class="role-tag">CEO</span><time>8:52</time><p>Need the full client export for the board in 10 minutes. Drop it here. I\'m in transit, can\'t talk.</p></div></div>',
+                options: [
+                    { t: "Confirm the request through another channel you already know, like a call to their usual number.", ok: true },
+                    { t: "Send it right away. A board meeting is no time for questions.", ok: false },
+                    { t: "Ask \"is this really you?\" in the same TeamChat chat, and send it if they say yes.", ok: false },
+                    { t: "Send only part of the data, to limit the damage if it's a trick.", ok: false }
+                ],
+                hint: "If that account had been taken over, who would answer your question in the same chat?",
+                explain: "Someone pretending to be the boss is counting on us being too polite, or too rushed, to check. Asking inside the same chat only asks the impostor. A short call on a channel you already trust protects every client in that database, and the whole team with them.",
+                review: { card: 'card-turtle', rule: 0, label: "Turtle's first rule: confirm the unusual" }
+            },
+            {
+                id: 'q3', voice: 'cat', type: 'single', mono: true,
+                text: 'Which of these links really belongs to thisistea.example?',
+                options: [
+                    { t: "https://thisistea.example.secure-login.example/signin", ok: false },
+                    { t: "https://thisistea.example/signin", ok: true },
+                    { t: "https://thisistae-app.example/signin", ok: false },
+                    { t: "https://thisistea-support.example/signin", ok: false }
+                ],
+                hint: "Look at what sits right before the first single slash. That is the real owner. Everything to its left is decoration.",
+                explain: "Only https://thisistea.example/signin has thisistea.example right before the first slash. In the others, the real owner is a different name (secure-login.example, thisistea-support.example), or two letters are swapped (thisistae-app.example). Read from the right.",
+                review: { card: 'card-cat', rule: 0, label: "Cat's first rule: read the domain" }
+            },
+            {
+                id: 'q4', voice: 'turtle', type: 'multi',
+                text: 'You clicked the link and typed your password before you noticed the trick. Which steps should you take now?',
+                options: [
+                    { t: "Change the password from the real site, and anywhere you reused it.", ok: true },
+                    { t: "Report it to IT straight away.", ok: true },
+                    { t: "Turn on multi-factor authentication if it isn't on yet.", ok: true },
+                    { t: "Delete the email and say nothing. If nobody noticed, no harm done.", ok: false },
+                    { t: "Wait a few days to see whether anything strange happens.", ok: false }
+                ],
+                hint: "Some of your picks only hide the problem, or you've missed a step. Which actions actually close the door, and which just hope?",
+                explain: "Speed is the whole game. Change the password, add a second lock, and tell IT: your report may protect the colleague who got the same email. Staying quiet or waiting only gives the attacker time.",
+                review: { href: '#recovery', label: "Turtle's rescue plan" }
+            },
+            {
+                id: 'q5', voice: 'cat', type: 'single',
+                text: "A text arrives about a held parcel and a small fee, with a link. What now?",
+                artifact: '<div class="sms-mock">ParcelPoint: your parcel is on hold. Pay the €1.99 fee within 24h to release it: parcelpoint-fees.co/pay</div>',
+                options: [
+                    { t: "Pay it. It's only €1.99.", ok: false },
+                    { t: "Tap the link just to look, and enter nothing.", ok: false },
+                    { t: "Reply STOP so they take you off the list.", ok: false },
+                    { t: "Ignore the link and check the delivery in the carrier's own app or website, which you open yourself.", ok: true }
+                ],
+                hint: "Phishing isn't only email. What did you learn about opening the site yourself?",
+                explain: "Same trick, new channel. With texts, QR codes and phone calls the rule is the same: don't use the path they hand you, walk in through a door you already know. Even tapping to look can be enough, and replying STOP tells them your number is live.",
+                review: { card: 'card-cat', rule: 2, label: "Cat's third rule: open the site yourself" }
+            },
+            {
+                id: 'q6', voice: 'dog', type: 'single',
+                text: 'Why does a password manager help against phishing?',
+                options: [
+                    { t: "It blocks every phishing email before it reaches your inbox.", ok: false },
+                    { t: "It checks the exact web address and won't fill in your password on a lookalike site.", ok: true },
+                    { t: "It automatically takes down the phishing sites it finds.", ok: false },
+                    { t: "It makes your password so long that attackers can't use it.", ok: false }
+                ],
+                hint: "Think about what the manager compares before it fills anything in.",
+                explain: "That's my pal Bitwarden's best trick! Your eyes can miss a one-letter swap. He never does. On a fake site he just won't fill anything in.",
+                review: { href: '#tools', label: "Dog's tools" }
+            }
+        ];
+
+        const quizState = {};
+        const quizForm = document.getElementById('quizForm');
+
+        function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+        function shuffled(arr) {
+            const a = arr.map((item, i) => ({ item: item, i: i }));
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+            }
+            return a;
+        }
+
+        function renderQuiz() {
+            let html = '';
+            QUESTIONS.forEach((q, n) => {
+                quizState[q.id] = { attempts: 0, status: 'open', firstTry: null };
+                const multi = q.type === 'multi';
+                html += '<fieldset class="card quiz-card" id="quiz-' + q.id + '">' +
+                    '<legend class="sr-only">Question ' + (n + 1) + '</legend>' +
+                    '<h3 class="q-title"><span class="q-no">' + (n + 1) + '</span><span>' + esc(q.text) + '</span></h3>' +
+                    (q.artifact ? '<div class="q-artifact">' + q.artifact + '</div>' : '') +
+                    (multi ? '<p class="q-note">Select all that apply.</p>' : '') +
+                    shuffled(q.options).map(o =>
+                        '<label class="option-row' + (q.mono ? ' opt-mono' : '') + '"><input type="' + (multi ? 'checkbox' : 'radio') + '" name="' + q.id + '" value="' + o.i + '"><span>' + esc(o.item.t) + '</span></label>'
+                    ).join('') +
+                    '<p class="q-warn" id="warn-' + q.id + '" role="alert" hidden>Pick an answer first, then check.</p>' +
+                    '<div id="feedback-' + q.id + '" hidden></div>' +
+                    '</fieldset>';
+            });
+            document.getElementById('quizQuestions').innerHTML = html;
+        }
+
+        function inputsOf(q) { return quizForm.querySelectorAll('input[name="' + q.id + '"]'); }
+        function rowOf(q, optionIndex) { return quizForm.querySelector('input[name="' + q.id + '"][value="' + optionIndex + '"]').closest('.option-row'); }
+        function selectedOf(q) {
+            return Array.from(inputsOf(q)).filter(i => i.checked && !i.disabled).map(i => parseInt(i.value, 10));
+        }
+
+        function isCorrect(q, sel) {
+            const wanted = q.options.map((o, i) => o.ok ? i : -1).filter(i => i !== -1);
+            return sel.length === wanted.length && wanted.every(i => sel.indexOf(i) !== -1);
+        }
+
+        function reviewButton(q) {
+            return '<span class="review-row"><button type="button" class="review-link" data-review="' + q.id + '">↗ ' + esc(q.review.label) + '</button></span>';
+        }
+
+        function showFeedback(q, kind, verdict, text, withReview) {
+            const box = document.getElementById('feedback-' + q.id);
+            box.hidden = false;
+            box.className = 'feedback is-' + kind;
+            box.dataset.voice = q.voice;
+            box.innerHTML = speech(q.voice, verdict, text, withReview ? reviewButton(q) : '');
+        }
+
+        function lock(q, sel) {
+            q.options.forEach((o, i) => {
+                const row = rowOf(q, i);
+                if (o.ok) { row.classList.remove('is-wrong'); row.classList.add('is-right'); }
+                else if (sel.indexOf(i) !== -1) row.classList.add('is-wrong');
+            });
+            inputsOf(q).forEach(i => { i.disabled = true; });
+        }
+
+        function grade(q) {
+            const st = quizState[q.id];
+            const sel = selectedOf(q);
+            st.attempts++;
+            document.getElementById('warn-' + q.id).hidden = true;
+
+            if (isCorrect(q, sel)) {
+                st.status = 'right';
+                if (st.attempts === 1) st.firstTry = true;
+                lock(q, sel);
+                showFeedback(q, 'ok', st.attempts === 1 ? 'Correct' : 'Correct, on the second try', q.explain, false);
+            } else if (st.attempts === 1) {
+                st.firstTry = false;
+                if (q.type === 'single') {
+                    // Cross out the wrong pick so the learner has to think again
+                    const input = quizForm.querySelector('input[name="' + q.id + '"][value="' + sel[0] + '"]');
+                    input.checked = false;
+                    input.disabled = true;
+                    input.closest('.option-row').classList.add('is-wrong');
+                }
+                showFeedback(q, 'hint', 'Not quite. Have another go', q.hint, true);
+            } else {
+                st.status = 'revealed';
+                lock(q, sel);
+                showFeedback(q, 'bad', 'Not this time. Here is the answer', q.explain, true);
+            }
+        }
+
+        function updateBanner() {
+            const total = QUESTIONS.length;
+            const states = QUESTIONS.map(q => quizState[q.id]);
+            const right = states.filter(s => s.status === 'right').length;
+            const open = states.filter(s => s.status === 'open').length;
+            const firstTry = states.filter(s => s.firstTry === true).length;
+            const submit = document.getElementById('quizSubmit');
+            let voice = 'turtle';
+            let text;
+
+            if (open > 0) {
+                text = open === 1
+                    ? 'One to go. Read the hint under it, think, and check again.'
+                    : open + ' to go. Read the hint under each one, think, and check again.';
+                submit.textContent = 'Check again';
+            } else {
+                submit.hidden = true;
+                document.getElementById('quizReset').hidden = false;
+                if (firstTry === total) { voice = 'cat'; text = "All " + total + " on the first try. I'm mildly impressed. Mildly."; }
+                else if (right === total) text = firstTry + ' of ' + total + ' on the first try, and you fixed the rest yourself. That is how it sticks. Come back tomorrow and see what you remember.';
+                else text = right + ' of ' + total + ' in the end. Read the notes under the ones I had to explain, then start over. Everyone stumbles on these at first.';
+            }
+
+            const banner = document.getElementById('scoreBanner');
+            banner.hidden = false;
+            banner.dataset.voice = voice;
+            document.getElementById('scoreNum').textContent = right + ' / ' + total;
+            document.getElementById('scoreAvatar').textContent = CHARACTERS[voice].emoji;
+            document.getElementById('scoreText').textContent = text;
+        }
+
+        function handleQuizSubmit(e) {
+            e.preventDefault();
+            const open = QUESTIONS.filter(q => quizState[q.id].status === 'open');
+            if (!open.length) return;
+
+            const missing = open.filter(q => selectedOf(q).length === 0);
+            QUESTIONS.forEach(q => { document.getElementById('warn-' + q.id).hidden = missing.indexOf(q) === -1; });
+            if (missing.length) {
+                document.getElementById('quiz-' + missing[0].id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            open.forEach(grade);
+            updateBanner();
+            const next = QUESTIONS.find(q => quizState[q.id].status === 'open');
+            (next ? document.getElementById('quiz-' + next.id) : document.getElementById('scoreBanner'))
+                .scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        quizForm.addEventListener('submit', handleQuizSubmit);
+
+        // "Review ..." buttons send the learner back to the idea they missed
+        quizForm.addEventListener('click', e => {
+            const btn = e.target.closest('.review-link');
+            if (!btn) return;
+            const r = QUESTIONS.find(q => q.id === btn.dataset.review).review;
+            if (r.card) CardDialog.openById(r.card, r.rule);
+            else document.querySelector(r.href).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.getElementById('quizReset').addEventListener('click', () => {
+            renderQuiz();
+            document.getElementById('scoreBanner').hidden = true;
+            document.getElementById('quizReset').hidden = true;
+            const submit = document.getElementById('quizSubmit');
+            submit.hidden = false;
+            submit.textContent = 'Check my answers';
+            document.getElementById('answers').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        renderQuiz();
+
+        // 6. Corner guide: what each character says when you reach their section
+        const SECTION_LINES = {
+            content: [
+                { voice: 'cat',    text: "Two ideas, two of us. Tap a card if you want to read it up close. I'll wait." },
+                { voice: 'turtle', text: "Take your time, dear. Mine is the one about everyone around you." }
+            ],
+            tools: [
+                { voice: 'dog',    text: "These are my buddies! All free. Try one on a link you're not sure about!" }
+            ],
+            attacks: [
+                { voice: 'spider', text: "Ah, my favourite part. I hid three tricks in that email. Find them, if you can..." }
+            ],
+            status: [
+                { voice: 'turtle', text: "There's no wrong answer here. Just tell us honestly how you feel." }
+            ],
+            answers: [
+                { voice: 'cat',    text: "Six questions. Answer them. I'll check every one, and I won't hand you the answer too quickly." }
+            ]
+        };
+
+        const Buddy = (function () {
+            const el = document.getElementById('buddy');
+            const nameEl = document.getElementById('buddyName');
+            const ghost = document.getElementById('buddyGhost');
+            const typed = document.getElementById('buddyTyped');
+            const avatar = document.getElementById('buddyAvatar');
+            const live = document.getElementById('buddyLive');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let timers = [];
+
+            function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+            function stop() { timers.forEach(clearTimeout); timers = []; el.classList.remove('is-talking'); }
+
+            function hide() { stop(); el.classList.remove('is-in'); }
+
+            // Pop in and type out one line, then call done after a pause long enough to read it
+            function say(line, done) {
+                const c = CHARACTERS[line.voice];
+                el.dataset.voice = line.voice;
+                avatar.textContent = c.emoji;
+                nameEl.textContent = c.name;
+                ghost.textContent = line.text;
+                typed.textContent = '';
+                live.textContent = c.name + ': ' + line.text;
+                el.classList.add('is-in');
+
+                const hold = Math.max(4000, line.text.length * 55);
+                if (reduceMotion) {
+                    typed.textContent = line.text;
+                    later(done, hold);
+                    return;
+                }
+                el.classList.add('is-talking');
+                let n = 0;
+                (function tick() {
+                    typed.textContent = line.text.slice(0, ++n);
+                    if (n < line.text.length) later(tick, 26);
+                    else { el.classList.remove('is-talking'); later(done, hold); }
+                })();
+            }
+
+            // Play a section's lines in order; swapping character pops the old one out first
+            function play(lines) {
+                stop();
+                let i = 0;
+                (function next() {
+                    if (i >= lines.length) { el.classList.remove('is-in'); return; }
+                    const line = lines[i++];
+                    const visible = el.classList.contains('is-in');
+                    if (visible) {
+                        el.classList.remove('is-in');
+                        later(() => say(line, next), 280);
+                    } else {
+                        say(line, next);
+                    }
+                })();
+            }
+
+            document.getElementById('buddyClose').addEventListener('click', hide);
+            return { play, hide };
+        })();
+
+        // 7. Progress bar follows the scroll position; a new section wakes its character
+        (function () {
+            const ids = ['content', 'tools', 'attacks', 'status', 'answers'];
+            const links = {};
+            document.querySelectorAll('#steps a').forEach(a => links[a.dataset.step] = a);
+            let lastCurrent = null;
+            let pending = null;
+            function update() {
+                const mid = window.scrollY + window.innerHeight * 0.35;
+                let current = -1;
+                ids.forEach((id, i) => {
+                    const el = document.getElementById(id);
+                    if (el && el.offsetTop <= mid) current = i;
+                });
+                ids.forEach((id, i) => {
+                    links[id].classList.toggle('done', i < current);
+                    links[id].classList.toggle('current', i === current);
+                });
+                if (current !== lastCurrent) {
+                    lastCurrent = current;
+                    // Wait until the reader settles, so jumping across sections doesn't fire every character
+                    clearTimeout(pending);
+                    pending = setTimeout(() => {
+                        if (current === -1) Buddy.hide();
+                        else Buddy.play(SECTION_LINES[ids[current]]);
+                    }, 450);
+                }
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+    </script>
+</body>
+</html>

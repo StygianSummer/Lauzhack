@@ -1,0 +1,191 @@
+{
+  "id": "email-mailbox-full-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "account_support",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "typos",
+      "urgency",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "CloudDrive Support",
+    "from_address": "security@cl0uddrive-support.example",
+    "to": "{{email}}",
+    "subject": "Mailbox full: sign in now",
+    "received": "-PT18M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Dear user,"
+      },
+      {
+        "t": "text",
+        "v": "Your inbox is 99% full. Sign in within 1 hour or incoming mail will be rejected."
+      },
+      {
+        "t": "link",
+        "v": "Sign in to CloudDrive",
+        "href": "https://cl0uddrive-support.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "CloudDrive Support"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"cl0uddrive\" has a zero where the o belongs, and it is not CloudDrive's domain, clouddrive.example, anyway."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"Dear user\": a real service knows your name."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Who chose the one-hour deadline, you or them? A threat of missing mail is made to hurry you."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The button leads to cl0uddrive-support.example, a lookalike domain. A lookalike link can look perfectly reasonable when you hover over it."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be CloudDrive. 'cl0uddrive' has a zero where the o belongs, and it is not CloudDrive's domain anyway.",
+      "choices": [
+        "CloudDrive's support team",
+        "Someone using a lookalike address",
+        "Your IT department"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "zero",
+        "domain",
+        "lookalike"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Fear and hurry: you are told mail will be lost unless you act within an hour.",
+      "choices": [
+        "Curiosity about a new feature",
+        "Fear of missing mail, with a one-hour rush",
+        "None: it is a routine notice"
+      ],
+      "correct": 1,
+      "cues": [
+        "hour",
+        "deadline",
+        "fear",
+        "rush"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Sign in through the link, which would give your login to the sender.",
+      "choices": [
+        "Delete some old files",
+        "Sign in through a link",
+        "Call support"
+      ],
+      "correct": 1,
+      "cues": [
+        "sign",
+        "link",
+        "login",
+        "click"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Click nothing. Report it to IT, then check your mailbox by opening the official site yourself.",
+      "choices": [
+        "Reply and ask if the message is genuine",
+        "Open the official site yourself and report the email",
+        "Hover over the link and sign in if it looks reasonable"
+      ],
+      "correct": 1,
+      "cues": [
+        "official",
+        "yourself",
+        "report",
+        "site"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Sign in to CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "cl0uddrive-support.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "report-open",
+      "label": "Click nothing, report it to IT, then open the official site yourself",
+      "outcome": "safe",
+      "consequence": "Your mailbox is fine. The email was fake and your report may protect a colleague."
+    },
+    {
+      "id": "sign-in",
+      "label": "Sign in through the link, quickly",
+      "outcome": "unsafe",
+      "consequence": "The page looks like CloudDrive, but your login goes straight to the scammer."
+    },
+    {
+      "id": "reply",
+      "label": "Reply and ask the sender whether the message is genuine",
+      "outcome": "neutral",
+      "consequence": "The scammer says yes, of course. Your reply also shows your address is live."
+    },
+    {
+      "id": "hover",
+      "label": "Hover over the link and sign in if the address looks reasonable",
+      "outcome": "unsafe",
+      "consequence": "A lookalike address can look reasonable. You gave your login away."
+    }
+  ],
+  "attacker_reveal": "A zero instead of an o, and a clock ticking... You read the words, not the letters. People who are worried about their mail rarely check the sender."
+}

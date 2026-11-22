@@ -1,0 +1,170 @@
+{
+  "id": "pl-l4-legit",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 4,
+  "twin_of": "pl-l4-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "first_name_used",
+      "real_domain",
+      "has_attachment"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Extractos de SwissAlpBank",
+    "from_address": "statements@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Tu extracto de octubre está listo",
+    "received": "-PT30M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Adjuntamos tu extracto de octubre en PDF. También puedes leerlo en la app de SwissAlpBank, en el apartado Documentos."
+      },
+      {
+        "t": "text",
+        "v": "Las respuestas a esta dirección no se leen."
+      },
+      {
+        "t": "signature",
+        "v": "Atención al cliente de SwissAlpBank"
+      }
+    ],
+    "attachments": [
+      "statement-october.pdf"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de swissalpbank.example, el dominio real del banco, y no hay ninguna dirección de respuesta distinta."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Un .pdf normal, no un .pdf.html. El tipo de archivo coincide con lo que dice el correo."
+    },
+    {
+      "id": "hs-no-reply",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Dice claramente que las respuestas no se leen, así que no se envía nada a una dirección extraña."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:1",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te dice dónde encontrar tú mismo el mismo extracto, en la app."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "SwissAlpBank: la dirección del remitente es del dominio real y no hay ninguna dirección de respuesta que apunte a otro sitio.",
+      "choices": [
+        "Alguien que falsifica la dirección del banco",
+        "SwissAlpBank, desde su dominio real",
+        "Tu asesor personal"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "dominio",
+        "respuesta",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Ninguna. Es correo rutinario, sin plazo ni amenaza.",
+      "choices": [
+        "Miedo a una comisión",
+        "Ninguna: es correo rutinario",
+        "Ilusión por una oferta"
+      ],
+      "correct": 1,
+      "cues": [
+        "rutinario",
+        "tranquilo",
+        "presión"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Nada. Te entrega tu extracto en PDF. No hay inicio de sesión, ni enlace, ni pago.",
+      "choices": [
+        "Iniciar sesión para verlo",
+        "Nada: solo entrega un extracto",
+        "Pagar una cuota"
+      ],
+      "correct": 1,
+      "cues": [
+        "nada",
+        "adjunto",
+        "pdf",
+        "sesión"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Si tienes dudas, abre tú mismo la app de SwissAlpBank y lee allí el mismo extracto.",
+      "choices": [
+        "Responder para pedir una copia en papel",
+        "Abrir tú mismo la app de SwissAlpBank",
+        "Reenviarlo antes a un amigo"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "tú mismo",
+        "documentos"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de SwissAlpBank y leer allí el extracto",
+      "outcome": "safe",
+      "consequence": "El mismo extracto está allí. Nunca necesitaste el archivo adjunto."
+    },
+    {
+      "id": "open-pdf",
+      "label": "Abrir el PDF adjunto",
+      "outcome": "safe",
+      "consequence": "Es un extracto normal. Un .pdf de verdad del dominio real se puede abrir sin problema."
+    },
+    {
+      "id": "reply",
+      "label": "Responder para hacer una pregunta sobre el extracto",
+      "outcome": "neutral",
+      "consequence": "Nadie lee las respuestas a esta dirección. Usa la app o el número de tu tarjeta."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. El mismo banco, el mismo tipo de adjunto que el falso, pero el archivo es de verdad un PDF y nada apunta a otra dirección. Lee los nombres de archivo hasta el final y comprueba también la dirección de respuesta."
+}

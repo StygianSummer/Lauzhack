@@ -1,0 +1,182 @@
+{
+  "id": "email-helveticare-card-attachment-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 4,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "subdomain_trick",
+      "attachment_double_ext",
+      "first_name_used",
+      "short_deadline",
+      "has_attachment"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "Cartes HelvetiCare",
+    "from_address": "cards@helveticare.example.card-service.example",
+    "to": "{{email}}",
+    "subject": "Veuillez vérifier votre nouvelle carte d'assurance",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Votre nouvelle carte d'assurance pour l'an prochain est jointe. Merci de l'ouvrir et de vérifier que vos données sont correctes."
+      },
+      {
+        "t": "text",
+        "v": "Les cartes non confirmées sont bloquées le 1er janvier."
+      },
+      {
+        "t": "signature",
+        "v": "Service des cartes HelvetiCare"
+      }
+    ],
+    "attachments": [
+      "carte-assurance.jpg.html"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Le propriétaire est le dernier nom avant le premier slash : card-service.example. helveticare.example n'est qu'un décor à sa gauche."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:2",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Bloquées le 1er janvier » est une menace datée, pour vous faire ouvrir le fichier vite."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "« carte-assurance.jpg.html » se termine par .html. C'est une page web qui se fait passer pour une image et afficherait une fausse page de connexion."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Votre prénom est facile à trouver. Cela ne prouve rien."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui utilise le nom de HelvetiCare. Le vrai propriétaire de l'adresse est card-service.example.",
+      "choices": [
+        "Le service des cartes de HelvetiCare",
+        "Votre employeur",
+        "Quelqu'un dont le vrai domaine est card-service.example"
+      ],
+      "correct": 2,
+      "cues": [
+        "domaine",
+        "droite",
+        "card-service",
+        "sous-domaine"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La peur et la hâte : votre carte sera bloquée le 1er janvier si vous n'agissez pas.",
+      "choices": [
+        "La curiosité pour une prime",
+        "Aucune : c'est de la routine",
+        "La peur d'une carte bloquée, avec une date"
+      ],
+      "correct": 2,
+      "cues": [
+        "bloquée",
+        "janvier",
+        "délai",
+        "peur"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Ouvrir la pièce jointe. Le fichier est une page web qui collecterait vos identifiants.",
+      "choices": [
+        "Payer des frais",
+        "Répondre avec votre date de naissance",
+        "Ouvrir une pièce jointe"
+      ],
+      "correct": 2,
+      "cues": [
+        "pièce jointe",
+        "ouvrir",
+        "html",
+        "fichier"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne l'ouvrez pas. Vérifiez votre carte dans l'application HelvetiCare, ou appelez le numéro figurant sur votre carte actuelle.",
+      "choices": [
+        "Ouvrir le fichier pour voir ce que c'est",
+        "Répondre pour demander un autre format",
+        "Appeler le numéro de votre carte actuelle ou utiliser l'application HelvetiCare"
+      ],
+      "correct": 2,
+      "cues": [
+        "carte",
+        "numéro",
+        "application",
+        "appeler"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Appeler le numéro de votre carte actuelle et vous renseigner sur la nouvelle",
+      "outcome": "safe",
+      "consequence": "On vous répond que rien n'est en cours. L'e-mail était faux."
+    },
+    {
+      "id": "open-file",
+      "label": "Ouvrir la pièce jointe pour vérifier vos données",
+      "outcome": "unsafe",
+      "consequence": "Une fausse page de connexion s'ouvre. Si vous saisissez vos identifiants, ils vont chez l'escroc."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre pour demander la carte dans un autre format",
+      "outcome": "neutral",
+      "consequence": "L'escroc envoie un autre fichier. Votre réponse lui montre aussi que votre adresse est active."
+    },
+    {
+      "id": "report-delete",
+      "label": "Le signaler comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Rien n'a été ouvert."
+    }
+  ],
+  "attacker_reveal": "Un fichier image qui finit par .html... La plupart des gens lisent la première extension et s'arrêtent. La seconde indique au navigateur quoi faire. Une date sur la menace aide aussi."
+}

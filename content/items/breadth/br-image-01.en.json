@@ -1,0 +1,38 @@
+{
+  "id": "br-image-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "image",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 20000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "image",
+    "channel": "web",
+    "emotion": [
+      "curiosity"
+    ],
+    "ask": "forward_message",
+    "surface_clues": [
+      "generated_image"
+    ],
+    "verify": "reverse_image_search"
+  },
+  "image": {
+    "file": "br-image-01.png",
+    "alt": "An illustration of a market stall with a striped roof, a sign, a pile of fruit and a person holding out one hand. One hand has six fingers.",
+    "ai_generated": true,
+    "tells": [
+      "The hand has six fingers.",
+      "The text on the sign is gibberish: \"FRSH FRQITS\".",
+      "The shadows point in different directions.",
+      "This picture is an illustration made by code, not a photograph."
+    ]
+  },
+  "attacker_reveal": "Hands, signs and shadows are where generated pictures slip up... Look at the small details before you trust a picture."
+}

@@ -1,0 +1,53 @@
+<resources>
+    <!-- Shared component text (tea.ui.components). Keys start with c_. British spelling, no em dashes. -->
+
+    <!-- Personas -->
+    <string name="c_persona_cat">Cat</string>
+    <string name="c_persona_turtle">Turtle</string>
+    <string name="c_persona_dog">Dog</string>
+    <string name="c_persona_spider">Spider</string>
+
+    <!-- Verdicts and states -->
+    <string name="c_correct">Correct</string>
+    <string name="c_not_quite">Not quite</string>
+    <string name="c_hint">Hint</string>
+    <string name="c_step_done">Done</string>
+    <string name="c_step_current">Current step</string>
+
+    <!-- Controls -->
+    <string name="c_back">Back</string>
+    <string name="c_close">Close</string>
+    <string name="c_skip">Skip</string>
+    <string name="c_choose">Choose one</string>
+    <string name="c_try_again">Try again</string>
+    <string name="c_show_password">Show password</string>
+    <string name="c_hide_password">Hide password</string>
+    <string name="c_code_digit">%1$d-digit code</string>
+
+    <!-- Banners -->
+    <string name="c_offline">You are offline. Your progress is saved on this device and will sync later.</string>
+
+    <!-- Mock email -->
+    <string name="c_inbox">Inbox</string>
+    <string name="c_from">From</string>
+    <string name="c_reply_to">Reply-To</string>
+    <string name="c_to">To</string>
+    <string name="c_subject">Subject</string>
+    <string name="c_just_now">just now</string>
+    <plurals name="c_minutes_ago">
+        <item quantity="one">%1$d minute ago</item>
+        <item quantity="other">%1$d minutes ago</item>
+    </plurals>
+    <plurals name="c_hours_ago">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+    <plurals name="c_days_ago">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+
+    <!-- Domain comparison -->
+    <string name="c_domain_real">Real</string>
+    <string name="c_domain_fake">Fake</string>
+</resources>

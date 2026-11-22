@@ -1,0 +1,173 @@
+{
+  "id": "pl-l3-legit",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 3,
+  "twin_of": "pl-l3-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "real_domain",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, tu extracto de primas está listo",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Tu extracto de primas de este año ya está listo para que lo leas."
+      },
+      {
+        "t": "link",
+        "v": "Abrir la app de HelvetiCare",
+        "href": "https://helveticare.example/app",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "También puedes encontrarlo abriendo tú mismo la app."
+      },
+      {
+        "t": "signature",
+        "v": "Tu equipo de HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es de helveticare.example, el dominio real."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Que use tu nombre es agradable, pero lo que te dice quién escribió es el dominio."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "El texto del enlace y la dirección real pertenecen los dos a helveticare.example."
+    },
+    {
+      "id": "hs-own-channel",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te recuerda que puedes abrir tú mismo la app."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "HelvetiCare: la dirección es de helveticare.example y el enlace va al mismo dominio.",
+      "choices": [
+        "HelvetiCare, desde su dominio real",
+        "Un estafador que copió el nombre",
+        "Un corredor que compró tus datos"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Ninguna. Es un aviso tranquilo y sin plazo.",
+      "choices": [
+        "Ninguna: es un aviso tranquilo",
+        "Miedo a perder la cobertura",
+        "Ganas de recibir un reembolso"
+      ],
+      "correct": 0,
+      "cues": [
+        "tranquilo",
+        "plazo",
+        "presión"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Nada importante: ofrece un enlace para leer tu extracto y no pide inicio de sesión ni pago.",
+      "choices": [
+        "Nada: solo ofrece un enlace para leer un extracto",
+        "Pagar un recargo por demora",
+        "Enviar tus datos bancarios"
+      ],
+      "correct": 0,
+      "cues": [
+        "nada",
+        "extracto",
+        "enlace",
+        "pago"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de HelvetiCare. El correo también lo dice, así que nunca tienes que fiarte del enlace.",
+      "choices": [
+        "Abrir tú mismo la app de HelvetiCare",
+        "Responder y pedir una copia impresa",
+        "Reenviarlo a un amigo"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "tú mismo",
+        "oficial"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de HelvetiCare y leer el extracto",
+      "outcome": "safe",
+      "consequence": "El extracto está ahí, tal como se prometía."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar el enlace del correo para leerlo",
+      "outcome": "neutral",
+      "consequence": "Lleva a la web real, así que no hay problema. Abrir tú mismo la app sigue siendo el hábito más seguro."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignorarlo y leer el extracto más tarde",
+      "outcome": "safe",
+      "consequence": "No se pierde nada. El extracto espera en la app."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Compáralo con su imitación: el mismo nombre, el mismo saludo, el mismo texto de enlace, pero el dominio es el de la propia aseguradora y nada corre prisa. El dominio es lo que hay que leer."
+}

@@ -1,0 +1,165 @@
+{
+  "id": "pl-l2-legit-a",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "pl-l2-scam-a",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "TeamChat",
+    "from_address": "no-reply@teamchat.example",
+    "to": "{{email}}",
+    "subject": "New sign-in to your TeamChat account",
+    "received": "-PT4M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello,"
+      },
+      {
+        "t": "text",
+        "v": "We noticed a sign-in to your TeamChat account from a new device. If it was you, there is nothing to do."
+      },
+      {
+        "t": "text",
+        "v": "If it was not you, open the TeamChat app yourself, go to Settings, then Devices, and sign that device out."
+      },
+      {
+        "t": "signature",
+        "v": "The TeamChat Team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on teamchat.example, the real domain."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "\"If it was you, there is nothing to do.\" No threat and no deadline."
+    },
+    {
+      "id": "hs-own-channel",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It tells you to open the app yourself instead of giving you a link."
+    },
+    {
+      "id": "hs-no-link",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "There is no link or button. Nothing here asks for your login."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "TeamChat itself: the address is on the real domain, teamchat.example.",
+      "choices": [
+        "Someone using a lookalike address",
+        "A colleague testing you",
+        "TeamChat, from its real domain"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None to speak of. It is calm and tells you nothing bad will happen if it was you.",
+      "choices": [
+        "Panic about a break-in",
+        "Excitement about a prize",
+        "None: it is calm and has no deadline"
+      ],
+      "correct": 2,
+      "cues": [
+        "calm",
+        "deadline",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Nothing right now. If the sign-in was not you, it tells you to go to the app yourself.",
+      "choices": [
+        "Click a link and sign in",
+        "Pay to secure the account",
+        "Nothing, apart from checking in the app if it was not you"
+      ],
+      "correct": 2,
+      "cues": [
+        "nothing",
+        "app",
+        "link",
+        "password"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "You already know the way: open the TeamChat app yourself and look at your devices.",
+      "choices": [
+        "Reply to say it was not you",
+        "Forward it to a friend first",
+        "Open the TeamChat app yourself and check your devices"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "yourself",
+        "devices"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "check-app",
+      "label": "Open the TeamChat app yourself and look at your devices",
+      "outcome": "safe",
+      "consequence": "You see your own phone and laptop. Nothing to do."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignore it, because you recognise the new device",
+      "outcome": "safe",
+      "consequence": "You know the sign-in was yours, so nothing is needed."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to the email to say it was not you",
+      "outcome": "neutral",
+      "consequence": "The no-reply address does not answer. If it was not you, use the app instead."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. It comes from TeamChat's own domain, has no link and tells you to use the app yourself. Security alerts can be genuine. What matters is that this one asks nothing of you."
+}

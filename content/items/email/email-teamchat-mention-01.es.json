@@ -1,0 +1,175 @@
+{
+  "id": "email-teamchat-mention-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 3,
+  "twin_of": "email-teamchat-ceo-export-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "display_name_match",
+      "first_name_used",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "TeamChat",
+    "from_address": "no-reply@teamchat.example",
+    "to": "{{email}}",
+    "subject": "Alex Morgan te ha mencionado en #preparacion-consejo",
+    "received": "-PT10M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Alex Morgan ha escrito: \"¿Podrías añadir las últimas cifras de clientes a las diapositivas del consejo antes del viernes?\""
+      },
+      {
+        "t": "link",
+        "v": "Abrir la conversación en TeamChat",
+        "href": "https://teamchat.example/board-prep",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "También puedes abrir tú mismo la app de TeamChat para responder."
+      },
+      {
+        "t": "signature",
+        "v": "El equipo de TeamChat"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "El aviso viene de teamchat.example, el dominio real."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "La petición es normal: cifras en unas diapositivas, con el viernes como plazo del que se puede hablar. No es una exportación de datos ni urge en minutos."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "El enlace lleva a teamchat.example."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:3",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Te recuerda que tienes la app disponible."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "TeamChat: un aviso desde su dominio real que cita el mensaje de un compañero.",
+      "choices": [
+        "TeamChat, desde su dominio real",
+        "El director general, escribiéndote directamente",
+        "Un estafador con una dirección parecida"
+      ],
+      "correct": 0,
+      "cues": [
+        "dirección",
+        "dominio",
+        "aviso"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Poca. Una petición de trabajo normal con un plazo razonable.",
+      "choices": [
+        "Poca: una petición de trabajo normal",
+        "Pánico por diez minutos",
+        "Miedo a que te detengan"
+      ],
+      "correct": 0,
+      "cues": [
+        "viernes",
+        "normal",
+        "plazo",
+        "razonable"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Añadir cifras de clientes a las diapositivas del consejo antes del viernes. Es trabajo corriente y no se exige ninguna exportación de datos.",
+      "choices": [
+        "Actualizar unas diapositivas antes del viernes",
+        "Enviar la exportación completa de clientes en una respuesta",
+        "Iniciar sesión mediante un enlace raro"
+      ],
+      "correct": 0,
+      "cues": [
+        "diapositivas",
+        "cifras",
+        "viernes",
+        "trabajo"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Abre tú mismo la app de TeamChat y responde allí. Si alguna vez dudas de una petición del jefe, una llamada rápida ayuda.",
+      "choices": [
+        "Abrir tú mismo la app de TeamChat y responder allí",
+        "Responder a la dirección no-reply",
+        "Reenviarlo a un amigo"
+      ],
+      "correct": 0,
+      "cues": [
+        "teamchat",
+        "app",
+        "tú mismo",
+        "llamada"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de TeamChat y responderle a Alex allí",
+      "outcome": "safe",
+      "consequence": "Ves el mensaje de Alex en la conversación real."
+    },
+    {
+      "id": "click",
+      "label": "Pulsar el enlace del aviso",
+      "outcome": "safe",
+      "consequence": "Lleva al dominio real."
+    },
+    {
+      "id": "send-all",
+      "label": "Enviarle a Alex toda la base de datos de clientes sin dilación",
+      "outcome": "unsafe",
+      "consequence": "Nadie lo había pedido. No envíes datos sensibles cuando nadie te los ha solicitado."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Es un aviso del propio dominio de TeamChat sobre trabajo corriente. Compáralo con el mensaje de los \"diez minutos\": aquí nada corre prisa y nadie exige datos."
+}

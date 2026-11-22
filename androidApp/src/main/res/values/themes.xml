@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window background = the app's paper colour, visible behind the system bars (edge-to-edge). -->
+    <style name="Theme.ThisIsTea" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/tea_paper</item>
+    </style>
+</resources>

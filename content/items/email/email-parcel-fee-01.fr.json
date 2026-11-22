@@ -1,0 +1,193 @@
+{
+  "id": "email-parcel-fee-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "short_deadline",
+      "generic_greeting",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "alerts@parcelpoint-fees.example",
+    "to": "{{email}}",
+    "subject": "Colis en attente : frais à payer",
+    "received": "-PT30M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "ParcelPoint : votre colis est en attente. Réglez les frais de CHF 1.99 dans les 24 heures pour le libérer."
+      },
+      {
+        "t": "link",
+        "v": "parcelpoint-fees.example/pay",
+        "href": "https://parcelpoint-fees.example/pay",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Les colis non libérés à temps sont renvoyés à l'expéditeur."
+      },
+      {
+        "t": "signature",
+        "v": "ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "parcelpoint-fees.example n'est pas le domaine de ParcelPoint, parcelpoint.example."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Dans les 24 heures » sert à vous presser. Les frais minimes rendent le paiement anodin."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "La page demanderait les données de votre carte. Un vrai transporteur ne réclame pas de frais via un lien dans un message."
+    },
+    {
+      "id": "hs-return",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "La menace de perdre le colis s'ajoute à la pression du délai."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui utilise le nom de ParcelPoint. L'adresse est sur parcelpoint-fees.example, pas sur parcelpoint.example. C'est la même ruse que dans les versions par SMS.",
+      "choices": [
+        "Quelqu'un qui utilise une adresse presque identique",
+        "L'équipe de livraison de ParcelPoint",
+        "La boutique où vous avez commandé"
+      ],
+      "correct": 0,
+      "cues": [
+        "adresse",
+        "domaine",
+        "imitation",
+        "expéditeur"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La hâte et un peu d'inquiétude : payez dans les 24 heures ou le colis repart.",
+      "choices": [
+        "La hâte : payer dans les 24 heures ou perdre le colis",
+        "L'envie d'un cadeau gratuit",
+        "Aucune : c'est un simple avis"
+      ],
+      "correct": 0,
+      "cues": [
+        "24 heures",
+        "délai",
+        "hâte",
+        "renvoyé"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Payer de petits frais via un lien, ce qui donnerait les données de votre carte à l'expéditeur.",
+      "choices": [
+        "Payer de petits frais via un lien",
+        "Récupérer le colis chez un voisin",
+        "Répondre avec votre adresse"
+      ],
+      "correct": 0,
+      "cues": [
+        "payer",
+        "frais",
+        "lien",
+        "carte"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne suivez pas le chemin qu'on vous tend. Vérifiez la livraison dans l'application ou sur le site du transporteur, que vous ouvrez vous-même. Même un simple clic pour regarder peut suffire, et répondre STOP leur apprend que votre adresse est active.",
+      "choices": [
+        "Vérifier la livraison dans l'application ParcelPoint, ouverte par vous-même",
+        "Le payer, car ce n'est que CHF 1.99",
+        "Répondre STOP pour qu'ils vous retirent de la liste"
+      ],
+      "correct": 0,
+      "cues": [
+        "application",
+        "vous-même",
+        "propre",
+        "officiel"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "parcelpoint-fees.example/pay",
+    "options": [
+      "parcelpoint.example",
+      "parcelpoint-fees.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ignorer le lien et vérifier la livraison vous-même dans l'application ParcelPoint",
+      "outcome": "safe",
+      "consequence": "Aucun colis n'est en attente. L'e-mail était faux."
+    },
+    {
+      "id": "pay",
+      "label": "Le payer, car ce n'est que CHF 1.99",
+      "outcome": "unsafe",
+      "consequence": "Les données de votre carte vont chez l'escroc, qui peut maintenant prélever bien plus que CHF 1.99."
+    },
+    {
+      "id": "look",
+      "label": "Cliquer sur le lien juste pour regarder, sans rien saisir",
+      "outcome": "unsafe",
+      "consequence": "Même un coup d'œil peut confirmer que votre adresse est active, et certaines pages tentent d'exécuter du code en arrière-plan."
+    },
+    {
+      "id": "reply-stop",
+      "label": "Répondre STOP pour qu'ils vous retirent de la liste",
+      "outcome": "neutral",
+      "consequence": "Répondre leur apprend que votre adresse est réelle. Ils vous en envoient davantage."
+    }
+  ],
+  "attacker_reveal": "La même ruse, une nouvelle couche de peinture... De petits frais, un compte à rebours court et un lien qu'on vous tend. Entrez par une porte que vous connaissez déjà, et je n'ai plus rien."
+}

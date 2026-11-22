@@ -1,0 +1,179 @@
+{
+  "id": "email-01",
+  "language": "en",
+  "title": "Phishing: don't take the bait",
+  "subtitle": "How attackers trick people into handing over their keys, and how to spot it before you do.",
+  "minutes": 10,
+  "sections": [
+    {
+      "type": "content",
+      "cards": [
+        {
+          "persona": "cat",
+          "role": "Personal security",
+          "title": "Protect yourself first",
+          "say": "I can't look after anyone if my own logins are wide open. Neither can you. So we start with you.",
+          "rules": [
+            {
+              "headline": "Read the domain after the @.",
+              "body": "Every letter. thisistea.example and thisistae-app.example belong to two different owners."
+            },
+            {
+              "headline": "Notice the rush.",
+              "body": "A two-hour deadline is a feeling someone else put in you. Feelings aren't evidence."
+            },
+            {
+              "headline": "Never type a password after clicking an email link.",
+              "body": "Open the site yourself, from a bookmark or by typing the address."
+            }
+          ],
+          "sign_off": "Zero trust isn't paranoia. It's checking."
+        },
+        {
+          "persona": "turtle",
+          "role": "Organisational security",
+          "title": "Shield the whole shell",
+          "say": "In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too. It works a little like a vaccine.",
+          "rules": [
+            {
+              "headline": "Confirm the unusual, together.",
+              "body": "A wire transfer, a password reset, an urgent file: check it on another channel. A phone call costs one minute."
+            },
+            {
+              "headline": "Tell the others.",
+              "body": "If a strange email reached you, it reached your colleagues too. Report it to IT so we can warn everyone."
+            },
+            {
+              "headline": "Give the whole team a second lock.",
+              "body": "With multi-factor authentication, one stolen password is a scratch, not a crack in the shell."
+            }
+          ],
+          "sign_off": "A team we can trust is a team that looks out for each other."
+        }
+      ]
+    },
+    {
+      "type": "tools",
+      "intro": "Hey, friend! I've sniffed out plenty of shady links in my time, and I never go in alone. Let me introduce you to my buddies. They're all free, and they've got your back.",
+      "tools": [
+        {
+          "resource_id": "bitwarden",
+          "name": "Bitwarden",
+          "what": "Free, open-source password manager for you and your team.",
+          "dog_says": "My oldest pal. He remembers every password for you, and he won't fill them in on a fake site. If he stays quiet, that's your warning.",
+          "button": "Open Bitwarden"
+        },
+        {
+          "resource_id": "virustotal",
+          "name": "VirusTotal",
+          "what": "Checks a link or file against 70+ security scanners at once.",
+          "dog_says": "Right-click the link, choose Copy link address, and paste it here. Ask before you click, not after!",
+          "button": "Open VirusTotal"
+        },
+        {
+          "resource_id": "urlscan",
+          "name": "URLScan.io",
+          "what": "Opens a page in its own browser and shows you a screenshot.",
+          "dog_says": "He walks into the dark alley so you don't have to. You see where the link goes; he takes the risk.",
+          "button": "Open URLScan"
+        },
+        {
+          "resource_id": "hibp",
+          "name": "Have I Been Pwned",
+          "what": "Tells you whether your email address appeared in a known data breach.",
+          "dog_says": "Ever wondered how the Spider got your address? Look yourself up here. Then change any password that showed up.",
+          "button": "Check my email"
+        }
+      ]
+    },
+    {
+      "type": "attacks",
+      "hunt": {
+        "item_id": "email-lesson-hunt-01",
+        "intro": "I hid three tricks in that email. Click whatever you think is a trap. I won't say whether you're getting warm.",
+        "flags": [
+          {
+            "hotspot_id": "hs-from-address",
+            "title": "The address",
+            "spider_says": "I swapped two letters and moved one word. Who reads every letter when they're worried?"
+          },
+          {
+            "hotspot_id": "hs-clock",
+            "title": "The clock",
+            "spider_says": "\"Within 2 hours.\" Panic is my favourite accomplice. It quiets the part of you that checks."
+          },
+          {
+            "hotspot_id": "hs-ask",
+            "title": "The ask",
+            "spider_says": "ThisIsTea would never ask for your password by email. But I sounded like ThisIsTea, and that was enough."
+          }
+        ],
+        "debrief": "Every trick he just bragged about is one of my three rules. Address, rush, password. Go back and read them once more."
+      },
+      "recovery": {
+        "title_caught": "If a real one ever gets you, dear, do this.",
+        "lead_caught": "This time it was only practice and nothing was taken. A real one happens to the careful ones too, and then what matters is how fast we close the door. Here is the list.",
+        "title_default": "Keep this plan in your pocket",
+        "lead_default": "You walked past this one. Someday one will look better. Here is the five-step rescue plan: knowing it by heart is half the cure.",
+        "steps": [
+          {
+            "headline": "Change the password, on the real site.",
+            "body": "Open the site yourself, from a bookmark or by typing the address, never through the email. Then change that same password anywhere else you reused it."
+          },
+          {
+            "headline": "Turn on multi-factor authentication.",
+            "body": "A second lock means a stolen password alone no longer opens the door."
+          },
+          {
+            "headline": "Tell IT or security straight away.",
+            "body": "If you can, forward the email as an attachment. Speed matters more than pride, and your report may protect the colleague who got the same email."
+          },
+          {
+            "headline": "Look for strange activity.",
+            "body": "Check the sign-in history and connected devices, and look for mail rules that forward or delete messages. Sign out anywhere you don't recognise."
+          },
+          {
+            "headline": "Expect a second attempt.",
+            "body": "Attackers often follow up with a message that mentions the first one. Stay suspicious for the next few weeks."
+          }
+        ]
+      }
+    },
+    {
+      "type": "status",
+      "question": "How confident do you feel?",
+      "levels": [
+        {
+          "key": "LOW",
+          "label": "Still unsure",
+          "persona": "turtle",
+          "reply": "That's all right, dear. Nobody learns this in one sitting. Read the Cat's three rules once more, then try one of Dog's link checkers. We'll get there together."
+        },
+        {
+          "key": "MEDIUM",
+          "label": "Getting there",
+          "persona": "cat",
+          "reply": "Good. Stay that way. The next trick won't look like this one."
+        },
+        {
+          "key": "HIGH",
+          "label": "Confident",
+          "persona": "spider",
+          "reply": "Confident? How lovely. Confident people are my favourite kind... I'll be in touch."
+        }
+      ]
+    },
+    {
+      "type": "practice",
+      "count": 8,
+      "focus": [],
+      "end_with_held_out": true
+    },
+    {
+      "type": "readiness",
+      "prompt": "Want to test yourself for real? We'll send **one practice phishing email** to {{email}} at a random moment in the next few minutes. It will look like a real scam but it is harmless and never asks for a password. See if you spot it.",
+      "button": "Yes, send me one",
+      "done": "Done. Keep an eye on your inbox, and use the four steps."
+    }
+  ]
+}

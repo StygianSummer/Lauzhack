@@ -1,0 +1,198 @@
+{
+  "id": "email-bank-login-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "generic_greeting",
+      "short_deadline",
+      "lookalike_link"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Sécurité SwissAlpBank",
+    "from_address": "security@swissalpbank-alerts.example",
+    "to": "{{email}}",
+    "subject": "Urgent : CHF 2 450.00 vont quitter votre compte",
+    "received": "-PT12M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Cher client,"
+      },
+      {
+        "t": "text",
+        "v": "Nous avons stoppé un virement de CHF 2 450.00 depuis votre compte vers un destinataire que nous ne connaissons pas. Si vous ne confirmez pas votre identité dans les 30 minutes, le virement sera exécuté et ne pourra plus être annulé."
+      },
+      {
+        "t": "link",
+        "v": "Arrêter le virement maintenant",
+        "href": "https://swissalpbank-secure-login.example/stop",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Pour votre sécurité, merci de ne pas ignorer ce message."
+      },
+      {
+        "t": "signature",
+        "v": "L'équipe Protection de la clientèle SwissAlpBank"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "L'adresse se termine par swissalpbank-alerts.example, et non par le vrai domaine de la banque, swissalpbank.example. N'importe qui peut enregistrer un nom qui lui ressemble."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "« Cher client » : votre vraie banque connaît votre nom et l'utilise."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Une grosse somme et le mot « Urgent » dans l'objet sont là pour vous faire paniquer avant de réfléchir."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Un délai de 30 minutes ne vous laisse pas le temps de vérifier. Votre vraie banque vous laisse du temps et d'autres moyens de la joindre."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le bouton indique « Arrêter le virement maintenant », mais il mène à swissalpbank-secure-login.example, un autre domaine qui imite seulement celui de la banque."
+    },
+    {
+      "id": "hs-signature",
+      "target": "body:4",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Une signature se copie facilement. Ce n'est pas un signal d'alerte en soi, mais cela ne prouve rien non plus."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour SwissAlpBank. Le nom affiché est SwissAlpBank, mais l'adresse est sur swissalpbank-alerts.example, qui n'est pas le domaine de la banque.",
+      "choices": [
+        "SwissAlpBank, parce que le nom l'indique",
+        "Quelqu'un qui utilise une adresse imitant celle de la banque",
+        "Votre conseiller personnel à la banque"
+      ],
+      "correct": 1,
+      "cues": [
+        "Comparez l'adresse de l'expéditeur avec swissalpbank.example.",
+        "Un nom affiché peut être réglé sur n'importe quoi."
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La peur et la hâte : une grosse somme va quitter votre compte et vous n'avez que 30 minutes.",
+      "choices": [
+        "La peur de perdre de l'argent, avec la pression d'agir vite",
+        "La curiosité pour une nouvelle offre",
+        "Aucune : c'est un avis de routine, calme"
+      ],
+      "correct": 0,
+      "cues": [
+        "Regardez l'objet du message.",
+        "Y a-t-il un délai ?"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Cliquer sur le lien et vous connecter, ce qui livrerait vos identifiants à l'auteur de l'e-mail.",
+      "choices": [
+        "Cliquer sur un lien et vous connecter",
+        "Appeler le numéro au dos de votre carte",
+        "Rien : c'est seulement pour information"
+      ],
+      "correct": 0,
+      "cues": [
+        "Où mène le bouton ?"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ignorez le lien. Ouvrez l'application SwissAlpBank, ou saisissez vous-même l'adresse de la banque, et consultez vos dernières opérations.",
+      "choices": [
+        "Cliquer sur le lien pour voir si c'est vrai",
+        "Ouvrir vous-même l'application SwissAlpBank et vérifier votre compte",
+        "Répondre à l'e-mail pour demander s'il est authentique"
+      ],
+      "correct": 1,
+      "cues": [
+        "Un canal que vous contrôlez est un canal que vous ouvrez vous-même, pas celui que l'e-mail vous indique."
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Arrêter le virement maintenant",
+    "options": [
+      "swissalpbank.example",
+      "swissalpbank-secure-login.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application SwissAlpBank et consulter vos dernières opérations",
+      "outcome": "safe",
+      "consequence": "Aucun virement n'apparaît. L'e-mail était faux et vous n'avez rien donné."
+    },
+    {
+      "id": "click-link",
+      "label": "Cliquer sur « Arrêter le virement maintenant » et vous connecter",
+      "outcome": "unsafe",
+      "consequence": "La page ressemble à votre banque, mais vos identifiants vont directement à l'escroc, qui peut maintenant accéder à votre compte."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre pour demander si l'e-mail est authentique",
+      "outcome": "neutral",
+      "consequence": "L'escroc répond que oui et vous presse encore. Votre réponse lui apprend aussi que votre adresse est active."
+    },
+    {
+      "id": "report-delete",
+      "label": "Signaler l'e-mail comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Rien n'a été cliqué et votre messagerie apprend à repérer les e-mails semblables."
+    }
+  ],
+  "attacker_reveal": "J'ai copié le nom de la banque, choisi une adresse assez proche et inventé un paiement pour vous faire peur. Le délai de 30 minutes servait à vous faire cliquer avant de vérifier. Si vous vous étiez connecté sur ma page, j'aurais votre mot de passe."
+}

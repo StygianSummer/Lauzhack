@@ -1,0 +1,184 @@
+{
+  "id": "pl-l3-scam",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "first_name_used",
+      "display_name_match",
+      "lookalike_sender",
+      "link_text_mismatch",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare",
+    "from_address": "service@helveticare-online.example",
+    "to": "{{email}}",
+    "subject": "{{first_name}}, please confirm your account details",
+    "received": "-PT50M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your HelvetiCare online account needs a quick check after our system update. It takes one minute."
+      },
+      {
+        "t": "link",
+        "v": "helveticare.example/account",
+        "href": "https://helveticare-online.example/account/confirm",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "If you do not confirm, some services may be paused."
+      },
+      {
+        "t": "signature",
+        "v": "Your HelvetiCare team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "The display name says HelvetiCare, but helveticare-online.example is not the insurer's domain, helveticare.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Using your first name sounds personal, but scammers can find it easily. It does not prove who wrote the email."
+    },
+    {
+      "id": "hs-pause",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Some services may be paused\" is a soft threat, so you act before thinking."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The text looks like helveticare.example, but the link really goes to helveticare-online.example. Text can say anything."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone using HelvetiCare's name. The display name and the greeting are right, but the address is on helveticare-online.example.",
+      "choices": [
+        "Someone using a lookalike address and your first name",
+        "HelvetiCare, because it knows your name",
+        "Your health adviser"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "display name",
+        "first name"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "A quiet fear of losing services, with a hint that it is quick and easy.",
+      "choices": [
+        "A quiet fear of losing services",
+        "Joy about a bonus",
+        "None: it is a routine notice"
+      ],
+      "correct": 0,
+      "cues": [
+        "paused",
+        "fear",
+        "services",
+        "threat"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Click the link and log in to 'confirm' your details, which would hand your login to the sender.",
+      "choices": [
+        "Click the link and log in",
+        "Open an attachment",
+        "Call a helpline"
+      ],
+      "correct": 0,
+      "cues": [
+        "click",
+        "link",
+        "confirm",
+        "login"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Ignore the link. Open the HelvetiCare app, or type the insurer's address yourself, and see whether anything needs confirming.",
+      "choices": [
+        "Open the HelvetiCare app yourself",
+        "Click the link and check the page looks right",
+        "Reply to ask if it is genuine"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "yourself",
+        "type",
+        "official"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the HelvetiCare app yourself and look for any notice",
+      "outcome": "safe",
+      "consequence": "There is no notice. The email was fake."
+    },
+    {
+      "id": "click",
+      "label": "Click the link and log in, because it knows your name",
+      "outcome": "unsafe",
+      "consequence": "The page looks right, but your login goes straight to the scammer."
+    },
+    {
+      "id": "hover",
+      "label": "Hover over the link and log in if the page looks right",
+      "outcome": "unsafe",
+      "consequence": "A lookalike page can look perfect. You gave your login to the scammer."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. You gave nothing away."
+    }
+  ],
+  "attacker_reveal": "I used your name, the right logo and perfect language... and the link text lied. A name in the greeting is easy to find, so it never proves who is writing."
+}

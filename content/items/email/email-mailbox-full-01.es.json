@@ -1,0 +1,191 @@
+{
+  "id": "email-mailbox-full-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "account_support",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "typos",
+      "urgency",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "Soporte de CloudDrive",
+    "from_address": "security@cl0uddrive-support.example",
+    "to": "{{email}}",
+    "subject": "Buzón lleno: inicia sesión ya",
+    "received": "-PT18M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Estimado usuario:"
+      },
+      {
+        "t": "text",
+        "v": "Tu bandeja de entrada está llena al 99 %. Inicia sesión en el plazo de 1 hora o el correo entrante será rechazado."
+      },
+      {
+        "t": "link",
+        "v": "Iniciar sesión en CloudDrive",
+        "href": "https://cl0uddrive-support.example/signin",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "Soporte de CloudDrive"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"cl0uddrive\" lleva un cero donde debería ir la o, y de todos modos no es el dominio de CloudDrive, clouddrive.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"Estimado usuario\": un servicio de verdad sabe cómo te llamas."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "¿Quién eligió el plazo de una hora, tú o ellos? La amenaza de perder correo sirve para meterte prisa."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "El botón lleva a cl0uddrive-support.example, un dominio parecido. Un enlace parecido puede verse perfectamente razonable al pasar el ratón por encima."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por CloudDrive. 'cl0uddrive' lleva un cero donde debería ir la o, y de todos modos no es el dominio de CloudDrive.",
+      "choices": [
+        "El equipo de soporte de CloudDrive",
+        "Alguien que usa una dirección parecida",
+        "Tu departamento de informática"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "cero",
+        "dominio",
+        "parecida"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Miedo y prisa: te dicen que perderás correo si no actúas en una hora.",
+      "choices": [
+        "Curiosidad por una función nueva",
+        "Miedo a perder correo, con prisa de una hora",
+        "Ninguna: es un aviso rutinario"
+      ],
+      "correct": 1,
+      "cues": [
+        "hora",
+        "plazo",
+        "miedo",
+        "prisa"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Iniciar sesión mediante el enlace, lo que entregaría tus datos de acceso a quien escribe.",
+      "choices": [
+        "Borrar algunos archivos antiguos",
+        "Iniciar sesión mediante un enlace",
+        "Llamar a soporte"
+      ],
+      "correct": 1,
+      "cues": [
+        "sesión",
+        "enlace",
+        "acceso",
+        "pulsar"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "No pulses nada. Avisa a informática y revisa después tu buzón abriendo tú mismo el sitio oficial.",
+      "choices": [
+        "Responder y preguntar si el mensaje es auténtico",
+        "Abrir tú mismo el sitio oficial y denunciar el correo",
+        "Pasar el ratón por el enlace e iniciar sesión si parece razonable"
+      ],
+      "correct": 1,
+      "cues": [
+        "oficial",
+        "tú mismo",
+        "denunciar",
+        "sitio"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Iniciar sesión en CloudDrive",
+    "options": [
+      "clouddrive.example",
+      "cl0uddrive-support.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "report-open",
+      "label": "No pulsar nada, avisar a informática y abrir tú mismo el sitio oficial",
+      "outcome": "safe",
+      "consequence": "Tu buzón está bien. El correo era falso y tu aviso puede proteger a un compañero."
+    },
+    {
+      "id": "sign-in",
+      "label": "Iniciar sesión mediante el enlace, rápidamente",
+      "outcome": "unsafe",
+      "consequence": "La página se parece a CloudDrive, pero tus datos de acceso van directos al estafador."
+    },
+    {
+      "id": "reply",
+      "label": "Responder y preguntar al remitente si el mensaje es auténtico",
+      "outcome": "neutral",
+      "consequence": "El estafador dice que sí, por supuesto. Tu respuesta también demuestra que tu dirección está activa."
+    },
+    {
+      "id": "hover",
+      "label": "Pasar el ratón por el enlace e iniciar sesión si la dirección parece razonable",
+      "outcome": "unsafe",
+      "consequence": "Una dirección parecida puede parecer razonable. Entregaste tus datos de acceso."
+    }
+  ],
+  "attacker_reveal": "Un cero en lugar de una o, y un reloj que corre... Leíste las palabras, no las letras. Quien se preocupa por su correo rara vez comprueba el remitente."
+}

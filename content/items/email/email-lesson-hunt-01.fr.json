@@ -1,0 +1,206 @@
+{
+  "id": "email-lesson-hunt-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "lesson"
+  ],
+  "slots": {
+    "identity": "thisistea_app",
+    "channel": "email",
+    "emotion": [
+      "urgency",
+      "fear"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "urgency",
+      "short_deadline",
+      "has_link"
+    ],
+    "verify": "type_address_yourself"
+  },
+  "email": {
+    "from_name": "Assistance ThisIsTea",
+    "from_address": "support@thisistae-app.example",
+    "to": "{{email}}",
+    "subject": "Action requise : problème lors de la création de votre compte ThisIsTea",
+    "received": "-PT14M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "Une erreur est survenue lors de la finalisation de votre compte."
+      },
+      {
+        "t": "text",
+        "v": "Merci de saisir à nouveau votre e-mail et votre mot de passe pour terminer."
+      },
+      {
+        "t": "text",
+        "v": "Vous avez 2 heures, après quoi votre compte sera désactivé automatiquement."
+      },
+      {
+        "t": "link",
+        "v": "Vérifier le compte maintenant",
+        "href": "https://thisistae-app.example/login",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "signature",
+        "v": "Assistance ThisIsTea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "J'ai échangé deux lettres et déplacé un mot : thisistae-app.example n'est pas thisistea.example."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Un simple bonjour. Les entreprises honnêtes disent bonjour aussi."
+    },
+    {
+      "id": "hs-error",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Que des mots. N'importe qui pourrait écrire cette phrase. Cherchez la partie qui veut quelque chose de vous."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "ThisIsTea ne vous demanderait jamais votre mot de passe par e-mail."
+    },
+    {
+      "id": "hs-clock",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« 2 heures » sert à endormir la partie de vous qui vérifie."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le bouton mène au même domaine imité."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui imite ThisIsTea. L'adresse est thisistae-app.example, avec deux lettres échangées et un mot en plus.",
+      "choices": [
+        "L'assistance de ThisIsTea",
+        "Un collègue",
+        "Quelqu'un qui utilise une adresse presque identique"
+      ],
+      "correct": 2,
+      "cues": [
+        "adresse",
+        "domaine",
+        "échangées",
+        "imitation"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La peur et la hâte : votre compte est désactivé si vous n'agissez pas dans les deux heures.",
+      "choices": [
+        "La curiosité pour une mise à jour",
+        "Aucune : c'est de la routine",
+        "La peur et la hâte : deux heures pour agir"
+      ],
+      "correct": 2,
+      "cues": [
+        "2 heures",
+        "désactivé",
+        "délai",
+        "hâte"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Saisir à nouveau votre e-mail et votre mot de passe. Cela donnerait vos identifiants à l'expéditeur.",
+      "choices": [
+        "Télécharger une mise à jour",
+        "Payer des frais",
+        "Saisir à nouveau votre e-mail et votre mot de passe"
+      ],
+      "correct": 2,
+      "cues": [
+        "mot de passe",
+        "saisir",
+        "e-mail",
+        "identifiants"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne saisissez jamais un mot de passe après avoir cliqué sur le lien d'un e-mail. Ouvrez ThisIsTea vous-même, depuis un favori ou en tapant l'adresse.",
+      "choices": [
+        "Cliquer sur le lien et vérifier la page",
+        "Répondre pour demander de l'aide",
+        "Ouvrir ThisIsTea vous-même, en tapant l'adresse ou depuis un favori"
+      ],
+      "correct": 2,
+      "cues": [
+        "vous-même",
+        "favori",
+        "taper",
+        "adresse"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Vérifier le compte maintenant",
+    "options": [
+      "thisistea.example",
+      "thisistae-app.example",
+      "secure-login.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "type-address",
+      "label": "Ouvrir ThisIsTea vous-même, en tapant son adresse",
+      "outcome": "safe",
+      "consequence": "Votre compte va bien. L'e-mail était faux."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur le lien et saisir à nouveau votre mot de passe",
+      "outcome": "unsafe",
+      "consequence": "Vos identifiants vont directement chez l'escroc."
+    },
+    {
+      "id": "report",
+      "label": "Le signaler au service informatique et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe."
+    }
+  ],
+  "attacker_reveal": "J'ai échangé deux lettres, lancé un compte à rebours et demandé un mot de passe. ThisIsTea ne le demanderait jamais, mais je ressemblais à ThisIsTea, et cela a suffi."
+}

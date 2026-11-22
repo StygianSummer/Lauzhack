@@ -1,0 +1,173 @@
+{
+  "id": "email-helveticare-receipts-deadline-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 28000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "HelvetiCare Claims",
+    "from_address": "claims@helveticare.example",
+    "to": "{{email}}",
+    "subject": "Send in your receipts by 31 December",
+    "received": "-PT6H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Receipts for this year can only be refunded if you upload them by 31 December."
+      },
+      {
+        "t": "text",
+        "v": "Upload them in the HelvetiCare app, under Claims. It takes a few minutes."
+      },
+      {
+        "t": "text",
+        "v": "We never ask for receipts or bank details by email."
+      },
+      {
+        "t": "signature",
+        "v": "HelvetiCare Claims"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on helveticare.example, the insurer's real domain."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "A real deadline, but nothing is hidden: it says what, where and by when. Urgency alone does not make an email a scam."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It tells you to use the app, not a link."
+    },
+    {
+      "id": "hs-never",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "It says clearly that it never asks for receipts or bank details by email."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "HelvetiCare: the address is on helveticare.example.",
+      "choices": [
+        "Someone using a lookalike address",
+        "HelvetiCare, from its real domain",
+        "Your employer"
+      ],
+      "correct": 1,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Some urgency, from a real deadline, but no threat and no trick.",
+      "choices": [
+        "Fear of arrest",
+        "Some urgency, from a real deadline",
+        "None at all"
+      ],
+      "correct": 1,
+      "cues": [
+        "deadline",
+        "december",
+        "urgency",
+        "real"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Upload your receipts in the app. No receipts or bank details go by email.",
+      "choices": [
+        "Reply with your bank details",
+        "Upload receipts in the app",
+        "Click a link and sign in"
+      ],
+      "correct": 1,
+      "cues": [
+        "upload",
+        "app",
+        "receipts",
+        "claims"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the HelvetiCare app yourself. The email says to.",
+      "choices": [
+        "Reply with the receipts attached",
+        "Open the HelvetiCare app yourself",
+        "Click a link in the email"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "yourself",
+        "claims"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the HelvetiCare app yourself and upload the receipts",
+      "outcome": "safe",
+      "consequence": "The upload works and your claim is on time."
+    },
+    {
+      "id": "later",
+      "label": "Make a note and upload them next week",
+      "outcome": "safe",
+      "consequence": "That is fine: the deadline is real, so just keep it in mind."
+    },
+    {
+      "id": "reply",
+      "label": "Reply with the receipts attached",
+      "outcome": "unsafe",
+      "consequence": "The email said they never ask for receipts by email. Use the app."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. It has a deadline, yet the domain is right, no link is given and it says what to do in the app. A deadline is not proof of a trap."
+}

@@ -1,0 +1,53 @@
+<resources>
+    <!-- Texto de los componentes compartidos. Las claves empiezan por c_. Sin rayas largas. -->
+
+    <!-- Personas -->
+    <string name="c_persona_cat">Gato</string>
+    <string name="c_persona_turtle">Tortuga</string>
+    <string name="c_persona_dog">Perro</string>
+    <string name="c_persona_spider">Araña</string>
+
+    <!-- Verdicts and states -->
+    <string name="c_correct">Correcto</string>
+    <string name="c_not_quite">No exactamente</string>
+    <string name="c_hint">Pista</string>
+    <string name="c_step_done">Hecho</string>
+    <string name="c_step_current">Paso actual</string>
+
+    <!-- Controls -->
+    <string name="c_back">Atrás</string>
+    <string name="c_close">Cerrar</string>
+    <string name="c_skip">Omitir</string>
+    <string name="c_choose">Elige una opción</string>
+    <string name="c_try_again">Intentarlo de nuevo</string>
+    <string name="c_show_password">Mostrar contraseña</string>
+    <string name="c_hide_password">Ocultar contraseña</string>
+    <string name="c_code_digit">Código de %1$d dígitos</string>
+
+    <!-- Banners -->
+    <string name="c_offline">No tienes conexión. Tu progreso se guarda en este dispositivo y se sincronizará más tarde.</string>
+
+    <!-- Mock email -->
+    <string name="c_inbox">Bandeja de entrada</string>
+    <string name="c_from">De</string>
+    <string name="c_reply_to">Responder a</string>
+    <string name="c_to">Para</string>
+    <string name="c_subject">Asunto</string>
+    <string name="c_just_now">ahora mismo</string>
+    <plurals name="c_minutes_ago">
+        <item quantity="one">hace %1$d minuto</item>
+        <item quantity="other">hace %1$d minutos</item>
+    </plurals>
+    <plurals name="c_hours_ago">
+        <item quantity="one">hace %1$d hora</item>
+        <item quantity="other">hace %1$d horas</item>
+    </plurals>
+    <plurals name="c_days_ago">
+        <item quantity="one">hace %1$d día</item>
+        <item quantity="other">hace %1$d días</item>
+    </plurals>
+
+    <!-- Domain comparison -->
+    <string name="c_domain_real">Real</string>
+    <string name="c_domain_fake">Falso</string>
+</resources>

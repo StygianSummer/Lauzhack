@@ -1,0 +1,198 @@
+{
+  "id": "email-bank-fraud-desk-code-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 32000,
+  "use": [
+    "practice",
+    "phase_b"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "authority",
+      "helpfulness"
+    ],
+    "ask": "give_code",
+    "surface_clues": [
+      "first_name_used",
+      "lookalike_sender",
+      "has_code",
+      "has_link"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "Service Fraude SwissAlpBank",
+    "from_address": "fraud.desk@swissalpbank-desk.example",
+    "to": "{{email}}",
+    "subject": "Dossier 7731 : un paiement par carte que nous avons bloqué",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Nous avons bloqué un paiement par carte de CHF 389.00 dans une boutique en ligne. Pour clore le dossier, nous devons confirmer que c'est bien vous qui l'avez arrêté."
+      },
+      {
+        "t": "text",
+        "v": "Dans un instant, vous recevrez par SMS un code à six chiffres. Merci de répondre à cet e-mail avec ce code et nous terminerons le dossier."
+      },
+      {
+        "t": "link",
+        "v": "Consulter votre dossier",
+        "href": "https://swissalpbank-desk.example/case/7731",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Merci de votre aide."
+      },
+      {
+        "t": "signature",
+        "v": "Marc, Service Fraude"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "swissalpbank-desk.example n'est pas le domaine de la banque, swissalpbank.example."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "Aucun délai, aucune menace. Le ton est calme et serviable, et c'est justement ce qui fonctionne."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Un code envoyé sur votre téléphone est une clé. Une vraie banque ne vous demande jamais de le relire ni d'y répondre. Avec ce code, l'expéditeur peut valider son propre paiement."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "La page du dossier se trouve sur le domaine qui imite celui de la banque."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour le service Fraude de la banque. L'adresse est sur swissalpbank-desk.example, pas sur swissalpbank.example.",
+      "choices": [
+        "Le service Fraude de SwissAlpBank",
+        "Un collègue sympathique",
+        "Quelqu'un qui utilise une adresse presque identique"
+      ],
+      "correct": 2,
+      "cues": [
+        "adresse",
+        "domaine",
+        "service fraude",
+        "imitation"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Peu de pression ici : l'autorité et l'envie d'aider. Le ton calme vous donne envie de coopérer.",
+      "choices": [
+        "La panique face à un délai",
+        "L'envie d'un remboursement",
+        "L'autorité et l'envie d'aider"
+      ],
+      "correct": 2,
+      "cues": [
+        "calme",
+        "autorité",
+        "serviable",
+        "dossier"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Répondre avec le code reçu sur votre téléphone. Ce code valide une opération ou une connexion pour l'expéditeur.",
+      "choices": [
+        "Cliquer sur un lien et vous connecter",
+        "Payer des frais",
+        "Transmettre un code envoyé sur votre téléphone"
+      ],
+      "correct": 2,
+      "cues": [
+        "code",
+        "répondre",
+        "sms",
+        "téléphone"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne répondez pas. Appelez le numéro au dos de votre carte, ou ouvrez vous-même l'application SwissAlpBank, et demandez des nouvelles du dossier 7731.",
+      "choices": [
+        "Répondre avec le code pour clore le dossier",
+        "Consulter le dossier sur la page indiquée",
+        "Appeler le numéro au dos de votre carte"
+      ],
+      "correct": 2,
+      "cues": [
+        "carte",
+        "numéro",
+        "appeler",
+        "application"
+      ]
+    }
+  },
+  "link_question": {
+    "shown_text": "Consulter votre dossier",
+    "options": [
+      "swissalpbank.example",
+      "swissalpbank-desk.example",
+      "thisistea.example"
+    ],
+    "correct": 1
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Appeler le numéro au dos de votre carte et demander des nouvelles du dossier",
+      "outcome": "safe",
+      "consequence": "La banque ne connaît pas le dossier 7731. L'e-mail était faux."
+    },
+    {
+      "id": "reply-code",
+      "label": "Répondre avec le code dès qu'il arrive",
+      "outcome": "unsafe",
+      "consequence": "L'expéditeur utilise votre code pour valider un paiement ou se connecter à votre place."
+    },
+    {
+      "id": "view-case",
+      "label": "Consulter le dossier sur la page indiquée",
+      "outcome": "unsafe",
+      "consequence": "La page réclame vos identifiants et les données de votre carte. Tout part chez l'escroc."
+    },
+    {
+      "id": "report-delete",
+      "label": "Le signaler comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Vous n'avez rien donné."
+    }
+  ],
+  "attacker_reveal": "Pas de hâte, pas de menaces, un numéro de dossier et un prénom aimable... Je voulais seulement six chiffres de votre téléphone. Une vraie banque ne vous demande jamais de relire un code à qui que ce soit."
+}

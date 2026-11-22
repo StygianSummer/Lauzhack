@@ -1,0 +1,182 @@
+{
+  "id": "email-clouddrive-shared-file-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 24000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "file_sharing",
+    "channel": "email",
+    "emotion": [
+      "curiosity",
+      "helpfulness"
+    ],
+    "ask": "open_attachment",
+    "surface_clues": [
+      "display_name_match",
+      "first_name_used",
+      "lookalike_sender",
+      "unexpected_attachment",
+      "has_attachment"
+    ],
+    "verify": "ask_colleague_in_person_or_phone"
+  },
+  "email": {
+    "from_name": "CloudDrive",
+    "from_address": "share@clouddrive-files.example",
+    "to": "{{email}}",
+    "subject": "Mara Keller shared \"Invoice 2291\" with you",
+    "received": "-PT55M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Mara Keller has shared a file with you: Invoice 2291."
+      },
+      {
+        "t": "text",
+        "v": "Open the attached file to view it."
+      },
+      {
+        "t": "signature",
+        "v": "The CloudDrive team"
+      }
+    ],
+    "attachments": [
+      "Invoice_2291.pdf"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "clouddrive-files.example is not CloudDrive's domain, clouddrive.example."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "CloudDrive shares files by link, not by attaching them. A file you were not expecting is a reason to stop."
+    },
+    {
+      "id": "hs-name",
+      "target": "subject",
+      "step": "who",
+      "red_flag": false,
+      "explain": "A colleague's name in the subject feels safe, but names are easy to copy from a leaked contact list."
+    },
+    {
+      "id": "hs-curiosity",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Invoice 2291\" is vague on purpose, so you will open it to find out what it is."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone imitating CloudDrive. The sender is on clouddrive-files.example, not clouddrive.example. The colleague's name is only a hook.",
+      "choices": [
+        "Someone using a lookalike address",
+        "CloudDrive itself",
+        "Mara Keller"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "lookalike",
+        "sender"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Curiosity, and a wish to be helpful to a colleague: you want to see what she sent.",
+      "choices": [
+        "Curiosity about a colleague's file",
+        "Fear of a penalty",
+        "None: it is routine"
+      ],
+      "correct": 0,
+      "cues": [
+        "curiosity",
+        "invoice",
+        "colleague",
+        "vague"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Open an attachment you were not expecting. It could install harmful software or show a fake sign-in.",
+      "choices": [
+        "Open an unexpected attachment",
+        "Click a link and sign in",
+        "Reply with your details"
+      ],
+      "correct": 0,
+      "cues": [
+        "attachment",
+        "open",
+        "file",
+        "unexpected"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Do not open it. Ask Mara by phone or in person, or open CloudDrive yourself and see whether anything was shared.",
+      "choices": [
+        "Ask Mara on a channel you know, or open CloudDrive yourself",
+        "Open the file in case it is fine",
+        "Reply to the sender and ask what it is"
+      ],
+      "correct": 0,
+      "cues": [
+        "ask",
+        "mara",
+        "phone",
+        "yourself"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "ask-mara",
+      "label": "Ask Mara by phone or in person whether she shared anything",
+      "outcome": "safe",
+      "consequence": "Mara shared nothing. You stopped the attachment before it ran."
+    },
+    {
+      "id": "open",
+      "label": "Open the attachment to see what it is",
+      "outcome": "unsafe",
+      "consequence": "The file runs and shows a fake page, or puts harmful software on your computer."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to the sender and ask what the file is",
+      "outcome": "neutral",
+      "consequence": "The scammer answers with a more convincing story. Your reply also shows your address is live."
+    },
+    {
+      "id": "open-site",
+      "label": "Open CloudDrive yourself and look for shared files",
+      "outcome": "safe",
+      "consequence": "Nothing is shared with you. The email was fake."
+    }
+  ],
+  "attacker_reveal": "A friend's name, a vague invoice and a file ready to open... You wanted to know what it was. That is all I needed."
+}

@@ -1,0 +1,185 @@
+{
+  "id": "pl-l1-scam",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 1,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 26000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "typos",
+      "odd_sender",
+      "generic_greeting",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Parcel Point Entrgea",
+    "from_address": "delivery.agent77@free-mailbox.example",
+    "to": "{{email}}",
+    "subject": "¡¡¡Tu paquete te espera!!! paga tasa pequeña",
+    "received": "-PT25M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Estimado clinete:"
+      },
+      {
+        "t": "text",
+        "v": "Tu paqeute está retenido en nuestro almacén. Debes pagar una tasa pequeña de 2,50 CHF hoy o sera devuelto."
+      },
+      {
+        "t": "link",
+        "v": "Pagar la tasa ahora",
+        "href": "http://parcel-pay-fee.example/x7q",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Gracias por tu paciensia."
+      },
+      {
+        "t": "signature",
+        "v": "Equipo de Parcel Point Entrgea"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Una dirección de buzón gratuito, no de parcelpoint.example. Una empresa de paquetería de verdad escribe desde su propio dominio."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"Estimado clinete\" es genérico y tiene una errata. Tu empresa de paquetería de verdad sabe cómo te llamas."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "\"Hoy o será devuelto\" está ahí para meterte prisa."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Una dirección extraña de un dominio distinto que no tiene nada que ver con ParcelPoint."
+    },
+    {
+      "id": "hs-typos",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": true,
+      "explain": "Más faltas de ortografía. Las empresas revisan sus textos; los estafadores a menudo no."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "No es ParcelPoint. La dirección es de free-mailbox.example, no de parcelpoint.example, y las faltas de ortografía no son propias de una empresa de paquetería de verdad.",
+      "choices": [
+        "El equipo de reparto de ParcelPoint",
+        "Alguien que usa un buzón desechable, no ParcelPoint",
+        "Un vecino que guarda tu paquete"
+      ],
+      "correct": 1,
+      "cues": [
+        "dirección",
+        "dominio",
+        "ortografía",
+        "saludo"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Prisa: paga hoy o pierdes el paquete.",
+      "choices": [
+        "Curiosidad por un premio",
+        "Prisa: paga hoy o el paquete se devuelve",
+        "Ninguna: es un aviso sencillo"
+      ],
+      "correct": 1,
+      "cues": [
+        "hoy",
+        "plazo",
+        "prisa",
+        "devuelto"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Pagar una tasa mediante un enlace, lo que entregaría los datos de tu tarjeta a quien escribe.",
+      "choices": [
+        "Recoger el paquete en casa de un vecino",
+        "Pagar una tasa mediante un enlace",
+        "Nada, es solo informativo"
+      ],
+      "correct": 1,
+      "cues": [
+        "pagar",
+        "tasa",
+        "enlace",
+        "tarjeta"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Ignora el enlace. Abre la app de ParcelPoint, o escribe tú mismo la dirección, y consulta tus paquetes.",
+      "choices": [
+        "Pagar la tasa pequeña, por si acaso",
+        "Consultar tus paquetes en la app de ParcelPoint, abierta por ti mismo",
+        "Responder y pedir otro enlace"
+      ],
+      "correct": 1,
+      "cues": [
+        "app",
+        "tú mismo",
+        "oficial",
+        "seguimiento"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Abrir tú mismo la app de ParcelPoint y revisar tus paquetes",
+      "outcome": "safe",
+      "consequence": "No hay ningún paquete retenido. El correo era falso y no entregaste nada."
+    },
+    {
+      "id": "pay",
+      "label": "Pagar la tasa mediante el enlace",
+      "outcome": "unsafe",
+      "consequence": "Los datos de tu tarjeta van al estafador, que puede gastar tu dinero."
+    },
+    {
+      "id": "report-delete",
+      "label": "Denunciar el correo como phishing y borrarlo",
+      "outcome": "safe",
+      "consequence": "Buena decisión. No se pulsó nada y tu proveedor de correo aprende a detectar el siguiente."
+    }
+  ],
+  "attacker_reveal": "Faltas de ortografía, la dirección de un desconocido y una tasa tan pequeña que nadie la comprueba... Ni siquiera me esforcé. Esto todavía engaña a quien espera un paquete."
+}

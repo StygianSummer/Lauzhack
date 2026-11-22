@@ -1,0 +1,182 @@
+{
+  "id": "pl-l5-scam",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 5,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [
+      "routine"
+    ],
+    "ask": "pay_fee",
+    "surface_clues": [
+      "first_name_used",
+      "lookalike_sender",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "service@parcelpoint-delivery.example",
+    "to": "{{email}}",
+    "subject": "Customs charge for your parcel",
+    "received": "-PT3H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Your parcel from an overseas shop has arrived in Switzerland. A customs handling charge of CHF 3.20 is due before delivery."
+      },
+      {
+        "t": "link",
+        "v": "Pay the CHF 3.20 charge",
+        "href": "https://parcelpoint-delivery.example/charge/58213",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Once paid, your parcel will be delivered within two working days."
+      },
+      {
+        "t": "signature",
+        "v": "ParcelPoint Customer Care"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "parcelpoint-delivery.example is not ParcelPoint's domain, parcelpoint.example. It is the only slip in the whole email."
+    },
+    {
+      "id": "hs-calm",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "No deadline, no threat, no typos. A scam does not have to shout."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The link matches the sender, but both are on the lookalike domain. Matching each other does not make them real."
+    },
+    {
+      "id": "hs-amount",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "A small fee, so you will not think twice about paying. The payment page would take your card details."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "Someone pretending to be ParcelPoint. Every detail is right except the domain: parcelpoint-delivery.example is not parcelpoint.example.",
+      "choices": [
+        "ParcelPoint, because everything else is right",
+        "A customs officer",
+        "Someone using a lookalike domain"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "lookalike",
+        "sender"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Hardly any. It is calm and routine, which makes it easier to trust.",
+      "choices": [
+        "Panic about a fine",
+        "Anger at a delay",
+        "Very little: it is calm and routine"
+      ],
+      "correct": 2,
+      "cues": [
+        "calm",
+        "routine",
+        "small",
+        "trust"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Pay a small charge through a link. That would hand your card details to whoever wrote it.",
+      "choices": [
+        "Collect a parcel yourself",
+        "Nothing, it is for information",
+        "Pay a small charge through a link"
+      ],
+      "correct": 2,
+      "cues": [
+        "pay",
+        "charge",
+        "link",
+        "card"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Ignore the link. Open the ParcelPoint app, or type its address yourself, and see whether a charge is really due.",
+      "choices": [
+        "Pay: it is only CHF 3.20",
+        "Reply to ask for the customs form",
+        "Open the ParcelPoint app yourself"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "yourself",
+        "charge",
+        "official"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the ParcelPoint app yourself and check for a charge",
+      "outcome": "safe",
+      "consequence": "No charge is listed. The email was fake."
+    },
+    {
+      "id": "pay",
+      "label": "Pay the CHF 3.20, because it is so small",
+      "outcome": "unsafe",
+      "consequence": "Your card details go to the scammer. Small fees are how they get them."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report it as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "Good call. Nothing was clicked."
+    },
+    {
+      "id": "reply",
+      "label": "Reply and ask for the customs form",
+      "outcome": "neutral",
+      "consequence": "The scammer sends you a fake form. Your reply also shows your address is in use."
+    }
+  ],
+  "attacker_reveal": "No rush, no typos, no threats... Surface clues are for beginners. A calm email on a lookalike domain beats a loud one every time."
+}

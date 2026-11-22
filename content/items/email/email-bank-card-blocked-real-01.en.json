@@ -1,0 +1,176 @@
+{
+  "id": "email-bank-card-blocked-real-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 5,
+  "twin_of": "email-bank-fraud-desk-code-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 31000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [
+      "urgency"
+    ],
+    "ask": "none",
+    "surface_clues": [
+      "urgency",
+      "first_name_used",
+      "real_domain",
+      "no_link",
+      "do_not_share_warning"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "SwissAlpBank Fraud Team",
+    "from_address": "fraud@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Your card was paused after an unusual payment",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "We paused a card payment of CHF 389.00 that looked unusual. Your card stays paused until you confirm it."
+      },
+      {
+        "t": "text",
+        "v": "Please open the SwissAlpBank app within 24 hours and tell us whether the payment was yours."
+      },
+      {
+        "t": "text",
+        "v": "We will never ask you for a code, a password or your card number by email, text or phone."
+      },
+      {
+        "t": "signature",
+        "v": "SwissAlpBank Fraud Team"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on swissalpbank.example, the bank's real domain."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:2",
+      "step": "emotion",
+      "red_flag": false,
+      "explain": "A real deadline, but it asks you to use the app you already have. Urgency alone does not make an email a scam."
+    },
+    {
+      "id": "hs-never",
+      "target": "body:3",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "It says clearly that it will never ask for a code or password."
+    },
+    {
+      "id": "hs-no-link",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "There is no link. You are sent to the app, a channel you control."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "SwissAlpBank: the address is on swissalpbank.example and nothing points to another domain.",
+      "choices": [
+        "Someone using a lookalike address",
+        "A random caller",
+        "SwissAlpBank, from its real domain"
+      ],
+      "correct": 2,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "Some urgency, because a payment was paused and there is a 24-hour window. But the pressure is a real deadline, with no threat.",
+      "choices": [
+        "Greed for a refund",
+        "None at all",
+        "Some urgency, from a real deadline"
+      ],
+      "correct": 2,
+      "cues": [
+        "24 hours",
+        "paused",
+        "deadline",
+        "urgency"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Open the app and say whether the payment was yours. No code, no link, no password.",
+      "choices": [
+        "Reply with the code from your phone",
+        "Sign in through a link",
+        "Check a payment in the bank's app"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "payment",
+        "confirm",
+        "code"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the SwissAlpBank app yourself, or call the number on the back of your card.",
+      "choices": [
+        "Reply to the email",
+        "Click a link in the email",
+        "Open the SwissAlpBank app yourself"
+      ],
+      "correct": 2,
+      "cues": [
+        "app",
+        "yourself",
+        "card",
+        "call"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the SwissAlpBank app yourself and check the payment",
+      "outcome": "safe",
+      "consequence": "The payment is listed and you confirm or deny it."
+    },
+    {
+      "id": "call-card",
+      "label": "Call the number on the back of your card",
+      "outcome": "safe",
+      "consequence": "The bank confirms the paused payment."
+    },
+    {
+      "id": "reply-code",
+      "label": "Reply with the code if one arrives",
+      "outcome": "unsafe",
+      "consequence": "The email said they would never ask. A code must never be given away, even to a real bank."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear, even though it has a deadline. The domain is the bank's own, nobody asks for a code and you are sent to the app. Compare it with the 'case 7731' email: both are calm, but only one asks you to read out a code."
+}

@@ -1,0 +1,184 @@
+{
+  "id": "pl-l2-scam-a",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
+    "ask": "click_login",
+    "surface_clues": [
+      "lookalike_sender",
+      "lookalike_link",
+      "urgency",
+      "has_link"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "Sécurité TeamChat",
+    "from_address": "security@teamchat-support.example",
+    "to": "{{email}}",
+    "subject": "Nouvelle connexion à votre compte TeamChat",
+    "received": "-PT9M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "Nous avons remarqué une connexion à votre compte TeamChat depuis un nouvel appareil dans un autre pays. Si ce n'était pas vous, merci de sécuriser votre compte dans les prochaines heures."
+      },
+      {
+        "t": "link",
+        "v": "Sécuriser mon compte",
+        "href": "https://teamchat-secure.example/account",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "Merci de nous aider à garder TeamChat en sécurité."
+      },
+      {
+        "t": "signature",
+        "v": "L'équipe Sécurité TeamChat"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "teamchat-support.example n'est pas le domaine de TeamChat, teamchat.example. N'importe qui peut enregistrer un nom qui sonne officiel."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "Une connexion depuis l'étranger et « les prochaines heures » sont faites pour vous effrayer et vous faire agir vite."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Le bouton mène à teamchat-secure.example, un domaine différent du vrai."
+    },
+    {
+      "id": "hs-signature",
+      "target": "body:4",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Une signature se copie facilement. Celle-ci ne prouve rien, dans un sens comme dans l'autre."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour TeamChat. Le nom a l'air correct, mais l'adresse est sur teamchat-support.example, pas sur teamchat.example.",
+      "choices": [
+        "L'équipe de sécurité de TeamChat",
+        "Un collègue de votre équipe",
+        "Quelqu'un qui utilise une adresse ressemblant seulement à celle de TeamChat"
+      ],
+      "correct": 2,
+      "cues": [
+        "adresse",
+        "domaine",
+        "imitation",
+        "expéditeur"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La peur et la hâte : un inconnu est peut-être dans votre compte et vous devez agir dans les heures qui viennent.",
+      "choices": [
+        "La curiosité pour une nouvelle fonction",
+        "Aucune : c'est un avis de routine",
+        "La peur que quelqu'un soit dans votre compte, avec la pression du temps"
+      ],
+      "correct": 2,
+      "cues": [
+        "peur",
+        "heures",
+        "hâte",
+        "compte"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Cliquer sur le lien et vous connecter, ce qui livrerait vos identifiants à l'expéditeur.",
+      "choices": [
+        "Appeler l'assistance de TeamChat",
+        "Rien, c'est seulement pour information",
+        "Cliquer sur un lien et vous connecter"
+      ],
+      "correct": 2,
+      "cues": [
+        "cliquer",
+        "lien",
+        "connecter",
+        "identifiants"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ignorez le lien. Ouvrez vous-même l'application TeamChat et regardez vos appareils et vos dernières connexions.",
+      "choices": [
+        "Cliquer sur le lien pour voir si c'est vrai",
+        "Répondre pour demander si l'alerte est authentique",
+        "Ouvrir vous-même l'application TeamChat et vérifier vos appareils"
+      ],
+      "correct": 2,
+      "cues": [
+        "application",
+        "vous-même",
+        "appareils",
+        "propre"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application TeamChat et vérifier vos appareils",
+      "outcome": "safe",
+      "consequence": "Seuls vos propres appareils figurent dans la liste. L'alerte était fausse."
+    },
+    {
+      "id": "click",
+      "label": "Cliquer sur « Sécuriser mon compte » et vous connecter",
+      "outcome": "unsafe",
+      "consequence": "La page ressemble à TeamChat, mais vos identifiants vont directement à l'escroc."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre pour demander si l'alerte est réelle",
+      "outcome": "neutral",
+      "consequence": "L'escroc répond que oui et insiste. Votre réponse lui montre aussi que votre adresse est utilisée."
+    },
+    {
+      "id": "report-delete",
+      "label": "Le signaler comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Rien n'a été cliqué."
+    }
+  ],
+  "attacker_reveal": "Une alerte inventée, un pays étranger et quelques heures pour décider... La peur fait la moitié de mon travail. L'adresse était assez proche pour qu'il faille lire chaque lettre afin de la repérer."
+}

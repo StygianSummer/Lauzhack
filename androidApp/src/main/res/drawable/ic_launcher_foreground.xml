@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Original launcher art: a steaming tea cup on a saucer (108dp adaptive-icon canvas,
+     everything inside the 66dp safe zone). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- steam -->
+    <path
+        android:pathData="M47,42 C44,38 50,35 47,30"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M57,42 C54,38 60,35 57,30"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round" />
+    <!-- handle -->
+    <path
+        android:pathData="M67,52 C77,51 78,66 65,65"
+        android:strokeColor="#FF111B3A"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+    <!-- saucer -->
+    <path
+        android:pathData="M30,77 L76,77 Q74,83 67,83 L39,83 Q32,83 30,77 Z"
+        android:fillColor="#FFFFFFFF"
+        android:strokeColor="#FF111B3A"
+        android:strokeWidth="3"
+        android:strokeLineJoin="round" />
+    <!-- cup -->
+    <path
+        android:pathData="M35,47 L69,47 L67,65 Q66,74 57,74 L47,74 Q38,74 37,65 Z"
+        android:fillColor="#FFFFE66D"
+        android:strokeColor="#FF111B3A"
+        android:strokeWidth="3"
+        android:strokeLineJoin="round" />
+</vector>

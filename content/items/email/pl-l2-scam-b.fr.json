@@ -1,0 +1,181 @@
+{
+  "id": "pl-l2-scam-b",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "scam",
+  "difficulty": 2,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 30000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "health_insurer",
+    "channel": "email",
+    "emotion": [
+      "greed",
+      "urgency"
+    ],
+    "ask": "reply_with_data",
+    "surface_clues": [
+      "lookalike_sender",
+      "short_deadline",
+      "unsolicited"
+    ],
+    "verify": "call_number_on_card"
+  },
+  "email": {
+    "from_name": "Remboursements HelvetiCare",
+    "from_address": "refunds@helveticare-claims.example",
+    "to": "{{email}}",
+    "subject": "Remboursement de CHF 86.40 en attente",
+    "received": "-PT2H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour,"
+      },
+      {
+        "t": "text",
+        "v": "Nos dossiers indiquent que vous avez trop payé votre dernière prime. Nous souhaitons vous rembourser CHF 86.40."
+      },
+      {
+        "t": "text",
+        "v": "Pour le traiter, merci de répondre à cet e-mail avec votre nom complet, votre date de naissance et votre numéro de compte bancaire."
+      },
+      {
+        "t": "text",
+        "v": "Les remboursements non réclamés ce mois-ci retournent dans notre fonds commun."
+      },
+      {
+        "t": "signature",
+        "v": "Service des remboursements HelvetiCare"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "helveticare-claims.example n'est pas le domaine de HelvetiCare, helveticare.example."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "De l'argent gratuit que vous n'avez pas demandé. Il est fait pour éveiller votre curiosité et votre cupidité."
+    },
+    {
+      "id": "hs-ask",
+      "target": "body:2",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "Votre nom, votre date de naissance et votre numéro de compte par e-mail, c'est bien plus qu'il n'en faut pour un remboursement. Un vrai assureur ne demande jamais cela dans une réponse."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:3",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "« Non réclamés ce mois-ci » est un délai inventé pour vous presser."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour HelvetiCare. L'adresse est sur helveticare-claims.example, pas sur le domaine propre de l'assureur.",
+      "choices": [
+        "Quelqu'un qui utilise une adresse presque identique",
+        "L'équipe des remboursements de HelvetiCare",
+        "Le service comptable de votre employeur"
+      ],
+      "correct": 0,
+      "cues": [
+        "adresse",
+        "domaine",
+        "imitation",
+        "assureur"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "La cupidité et un peu de hâte : de l'argent pour rien, mais seulement ce mois-ci.",
+      "choices": [
+        "L'envie d'argent gratuit, avec un petit délai",
+        "La peur d'une amende",
+        "Aucune : c'est un relevé de routine"
+      ],
+      "correct": 0,
+      "cues": [
+        "remboursement",
+        "argent",
+        "mois",
+        "délai"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Répondre avec votre nom complet, votre date de naissance et votre numéro de compte bancaire. C'est suffisant pour usurper votre identité.",
+      "choices": [
+        "Répondre avec vos données personnelles et bancaires",
+        "Cliquer sur un lien et vous connecter",
+        "Appeler une ligne d'assistance"
+      ],
+      "correct": 0,
+      "cues": [
+        "répondre",
+        "données",
+        "banque",
+        "naissance"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne répondez pas. Appelez le numéro figurant sur votre carte d'assurance, ou ouvrez l'application HelvetiCare, et demandez si l'on vous doit un remboursement.",
+      "choices": [
+        "Appeler le numéro figurant sur votre carte d'assurance",
+        "Répondre pour demander le formulaire de remboursement",
+        "Attendre une semaine pour voir s'il revient"
+      ],
+      "correct": 0,
+      "cues": [
+        "carte",
+        "numéro",
+        "application",
+        "appeler"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "call-card",
+      "label": "Appeler le numéro figurant sur votre carte d'assurance et vous renseigner sur un remboursement",
+      "outcome": "safe",
+      "consequence": "On vous confirme qu'on ne vous doit rien. L'e-mail était faux."
+    },
+    {
+      "id": "reply-data",
+      "label": "Répondre avec votre nom, votre date de naissance et votre numéro de compte",
+      "outcome": "unsafe",
+      "consequence": "L'escroc a maintenant de quoi ouvrir des comptes et contracter des prêts à votre nom."
+    },
+    {
+      "id": "ignore",
+      "label": "Ignorer l'e-mail et ne rien faire",
+      "outcome": "neutral",
+      "consequence": "Rien n'est perdu, mais l'arnaque reste dans votre boîte pour la prochaine fois."
+    },
+    {
+      "id": "report-delete",
+      "label": "Le signaler comme hameçonnage et le supprimer",
+      "outcome": "safe",
+      "consequence": "Bon réflexe. Vous n'avez rien donné."
+    }
+  ],
+  "attacker_reveal": "Tout le monde aime un remboursement... Je vous ai juste demandé de m'aider à le payer. Les données en plus que je réclamais valent bien plus pour moi que CHF 86.40."
+}

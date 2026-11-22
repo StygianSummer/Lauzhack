@@ -1,0 +1,170 @@
+{
+  "id": "pl-l4-legit",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 4,
+  "twin_of": "pl-l4-scam",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 27000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "bank",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "first_name_used",
+      "real_domain",
+      "has_attachment"
+    ],
+    "verify": "open_bank_app_yourself"
+  },
+  "email": {
+    "from_name": "Relevés SwissAlpBank",
+    "from_address": "statements@swissalpbank.example",
+    "to": "{{email}}",
+    "subject": "Votre relevé d'octobre est prêt",
+    "received": "-PT30M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Votre relevé d'octobre est joint en PDF. Vous pouvez aussi le lire dans l'application SwissAlpBank, sous Documents."
+      },
+      {
+        "t": "text",
+        "v": "Les réponses envoyées à cette adresse ne sont pas lues."
+      },
+      {
+        "t": "signature",
+        "v": "Service clientèle SwissAlpBank"
+      }
+    ],
+    "attachments": [
+      "releve-octobre.pdf"
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse se termine par swissalpbank.example, le vrai domaine de la banque, et il n'y a pas d'adresse de réponse différente."
+    },
+    {
+      "id": "hs-attachment",
+      "target": "attachment:0",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Un simple .pdf, pas un .pdf.html. Le type de fichier correspond à ce que dit l'e-mail."
+    },
+    {
+      "id": "hs-no-reply",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il dit clairement que les réponses ne sont pas lues : rien n'est donc envoyé à une adresse étrange."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:1",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il vous indique où retrouver vous-même le même relevé, dans l'application."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "SwissAlpBank : l'adresse de l'expéditeur est sur le vrai domaine et aucune adresse de réponse ne mène ailleurs.",
+      "choices": [
+        "Quelqu'un qui falsifie l'adresse de la banque",
+        "SwissAlpBank, depuis son vrai domaine",
+        "Votre conseiller personnel"
+      ],
+      "correct": 1,
+      "cues": [
+        "adresse",
+        "domaine",
+        "adresse de réponse",
+        "vrai"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Aucune. C'est un courrier de routine, sans délai ni menace.",
+      "choices": [
+        "La peur de frais",
+        "Aucune : c'est un courrier de routine",
+        "L'excitation d'une offre"
+      ],
+      "correct": 1,
+      "cues": [
+        "routine",
+        "calme",
+        "pression"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Rien. Il livre votre relevé en PDF. Il n'y a ni connexion, ni lien, ni paiement.",
+      "choices": [
+        "Vous connecter pour le voir",
+        "Rien : il ne fait que livrer un relevé",
+        "Payer des frais"
+      ],
+      "correct": 1,
+      "cues": [
+        "rien",
+        "pièce jointe",
+        "pdf",
+        "connexion"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Si vous avez un doute, ouvrez vous-même l'application SwissAlpBank et lisez-y le même relevé.",
+      "choices": [
+        "Répondre pour demander une copie papier",
+        "Ouvrir vous-même l'application SwissAlpBank",
+        "Le transférer d'abord à un ami"
+      ],
+      "correct": 1,
+      "cues": [
+        "application",
+        "vous-même",
+        "documents"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Ouvrir vous-même l'application SwissAlpBank et y lire le relevé",
+      "outcome": "safe",
+      "consequence": "Le même relevé s'y trouve. Vous n'aviez pas besoin de la pièce jointe."
+    },
+    {
+      "id": "open-pdf",
+      "label": "Ouvrir la pièce jointe PDF",
+      "outcome": "safe",
+      "consequence": "C'est un relevé normal. On peut ouvrir sans crainte un vrai .pdf venant du vrai domaine."
+    },
+    {
+      "id": "reply",
+      "label": "Répondre pour poser une question sur le relevé",
+      "outcome": "neutral",
+      "consequence": "Personne ne lit les réponses envoyées à cette adresse. Utilisez l'application ou le numéro figurant sur votre carte."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère. La même banque, le même type de pièce jointe que le faux, mais le fichier est vraiment un PDF et rien ne mène vers une autre adresse. Lisez les noms de fichiers jusqu'au bout, et vérifiez aussi l'adresse de réponse."
+}

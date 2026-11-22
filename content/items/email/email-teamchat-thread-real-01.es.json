@@ -1,0 +1,172 @@
+{
+  "id": "email-teamchat-thread-real-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 6,
+  "twin_of": "email-teamchat-thread-signin-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Jonas Meier",
+    "from_address": "jonas.meier@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "RE: Notas de la reunión del jueves",
+    "received": "-PT25M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hola, {{first_name}}:"
+      },
+      {
+        "t": "text",
+        "v": "Las notas están en la carpeta compartida de siempre, sin necesidad de iniciar sesión. He puesto las acciones al principio."
+      },
+      {
+        "t": "text",
+        "v": "Dime si se me ha pasado algo y lo repasamos por teléfono."
+      },
+      {
+        "t": "text",
+        "v": "El miércoles me escribiste: \"Las notas son definitivas, las comparto después de la llamada\"."
+      },
+      {
+        "t": "signature",
+        "v": "Jonas"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "La dirección es la de Jonas y la conversación es real. Por sí solo, eso prueba poco, pero aquí el resto encaja."
+    },
+    {
+      "id": "hs-usual",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "La misma carpeta compartida de siempre y sin inicio de sesión. No te piden nada."
+    },
+    {
+      "id": "hs-phone",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Ofrece una llamada, un canal que puedes usar en cualquier momento."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Cita tus propias palabras, lo cual encaja con una conversación real."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "answer": "Lo más probable es que sea Jonas: una conversación real, la carpeta de siempre y una oferta de hablar por teléfono.",
+      "choices": [
+        "Lo más probable es que Jonas",
+        "Alguien que usa una dirección parecida",
+        "Un desconocido"
+      ],
+      "correct": 0,
+      "cues": [
+        "conversación",
+        "jonas",
+        "habitual",
+        "carpeta"
+      ]
+    },
+    "emotion": {
+      "prompt": "¿Qué emoción intentan provocar?",
+      "answer": "Ninguna. Es un mensaje amistoso y cotidiano.",
+      "choices": [
+        "Ninguna: es un mensaje cotidiano",
+        "Miedo a una sanción",
+        "Ganas de conseguir una prima"
+      ],
+      "correct": 0,
+      "cues": [
+        "amistoso",
+        "cotidiano",
+        "tranquilo"
+      ]
+    },
+    "ask": {
+      "prompt": "¿Qué me piden exactamente?",
+      "answer": "Nada. Las notas están en la carpeta de siempre. No hay enlace ni un nuevo inicio de sesión.",
+      "choices": [
+        "Nada: las notas están en el sitio de siempre",
+        "Volver a iniciar sesión mediante un enlace",
+        "Enviar la lista de voluntarios"
+      ],
+      "correct": 0,
+      "cues": [
+        "nada",
+        "carpeta",
+        "inicio de sesión",
+        "notas"
+      ]
+    },
+    "verify": {
+      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
+      "answer": "Mira tú mismo en la carpeta compartida. Si algo te inquieta, llama a Jonas al número que ya tienes.",
+      "choices": [
+        "Abrir tú mismo la carpeta compartida, o llamar a Jonas",
+        "Responder para preguntar si es él de verdad",
+        "Ignorarlo para siempre"
+      ],
+      "correct": 0,
+      "cues": [
+        "carpeta",
+        "tú mismo",
+        "llamar",
+        "número conocido"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-folder",
+      "label": "Abrir tú mismo la carpeta compartida y leer las notas",
+      "outcome": "safe",
+      "consequence": "Las notas están allí, como dijo Jonas."
+    },
+    {
+      "id": "call",
+      "label": "Llamar a Jonas para repasar las notas",
+      "outcome": "safe",
+      "consequence": "Lo confirma. Una llamada corta nunca es una pérdida de tiempo."
+    },
+    {
+      "id": "sign-in",
+      "label": "Volver a iniciar sesión en algún sitio, por si acaso",
+      "outcome": "unsafe",
+      "consequence": "Nada lo pedía. Nunca escribas tus datos de acceso cuando ninguna petición real lo necesita."
+    }
+  ],
+  "attacker_reveal": "Este es real, querido. Es casi un gemelo del correo de \"vuelve a iniciar sesión\", pero este no pide nada y remite a la carpeta de siempre. En este nivel, pregúntate qué es lo que se te pide."
+}

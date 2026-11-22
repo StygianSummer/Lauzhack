@@ -1,0 +1,165 @@
+{
+  "id": "email-parcelpoint-delivery-01",
+  "language": "en",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 2,
+  "twin_of": "email-parcel-fee-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 25000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "parcel_service",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_domain",
+      "no_link",
+      "generic_greeting"
+    ],
+    "verify": "open_app_yourself"
+  },
+  "email": {
+    "from_name": "ParcelPoint",
+    "from_address": "notifications@parcelpoint.example",
+    "to": "{{email}}",
+    "subject": "Your parcel is ready to collect",
+    "received": "-PT1H",
+    "body": [
+      {
+        "t": "text",
+        "v": "Hello,"
+      },
+      {
+        "t": "text",
+        "v": "Your parcel is ready to collect at the pick-up point. Collecting it costs nothing."
+      },
+      {
+        "t": "text",
+        "v": "Bring the code shown in the ParcelPoint app."
+      },
+      {
+        "t": "signature",
+        "v": "ParcelPoint"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "The address is on parcelpoint.example, the real domain."
+    },
+    {
+      "id": "hs-free",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "\"Costs nothing\" is the opposite of a fee scam."
+    },
+    {
+      "id": "hs-app",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "It sends you to the app you already have."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": false,
+      "explain": "A plain \"Hello\" is a little impersonal, but the domain is what counts here."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Who is really writing to you? Look at the address, not just the name.",
+      "answer": "ParcelPoint: the address is on the real domain, parcelpoint.example.",
+      "choices": [
+        "ParcelPoint, from its real domain",
+        "A scammer with a lookalike address",
+        "The shop you ordered from"
+      ],
+      "correct": 0,
+      "cues": [
+        "address",
+        "domain",
+        "real"
+      ]
+    },
+    "emotion": {
+      "prompt": "What feeling is this email trying to create?",
+      "answer": "None. It is a calm notice with no deadline.",
+      "choices": [
+        "None: it is a calm notice",
+        "Fear of losing the parcel",
+        "Greed for a gift"
+      ],
+      "correct": 0,
+      "cues": [
+        "calm",
+        "deadline",
+        "pressure"
+      ]
+    },
+    "ask": {
+      "prompt": "What exactly does it want you to do?",
+      "answer": "Collect your parcel. It costs nothing and there is no link or login.",
+      "choices": [
+        "Collect the parcel, at no cost",
+        "Pay a fee through a link",
+        "Reply with your card number"
+      ],
+      "correct": 0,
+      "cues": [
+        "collect",
+        "free",
+        "nothing"
+      ]
+    },
+    "verify": {
+      "prompt": "How can you check through a channel you control?",
+      "answer": "Open the ParcelPoint app yourself to see the pick-up point and your code.",
+      "choices": [
+        "Open the ParcelPoint app yourself",
+        "Reply and ask for the code",
+        "Forward it to a friend"
+      ],
+      "correct": 0,
+      "cues": [
+        "app",
+        "yourself",
+        "code"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-app",
+      "label": "Open the ParcelPoint app yourself and look at the pick-up details",
+      "outcome": "safe",
+      "consequence": "Your code and pick-up point are listed."
+    },
+    {
+      "id": "collect",
+      "label": "Collect the parcel with the code from your app",
+      "outcome": "safe",
+      "consequence": "No money is asked for. It matches the app."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to ask for the code",
+      "outcome": "neutral",
+      "consequence": "The no-reply address does not answer. The code is in your app."
+    }
+  ],
+  "attacker_reveal": "This one is real, dear. Compare it with the 'fee due' message: the real one costs nothing, has no link and points you to the app. When money is not asked for, there is much less to worry about."
+}

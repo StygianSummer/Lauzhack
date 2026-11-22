@@ -1,0 +1,172 @@
+{
+  "id": "email-teamchat-thread-real-01",
+  "language": "fr",
+  "status": "draft",
+  "kind": "email",
+  "category": "legit",
+  "difficulty": 6,
+  "twin_of": "email-teamchat-thread-signin-01",
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 29000,
+  "use": [
+    "practice"
+  ],
+  "slots": {
+    "identity": "work_messenger",
+    "channel": "email",
+    "emotion": [],
+    "ask": "none",
+    "surface_clues": [
+      "real_sender",
+      "ongoing_thread",
+      "first_name_used"
+    ],
+    "verify": "call_colleague_known_number"
+  },
+  "email": {
+    "from_name": "Jonas Meier",
+    "from_address": "jonas.meier@northfield-aid.example",
+    "to": "{{email}}",
+    "subject": "Re : Notes de la réunion de jeudi",
+    "received": "-PT25M",
+    "body": [
+      {
+        "t": "text",
+        "v": "Bonjour {{first_name}},"
+      },
+      {
+        "t": "text",
+        "v": "Les notes sont dans le dossier partagé comme d'habitude, sans connexion nécessaire. J'ai mis les actions en haut."
+      },
+      {
+        "t": "text",
+        "v": "Dites-moi si j'ai oublié quelque chose et nous pourrons les passer en revue par téléphone."
+      },
+      {
+        "t": "text",
+        "v": "Vous écriviez mercredi : « Les notes sont finales, je les partagerai après l'appel. »"
+      },
+      {
+        "t": "signature",
+        "v": "Jonas"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": false,
+      "explain": "L'adresse est celle de Jonas et la discussion est réelle. Seule, cette preuve ne vaut pas grand-chose, mais ici le reste concorde."
+    },
+    {
+      "id": "hs-usual",
+      "target": "body:1",
+      "step": "ask",
+      "red_flag": false,
+      "explain": "Le même dossier partagé que d'habitude, et pas de connexion. On ne vous demande rien."
+    },
+    {
+      "id": "hs-phone",
+      "target": "body:2",
+      "step": "verify",
+      "red_flag": false,
+      "explain": "Il propose un appel téléphonique, un canal que vous pouvez utiliser à tout moment."
+    },
+    {
+      "id": "hs-thread",
+      "target": "body:3",
+      "step": "who",
+      "red_flag": false,
+      "explain": "Il cite vos propres mots, ce qui correspond à une vraie conversation."
+    }
+  ],
+  "steps": {
+    "who": {
+      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
+      "answer": "Jonas, très probablement : une vraie discussion, le dossier habituel et une proposition d'en parler par téléphone.",
+      "choices": [
+        "Jonas, très probablement",
+        "Quelqu'un qui utilise une adresse presque identique",
+        "Un inconnu"
+      ],
+      "correct": 0,
+      "cues": [
+        "discussion",
+        "jonas",
+        "habituel",
+        "dossier"
+      ]
+    },
+    "emotion": {
+      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
+      "answer": "Aucune. C'est un message amical et quotidien.",
+      "choices": [
+        "Aucune : c'est un message de tous les jours",
+        "La peur d'une sanction",
+        "L'envie d'une prime"
+      ],
+      "correct": 0,
+      "cues": [
+        "amical",
+        "quotidien",
+        "calme"
+      ]
+    },
+    "ask": {
+      "prompt": "Que vous demande-t-on exactement ?",
+      "answer": "Rien. Les notes sont dans le dossier habituel. Il n'y a ni lien ni nouvelle connexion.",
+      "choices": [
+        "Rien : les notes sont à l'endroit habituel",
+        "Vous connecter à nouveau via un lien",
+        "Envoyer la liste des bénévoles"
+      ],
+      "correct": 0,
+      "cues": [
+        "rien",
+        "dossier",
+        "connexion",
+        "notes"
+      ]
+    },
+    "verify": {
+      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "answer": "Regardez vous-même dans le dossier partagé. Si quelque chose vous gêne, appelez Jonas au numéro que vous avez déjà.",
+      "choices": [
+        "Ouvrir vous-même le dossier partagé, ou appeler Jonas",
+        "Répondre pour demander si c'est bien lui",
+        "L'ignorer pour toujours"
+      ],
+      "correct": 0,
+      "cues": [
+        "dossier",
+        "vous-même",
+        "appeler",
+        "numéro connu"
+      ]
+    }
+  },
+  "actions": [
+    {
+      "id": "open-folder",
+      "label": "Ouvrir vous-même le dossier partagé et lire les notes",
+      "outcome": "safe",
+      "consequence": "Les notes y sont, comme l'a dit Jonas."
+    },
+    {
+      "id": "call",
+      "label": "Appeler Jonas pour revoir les notes avec lui",
+      "outcome": "safe",
+      "consequence": "Il confirme. Un petit appel n'est jamais perdu."
+    },
+    {
+      "id": "sign-in",
+      "label": "Vous connecter de nouveau quelque part, au cas où",
+      "outcome": "unsafe",
+      "consequence": "Rien ne le demandait. Ne saisissez jamais d'identifiants quand aucune vraie demande n'en a besoin."
+    }
+  ],
+  "attacker_reveal": "Celui-ci est vrai, ma chère. C'est presque le jumeau de l'e-mail « reconnectez-vous », mais celui-ci ne demande rien et renvoie vers le dossier habituel. À ce niveau, demandez ce qu'on vous réclame."
+}

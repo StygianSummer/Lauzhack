@@ -1,0 +1,15 @@
+.git
+.gradle
+.kotlin
+.idea
+.vscode
+.claude
+.worktrees
+**/build
+**/node_modules
+.env
+.env.*
+!deploy/.env.example
+*.log
+*.hprof
+local.properties

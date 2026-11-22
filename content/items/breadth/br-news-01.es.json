@@ -1,0 +1,41 @@
+{
+  "id": "br-news-01",
+  "language": "es",
+  "status": "draft",
+  "kind": "news",
+  "category": "scam",
+  "difficulty": 3,
+  "held_out": false,
+  "unsolicited": false,
+  "expected_ms": 20000,
+  "use": [
+    "placement"
+  ],
+  "slots": {
+    "identity": "news_outlet",
+    "channel": "web",
+    "emotion": [
+      "curiosity",
+      "social_proof"
+    ],
+    "ask": "forward_message",
+    "surface_clues": [
+      "no_named_source",
+      "share_before_deleted"
+    ],
+    "verify": "check_other_outlets"
+  },
+  "news": {
+    "headline": "Billetes de tren gratis para todos los mayores de 60 desde el lunes, según un infiltrado. ¡Compártelo antes de que lo borren!",
+    "source": "The Daily Lantern Online",
+    "date": "2026-11-18",
+    "real": false,
+    "tells": [
+      "Solo cita a un \"infiltrado\" sin nombre y a ningún organismo oficial.",
+      "Ningún otro medio que conozcas lo publica.",
+      "Te pide que lo compartas antes de que lo \"borren\", una táctica de presión.",
+      "Consulta la web de la propia compañía de trenes antes de reenviar nada."
+    ]
+  },
+  "attacker_reveal": "Un gran regalo gratis y un motivo para correr... Tú hiciste la difusión por mí. Comprueba siempre una segunda fuente antes de reenviar."
+}
