@@ -1,125 +1,138 @@
-# ThisIsTea (LauzHack 2026)
+# ThisIsTea
 
-A teaching engine for multi-step procedures, applied to cyber security literacy. Learners practise
-four steps on realistic emails, and the prompts for each step fade as they master it:
+A self-paced course in spotting phishing and scams, built in 24 hours at LauzHack 2026. It is for
+people outside tech: employees, managers, older adults. Short lessons come first. Then learners
+practise on realistic emails, and the prompt for each step disappears once they handle it alone. At
+the end, they can ask for one harmless practice email in their real inbox. Every exercise trains
+the same four questions:
 
 1. Who is really writing?
 2. What feeling are they pushing?
 3. What exactly do they want me to do?
 4. How can I check through a channel I control?
 
-- **What to build (MVP 0, single source of truth): [docs/mvp0-plan.md](docs/mvp0-plan.md)**
-- Idea and design: [docs/idea.md](docs/idea.md)
-- Team and agent rules (branches, communication): [AGENTS.md](AGENTS.md)
-- Task board: [TASKS.md](TASKS.md) · Decisions: [docs/decisions.md](docs/decisions.md)
+**[Open the app](https://stygiansummer.github.io/Lauzhack/)** (web, guest mode, no install) ·
+[Showcase and full writeup](https://nathmo.github.io/thisistea/)
 
-**Git rule:** everyone works on their own branch (first name, lowercase). Nothing goes to `main`
-except through a reviewed pull request.
+| Placement test | Practice, prompts on | Feedback from Spider |
+|---|---|---|
+| ![Placement: where does the link really go?](docs/img/placement-link.webp) | ![Practice: who is really writing?](docs/img/practice-who.webp) | ![Feedback after a safe choice](docs/img/practice-feedback.webp) |
+| **Held-out email, prompts off** | **Practice email reveal** | **Boardroom crisis challenge** |
+| ![Final check with no prompts](docs/img/held-out.webp) | ![Blame-free reveal of the practice email](docs/img/reveal.webp) | ![Boardroom crisis briefing](docs/img/boardroom.webp) |
 
-## What is in the repo
+Every screen, in light, dark and compact layouts:
+[`screenshots` branch](../../tree/screenshots).
+
+## The learning loop
+
+```
+register → placement test (~3 min) → lesson 1: email phishing
+  → practice, the prompt for each step fades as you master it (Bayesian knowledge tracing)
+  → held-out email, all prompts off
+  → opt-in: "send me one practice email" → real email in your real inbox
+  → blame-free debrief with Spider
+```
+
+The teaching design follows 4C/ID and faded worked examples. A step counts as mastered at p ≥ 0.95
+with three unaided answers. Hysteresis stops a step from switching back and forth between levels.
+
+Four characters guide the learner. Cat covers personal security and Turtle covers securing an
+organisation. Dog points to free tools, and Spider plays the scammer, then explains each trick in the
+debrief. All brands are fictional and every address ends in `.example`.
+
+## Architecture
+
+```
+ Web (wasmJs)   Desktop (JVM)   Android           thin platform shells
+        \            |            /
+     shared/  Kotlin Multiplatform + Compose       every screen, theme, engines (placement,
+        |                                          BKT mastery, fading, selection, XP), content
+        |  content/  JSON packs (en/fr/es)         loading + validation, i18n, offline sync queue
+        |
+        |  HTTPS, one origin:  /  → app,  /api → server
+        v
+ ┌─ Docker Compose ───────────────────────────────┐
+ │  Caddy (serves the web app, auto HTTPS)        │
+ │    → Ktor server (accounts, sync, leaderboard, │
+ │                   practice-email scheduler)    │
+ │      → PostgreSQL 16 (Exposed; H2 in tests)    │
+ └────────────────────────────────────────────────┘
+ GitHub Actions: tests on every push · Wasm mirror on Pages · screenshot of every screen
+```
 
 | Path | What |
 |---|---|
-| `shared/` | Kotlin Multiplatform library: models, engines, content loading, network, store, theme, all screens |
-| `composeApp/` | Thin shells for web (wasm) and desktop (jvm) |
-| `androidApp/` | Android shell, built only when an Android SDK is found |
-| `server/` | Ktor server: accounts, sync, leaderboard, the opt-in practice email |
-| `content/` | Items (`items/`), lesson 1 (`lessons/`), practice-email template (`field/`), resource links |
-| `deploy/` | Dockerfile (server + web targets), Caddyfile, dev and prod Docker Compose, `.env.example` |
-| `static/`, `guide-rules.md` | Design reference only (ported to Compose, not shipped) |
+| `shared/` | Models, engines, content loading, network client, store, theme, every screen |
+| `composeApp/`, `androidApp/` | Thin shells for web, desktop and Android |
+| `server/` | Ktor: accounts and email codes, sync, leaderboard, opt-in practice email |
+| `content/` | Items, lessons and challenges as JSON (en/fr/es), validated by tests |
+| `deploy/` | Dockerfile, Caddyfile, dev and prod Compose files, `.env.example` |
+
+Platform-specific code is limited to small `expect`/`actual` files: storage (localStorage, a file,
+SharedPreferences), the HTTP engine, device info, links and sharing.
+
+### Key decisions
+
+Full log: [docs/decisions.md](docs/decisions.md).
+
+| Decision | Why |
+|---|---|
+| One Kotlin codebase (KMP + Compose), no JS front end | One place to fix a bug. Theme, dark mode and translations work on every platform at once. |
+| Engines are pure Kotlin in `commonMain`, shared with the server | They are unit-tested, and XP is computed the same way on client and server. |
+| Content is JSON with a fixed shape (a contract) | Writers and coders work in parallel. A new language needs only files ([guide](docs/adding-a-language.md)). |
+| Containerised backend behind one origin (Caddy + Ktor + Postgres) | The same stack runs on any host. One origin means no CORS and no tunnel URLs. |
+| Offline-first, guest by default | It works on flaky networks, and the demo never depends on the venue Wi-Fi. |
+| Privacy first, AI behind an interface with a rules fallback | The practice email records only a click, with no tracking pixel. Passwords are hashed with argon2id. What ships makes no live AI calls. |
+
+## How we built it with AI agents
+
+Before any code, we wrote down every detail an agent would otherwise have to guess. Every teammate's
+agent read the same files:
+
+- **[docs/idea.md](docs/idea.md) and [docs/decisions.md](docs/decisions.md):** the pitch and an
+  append-only decision log. Agents propose, humans decide.
+- **[docs/mvp0-plan.md](docs/mvp0-plan.md):** the single source of truth. It covers the game loop,
+  five data contracts, every engine with its constants, every screen, deployment, safety rules and a
+  definition of done. We drafted it with JetBrains Air, Claude and other assistants. Every other doc
+  is a satellite, and the plan wins when they disagree.
+- **[AGENTS.md](AGENTS.md):** one brief read by every agent (Claude Code loads it through
+  `CLAUDE.md`). Each session starts by merging `main`, then reading the plan, the decisions,
+  [TASKS.md](TASKS.md) and the other people's [handoff files](docs/handoff/).
+- **Style prototyped in HTML** (`static/`, `guide-rules.md`, [docs/characters.md](docs/characters.md)),
+  then ported to a Compose theme.
+- **One brief per later module:** [Boardroom crisis](docs/challenge-boardroom-crisis.md),
+  [password Vault drill](docs/password-drill.md), storytelling.
+
+Git workflow: one branch per person, never commit to `main`, small PRs reviewed by another teammate,
+file ownership, and questions between agents passed through handoff files (`To <name>: …`).
 
 ## Run it
 
-You need JDK 21 (`JAVA_HOME` must point to it). Gradle comes with the wrapper.
+You need JDK 21 (`JAVA_HOME`). Gradle comes with the wrapper.
 
 ```bash
-# 1a. Backend on http://localhost:8080 (in-memory database, emails printed to the console).
-#     The script finds a JDK 21, sets RATE_LIMITS=off and lets the live GitHub Pages app call it.
-./scripts/run-backend.sh                                      # Windows: powershell -ExecutionPolicy Bypass -File scripts/run-backend.ps1
-#     same thing by hand: RATE_LIMITS=off ./gradlew :server:run
-# 1b. or the same backend with Postgres, in Docker (no .env needed)
-docker compose -f deploy/docker-compose.dev.yml up --build
-
-# 1b. Same, but the database survives a restart (keeps accounts and Vault drill progress)
-RATE_LIMITS=off DATABASE_URL='jdbc:h2:file:./build/tea-dev;AUTO_SERVER=TRUE' ./gradlew :server:run
-
-# 2a. Web app on http://localhost:8081
-./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-# 2b. or desktop app
-./gradlew :composeApp:run
+./scripts/run-backend.sh                        # backend on :8080, in-memory DB (Windows: scripts/run-backend.ps1)
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun   # web app on :8081
+./gradlew :composeApp:run                       # or the desktop app
+docker compose -f deploy/docker-compose.dev.yml up --build   # or the backend with Postgres
 ```
 
-- The app finds the backend at `http://localhost:8080` by default. Another backend: open the web app
-  with `?api=https://your-backend` (saved in the browser; **`?api=reset` clears it**: use it if a
-  local web app keeps talking to another server), or set `TEA_API` on desktop.
-- **Live site against your own backend:** the GitHub Pages app has no API configured, so it also
-  falls back to `http://localhost:8080`. Run `scripts/run-backend.*` (it allows the Pages origin),
-  open the live site with `?api=reset`, and allow local network access if Chrome asks.
-- To try the production layout locally (web app at `/`, API at `/api`, behind Caddy, no TLS), stop the
-  Gradle dev server and run `docker compose -f deploy/docker-compose.dev.yml --profile web up --build`,
-  then open http://localhost:8081.
-- **Signing in without real email:** while no `SMTP_PASSWORD` is set, the server prints each
-  verification code to its console and also accepts the debug code `426769`. The debug code switches
-  off by itself once SMTP is configured (`DEV_VERIFY_CODE=off` disables it always).
-- Without a backend the app still works as a guest and syncs later.
-
-Tests and checks:
+- Without an SMTP password, the server prints sign-in codes to its console and accepts `426769`.
+- Without a backend, the app works as a guest and syncs later. To point it at another backend, use
+  `?api=https://…`, and `?api=reset` to clear it. On desktop, set `TEA_API`.
 
 ```bash
-./gradlew :shared:jvmTest :server:test          # unit, content validation, end-to-end against a real server
-./gradlew :shared:jvmTest -Pstrict=true         # missing translations become errors
-
-# The server suite against another database (the schema is otherwise only ever built on H2).
-# {id} is replaced per test, so they do not share rows.
-./gradlew :server:test -Dtea.test.db.url='jdbc:h2:mem:pg-{id};MODE=PostgreSQL;DB_CLOSE_DELAY=-1'
-./gradlew :androidApp:assembleDebug             # needs an Android SDK (local.properties sdk.dir or ANDROID_HOME)
+./gradlew :shared:jvmTest :server:test          # unit, content validation, end-to-end
+./gradlew :shared:jvmTest -Pstrict=true         # a missing translation becomes an error
 ```
-
-Wasm tests (`:shared:wasmJsTest`) need a Chromium browser; set `CHROME_BIN` if Chrome is not installed.
-
-**Screenshots of every pane.** The jvm tests render the app off-screen to `shared/build/screenshots/`.
-`.github/workflows/screenshots.yml` turns them into a doc (README + images): every run uploads it as
-the `screenshots` artifact, and each push to `main` commits it to the
-[`screenshots` branch](../../tree/screenshots). Locally:
-
-```bash
-./gradlew :shared:jvmTest --tests 'tea.ui.*' --tests 'tea.learn.LearnScreenshotsTest'
-python3 scripts/screenshot_doc.py shared/build/screenshots build/screenshot-doc
-```
-
-A new `Screen` will not compile until it is added to `PanesRenderTest`, so the doc covers every pane.
 
 ## Deploy
 
-Production is one machine with a public IP and a DNS name pointing at it (ports 80 and 443 open).
-Caddy serves the web app at `https://<domain>/` and the API at `https://<domain>/api`, with an automatic
-Let's Encrypt certificate. The web app and API share one origin, so no tunnel, CORS or `?api=` is needed.
+You need one host with a DNS name and ports 80/443 open. Copy `deploy/.env.example` to `.env`, set
+`PUBLIC_URL`, and replace every `changeme`. Then run
+`docker compose -f deploy/docker-compose.prod.yml up -d --build`. Caddy serves the app at `/` and the
+API at `/api`, with Let's Encrypt HTTPS. Every push to `main` also publishes a guest-only mirror to
+GitHub Pages ([`pages.yml`](.github/workflows/pages.yml)). To give that mirror sign-in, set the
+repository variable `API_URL`.
 
-1. Copy `deploy/.env.example` to `.env` at the repo root, set `PUBLIC_URL=https://<domain>` and replace
-   every `changeme` (never commit `.env`).
-2. `docker compose -f deploy/docker-compose.prod.yml up -d --build` builds the server and the wasm app
-   and starts Postgres, the server and Caddy. Only Caddy's ports are published.
-3. Update: `git pull`, then the same command. Logs: `docker compose -f deploy/docker-compose.prod.yml logs -f app`.
-
-**GitHub Pages (optional, guest-only mirror).** `.github/workflows/pages.yml` also publishes the web
-app on every push to `main`. To turn it on: Settings → Pages → Build and deployment → Source:
-**GitHub Actions** (no branch, no Jekyll). To give it sign-in and sync, set the repository variable
-`API_URL` to `https://<domain>/api` and add the Pages origin (`https://<org>.github.io`) to
-`ALLOWED_ORIGINS` in `.env`. Without `API_URL` the Pages build works as a guest only.
-
-## Shared code and platform code
-
-Shared in `shared/src/commonMain` (runs on web, desktop, Android and, for models and engines, the
-server): data models and API types, the learning engines (placement, mastery tracking, prompt fading,
-item selection, XP), content loading and validation, translations, the theme and components, every
-screen, the network client and sync queue, the free-text grading interface.
-
-Platform-specific (small `expect`/`actual` files): the app entry points, key-value storage
-(localStorage, a file, SharedPreferences), the HTTP engine, device information, opening links and the
-share sheet.
-
-## Content
-
-All items and the lesson are **drafts** (`"status": "draft"`) for human review. Fictional brands only,
-every address on `.example`. Adding a language needs files only: see
-[docs/adding-a-language.md](docs/adding-a-language.md).
+MIT licensed. Team: Nathann, Krishna, Nicholas, Ferran.
