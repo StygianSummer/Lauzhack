@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:www.mdpi.com)",
-      "WebFetch(domain:cspub-ijcisim.org)"
+      "WebFetch(domain:cspub-ijcisim.org)",
+      "Bash(wc -l js/engine/*.js js/ui/screens/skim.js js/ui/screens/lesson.js)",
+      "Bash(wc -l docs/*.md guide-rules.md static/* content/*/* README.md .gitignore .claude/settings.json)",
+      "Bash(grep -v '\\\\.kt$')",
+      "Bash(grep -rn \"route\\(\\\\|get\\(\\\\\"/\\\\|post\\(\\\\\"/\" server/src/main/kotlin)",
+      "Bash(RATE_LIMITS=off ./gradlew :server:run)"
     ]
   }
 }
