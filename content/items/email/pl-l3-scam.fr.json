@@ -31,7 +31,7 @@
     "from_name": "HelvetiCare",
     "from_address": "service@helveticare-online.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, merci de confirmer les données de votre compte",
+    "subject": "{{first_name}}, veuillez confirmer les informations de votre compte",
     "received": "-PT50M",
     "body": [
       {
@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Votre compte en ligne HelvetiCare doit être vérifié rapidement après notre mise à jour du système. Cela prend une minute."
+        "v": "À la suite de la mise à jour de notre système, votre compte en ligne HelvetiCare doit faire l'objet d'une vérification rapide. Cela ne prend qu'une minute."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Si vous ne confirmez pas, certains services pourraient être suspendus."
+        "v": "Sans confirmation de votre part, certains services pourraient être suspendus."
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "Le nom affiché dit HelvetiCare, mais helveticare-online.example n'est pas le domaine de l'assureur, helveticare.example."
+      "explain": "Le nom affiché dit HelvetiCare, mais helveticare-online.example n'est pas helveticare.example, le domaine de l'assureur."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Utiliser votre prénom fait personnel, mais les escrocs le trouvent facilement. Cela ne prouve pas qui a écrit l'e-mail."
+      "explain": "Votre prénom donne un air personnel, mais un escroc le trouve sans peine. Il ne dit rien de l'expéditeur."
     },
     {
       "id": "hs-pause",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Certains services pourraient être suspendus » est une menace voilée, pour que vous agissiez avant de réfléchir."
+      "explain": "Avec « certains services pourraient être suspendus », la menace reste vague, mais elle suffit pour vous faire agir avant de réfléchir."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Le texte ressemble à helveticare.example, mais le lien mène en réalité à helveticare-online.example. Un texte peut dire n'importe quoi."
+      "explain": "Le texte affiché ressemble à helveticare.example, mais le lien mène en réalité à helveticare-online.example. Le texte d'un lien peut afficher n'importe quoi."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui utilise le nom de HelvetiCare. Le nom affiché et la formule d'appel sont corrects, mais l'adresse est sur helveticare-online.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui emprunte le nom de HelvetiCare. Le nom affiché et la formule d'appel sont justes, mais l'adresse est sur helveticare-online.example.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique et votre prénom",
-        "HelvetiCare, parce qu'il connaît votre nom",
-        "Votre conseiller santé"
+        "Un imposteur avec une adresse presque identique",
+        "HelvetiCare, puisqu'il connaît votre prénom",
+        "Votre conseillère santé, depuis sa boîte perso"
       ],
       "correct": 0,
       "cues": [
@@ -106,11 +106,11 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Une peur discrète de perdre des services, avec l'idée que c'est rapide et facile.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Une inquiétude discrète : perdre l'accès à certains services, alors que tout est présenté comme rapide et facile.",
       "choices": [
-        "Une peur discrète de perdre des services",
-        "La joie d'une prime",
+        "Une crainte discrète de perdre des services",
+        "La joie de recevoir une prime",
         "Aucune : c'est un avis de routine"
       ],
       "correct": 0,
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Cliquer sur le lien et vous connecter pour « confirmer » vos données, ce qui livrerait vos identifiants à l'expéditeur.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Cliquer sur le lien et vous connecter pour « confirmer » vos informations. Vos identifiants partiraient chez l'expéditeur.",
       "choices": [
         "Cliquer sur le lien et vous connecter",
-        "Ouvrir une pièce jointe",
-        "Appeler une ligne d'assistance"
+        "Ouvrir la pièce jointe du message",
+        "Appeler la ligne d'assistance"
       ],
       "correct": 0,
       "cues": [
@@ -138,11 +138,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ignorez le lien. Ouvrez l'application HelvetiCare, ou tapez vous-même l'adresse de l'assureur, et regardez si quelque chose est à confirmer.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ignorez le lien. Ouvrez l'application HelvetiCare, ou tapez vous-même l'adresse de l'assureur, et voyez si une confirmation est vraiment demandée.",
       "choices": [
         "Ouvrir vous-même l'application HelvetiCare",
-        "Cliquer sur le lien et vérifier que la page a l'air correcte",
+        "Cliquer et vérifier que la page a l'air normale",
         "Répondre pour demander si c'est authentique"
       ],
       "correct": 0,
@@ -159,26 +159,26 @@
       "id": "open-app",
       "label": "Ouvrir vous-même l'application HelvetiCare et chercher un éventuel avis",
       "outcome": "safe",
-      "consequence": "Il n'y a aucun avis. L'e-mail était faux."
+      "consequence": "Aucun avis, aucune vérification en attente. L'e-mail était faux."
     },
     {
       "id": "click",
-      "label": "Cliquer sur le lien et vous connecter, parce qu'il connaît votre nom",
+      "label": "Cliquer sur le lien et vous connecter, puisqu'il connaît votre prénom",
       "outcome": "unsafe",
-      "consequence": "La page a l'air correcte, mais vos identifiants vont directement à l'escroc."
+      "consequence": "La page ressemble trait pour trait à celle de l'assureur. Vos identifiants, eux, partent chez l'escroc."
     },
     {
       "id": "hover",
-      "label": "Survoler le lien et vous connecter si la page a l'air correcte",
+      "label": "Survoler le lien, puis vous connecter si la page a l'air normale",
       "outcome": "unsafe",
-      "consequence": "Une page imitée peut paraître parfaite. Vous avez donné vos identifiants à l'escroc."
+      "consequence": "Une page copiée peut être parfaite. Vous venez de donner vos identifiants à l'escroc."
     },
     {
       "id": "report-delete",
-      "label": "Le signaler comme hameçonnage et le supprimer",
+      "label": "Le signaler comme hameçonnage, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Vous n'avez rien donné."
+      "consequence": "Le lien n'a jamais été ouvert, et vos identifiants n'ont pas bougé."
     }
   ],
-  "attacker_reveal": "J'ai utilisé votre prénom, le bon logo et un français parfait... et le texte du lien mentait. Un prénom dans la formule d'appel se trouve facilement : il ne prouve donc jamais qui écrit."
+  "attacker_reveal": "Votre prénom, je l'ai trouvé sans chercher. Ajoutez le bon nom d'expéditeur et un français impeccable, et plus personne ne regarde où mène le lien. Un prénom dans la formule d'appel ne prouve rien sur l'auteur."
 }

@@ -28,7 +28,7 @@
     "from_name": "ParcelPoint",
     "from_address": "notifications@parcelpoint.example",
     "to": "{{email}}",
-    "subject": "Votre colis est prêt à être retiré",
+    "subject": "Votre colis vous attend au point de retrait",
     "received": "-PT1H",
     "body": [
       {
@@ -37,11 +37,11 @@
       },
       {
         "t": "text",
-        "v": "Votre colis est prêt à être retiré au point de retrait. Le retrait est gratuit."
+        "v": "Votre colis est disponible au point de retrait. Le retrait est gratuit."
       },
       {
         "t": "text",
-        "v": "Présentez le code affiché dans l'application ParcelPoint."
+        "v": "Au guichet, présentez le code affiché dans votre application ParcelPoint."
       },
       {
         "t": "signature",
@@ -55,36 +55,36 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse se termine par parcelpoint.example, le vrai domaine."
+      "explain": "L'adresse se termine par parcelpoint.example, le domaine du transporteur."
     },
     {
       "id": "hs-free",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "« Gratuit » est le contraire d'une arnaque aux frais."
+      "explain": "« gratuit » : l'exact opposé d'une arnaque aux frais."
     },
     {
       "id": "hs-app",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il vous renvoie vers l'application que vous avez déjà."
+      "explain": "Il vous renvoie vers une application que vous avez déjà."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Un simple « Bonjour » est un peu impersonnel, mais ici c'est le domaine qui compte."
+      "explain": "Un simple « Bonjour », un peu impersonnel. Ici, c'est le domaine qui tranche."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "ParcelPoint : l'adresse est sur le vrai domaine, parcelpoint.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "ParcelPoint : l'adresse est sur son vrai domaine, parcelpoint.example.",
       "choices": [
-        "ParcelPoint, depuis son vrai domaine",
+        "ParcelPoint, depuis son propre domaine",
         "Un escroc avec une adresse presque identique",
         "La boutique où vous avez commandé"
       ],
@@ -96,12 +96,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Aucune. C'est un avis calme, sans délai.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Aucune. Un avis calme, sans délai ni pression.",
       "choices": [
-        "Aucune : c'est un avis calme",
-        "La peur de perdre le colis",
-        "L'envie d'un cadeau"
+        "Aucune, c'est un avis tranquille",
+        "La peur de voir le colis repartir",
+        "L'envie de recevoir un cadeau"
       ],
       "correct": 0,
       "cues": [
@@ -111,8 +111,8 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Retirer votre colis. C'est gratuit et il n'y a ni lien ni connexion.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Aller retirer votre colis. C'est gratuit, sans lien ni connexion.",
       "choices": [
         "Retirer le colis, sans rien payer",
         "Payer des frais via un lien",
@@ -126,12 +126,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ouvrez vous-même l'application ParcelPoint pour voir le point de retrait et votre code.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application ParcelPoint : le point de retrait et votre code y figurent.",
       "choices": [
         "Ouvrir vous-même l'application ParcelPoint",
         "Répondre pour demander le code",
-        "Le transférer à un ami"
+        "Transférer l'e-mail à un ami"
       ],
       "correct": 0,
       "cues": [
@@ -146,20 +146,20 @@
       "id": "open-app",
       "label": "Ouvrir vous-même l'application ParcelPoint et consulter les détails du retrait",
       "outcome": "safe",
-      "consequence": "Votre code et le point de retrait y figurent."
+      "consequence": "Votre code et l'adresse du point de retrait sont bien là."
     },
     {
       "id": "collect",
       "label": "Retirer le colis avec le code de votre application",
       "outcome": "safe",
-      "consequence": "On ne vous demande pas d'argent. Cela correspond à l'application."
+      "consequence": "Personne ne vous demande d'argent, et tout correspond à ce qu'affiche l'application."
     },
     {
       "id": "reply",
       "label": "Répondre pour demander le code",
       "outcome": "neutral",
-      "consequence": "L'adresse « ne pas répondre » ne répond pas. Le code est dans votre application."
+      "consequence": "Les réponses à cette adresse de notifications ne sont pas lues. Le code, lui, est dans votre application."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. Comparez-le avec le message « frais à payer » : le vrai ne coûte rien, n'a aucun lien et vous renvoie vers l'application. Quand on ne demande pas d'argent, il y a bien moins à craindre."
+  "attacker_reveal": "Pas de chance pour moi : celui-là sort vraiment de chez ParcelPoint. Mettez-le à côté du message « frais à payer » : le vrai ne coûte rien, ne contient aucun lien et vous renvoie vers l'application. Quand personne ne vous demande d'argent, j'ai bien peu de prise."
 }

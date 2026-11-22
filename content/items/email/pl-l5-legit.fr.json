@@ -40,15 +40,15 @@
       },
       {
         "t": "text",
-        "v": "Votre colis attend au point de retrait depuis 6 jours. Il retournera à l'expéditeur demain s'il n'est pas retiré."
+        "v": "Votre colis attend au point de retrait depuis 6 jours. S'il n'est pas retiré, il repartira demain chez l'expéditeur."
       },
       {
         "t": "text",
-        "v": "Le retrait est gratuit. Apportez une pièce d'identité et le code affiché dans l'application ParcelPoint."
+        "v": "Le retrait est gratuit. Présentez une pièce d'identité et le code affiché dans l'application ParcelPoint."
       },
       {
         "t": "text",
-        "v": "Vous pouvez consulter les heures d'ouverture dans l'application."
+        "v": "Les horaires d'ouverture sont indiqués dans l'application."
       },
       {
         "t": "signature",
@@ -69,14 +69,14 @@
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "C'est un vrai délai, mais on ne vous demande rien d'autre que de retirer votre colis. Une urgence seule ne suffit pas à faire d'un e-mail une arnaque."
+      "explain": "Le délai est réel, mais on vous demande seulement de passer chercher votre colis. L'urgence, à elle seule, ne fait pas une arnaque."
     },
     {
       "id": "hs-free",
       "target": "body:2",
       "step": "ask",
       "red_flag": false,
-      "explain": "Le retrait est gratuit. Une arnaque réclamerait ici des frais."
+      "explain": "Le retrait est gratuit. C'est justement là qu'une arnaque glisserait des frais."
     },
     {
       "id": "hs-app",
@@ -88,12 +88,12 @@
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "ParcelPoint : l'adresse est sur le vrai domaine et tout renvoie vers l'application.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "ParcelPoint : l'adresse est sur le vrai domaine, et tout renvoie vers l'application.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique",
-        "Votre voisin",
-        "ParcelPoint, depuis son vrai domaine"
+        "Quelqu'un avec une adresse presque identique",
+        "Un voisin qui a gardé le colis",
+        "ParcelPoint, depuis son propre domaine"
       ],
       "correct": 2,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Un peu d'urgence, puisque le colis repart demain. Mais la pression vient d'un vrai délai, pas d'une ruse.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Un peu d'urgence, puisque le colis repart demain. Mais cette pression vient d'un vrai délai, pas d'une manœuvre.",
       "choices": [
-        "L'envie de gagner un prix",
-        "Aucune",
-        "Un peu d'urgence, due à un vrai délai"
+        "L'envie de gagner un concours",
+        "Aucune émotion particulière",
+        "Un peu d'urgence, liée à un vrai délai"
       ],
       "correct": 2,
       "cues": [
@@ -119,8 +119,8 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Retirer votre colis en personne. Il n'y a ni paiement, ni connexion, ni lien.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Retirer votre colis en personne. Ni paiement, ni connexion, ni lien.",
       "choices": [
         "Payer des frais en ligne",
         "Répondre avec votre numéro de carte",
@@ -135,11 +135,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ouvrez vous-même l'application ParcelPoint pour voir le point de retrait et le code. L'e-mail vous y renvoie.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application ParcelPoint pour voir le point de retrait et votre code. L'e-mail vous y renvoie de lui-même.",
       "choices": [
         "Cliquer sur un lien dans l'e-mail",
-        "Répondre pour demander plus de temps",
+        "Répondre pour demander un délai",
         "Ouvrir vous-même l'application ParcelPoint"
       ],
       "correct": 2,
@@ -155,20 +155,20 @@
       "id": "open-app",
       "label": "Ouvrir vous-même l'application ParcelPoint et consulter les détails du retrait",
       "outcome": "safe",
-      "consequence": "Le colis et son code de retrait y figurent."
+      "consequence": "Le colis et son code de retrait y figurent bien."
     },
     {
       "id": "collect",
       "label": "Retirer le colis au point de retrait",
       "outcome": "safe",
-      "consequence": "Vous présentez votre pièce d'identité et le code. On ne vous demande pas d'argent."
+      "consequence": "Vous montrez votre pièce d'identité et le code. Personne ne vous demande d'argent."
     },
     {
       "id": "reply-pay",
       "label": "Répondre pour proposer de payer une prolongation",
       "outcome": "neutral",
-      "consequence": "L'adresse « ne pas répondre » ne répond pas. Il n'y avait de toute façon rien à faire."
+      "consequence": "Personne ne lit les réponses à cette adresse. De toute façon, il n'y avait rien à payer."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère, même s'il fixe un délai. Le domaine est le bon, personne ne demande d'argent et on vous renvoie vers l'application. Un délai seul n'est pas un signal d'alerte. Demandez ce qu'on attend de vous."
+  "attacker_reveal": "Oui, il y a un délai. Et non, ce n'est pas moi : bon domaine, pas un centime demandé, et on vous renvoie vers l'application. Un délai ne suffit pas à faire une alerte. Regardez ce qu'on attend de vous."
 }

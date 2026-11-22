@@ -38,7 +38,7 @@
       },
       {
         "t": "text",
-        "v": "Alex Morgan a écrit : « Pourriez-vous ajouter les derniers chiffres clients aux diapositives du conseil d'ici vendredi ? »"
+        "v": "Alex Morgan a écrit : « Est-ce que vous pourriez ajouter les derniers chiffres clients aux diapositives du conseil d'ici vendredi ? Merci ! »"
       },
       {
         "t": "link",
@@ -48,7 +48,7 @@
       },
       {
         "t": "text",
-        "v": "Vous pouvez aussi ouvrir vous-même l'application TeamChat pour répondre."
+        "v": "Vous pouvez aussi répondre directement depuis l'application TeamChat."
       },
       {
         "t": "signature",
@@ -62,37 +62,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La notification vient de teamchat.example, le vrai domaine."
+      "explain": "La notification vient de teamchat.example, le vrai domaine de TeamChat."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "La demande est ordinaire : des chiffres sur des diapositives, avec un délai de vendredi dont on peut discuter. Ce n'est pas un export de données et ce n'est pas urgent à la minute."
+      "explain": "Une demande ordinaire : des chiffres à mettre sur des diapositives, pour vendredi, un délai qui se discute. Aucun export de données, et rien à rendre dans la minute."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "Le lien mène à teamchat.example."
+      "explain": "Le lien pointe vers teamchat.example."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il vous rappelle que l'application est disponible."
+      "explain": "L'e-mail vous propose lui-même de passer par l'application, un chemin que vous contrôlez."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "TeamChat : une notification de son vrai domaine, qui cite le message d'un collègue.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "TeamChat, depuis son vrai domaine. La notification cite simplement le message d'un collègue.",
       "choices": [
         "TeamChat, depuis son vrai domaine",
-        "Le directeur, qui vous écrit directement",
+        "Le directeur, qui vous écrit en direct",
         "Un escroc avec une adresse presque identique"
       ],
       "correct": 0,
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Peu. Une demande de travail normale avec un délai raisonnable.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Pas grand-chose. Une demande de travail normale, avec un délai raisonnable.",
       "choices": [
-        "Peu : une demande de travail normale",
-        "La panique à cause de dix minutes",
-        "La peur d'être arrêté"
+        "Rien de particulier : du travail normal",
+        "La panique d'un délai de dix minutes",
+        "La peur d'une arrestation"
       ],
       "correct": 0,
       "cues": [
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ajouter les chiffres clients aux diapositives du conseil d'ici vendredi. C'est du travail ordinaire et aucun export de données n'est exigé.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ajouter les chiffres clients aux diapositives du conseil d'ici vendredi. Du travail ordinaire, sans aucun export de données.",
       "choices": [
-        "Mettre à jour quelques diapositives d'ici vendredi",
-        "Envoyer l'export complet des clients en réponse",
-        "Vous connecter via un lien bizarre"
+        "Mettre à jour des diapositives d'ici vendredi",
+        "Envoyer en réponse l'export complet des clients",
+        "Vous connecter via un lien étrange"
       ],
       "correct": 0,
       "cues": [
@@ -135,12 +135,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ouvrez vous-même l'application TeamChat et répondez-y. Si vous doutez un jour d'une demande du patron, un petit appel aide.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application TeamChat et répondez-y. Et si un jour une demande du patron vous paraît bizarre, un coup de fil règle la question.",
       "choices": [
-        "Ouvrir vous-même l'application TeamChat et y répondre",
-        "Répondre à l'adresse « ne pas répondre »",
-        "Le transférer à un ami"
+        "Ouvrir l'application TeamChat vous-même et répondre",
+        "Répondre à l'adresse no-reply de la notification",
+        "Le transférer à un ami pour avoir son avis"
       ],
       "correct": 0,
       "cues": [
@@ -154,22 +154,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ouvrir vous-même l'application TeamChat et y répondre à Alex",
+      "label": "Ouvrir vous-même l'application TeamChat et répondre à Alex",
       "outcome": "safe",
-      "consequence": "Vous voyez le message d'Alex dans la vraie conversation."
+      "consequence": "Le message d'Alex est bien là, dans la vraie conversation."
     },
     {
       "id": "click",
       "label": "Cliquer sur le lien de la notification",
       "outcome": "safe",
-      "consequence": "Il mène au vrai domaine."
+      "consequence": "Il mène au vrai domaine de TeamChat."
     },
     {
       "id": "send-all",
-      "label": "Envoyer toute la base clients à Alex tout de suite",
+      "label": "Envoyer tout de suite toute la base clients à Alex",
       "outcome": "unsafe",
-      "consequence": "Ce n'était pas demandé. N'envoyez pas de données sensibles quand personne ne les a réclamées."
+      "consequence": "Personne ne l'avait demandée. N'envoyez pas de données sensibles que personne n'a réclamées."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. C'est une notification du domaine propre de TeamChat à propos d'un travail ordinaire. Comparez-le avec le message des « dix minutes » : ici rien n'est précipité et aucune donnée n'est exigée."
+  "attacker_reveal": "Comparez avec mon message des dix minutes : ici, une vraie notification TeamChat, du travail banal pour vendredi, et personne ne réclame de données. Je n'aurais jamais su faire aussi ennuyeux."
 }

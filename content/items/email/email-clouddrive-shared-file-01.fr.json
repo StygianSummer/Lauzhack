@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "Mara Keller a partagé un fichier avec vous : Facture 2291."
+        "v": "Mara Keller a partagé un fichier avec vous : « Facture 2291 »."
       },
       {
         "t": "text",
-        "v": "Ouvrez le fichier joint pour le consulter."
+        "v": "Ouvrez la pièce jointe pour consulter le document."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "clouddrive-files.example n'est pas le domaine de CloudDrive, clouddrive.example."
+      "explain": "L'expéditeur écrit depuis clouddrive-files.example. Le domaine de CloudDrive, c'est clouddrive.example, sans rien autour."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "CloudDrive partage les fichiers par lien, pas en pièce jointe. Un fichier inattendu est une raison de s'arrêter."
+      "explain": "CloudDrive partage par lien, pas en pièce jointe. Un fichier que vous n'attendiez pas mérite qu'on s'arrête."
     },
     {
       "id": "hs-name",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "Le nom d'un collègue dans l'objet rassure, mais on copie facilement un nom depuis une liste de contacts volée."
+      "explain": "Le nom d'une collègue dans l'objet rassure. Mais un nom se recopie en deux secondes depuis un carnet d'adresses volé."
     },
     {
       "id": "hs-curiosity",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Facture 2291 » est volontairement vague, pour que vous l'ouvriez afin de savoir ce que c'est."
+      "explain": "« Facture 2291 », sans montant ni contexte : de quoi vous donner envie d'ouvrir le fichier, rien que pour savoir ce que c'est."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui imite CloudDrive. L'expéditeur est sur clouddrive-files.example, pas sur clouddrive.example. Le nom de la collègue n'est qu'un appât.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour CloudDrive. L'expéditeur est sur clouddrive-files.example, pas sur clouddrive.example. Le nom de Mara sert d'appât.",
       "choices": [
         "Quelqu'un qui utilise une adresse presque identique",
-        "CloudDrive lui-même",
-        "Mara Keller"
+        "CloudDrive, depuis son propre domaine",
+        "Mara Keller, depuis son compte"
       ],
       "correct": 0,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La curiosité, et l'envie de rendre service à une collègue : vous voulez voir ce qu'elle a envoyé.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La curiosité, plus l'envie de ne pas faire attendre une collègue : vous voulez voir ce que Mara vous envoie.",
       "choices": [
         "La curiosité pour le fichier d'une collègue",
-        "La peur d'une sanction",
-        "Aucune : c'est de la routine"
+        "La peur d'une sanction ou d'une amende",
+        "Aucune, c'est un message de routine"
       ],
       "correct": 0,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ouvrir une pièce jointe que vous n'attendiez pas. Elle pourrait installer un logiciel malveillant ou afficher une fausse page de connexion.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ouvrir une pièce jointe que vous n'attendiez pas. Elle peut installer un logiciel malveillant ou afficher une fausse page de connexion.",
       "choices": [
         "Ouvrir une pièce jointe inattendue",
-        "Cliquer sur un lien et vous connecter",
-        "Répondre avec vos coordonnées"
+        "Cliquer sur un lien pour vous connecter",
+        "Répondre en donnant vos coordonnées"
       ],
       "correct": 0,
       "cues": [
@@ -136,12 +136,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ne l'ouvrez pas. Demandez à Mara par téléphone ou en personne, ou ouvrez CloudDrive vous-même et regardez si quelque chose a été partagé.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "N'ouvrez rien. Demandez à Mara par téléphone ou en personne, ou ouvrez CloudDrive vous-même pour voir si elle vous a partagé quelque chose.",
       "choices": [
-        "Demander à Mara par un canal que vous connaissez, ou ouvrir CloudDrive vous-même",
-        "Ouvrir le fichier au cas où il serait sans danger",
-        "Répondre à l'expéditeur pour demander ce que c'est"
+        "Demander à Mara, ou ouvrir CloudDrive vous-même",
+        "Ouvrir le fichier, il est sans doute inoffensif",
+        "Répondre à l'expéditeur pour avoir des précisions"
       ],
       "correct": 0,
       "cues": [
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "ask-mara",
-      "label": "Demander à Mara par téléphone ou en personne si elle a partagé quelque chose",
+      "label": "Demander à Mara, par téléphone ou en personne, si elle vous a partagé quelque chose",
       "outcome": "safe",
-      "consequence": "Mara n'a rien partagé. Vous avez arrêté la pièce jointe avant qu'elle ne s'exécute."
+      "consequence": "Mara n'a rien partagé. Vous avez arrêté la pièce jointe avant qu'elle puisse s'exécuter."
     },
     {
       "id": "open",
-      "label": "Ouvrir la pièce jointe pour voir ce que c'est",
+      "label": "Ouvrir la pièce jointe pour voir de quoi il s'agit",
       "outcome": "unsafe",
-      "consequence": "Le fichier s'exécute et affiche une fausse page, ou installe un logiciel malveillant sur votre ordinateur."
+      "consequence": "Le fichier s'exécute : il affiche une fausse page de connexion, ou installe un logiciel malveillant sur votre ordinateur."
     },
     {
       "id": "reply",
-      "label": "Répondre à l'expéditeur pour demander ce qu'est le fichier",
+      "label": "Répondre à l'expéditeur pour demander ce qu'est ce fichier",
       "outcome": "neutral",
-      "consequence": "L'escroc répond avec une histoire plus convaincante. Votre réponse lui montre aussi que votre adresse est active."
+      "consequence": "L'escroc vous sert une histoire plus convaincante. Et votre réponse lui confirme que votre adresse est active."
     },
     {
       "id": "open-site",
-      "label": "Ouvrir CloudDrive vous-même et chercher les fichiers partagés",
+      "label": "Ouvrir CloudDrive vous-même et regarder les fichiers partagés",
       "outcome": "safe",
-      "consequence": "Rien n'est partagé avec vous. L'e-mail était faux."
+      "consequence": "Rien n'a été partagé avec vous. L'e-mail était un faux."
     }
   ],
-  "attacker_reveal": "Le nom d'une amie, une facture vague et un fichier prêt à ouvrir... Vous vouliez savoir ce que c'était. C'est tout ce qu'il me fallait."
+  "attacker_reveal": "Un numéro de facture, le nom de Mara dans l'objet, et j'ai laissé votre curiosité faire le reste. Il suffisait d'un double-clic pour que je m'installe sur votre ordinateur."
 }

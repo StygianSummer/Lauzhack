@@ -25,14 +25,14 @@
   },
   "image": {
     "file": "br-image-01.png",
-    "alt": "Une illustration d'un étal de marché avec un toit rayé, une enseigne, un tas de fruits et une personne qui tend une main. Une des mains a six doigts.",
+    "alt": "Illustration d'un étal de marché : un toit rayé, une enseigne, un tas de fruits et une personne qui tend la main. L'une des mains a six doigts.",
     "ai_generated": true,
     "tells": [
-      "La main a six doigts.",
-      "Le texte de l'enseigne est du charabia : « FRSH FRQITS ».",
-      "Les ombres pointent dans des directions différentes.",
-      "Cette image est une illustration créée par du code, pas une photographie."
+      "Une main a six doigts.",
+      "L'enseigne affiche du charabia : « FRSH FRQITS ».",
+      "Les ombres ne partent pas toutes dans la même direction.",
+      "C'est une illustration produite par du code, pas une photographie."
     ]
   },
-  "attacker_reveal": "Les mains, les enseignes et les ombres sont les endroits où les images générées se trahissent... Regardez les petits détails avant de faire confiance à une image."
+  "attacker_reveal": "Les mains, les enseignes, les ombres : c'est là que les images générées se trahissent. Je compte sur vous pour ne jamais regarder d'aussi près."
 }

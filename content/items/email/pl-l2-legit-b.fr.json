@@ -27,7 +27,7 @@
     "from_name": "HelvetiCare",
     "from_address": "service@helveticare.example",
     "to": "{{email}}",
-    "subject": "Votre décompte de prestations est prêt",
+    "subject": "Votre décompte de prestations est disponible",
     "received": "-PT3H",
     "body": [
       {
@@ -36,11 +36,11 @@
       },
       {
         "t": "text",
-        "v": "Votre dernier décompte de prestations est prêt. Vous pouvez le lire dans l'application HelvetiCare, sous Documents."
+        "v": "Votre dernier décompte de prestations est disponible. Vous le trouverez dans l'application HelvetiCare, rubrique Documents."
       },
       {
         "t": "text",
-        "v": "Nous n'envoyons jamais de décomptes par e-mail, et nous ne demandons jamais de coordonnées bancaires par e-mail."
+        "v": "Nous n'envoyons jamais de décompte par e-mail, et nous ne vous demanderons jamais vos coordonnées bancaires par ce canal."
       },
       {
         "t": "signature",
@@ -61,31 +61,31 @@
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "Il ne demande rien. Il vous dit seulement où regarder."
+      "explain": "Aucune demande : on vous indique seulement où trouver le document."
     },
     {
       "id": "hs-never-asks",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Un vrai assureur dit clairement qu'il ne demande jamais de coordonnées bancaires par e-mail."
+      "explain": "L'assureur écrit noir sur blanc qu'il ne demande jamais de coordonnées bancaires par e-mail."
     },
     {
       "id": "hs-calm",
       "target": "subject",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Un objet simple, sans gros chiffre ni délai."
+      "explain": "Un objet sobre : pas de montant, pas de délai."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "HelvetiCare lui-même : l'adresse est sur helveticare.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "HelvetiCare : l'adresse est sur helveticare.example.",
       "choices": [
-        "HelvetiCare, depuis son vrai domaine",
-        "Un escroc avec une adresse presque identique",
-        "Un courtier qui vous vend un nouveau contrat"
+        "HelvetiCare, depuis son propre domaine",
+        "Quelqu'un avec une adresse presque identique",
+        "Un courtier qui veut vous vendre un contrat"
       ],
       "correct": 0,
       "cues": [
@@ -95,11 +95,11 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Aucune. C'est un avis simple et calme.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Aucune. Un avis sobre, sans pression.",
       "choices": [
-        "Aucune : c'est un avis calme",
-        "L'envie d'un remboursement",
+        "Aucune : c'est un avis sobre",
+        "L'envie de toucher un remboursement",
         "La peur de perdre votre couverture"
       ],
       "correct": 0,
@@ -110,11 +110,11 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Rien, sauf lire votre décompte dans l'application si vous le souhaitez.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Rien, à part lire votre décompte dans l'application si vous le souhaitez.",
       "choices": [
         "Rien, sauf le lire dans l'application",
-        "Répondre avec votre numéro de compte bancaire",
+        "Répondre avec votre numéro de compte",
         "Cliquer sur un lien et vous connecter"
       ],
       "correct": 0,
@@ -125,8 +125,8 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ouvrez vous-même l'application HelvetiCare et regardez sous Documents. L'e-mail vous le dit lui-même.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ouvrez vous-même l'application HelvetiCare, rubrique Documents. L'e-mail ne vous propose d'ailleurs rien d'autre.",
       "choices": [
         "Ouvrir vous-même l'application HelvetiCare",
         "Répondre pour demander le décompte",
@@ -145,20 +145,20 @@
       "id": "open-app",
       "label": "Ouvrir vous-même l'application HelvetiCare et lire le décompte",
       "outcome": "safe",
-      "consequence": "Le décompte y est. Il n'y avait rien à tirer de l'e-mail."
+      "consequence": "Le décompte est là. L'e-mail ne servait qu'à vous prévenir."
     },
     {
       "id": "ignore",
-      "label": "Ignorer l'e-mail, car vous lirez le décompte plus tard",
+      "label": "Ignorer l'e-mail : vous lirez le décompte plus tard",
       "outcome": "safe",
-      "consequence": "Rien n'est perdu. Le décompte vous attend dans l'application."
+      "consequence": "Rien ne presse, le décompte reste disponible dans l'application."
     },
     {
       "id": "reply",
-      "label": "Répondre avec votre numéro de compte bancaire pour être payé plus vite",
+      "label": "Répondre avec votre numéro de compte pour être remboursé plus vite",
       "outcome": "unsafe",
-      "consequence": "L'e-mail disait qu'on ne le demande jamais. N'envoyez jamais de coordonnées bancaires par e-mail, même à un vrai expéditeur."
+      "consequence": "L'e-mail précisait que l'assureur ne le demande jamais. Les coordonnées bancaires ne s'envoient pas par e-mail, même à un expéditeur authentique."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. Il vient du domaine propre de l'assureur, ne contient aucun lien et dit tout haut qu'il ne demande jamais de coordonnées bancaires. Comparez-le avec l'e-mail de remboursement : la même société, une tout autre demande."
+  "attacker_reveal": "Vous pouvez ranger vos soupçons : celui-ci vient bien de l'assureur. Pas de lien, et il annonce lui-même qu'il ne demande jamais de coordonnées bancaires. Comparez avec l'e-mail qui promettait un remboursement : même société, demande opposée."
 }

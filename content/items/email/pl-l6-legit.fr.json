@@ -37,15 +37,15 @@
       },
       {
         "t": "text",
-        "v": "Merci d'avoir réglé le planning hier. Encore une chose avant que j'oublie."
+        "v": "Merci d'avoir réglé le planning hier. Encore une chose, avant que j'oublie."
       },
       {
         "t": "text",
-        "v": "Pourriez-vous déposer le planning de cette semaine dans le dossier partagé TeamChat ? S'il ne s'ouvre pas chez vous, appelez-moi et nous trouverons une solution."
+        "v": "Pourriez-vous déposer le planning de cette semaine dans le dossier partagé TeamChat ? S'il ne s'ouvre pas chez vous, appelez-moi et on trouvera une solution."
       },
       {
         "t": "text",
-        "v": "Vous écriviez mardi : « Le planning est final, et la fiche de contacts est dans le dossier partagé. »"
+        "v": "Vous écriviez mardi : « Le planning est définitif, et la fiche de contacts se trouve dans le dossier partagé. »"
       },
       {
         "t": "signature",
@@ -59,38 +59,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse est celle de Mara et la discussion est réelle. Seule, cette preuve ne vaut pas grand-chose, mais ici le reste concorde."
+      "explain": "L'adresse est celle de Mara et la discussion existe. À elle seule, cette preuve pèse peu, mais ici tout le reste concorde."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": false,
-      "explain": "Une demande normale : un planning, pas de données personnelles, et il va dans le dossier partagé, pas dans une réponse privée."
+      "explain": "Une demande ordinaire : un planning, aucune donnée personnelle, et il va dans le dossier partagé, pas dans une réponse privée."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Il cite vos propres mots, ce qui correspond à une vraie conversation."
+      "explain": "Il cite vos propres mots, comme dans une vraie conversation."
     },
     {
       "id": "hs-ring",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Elle propose un appel téléphonique en cas de souci. C'est un canal que vous pouvez utiliser."
+      "explain": "Elle propose de l'appeler en cas de souci : un canal que vous pouvez utiliser vous-même."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Mara, très probablement : une vraie discussion, une demande ordinaire et une proposition d'en parler par téléphone.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Très probablement Mara : une vraie discussion, une demande banale, et une proposition d'en parler au téléphone.",
       "choices": [
         "Mara, très probablement",
-        "Quelqu'un qui utilise une adresse presque identique",
-        "Un inconnu"
+        "Quelqu'un avec une adresse presque identique",
+        "Un inconnu qui a deviné le sujet"
       ],
       "correct": 0,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Pratiquement aucune. C'est une demande amicale et quotidienne.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Presque aucune. Une demande amicale, comme il y en a tous les jours.",
       "choices": [
-        "Aucune : c'est une demande de tous les jours",
+        "Aucune : une demande de tous les jours",
         "La peur de perdre votre emploi",
-        "L'envie d'une prime"
+        "L'envie de toucher une prime"
       ],
       "correct": 0,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Déposer le planning dans le dossier partagé. Ce n'est pas sensible et rien n'est envoyé en privé.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Déposer le planning dans le dossier partagé. Rien de sensible, et rien ne part en privé.",
       "choices": [
-        "Déposer le planning dans le dossier partagé TeamChat",
-        "Envoyer par réponse la liste des numéros de téléphone des bénévoles",
+        "Déposer le planning dans le dossier TeamChat",
+        "Répondre avec les téléphones des bénévoles",
         "Cliquer sur un lien et vous connecter"
       ],
       "correct": 0,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Si quoi que ce soit vous gêne, appelez Mara au numéro que vous avez déjà. Pour cette demande, vous pouvez simplement le faire vous-même dans TeamChat.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Si quelque chose vous gêne, appelez Mara au numéro que vous avez déjà. Pour une demande pareille, vous pouvez aussi passer directement par TeamChat.",
       "choices": [
-        "Utiliser TeamChat vous-même, ou appeler Mara en cas de doute",
+        "Passer par TeamChat, ou appeler Mara en cas de doute",
         "Répondre pour demander si c'est bien elle",
-        "L'ignorer pour toujours"
+        "L'ignorer, Mara finira bien par relancer"
       ],
       "correct": 0,
       "cues": [
@@ -152,20 +152,20 @@
       "id": "upload",
       "label": "Déposer le planning dans le dossier partagé TeamChat, comme demandé",
       "outcome": "safe",
-      "consequence": "C'est fait. Rien de sensible n'a été envoyé et rien n'a été saisi sur une page étrange."
+      "consequence": "C'est fait. Rien de sensible n'est parti, et vous n'avez rien saisi sur une page douteuse."
     },
     {
       "id": "call-mara",
-      "label": "Appeler d'abord Mara, par excès de prudence",
+      "label": "Appeler d'abord Mara, par précaution",
       "outcome": "safe",
-      "consequence": "Elle confirme. Un petit appel n'est jamais perdu."
+      "consequence": "Elle confirme. L'appel vous a pris une minute."
     },
     {
       "id": "reply-list",
-      "label": "Répondre en ajoutant les numéros de téléphone des bénévoles, pour gagner du temps",
+      "label": "Répondre en ajoutant les numéros des bénévoles, pour gagner du temps",
       "outcome": "unsafe",
-      "consequence": "Elle ne l'a pas demandé. N'envoyez pas de données personnelles que personne n'a réclamées."
+      "consequence": "Elle ne les a pas demandés. N'envoyez pas de données personnelles que personne n'a réclamées."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. Il ressemble presque à celui qui réclamait toute la liste de contacts, mais cette demande est ordinaire et reste dans le dossier partagé. À ce niveau, la question est toujours ce qu'on vous demande."
+  "attacker_reveal": "Celui-ci, c'est Mara elle-même. Le message ressemble presque mot pour mot à celui qui voulait toute la liste de contacts, mais la demande est banale et reste dans le dossier partagé. À ce niveau, tout se joue sur ce qu'on vous demande."
 }

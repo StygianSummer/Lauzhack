@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "J'ai besoin de l'export complet des clients pour le conseil dans 10 minutes. Déposez-le ici. Je suis en déplacement et je ne peux pas parler."
+        "v": "J'ai besoin de l'export complet de la base clients pour le conseil, dans 10 minutes. Déposez-le ici. Je suis en déplacement, je ne peux pas prendre d'appel."
       },
       {
         "t": "link",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "Le nom est celui du directeur, mais teamchat-mail.example n'est pas le domaine de TeamChat, teamchat.example. Un nom affiché peut dire n'importe quoi."
+      "explain": "Le nom affiché est celui du directeur, mais l'adresse est sur teamchat-mail.example. Le domaine de TeamChat, c'est teamchat.example. Un nom affiché, n'importe qui peut l'écrire."
     },
     {
       "id": "hs-urgency",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "Dix minutes et « je ne peux pas parler » vous poussent à sauter la vérification. Celui qui emprunte le nom du patron compte sur votre politesse ou votre précipitation pour ne pas poser de question."
+      "explain": "Dix minutes, et « je ne peux pas prendre d'appel » : tout pousse à sauter la vérification. Qui emprunte le nom du patron mise sur votre politesse ou votre précipitation pour que vous ne posiez pas de question."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "Une base clients complète est exactement ce que veut un criminel. L'envoyer par message ferait fuiter les données de chaque client."
+      "explain": "Une base clients complète, c'est précisément ce que cherchent les escrocs. L'envoyer par message ferait fuiter les données de chaque client."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Le lien de réponse mène à teamchat-mail.example, pas à TeamChat lui-même."
+      "explain": "Le lien « Répondre » mène à teamchat-mail.example, pas à TeamChat."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui se fait passer pour Alex Morgan. Le nom affiché est celui du directeur, mais l'adresse est sur teamchat-mail.example.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour Alex Morgan. Le nom affiché est celui du directeur, l'adresse est sur teamchat-mail.example.",
       "choices": [
-        "Alex Morgan, le directeur",
-        "Quelqu'un qui utilise le nom du directeur et une adresse presque identique",
-        "Un administrateur de TeamChat"
+        "Alex Morgan, le directeur, depuis TeamChat",
+        "Quelqu'un qui emprunte le nom du directeur",
+        "Un administrateur de la plateforme TeamChat"
       ],
       "correct": 1,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "L'autorité et la hâte : le patron veut quelque chose dans dix minutes et on ne peut pas l'interroger.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "L'autorité et la hâte : le patron veut quelque chose dans dix minutes, et il est injoignable.",
       "choices": [
         "La curiosité pour un nouveau projet",
-        "L'autorité et la hâte venant du patron",
-        "Aucune : c'est une demande normale"
+        "L'autorité du patron, plus la hâte",
+        "Aucune, c'est une demande ordinaire"
       ],
       "correct": 1,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Envoyer l'export complet de la base clients. Cela ferait fuiter les données personnelles de tous les clients.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Envoyer l'export complet de la base clients, ce qui ferait fuiter les données personnelles de tous les clients.",
       "choices": [
-        "Cliquer sur un lien et vous connecter",
-        "Envoyer un export complet des données clients",
-        "Valider un paiement"
+        "Cliquer sur un lien pour vous connecter",
+        "Envoyer l'export complet des clients",
+        "Valider un paiement en attente"
       ],
       "correct": 1,
       "cues": [
@@ -136,11 +136,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Confirmez la demande par un autre canal que vous connaissez déjà, par exemple un appel au numéro habituel d'Alex. Poser la question dans le même message, c'est interroger l'imposteur.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Confirmez la demande par un autre canal que vous connaissez déjà, par exemple en appelant Alex à son numéro habituel. Poser la question dans le même fil, c'est la poser à l'imposteur.",
       "choices": [
-        "Demander « est-ce bien vous ? » dans la même discussion",
-        "Appeler Alex sur un numéro que vous connaissez déjà",
+        "Demander « C'est bien vous ? » dans le même fil",
+        "Appeler Alex à un numéro que vous connaissez",
         "N'envoyer qu'une partie des données"
       ],
       "correct": 1,
@@ -164,28 +164,28 @@
   "actions": [
     {
       "id": "call-alex",
-      "label": "Confirmer par un autre canal que vous connaissez déjà, par exemple un appel au numéro habituel d'Alex",
+      "label": "Confirmer par un autre canal que vous connaissez déjà, par exemple en appelant Alex à son numéro habituel",
       "outcome": "safe",
       "consequence": "Alex est en réunion et n'a rien envoyé. Les données restent où elles sont."
     },
     {
       "id": "send",
-      "label": "L'envoyer tout de suite : un conseil, ce n'est pas le moment de poser des questions",
+      "label": "L'envoyer tout de suite : avant un conseil, on ne pose pas de questions",
       "outcome": "unsafe",
-      "consequence": "La base clients est maintenant chez un inconnu. Tous les clients sont en danger."
+      "consequence": "La base clients est maintenant entre les mains d'un inconnu. Tous vos clients sont exposés."
     },
     {
       "id": "ask-same",
-      "label": "Demander « est-ce bien vous ? » dans la même discussion et l'envoyer s'ils répondent oui",
+      "label": "Demander « C'est bien vous ? » dans le même fil, et envoyer si la réponse est oui",
       "outcome": "unsafe",
-      "consequence": "L'imposteur répond oui. Vous n'avez interrogé que la personne dont vous vous méfiiez."
+      "consequence": "L'imposteur répond oui. Vous avez demandé confirmation à la personne même dont vous vous méfiiez."
     },
     {
       "id": "send-part",
       "label": "N'envoyer qu'une partie des données, pour limiter les dégâts",
       "outcome": "unsafe",
-      "consequence": "Une partie d'une base clients reste une fuite de données."
+      "consequence": "Une partie de la base clients, ça reste une fuite de données."
     }
   ],
-  "attacker_reveal": "Je n'ai rien eu à pirater... Il m'a suffi du nom du patron et d'un compte à rebours de dix minutes. Les gens polis détestent dire « laissez-moi vérifier ». Un court appel sur un numéro de confiance ruine tout."
+  "attacker_reveal": "Aucun piratage. Le nom du patron, dix minutes au compteur, et votre politesse : personne n'aime répondre « je vérifie d'abord » à son directeur. Un appel au bon numéro, et tout tombait à l'eau."
 }

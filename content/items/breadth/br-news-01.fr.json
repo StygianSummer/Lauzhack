@@ -26,16 +26,16 @@
     "verify": "check_other_outlets"
   },
   "news": {
-    "headline": "Trains gratuits pour tous les plus de 60 ans dès lundi, selon un initié. Partagez avant que ce soit supprimé !",
+    "headline": "Train gratuit pour tous les plus de 60 ans dès lundi, révèle un initié. Partagez avant que ce soit supprimé !",
     "source": "The Daily Lantern Online",
     "date": "2026-11-18",
     "real": false,
     "tells": [
-      "Il ne cite qu'un « initié » anonyme et aucun organisme officiel.",
-      "Aucun autre média que vous connaissez ne le rapporte.",
-      "Il vous presse de partager avant que ce soit « supprimé », ce qui est une technique de pression.",
+      "Seul un « initié » anonyme est cité, et aucun organisme officiel.",
+      "Aucun média que vous connaissez n'en parle.",
+      "On vous presse de partager avant que ce soit « supprimé » : c'est une technique de pression.",
       "Consultez le site de la compagnie ferroviaire avant de transférer quoi que ce soit."
     ]
   },
-  "attacker_reveal": "Un gros cadeau gratuit et une raison de se presser... c'est vous qui avez fait la diffusion à ma place. Vérifiez toujours une seconde source avant de transférer."
+  "attacker_reveal": "Un beau cadeau et une raison de se dépêcher... et c'est vous qui avez fait circuler l'info à ma place. La prochaine fois, peut-être chercherez-vous une deuxième source avant de transférer."
 }

@@ -30,7 +30,7 @@
     "from_name": "Remboursements HelvetiCare",
     "from_address": "refunds@helveticare-claims.example",
     "to": "{{email}}",
-    "subject": "Remboursement de CHF 86.40 en attente",
+    "subject": "Un remboursement de CHF 86.40 vous attend",
     "received": "-PT2H",
     "body": [
       {
@@ -39,15 +39,15 @@
       },
       {
         "t": "text",
-        "v": "Nos dossiers indiquent que vous avez trop payé votre dernière prime. Nous souhaitons vous rembourser CHF 86.40."
+        "v": "D'après nos dossiers, vous avez payé votre dernière prime en trop. Nous souhaitons vous rembourser CHF 86.40."
       },
       {
         "t": "text",
-        "v": "Pour le traiter, merci de répondre à cet e-mail avec votre nom complet, votre date de naissance et votre numéro de compte bancaire."
+        "v": "Pour procéder au versement, merci de répondre à cet e-mail en indiquant votre nom complet, votre date de naissance et votre numéro de compte bancaire."
       },
       {
         "t": "text",
-        "v": "Les remboursements non réclamés ce mois-ci retournent dans notre fonds commun."
+        "v": "Les remboursements non réclamés ce mois-ci sont reversés à notre fonds commun."
       },
       {
         "t": "signature",
@@ -61,38 +61,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "helveticare-claims.example n'est pas le domaine de HelvetiCare, helveticare.example."
+      "explain": "helveticare-claims.example n'est pas helveticare.example, le domaine de l'assureur."
     },
     {
       "id": "hs-subject",
       "target": "subject",
       "step": "emotion",
       "red_flag": true,
-      "explain": "De l'argent gratuit que vous n'avez pas demandé. Il est fait pour éveiller votre curiosité et votre cupidité."
+      "explain": "De l'argent que vous n'avez pas demandé, montant précis à l'appui. De quoi piquer la curiosité, et l'envie d'encaisser."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "Votre nom, votre date de naissance et votre numéro de compte par e-mail, c'est bien plus qu'il n'en faut pour un remboursement. Un vrai assureur ne demande jamais cela dans une réponse."
+      "explain": "Nom, date de naissance et numéro de compte, par simple réponse : c'est bien plus qu'il n'en faut pour un remboursement. Un assureur ne vous demande pas ça par e-mail."
     },
     {
       "id": "hs-deadline",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Non réclamés ce mois-ci » est un délai inventé pour vous presser."
+      "explain": "Avec « non réclamés ce mois-ci », on vous invente un délai pour que vous répondiez vite."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui se fait passer pour HelvetiCare. L'adresse est sur helveticare-claims.example, pas sur le domaine propre de l'assureur.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui se fait passer pour HelvetiCare. L'adresse est sur helveticare-claims.example, pas sur le domaine de l'assureur.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique",
-        "L'équipe des remboursements de HelvetiCare",
-        "Le service comptable de votre employeur"
+        "Quelqu'un avec une adresse presque identique",
+        "Le service des remboursements de HelvetiCare",
+        "La comptabilité de votre employeur"
       ],
       "correct": 0,
       "cues": [
@@ -103,11 +103,11 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La cupidité et un peu de hâte : de l'argent pour rien, mais seulement ce mois-ci.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "L'appât du gain, avec un peu de précipitation : de l'argent tombé du ciel, mais seulement ce mois-ci.",
       "choices": [
-        "L'envie d'argent gratuit, avec un petit délai",
-        "La peur d'une amende",
+        "L'envie d'encaisser, avec un petit délai",
+        "La peur de recevoir une amende",
         "Aucune : c'est un relevé de routine"
       ],
       "correct": 0,
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Répondre avec votre nom complet, votre date de naissance et votre numéro de compte bancaire. C'est suffisant pour usurper votre identité.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Répondre avec votre nom complet, votre date de naissance et votre numéro de compte. De quoi usurper votre identité.",
       "choices": [
         "Répondre avec vos données personnelles et bancaires",
-        "Cliquer sur un lien et vous connecter",
-        "Appeler une ligne d'assistance"
+        "Cliquer sur un lien et saisir votre mot de passe",
+        "Appeler la ligne d'assistance de l'assureur"
       ],
       "correct": 0,
       "cues": [
@@ -135,11 +135,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ne répondez pas. Appelez le numéro figurant sur votre carte d'assurance, ou ouvrez l'application HelvetiCare, et demandez si l'on vous doit un remboursement.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne répondez pas. Appelez le numéro qui figure sur votre carte d'assurance, ou ouvrez l'application HelvetiCare, et demandez si un remboursement vous est dû.",
       "choices": [
-        "Appeler le numéro figurant sur votre carte d'assurance",
-        "Répondre pour demander le formulaire de remboursement",
+        "Appeler le numéro de votre carte d'assurance",
+        "Répondre pour demander le formulaire officiel",
         "Attendre une semaine pour voir s'il revient"
       ],
       "correct": 0,
@@ -154,28 +154,28 @@
   "actions": [
     {
       "id": "call-card",
-      "label": "Appeler le numéro figurant sur votre carte d'assurance et vous renseigner sur un remboursement",
+      "label": "Appeler le numéro de votre carte d'assurance et poser la question",
       "outcome": "safe",
-      "consequence": "On vous confirme qu'on ne vous doit rien. L'e-mail était faux."
+      "consequence": "Aucun remboursement ne vous est dû. L'e-mail était faux."
     },
     {
       "id": "reply-data",
       "label": "Répondre avec votre nom, votre date de naissance et votre numéro de compte",
       "outcome": "unsafe",
-      "consequence": "L'escroc a maintenant de quoi ouvrir des comptes et contracter des prêts à votre nom."
+      "consequence": "Avec ces trois informations, l'escroc peut ouvrir des comptes ou demander des crédits à votre nom."
     },
     {
       "id": "ignore",
-      "label": "Ignorer l'e-mail et ne rien faire",
+      "label": "Ignorer l'e-mail et passer à autre chose",
       "outcome": "neutral",
-      "consequence": "Rien n'est perdu, mais l'arnaque reste dans votre boîte pour la prochaine fois."
+      "consequence": "Vous n'avez rien perdu. Mais l'e-mail reste dans votre boîte, prêt à vous tenter un jour de fatigue."
     },
     {
       "id": "report-delete",
-      "label": "Le signaler comme hameçonnage et le supprimer",
+      "label": "Le signaler comme hameçonnage, puis le supprimer",
       "outcome": "safe",
-      "consequence": "Bon réflexe. Vous n'avez rien donné."
+      "consequence": "Vos données sont restées chez vous, et le message ne reviendra pas vous tenter."
     }
   ],
-  "attacker_reveal": "Tout le monde aime un remboursement... Je vous ai juste demandé de m'aider à le payer. Les données en plus que je réclamais valent bien plus pour moi que CHF 86.40."
+  "attacker_reveal": "Un remboursement, personne ne le refuse. Je vous demandais seulement de m'aider à vous payer... Vos données valent bien plus pour moi que CHF 86.40."
 }

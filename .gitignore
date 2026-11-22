@@ -37,3 +37,6 @@ shared/src/commonMain/composeResources/files/content/
 .DS_Store
 Thumbs.db
 *.log
+
+# Bulk-edit bundle of content/ (scripts/content_bundle.py); the per-file JSON is the source of truth
+content.bundle.*.json

@@ -37,15 +37,15 @@
       },
       {
         "t": "text",
-        "v": "Les notes sont dans le dossier partagé comme d'habitude, sans connexion nécessaire. J'ai mis les actions en haut."
+        "v": "Les notes sont dans le dossier partagé, comme d'habitude, pas besoin de vous connecter. J'ai mis les actions à faire tout en haut."
       },
       {
         "t": "text",
-        "v": "Dites-moi si j'ai oublié quelque chose et nous pourrons les passer en revue par téléphone."
+        "v": "Dites-moi s'il manque quelque chose, on peut en reparler par téléphone."
       },
       {
         "t": "text",
-        "v": "Vous écriviez mercredi : « Les notes sont finales, je les partagerai après l'appel. »"
+        "v": "Mercredi, vous avez écrit : « Les notes sont définitives, je les partagerai après l'appel. »"
       },
       {
         "t": "signature",
@@ -59,38 +59,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse est celle de Jonas et la discussion est réelle. Seule, cette preuve ne vaut pas grand-chose, mais ici le reste concorde."
+      "explain": "C'est bien l'adresse de Jonas, et la conversation est réelle. À elle seule, cette preuve pèse peu, mais ici tout le reste concorde."
     },
     {
       "id": "hs-usual",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "Le même dossier partagé que d'habitude, et pas de connexion. On ne vous demande rien."
+      "explain": "Le dossier partagé habituel, sans connexion. On ne vous demande rien."
     },
     {
       "id": "hs-phone",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il propose un appel téléphonique, un canal que vous pouvez utiliser à tout moment."
+      "explain": "Il propose d'en parler au téléphone, un canal que vous pouvez utiliser quand vous voulez."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Il cite vos propres mots, ce qui correspond à une vraie conversation."
+      "explain": "Il cite vos propres mots, comme dans n'importe quelle vraie conversation."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Jonas, très probablement : une vraie discussion, le dossier habituel et une proposition d'en parler par téléphone.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Très probablement Jonas : la conversation est réelle, les notes sont au même endroit que d'habitude, et il propose d'en parler au téléphone.",
       "choices": [
-        "Jonas, très probablement",
-        "Quelqu'un qui utilise une adresse presque identique",
-        "Un inconnu"
+        "Très probablement Jonas lui-même",
+        "Quelqu'un avec une adresse presque identique",
+        "Un inconnu qui a trouvé votre adresse"
       ],
       "correct": 0,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Aucune. C'est un message amical et quotidien.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Aucune. Un message amical, du quotidien de bureau.",
       "choices": [
-        "Aucune : c'est un message de tous les jours",
+        "Aucune : un message de tous les jours",
         "La peur d'une sanction",
-        "L'envie d'une prime"
+        "L'espoir d'une prime"
       ],
       "correct": 0,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Rien. Les notes sont dans le dossier habituel. Il n'y a ni lien ni nouvelle connexion.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Rien. Les notes sont dans le dossier habituel, sans lien et sans nouvelle connexion.",
       "choices": [
-        "Rien : les notes sont à l'endroit habituel",
-        "Vous connecter à nouveau via un lien",
+        "Rien : les notes sont au même endroit",
+        "Vous reconnecter en passant par un lien",
         "Envoyer la liste des bénévoles"
       ],
       "correct": 0,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Regardez vous-même dans le dossier partagé. Si quelque chose vous gêne, appelez Jonas au numéro que vous avez déjà.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Allez voir vous-même dans le dossier partagé. Si quelque chose vous gêne, appelez Jonas au numéro que vous avez déjà.",
       "choices": [
-        "Ouvrir vous-même le dossier partagé, ou appeler Jonas",
-        "Répondre pour demander si c'est bien lui",
-        "L'ignorer pour toujours"
+        "Ouvrir le dossier vous-même, ou appeler Jonas",
+        "Répondre pour lui demander si c'est bien lui",
+        "L'ignorer, et tous les suivants avec"
       ],
       "correct": 0,
       "cues": [
@@ -153,20 +153,20 @@
       "id": "open-folder",
       "label": "Ouvrir vous-même le dossier partagé et lire les notes",
       "outcome": "safe",
-      "consequence": "Les notes y sont, comme l'a dit Jonas."
+      "consequence": "Les notes y sont, comme Jonas l'a écrit."
     },
     {
       "id": "call",
-      "label": "Appeler Jonas pour revoir les notes avec lui",
+      "label": "Appeler Jonas pour passer les notes en revue",
       "outcome": "safe",
-      "consequence": "Il confirme. Un petit appel n'est jamais perdu."
+      "consequence": "Il confirme. Ce coup de fil n'était pas du temps perdu."
     },
     {
       "id": "sign-in",
-      "label": "Vous connecter de nouveau quelque part, au cas où",
+      "label": "Vous reconnecter quelque part, par précaution",
       "outcome": "unsafe",
-      "consequence": "Rien ne le demandait. Ne saisissez jamais d'identifiants quand aucune vraie demande n'en a besoin."
+      "consequence": "Personne ne vous l'a demandé. Ne tapez pas vos identifiants quand aucune demande réelle ne l'exige."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère. C'est presque le jumeau de l'e-mail « reconnectez-vous », mais celui-ci ne demande rien et renvoie vers le dossier habituel. À ce niveau, demandez ce qu'on vous réclame."
+  "attacker_reveal": "Jonas l'a écrit lui-même, dans le même fil que mon message qui vous demandait de vous reconnecter. Lui ne réclame rien et renvoie au dossier habituel : quand deux e-mails se ressemblent à ce point, c'est la demande qui les départage."
 }

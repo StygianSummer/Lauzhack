@@ -1,8 +1,8 @@
 {
   "id": "email-01",
   "language": "fr",
-  "title": "Hameçonnage : ne mordez pas à l'appât",
-  "subtitle": "Comment les attaquants poussent les gens à leur remettre leurs clés, et comment le repérer avant de céder.",
+  "title": "Hameçonnage : repérer l'appât avant de mordre",
+  "subtitle": "Comment les attaquants se font remettre les clés, et comment les démasquer avant de les leur tendre.",
   "minutes": 10,
   "sections": [
     {
@@ -11,78 +11,78 @@
         {
           "persona": "cat",
           "role": "Sécurité personnelle",
-          "title": "Protégez-vous d'abord",
-          "say": "Je ne peux protéger personne si mes propres accès sont grands ouverts. Vous non plus. On commence donc par vous.",
+          "title": "Vous d'abord",
+          "say": "Je ne protège personne avec des accès grands ouverts. Vous non plus. Alors on commence par les vôtres.",
           "rules": [
             {
               "headline": "Lisez le domaine après le @.",
-              "body": "Chaque lettre. thisistea.example et thisistae-app.example appartiennent à deux propriétaires différents."
+              "body": "Lettre par lettre. thisistea.example et thisistae-app.example n'ont pas le même propriétaire."
             },
             {
               "headline": "Repérez la précipitation.",
-              "body": "Un délai de deux heures est une émotion que quelqu'un d'autre a mise en vous. Une émotion n'est pas une preuve."
+              "body": "Un délai de deux heures, c'est une inquiétude que quelqu'un d'autre a installée chez vous. Elle ne prouve rien."
             },
             {
-              "headline": "Ne saisissez jamais de mot de passe après avoir cliqué sur le lien d'un e-mail.",
-              "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse."
+              "headline": "Jamais de mot de passe après un lien reçu par e-mail.",
+              "body": "Ouvrez le site vous-même : depuis un favori, ou en tapant l'adresse."
             }
           ],
-          "sign_off": "La confiance zéro n'est pas de la paranoïa. C'est vérifier."
+          "sign_off": "Je fais confiance. Après vérification."
         },
         {
           "persona": "turtle",
           "role": "Sécurité de l'organisation",
-          "title": "Protégez toute la carapace",
-          "say": "En toutes ces années, j'ai appris une chose : une seule porte ouverte laisse entrer la marée dans toutes les pièces. Quand vous gardez votre boîte de réception, vous gardez aussi vos voisins. C'est un peu comme un vaccin.",
+          "title": "Protégez toute la maison",
+          "say": "Une seule porte mal fermée, et l'eau passe dans toutes les pièces : je l'ai vu plus d'une fois. Votre boîte de réception est une de ces portes. En la surveillant, vous protégez aussi vos collègues, un peu comme un vaccin protège ceux qui vous entourent.",
           "rules": [
             {
-              "headline": "Confirmez l'inhabituel, ensemble.",
-              "body": "Un virement, une réinitialisation de mot de passe, un fichier urgent : vérifiez par un autre canal. Un appel téléphonique coûte une minute."
+              "headline": "L'inhabituel se confirme à deux.",
+              "body": "Un virement, une réinitialisation de mot de passe, un fichier « urgent » : vérifiez par un autre canal. Un coup de fil prend une minute."
             },
             {
-              "headline": "Prévenez les autres.",
-              "body": "Si un e-mail étrange vous est parvenu, il est aussi parvenu à vos collègues. Signalez-le au service informatique pour que nous puissions avertir tout le monde."
+              "headline": "Prévenez les collègues.",
+              "body": "Si un e-mail étrange est arrivé chez vous, il est sans doute arrivé chez eux aussi. Signalez-le au service informatique, pour que nous puissions avertir tout le monde."
             },
             {
-              "headline": "Offrez une seconde serrure à toute l'équipe.",
-              "body": "Avec l'authentification multifacteur, un mot de passe volé n'est qu'une égratignure, pas une fissure dans la carapace."
+              "headline": "Une deuxième serrure pour toute l'équipe.",
+              "body": "Avec l'authentification multifacteur, un mot de passe volé devient un désagrément plutôt qu'une effraction."
             }
           ],
-          "sign_off": "Une équipe en qui l'on peut avoir confiance est une équipe où l'on veille les uns sur les autres."
+          "sign_off": "Les équipes solides que j'ai connues n'avaient rien d'extraordinaire. Elles avaient simplement pris l'habitude de se prévenir."
         }
       ]
     },
     {
       "type": "tools",
-      "intro": "Salut, mon ami ! J'ai flairé bien des liens louches dans ma vie, et je n'y vais jamais seul. Laisse-moi te présenter mes copains. Ils sont tous gratuits, et ils veillent sur toi.",
+      "intro": "Bonjour ! Des liens louches, j'en ai vu passer des centaines, et je ne les examine jamais seul. Voici mon équipe : quatre outils gratuits qui travaillent pour vous.",
       "tools": [
         {
           "resource_id": "bitwarden",
           "name": "Bitwarden",
-          "what": "Gestionnaire de mots de passe gratuit et open source, pour vous et votre équipe.",
-          "dog_says": "Mon plus vieux copain ! Il retient chaque mot de passe à ta place, et il ne les remplit pas sur un faux site. S'il reste muet, c'est ton alerte !",
+          "what": "Gestionnaire de mots de passe gratuit et open source, pour vous comme pour votre équipe.",
+          "dog_says": "Mon plus vieux compagnon de route. Il retient tous vos mots de passe et ne propose vos identifiants que sur le site dont l'adresse correspond. Sur une imitation, il ne propose rien : ce silence-là doit vous alerter.",
           "button": "Ouvrir Bitwarden"
         },
         {
           "resource_id": "virustotal",
           "name": "VirusTotal",
-          "what": "Vérifie un lien ou un fichier avec plus de 70 outils de sécurité à la fois.",
-          "dog_says": "Clic droit sur le lien, choisis « Copier l'adresse du lien » et colle-la ici. Demande avant de cliquer, pas après !",
+          "what": "Soumet un lien ou un fichier à plus de 70 moteurs d'analyse en même temps.",
+          "dog_says": "Clic droit sur le lien, « Copier l'adresse du lien », puis collez-la ici. Le bon moment pour poser la question, c'est avant le clic.",
           "button": "Ouvrir VirusTotal"
         },
         {
           "resource_id": "urlscan",
           "name": "URLScan.io",
-          "what": "Ouvre une page dans son propre navigateur et vous en montre une capture d'écran.",
-          "dog_says": "Il entre dans la ruelle sombre pour que tu n'aies pas à le faire ! Tu vois où mène le lien ; lui prend le risque !",
+          "what": "Ouvre la page dans son propre navigateur, à distance, et vous en montre une capture d'écran.",
+          "dog_says": "Il entre dans la ruelle sombre à votre place. Vous voyez où mène le lien, et c'est lui qui prend le risque.",
           "button": "Ouvrir URLScan"
         },
         {
           "resource_id": "hibp",
           "name": "Have I Been Pwned",
-          "what": "Vous dit si votre adresse e-mail est apparue dans une fuite de données connue.",
-          "dog_says": "Tu te demandes comment l'Araignée a eu ton adresse ? Cherche-toi ici ! Ensuite, change tous les mots de passe qui sont apparus !",
-          "button": "Vérifier mon e-mail"
+          "what": "Indique si votre adresse e-mail figure dans une fuite de données connue.",
+          "dog_says": "Vous vous demandez où l'Araignée a trouvé votre adresse ? Tapez-la ici. Ensuite, changez le mot de passe de chaque site qui apparaît dans la liste.",
+          "button": "Vérifier mon adresse"
         }
       ]
     },
@@ -90,76 +90,76 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "J'ai caché trois ruses dans cet e-mail. Cliquez sur tout ce qui vous semble un piège. Je ne dirai pas si vous vous approchez...",
+        "intro": "Cet e-mail cache trois ruses. Cliquez sur tout ce qui vous paraît piégé. Et ne comptez pas sur moi pour vous dire si vous chauffez...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "L'adresse",
-            "spider_says": "J'ai échangé deux lettres et déplacé un mot. Qui lit chaque lettre quand il s'inquiète ?"
+            "spider_says": "Deux lettres inversées, un mot en plus. Sous le stress, qui prend le temps de lire chaque lettre ?"
           },
           {
             "hotspot_id": "hs-clock",
             "title": "Le compte à rebours",
-            "spider_says": "« Dans les 2 heures. » La panique est ma complice préférée. Elle endort la partie de vous qui vérifie."
+            "spider_says": "J'ai écrit « d'ici 2 heures » et la panique a fait le reste. Elle endort la partie de vous qui vérifie."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "La demande",
-            "spider_says": "ThisIsTea ne vous demanderait jamais votre mot de passe par e-mail. Mais je ressemblais à ThisIsTea, et cela a suffi."
+            "spider_says": "ThisIsTea ne vous demandera jamais votre mot de passe par e-mail. Moi, si. Il me suffisait de lui ressembler."
           }
         ],
-        "debrief": "Chaque ruse dont il vient de se vanter correspond à l'une de mes trois règles. Adresse, précipitation, mot de passe. Retournez les relire une fois."
+        "debrief": "Les trois ruses dont l'Araignée vient de se vanter correspondent à mes trois règles : adresse, précipitation, mot de passe. Relisez-les une fois."
       },
       "recovery": {
-        "title_caught": "Si un vrai piège vous attrape un jour, ma chère, faites ceci.",
-        "lead_caught": "Cette fois, ce n'était qu'un entraînement et rien n'a été pris. Un vrai piège arrive aussi aux gens prudents, et ce qui compte alors, c'est la vitesse à laquelle on referme la porte. Voici la liste.",
-        "title_default": "Gardez ce plan dans votre poche",
-        "lead_default": "Vous êtes passé à côté de celui-ci. Un jour, il y en aura un plus convaincant. Voici le plan de secours en cinq étapes : le connaître par cœur, c'est déjà la moitié du remède.",
+        "title_caught": "Si un vrai piège vous attrape un jour, voici quoi faire.",
+        "lead_caught": "Ici, c'était un exercice : rien n'a été volé. Les vrais pièges attrapent aussi les gens prudents, et ce qui compte alors, c'est la vitesse à laquelle on referme la porte. Voici la marche à suivre.",
+        "title_default": "Gardez ce plan sous la main",
+        "lead_default": "Celui-ci ne vous a pas eu. Un jour, un autre sera mieux fait. Voici le plan de secours en cinq étapes : le connaître par cœur, c'est déjà avoir fait la moitié du chemin.",
         "steps": [
           {
             "headline": "Changez le mot de passe, sur le vrai site.",
-            "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse, jamais par l'e-mail. Changez ensuite ce même mot de passe partout où vous l'avez réutilisé."
+            "body": "Ouvrez le site vous-même, depuis un favori ou en tapant l'adresse, jamais depuis l'e-mail. Puis changez ce mot de passe partout où vous l'aviez réutilisé."
           },
           {
             "headline": "Activez l'authentification multifacteur.",
-            "body": "Une seconde serrure signifie qu'un mot de passe volé ne suffit plus à ouvrir la porte."
+            "body": "Avec une deuxième serrure, un mot de passe volé ne suffit plus à ouvrir la porte."
           },
           {
             "headline": "Prévenez tout de suite le service informatique ou la sécurité.",
-            "body": "Si vous le pouvez, transférez l'e-mail en pièce jointe. La rapidité compte plus que la fierté, et votre signalement peut protéger le collègue qui a reçu le même e-mail."
+            "body": "Si possible, transférez l'e-mail en pièce jointe. Mieux vaut un signalement rapide qu'un amour-propre intact : votre message protégera peut-être le collègue qui a reçu le même."
           },
           {
-            "headline": "Cherchez une activité étrange.",
-            "body": "Consultez l'historique des connexions et les appareils connectés, et cherchez les règles de messagerie qui transfèrent ou suppriment des messages. Déconnectez tout ce que vous ne reconnaissez pas."
+            "headline": "Cherchez une activité inhabituelle.",
+            "body": "Consultez l'historique des connexions et la liste des appareils connectés. Vérifiez aussi qu'aucune règle de messagerie ne transfère ou ne supprime vos messages. Déconnectez tout ce que vous ne reconnaissez pas."
           },
           {
-            "headline": "Attendez-vous à une seconde tentative.",
-            "body": "Les attaquants relancent souvent avec un message qui évoque le premier. Restez méfiant pendant les semaines qui suivent."
+            "headline": "Attendez-vous à une deuxième tentative.",
+            "body": "Les attaquants reviennent souvent avec un message qui fait référence au premier. Restez sur vos gardes pendant les semaines qui suivent."
           }
         ]
       }
     },
     {
       "type": "status",
-      "question": "Quel est votre niveau de confiance ?",
+      "question": "Où en êtes-vous ?",
       "levels": [
         {
           "key": "LOW",
-          "label": "Pas encore sûr",
+          "label": "Pas encore au point",
           "persona": "turtle",
-          "reply": "Ce n'est pas grave, ma chère. Personne n'apprend cela en une seule séance. Relisez les trois règles du Chat, puis essayez l'un des outils de vérification de liens du Chien. Nous y arriverons ensemble."
+          "reply": "Rien d'anormal. Personne n'apprend ça en une séance. Relisez les trois règles du Chat, puis essayez un des outils du Chien pour vérifier un lien. Nous avancerons ensemble, à votre rythme."
         },
         {
           "key": "MEDIUM",
           "label": "Ça vient",
           "persona": "cat",
-          "reply": "Bien. Restez ainsi. La prochaine ruse ne ressemblera pas à celle-ci."
+          "reply": "Bien. Gardez ce réflexe. La prochaine ruse ne ressemblera pas à celle-ci."
         },
         {
           "key": "HIGH",
-          "label": "Confiant",
+          "label": "En confiance",
           "persona": "spider",
-          "reply": "Confiant ? Comme c'est charmant. Les gens confiants sont mes préférés... Je vous recontacte."
+          "reply": "En confiance ? Charmant. C'est mon public préféré... Je vous écrirai bientôt."
         }
       ]
     },
@@ -171,9 +171,9 @@
     },
     {
       "type": "readiness",
-      "prompt": "Envie de vous tester pour de vrai ? Nous enverrons **un e-mail d'hameçonnage d'entraînement** à {{email}} à un moment aléatoire dans les prochaines minutes. Il ressemblera à une vraie arnaque, mais il est inoffensif et ne demande jamais de mot de passe. Voyez si vous le repérez.",
+      "prompt": "Envie d'un vrai test ? Nous enverrons **un e-mail d'hameçonnage d'entraînement** à {{email}}, à un moment choisi au hasard dans les prochaines minutes. Il aura l'air d'une vraie arnaque, mais il est inoffensif et ne vous demandera jamais de mot de passe. À vous de le repérer.",
       "button": "Oui, envoyez-m'en un",
-      "done": "C'est fait. Gardez un œil sur votre boîte de réception, et utilisez les quatre étapes."
+      "done": "C'est parti. Surveillez votre boîte de réception, et appliquez les quatre étapes."
     }
   ]
 }

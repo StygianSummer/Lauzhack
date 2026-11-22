@@ -1,8 +1,8 @@
 {
   "id": "password-01",
   "language": "fr",
-  "title": "Mots de passe : arretez de les retenir",
-  "subtitle": "Quatre regles, puis cinq comptes pour le prouver",
+  "title": "Mots de passe : arrêtez de les retenir",
+  "subtitle": "Quatre règles, et cinq comptes pour les mettre à l'épreuve",
   "minutes": 6,
   "sections": [
     {
@@ -10,102 +10,102 @@
       "cards": [
         {
           "persona": "cat",
-          "role": "Securite personnelle",
-          "title": "Seule la longueur fait gagner du temps",
-          "say": "On me donne de la ponctuation en croyant avoir fait quelque chose. La machine qui devine se moque de votre point d'exclamation. Ce qui compte, c'est la quantite a parcourir.",
+          "role": "Sécurité personnelle",
+          "title": "Seule la longueur ralentit l'attaquant",
+          "say": "On me tend de la ponctuation comme si c'était une armure. La machine qui devine les mots de passe se moque de votre point d'exclamation. Ce qui la freine, c'est le nombre de combinaisons à essayer.",
           "rules": [
             {
-              "headline": "Long vaut mieux que malin.",
-              "body": "Quatre ou cinq mots sans rapport. Un mot de passe court reste court, meme avec des symboles."
+              "headline": "Mieux vaut long que malin.",
+              "body": "Quatre ou cinq mots sans rapport entre eux. Un mot de passe court reste court, même truffé de symboles."
             },
             {
-              "headline": "Jamais deux fois le meme.",
-              "body": "Un site compromis en devient cinq tout seul : les attaquants rejouent les couples qu'ils possedent deja."
+              "headline": "Jamais deux fois le même.",
+              "body": "Une fuite sur un site en devient cinq toute seule : les attaquants essaient ailleurs les couples identifiant-mot de passe qu'ils ont déjà."
             }
           ],
-          "sign_off": "Quatre mots sans rapport battent P@ssw0rd! d'une distance qu'aucune ponctuation ne comble."
+          "sign_off": "Quatre mots sans rapport battent P@ssw0rd! d'une longueur qu'aucune ponctuation ne rattrape."
         },
         {
           "persona": "cat",
-          "role": "Securite personnelle",
-          "title": "Ce que personne ne veut entendre",
-          "say": "Vous n'etes pas censes les retenir. Ce n'est pas un echec, c'est de l'arithmetique. Personne ne garde quarante mots de passe differents en tete : alors on en reutilise un, et tout le probleme est la.",
+          "role": "Sécurité personnelle",
+          "title": "Ce que personne n'a envie d'entendre",
+          "say": "Personne ne vous demande de les retenir, et l'arithmétique vous donne raison : personne ne garde quarante mots de passe différents en tête. Alors on en réutilise un, et tout le problème est là.",
           "rules": [
             {
               "headline": "Ne parlez pas de vous.",
-              "body": "Votre prenom, votre annee de naissance, votre animal, votre equipe. Tout cela est deja en ligne, et c'est exactement ce qu'on essaie en premier."
+              "body": "Votre prénom, votre année de naissance, le nom de votre chat, votre club préféré. Tout ça traîne déjà en ligne, et c'est la première chose qu'on essaie."
             },
             {
-              "headline": "Vous n'etes pas censes les retenir.",
-              "body": "C'est le travail du gestionnaire. Vous retenez une seule phrase de passe solide, il garde le reste."
+              "headline": "La mémoire, c'est le travail du gestionnaire.",
+              "body": "Vous retenez une seule phrase de passe solide, et il garde tout le reste."
             }
           ],
-          "sign_off": "Une bonne phrase de passe, un gestionnaire pour le reste, et la double authentification quand elle existe."
+          "sign_off": "Une phrase de passe solide, un gestionnaire pour le reste, et l'authentification multifacteur partout où elle est proposée."
         }
       ]
     },
     {
       "type": "tools",
-      "intro": "Bon, voila la partie qui regle vraiment le probleme. Choisissez-en un maintenant, pas plus tard. Tous valent mieux que votre memoire, et quatre sur cinq sont gratuits.",
+      "intro": "Passons à ce qui règle vraiment le problème. Choisissez-en un maintenant, pendant que vous y êtes : n'importe lequel fera mieux que votre mémoire, et quatre sur cinq sont gratuits.",
       "tools": [
         {
           "resource_id": "bitwarden",
           "name": "Bitwarden",
-          "what": "Gratuit, open source, audite, synchronise partout.",
-          "dog_says": "Mon plus vieux copain. Il retient tout pour vous, et il ne remplit rien sur un faux site. S'il reste muet, c'est votre avertissement.",
+          "what": "Gratuit, open source, audité, synchronisé sur tous vos appareils.",
+          "dog_says": "Mon plus vieux compagnon. Il retient tout à votre place et ne propose vos identifiants que sur le vrai site. S'il ne propose rien, regardez l'adresse de plus près.",
           "button": "Ouvrir Bitwarden"
         },
         {
           "resource_id": "proton-pass",
           "name": "Proton Pass",
-          "what": "Suisse, offre gratuite, meme compte que Proton Mail.",
-          "dog_says": "Plus jeune que les autres, et heberge ici en Suisse. Bon choix si vous utilisez deja leur messagerie.",
+          "what": "Suisse, offre gratuite, même compte que Proton Mail.",
+          "dog_says": "Plus récent que les autres, et basé ici, en Suisse. Un bon choix si vous utilisez déjà leur messagerie.",
           "button": "Ouvrir Proton Pass"
         },
         {
           "resource_id": "keepassxc",
           "name": "KeePassXC",
-          "what": "Tout reste dans un fichier sur votre appareil. Aucune entreprise impliquee.",
-          "dog_says": "Pour ceux qui ne font confiance a personne. C'est legitime, l'ami. Mais les sauvegardes sont a vous aussi.",
+          "what": "Tout reste dans un fichier sur votre appareil. Aucune entreprise entre vous et vos mots de passe.",
+          "dog_says": "Pour ceux qui ne font confiance à personne. Ça se défend. Mais les sauvegardes, c'est aussi vous qui les faites.",
           "button": "Ouvrir KeePassXC"
         },
         {
           "resource_id": "1password",
           "name": "1Password",
-          "what": "Payant, et le plus simple a installer pour toute une famille.",
-          "dog_says": "Ca coute, je le dis franchement. Ca vaut le coup si vous reglez aussi le probleme de vos parents.",
+          "what": "Payant, et le plus simple à installer pour toute une famille.",
+          "dog_says": "C'est payant, je ne vais pas vous le cacher. Ça vaut le coup si vous équipez aussi vos parents.",
           "button": "Ouvrir 1Password"
         },
         {
           "resource_id": "builtin-manager",
-          "name": "Celui qui est deja sur votre telephone",
+          "name": "Celui qui est déjà sur votre téléphone",
           "what": "Apple Passwords, Google Password Manager ou Firefox.",
-          "dog_says": "Deja la, deja sauvegarde, rien a installer. Lie a un seul ecosysteme, donc genant si vous changez. Toujours bien mieux que reutiliser.",
+          "dog_says": "Déjà là, déjà sauvegardé, rien à installer. Le hic : il vous lie à un seul écosystème, ce qui complique les choses si vous changez de téléphone. Ça reste bien mieux que de réutiliser un mot de passe.",
           "button": "Comment l'activer"
         }
       ]
     },
     {
       "type": "status",
-      "question": "Comment vous sentez-vous ?",
+      "question": "Comment vous sentez-vous, avec tout ça ?",
       "levels": [
         {
           "key": "LOW",
-          "label": "Encore hesitant",
+          "label": "J'hésite encore",
           "persona": "turtle",
-          "reply": "C'est tres bien ainsi. Une seule chose aujourd'hui : installez un des gestionnaires du Chien. Le reste en decoule, et nous irons doucement."
+          "reply": "C'est très bien comme ça. Aujourd'hui, une seule chose : installez un des gestionnaires que le Chien vous a présentés. Le reste suivra, et nous irons doucement."
         },
         {
           "key": "MEDIUM",
-          "label": "Ca vient",
+          "label": "Ça vient",
           "persona": "cat",
-          "reply": "Bien. Prouvez-le maintenant sur cinq comptes d'affilee, car c'est la que retenir cesse de marcher."
+          "reply": "Bien. Prouvez-le sur cinq comptes d'affilée : c'est là que la mémoire lâche."
         },
         {
           "key": "HIGH",
-          "label": "Confiant",
+          "label": "En confiance",
           "persona": "spider",
-          "reply": "Confiant ? Alors cinq comptes ne seront rien du tout. J'attendrai a la fin pour vous montrer lequel j'aurais casse en premier."
+          "reply": "Ah, de l'assurance. Alors cinq comptes ne vous poseront aucun problème. Je vous attends à la fin pour vous montrer lequel j'aurais cassé en premier."
         }
       ]
     },
@@ -114,24 +114,24 @@
       "cards": [
         {
           "persona": "cat",
-          "role": "Securite personnelle",
-          "title": "La partie qui le prouve",
-          "say": "Connaitre les regles ne coute rien. Cinq comptes d'affilee, si : des le troisieme votre memoire abandonne et le gestionnaire devient le seul passage. C'est cela, la lecon, et on ne peut pas la lire, il faut la vivre.",
+          "role": "Sécurité personnelle",
+          "title": "Maintenant, la preuve",
+          "say": "Connaître les règles ne coûte rien. Cinq comptes d'affilée, c'est autre chose : vers le troisième, votre mémoire abandonne, et il ne reste que le gestionnaire. Cette leçon-là ne se lit pas. Il faut la sentir passer.",
           "rules": [
             {
               "headline": "Cinq sites, cinq nouveaux mots de passe.",
-              "body": "Tous fictifs, tous a nous, et ils n'ouvrent rien. N'utilisez pas un mot de passe que vous avez vraiment, pas une seule fois."
+              "body": "Tous fictifs, tous chez nous, et ils n'ouvrent rien. N'utilisez aucun de vos vrais mots de passe, pas même une fois."
             },
             {
-              "headline": "Enregistrez chacun au fur et a mesure.",
-              "body": "Dans le gestionnaire que vous venez d'installer. Pas dans une note, pas dans votre tete."
+              "headline": "Enregistrez-les au fur et à mesure.",
+              "body": "Dans le gestionnaire que vous venez d'installer. Pas dans une note, pas dans votre tête."
             },
             {
-              "headline": "Nous en redemanderons un.",
-              "body": "Dans une prochaine session, l'un des cinq tire au hasard. Nous ne dirons pas lequel : le seul moyen est de les avoir tous enregistres. Nous ne pourrons pas vous aider, nous ne les avons jamais gardes."
+              "headline": "Nous vous en redemanderons un.",
+              "body": "Lors d'une prochaine séance, l'un des cinq, tiré au hasard. Nous ne dirons pas lequel : il faudra les avoir tous enregistrés. Et nous ne pourrons pas vous le rappeler, puisque nous ne les avons jamais gardés."
             }
           ],
-          "sign_off": "Cinq comptes. Ensuite on verra si l'habitude est reelle."
+          "sign_off": "Cinq comptes. Ensuite, on saura si l'habitude est réelle."
         }
       ]
     }

@@ -1,17 +1,17 @@
 {
   "id": "practice-email-01",
-  "subject": "E-mail d'entraînement provisoire : à remplacer avant la démo",
-  "text": "Bonjour {{first_name}},\n\nE-mail d'entraînement provisoire : à remplacer avant la démo.\n\nLien d'entraînement : {{click_url}}\n\nGérer les e-mails ThisIsTea : {{settings_url}}\n",
-  "html": "<p>Bonjour {{first_name}},</p>\n<p>E-mail d'entraînement provisoire : à remplacer avant la démo.</p>\n<p><a href=\"{{click_url}}\">Lien d'entraînement</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gérer les e-mails ThisIsTea</a></p>\n",
+  "subject": "E-mail d'entraînement provisoire, à remplacer avant la démo",
+  "text": "Bonjour {{first_name}},\n\nCeci est un e-mail d'entraînement provisoire, à remplacer avant la démo.\n\nLien d'entraînement : {{click_url}}\n\nGérer les e-mails ThisIsTea : {{settings_url}}\n",
+  "html": "<p>Bonjour {{first_name}},</p>\n<p>Ceci est un e-mail d'entraînement provisoire, à remplacer avant la démo.</p>\n<p><a href=\"{{click_url}}\">Lien d'entraînement</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gérer les e-mails ThisIsTea</a></p>\n",
   "reveal": {
     "steps": {
-      "who": "Provisoire : qui a vraiment envoyé l'e-mail d'entraînement.",
-      "emotion": "Provisoire : l'émotion qu'il a cherché à provoquer.",
-      "ask": "Provisoire : ce qu'il vous demandait de faire.",
-      "verify": "Provisoire : comment vous auriez pu vérifier par un canal que vous contrôlez."
+      "who": "Provisoire : qui a vraiment envoyé cet e-mail d'entraînement.",
+      "emotion": "Provisoire : sur quelle émotion il appuyait.",
+      "ask": "Provisoire : ce qu'il attendait de vous.",
+      "verify": "Provisoire : comment le vérifier par un canal que vous contrôlez."
     },
     "hints": [
-      "Indice provisoire : à remplacer avant la démo."
+      "Indice provisoire, à remplacer avant la démo."
     ]
   }
 }

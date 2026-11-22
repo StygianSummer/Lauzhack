@@ -32,7 +32,7 @@
     "from_name": "Équipe Fraude SwissAlpBank",
     "from_address": "fraud@swissalpbank.example",
     "to": "{{email}}",
-    "subject": "Votre carte a été bloquée après un paiement inhabituel",
+    "subject": "Paiement inhabituel : votre carte est temporairement bloquée",
     "received": "-PT1H",
     "body": [
       {
@@ -41,15 +41,15 @@
       },
       {
         "t": "text",
-        "v": "Nous avons suspendu un paiement par carte de CHF 389.00 qui nous a semblé inhabituel. Votre carte reste bloquée tant que vous ne l'avez pas confirmé."
+        "v": "Nous avons retenu un paiement par carte de CHF 389.00 qui nous a paru inhabituel. Par précaution, votre carte reste bloquée tant que nous n'avons pas votre confirmation."
       },
       {
         "t": "text",
-        "v": "Merci d'ouvrir l'application SwissAlpBank dans les 24 heures et de nous dire si ce paiement était bien le vôtre."
+        "v": "Merci d'ouvrir l'application SwissAlpBank dans les 24 heures et de nous indiquer si vous êtes bien à l'origine de ce paiement."
       },
       {
         "t": "text",
-        "v": "Nous ne vous demanderons jamais un code, un mot de passe ou votre numéro de carte par e-mail, SMS ou téléphone."
+        "v": "Nous ne vous demanderons jamais de code, de mot de passe ni votre numéro de carte, que ce soit par e-mail, par SMS ou par téléphone."
       },
       {
         "t": "signature",
@@ -63,38 +63,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "L'adresse se termine par swissalpbank.example, le vrai domaine de la banque."
+      "explain": "Après le @, on lit swissalpbank.example : le domaine de la banque, sans rien de plus."
     },
     {
       "id": "hs-deadline",
       "target": "body:2",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Un vrai délai, mais on vous demande d'utiliser l'application que vous avez déjà. Une urgence seule ne suffit pas à faire d'un e-mail une arnaque."
+      "explain": "Le délai est bien réel, mais il vous envoie vers l'application que vous avez déjà, pas vers un lien. L'urgence, à elle seule, ne fait pas une arnaque."
     },
     {
       "id": "hs-never",
       "target": "body:3",
       "step": "ask",
       "red_flag": false,
-      "explain": "Il dit clairement qu'il ne vous demandera jamais de code ni de mot de passe."
+      "explain": "La banque écrit noir sur blanc qu'elle ne vous demandera jamais de code ni de mot de passe."
     },
     {
       "id": "hs-no-link",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Il n'y a aucun lien. On vous renvoie vers l'application, un canal que vous contrôlez."
+      "explain": "Aucun lien dans le message : il vous renvoie vers l'application, un canal que vous ouvrez vous-même."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "SwissAlpBank : l'adresse est sur swissalpbank.example et rien ne mène vers un autre domaine.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "SwissAlpBank. L'adresse est sur swissalpbank.example, et rien dans le message ne mène vers un autre domaine.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique",
-        "Un inconnu au téléphone",
-        "SwissAlpBank, depuis son vrai domaine"
+        "Quelqu'un qui imite l'adresse de la banque",
+        "Un faux conseiller qui veut vous appeler",
+        "SwissAlpBank, depuis son propre domaine"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "Un peu d'urgence, car un paiement a été suspendu et vous avez 24 heures. Mais la pression vient d'un vrai délai, sans aucune menace.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "Un peu d'urgence : un paiement est retenu et vous avez 24 heures. La pression vient d'un délai réel, sans la moindre menace.",
       "choices": [
-        "L'envie d'un remboursement",
-        "Aucune",
-        "Un peu d'urgence, due à un vrai délai"
+        "L'espoir d'obtenir un remboursement",
+        "Aucune, c'est un simple message d'information",
+        "Un peu d'urgence, liée à un délai réel"
       ],
       "correct": 2,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Ouvrir l'application et dire si le paiement était le vôtre. Pas de code, pas de lien, pas de mot de passe.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Ouvrir l'application et dire si ce paiement vient de vous. Ni code, ni lien, ni mot de passe.",
       "choices": [
-        "Répondre avec le code reçu sur votre téléphone",
-        "Vous connecter via un lien",
-        "Vérifier un paiement dans l'application de la banque"
+        "Renvoyer le code reçu sur votre téléphone",
+        "Vous connecter en suivant un lien",
+        "Vérifier un paiement dans l'application"
       ],
       "correct": 2,
       "cues": [
@@ -136,11 +136,11 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
       "answer": "Ouvrez vous-même l'application SwissAlpBank, ou appelez le numéro au dos de votre carte.",
       "choices": [
-        "Répondre à l'e-mail",
-        "Cliquer sur un lien dans l'e-mail",
+        "Répondre à l'e-mail pour confirmer le paiement",
+        "Chercher dans l'e-mail un lien vers votre compte",
         "Ouvrir vous-même l'application SwissAlpBank"
       ],
       "correct": 2,
@@ -157,20 +157,20 @@
       "id": "open-app",
       "label": "Ouvrir vous-même l'application SwissAlpBank et vérifier le paiement",
       "outcome": "safe",
-      "consequence": "Le paiement apparaît et vous le confirmez ou le refusez."
+      "consequence": "Le paiement retenu s'affiche : vous le confirmez ou vous le contestez."
     },
     {
       "id": "call-card",
       "label": "Appeler le numéro au dos de votre carte",
       "outcome": "safe",
-      "consequence": "La banque confirme le paiement suspendu."
+      "consequence": "Au bout du fil, la banque confirme qu'elle a bien retenu ce paiement."
     },
     {
       "id": "reply-code",
-      "label": "Répondre avec le code s'il arrive",
+      "label": "Répondre avec le code si vous en recevez un",
       "outcome": "unsafe",
-      "consequence": "L'e-mail disait qu'on ne vous le demanderait jamais. Un code ne se donne jamais, même à une vraie banque."
+      "consequence": "L'e-mail le disait : la banque ne demande jamais de code. Un code ne se transmet à personne, pas même à votre vraie banque."
     }
   ],
-  "attacker_reveal": "Celui-ci est vrai, ma chère, même s'il fixe un délai. Le domaine est bien celui de la banque, personne ne demande de code et on vous renvoie vers l'application. Comparez-le avec l'e-mail du « dossier 7731 » : les deux sont calmes, mais un seul vous demande de lire un code à voix haute."
+  "attacker_reveal": "Rien à tirer de celui-là : un vrai délai, le bon domaine, et l'application que vous avez déjà. Posez-le à côté du « Dossier 7731 » : même calme, même montant, mais un seul vous réclame les chiffres reçus par SMS."
 }

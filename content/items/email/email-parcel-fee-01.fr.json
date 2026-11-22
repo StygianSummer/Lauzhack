@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "ParcelPoint : votre colis est en attente. Réglez les frais de CHF 1.99 dans les 24 heures pour le libérer."
+        "v": "ParcelPoint : votre colis est retenu. Pour qu'il vous soit livré, réglez les frais de CHF 1.99 dans les 24 heures."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Les colis non libérés à temps sont renvoyés à l'expéditeur."
+        "v": "Passé ce délai, le colis sera retourné à l'expéditeur."
       },
       {
         "t": "signature",
@@ -64,37 +64,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "parcelpoint-fees.example n'est pas le domaine de ParcelPoint, parcelpoint.example."
+      "explain": "parcelpoint-fees.example n'est pas le domaine de ParcelPoint, qui est parcelpoint.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "« Dans les 24 heures » sert à vous presser. Les frais minimes rendent le paiement anodin."
+      "explain": "« dans les 24 heures » sert à vous presser. Et avec des frais aussi faibles, payer semble sans risque."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "La page demanderait les données de votre carte. Un vrai transporteur ne réclame pas de frais via un lien dans un message."
+      "explain": "La page demanderait les données de votre carte. Un vrai transporteur ne vous fait pas payer de frais par un lien reçu dans un message."
     },
     {
       "id": "hs-return",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "La menace de perdre le colis s'ajoute à la pression du délai."
+      "explain": "La menace de voir le colis repartir vient s'ajouter au délai."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Qui vous écrit vraiment ? Regardez l'adresse, pas seulement le nom.",
-      "answer": "Quelqu'un qui utilise le nom de ParcelPoint. L'adresse est sur parcelpoint-fees.example, pas sur parcelpoint.example. C'est la même ruse que dans les versions par SMS.",
+      "prompt": "Qui vous écrit vraiment ? Lisez l'adresse, pas seulement le nom.",
+      "answer": "Quelqu'un qui emprunte le nom de ParcelPoint. L'adresse est sur parcelpoint-fees.example, pas sur parcelpoint.example. Les versions par SMS jouent exactement le même tour.",
       "choices": [
-        "Quelqu'un qui utilise une adresse presque identique",
-        "L'équipe de livraison de ParcelPoint",
+        "Quelqu'un avec une adresse presque identique",
+        "Le service de livraison de ParcelPoint",
         "La boutique où vous avez commandé"
       ],
       "correct": 0,
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "Quelle émotion cet e-mail veut-il provoquer ?",
-      "answer": "La hâte et un peu d'inquiétude : payez dans les 24 heures ou le colis repart.",
+      "prompt": "Sur quelle émotion cet e-mail appuie-t-il ?",
+      "answer": "La précipitation, avec une pointe d'inquiétude : payez dans les 24 heures ou le colis repart.",
       "choices": [
-        "La hâte : payer dans les 24 heures ou perdre le colis",
-        "L'envie d'un cadeau gratuit",
-        "Aucune : c'est un simple avis"
+        "La hâte : payer en 24 heures ou perdre le colis",
+        "L'envie de recevoir un cadeau gratuit",
+        "Aucune, c'est un simple avis de passage"
       ],
       "correct": 0,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "Que vous demande-t-on exactement ?",
-      "answer": "Payer de petits frais via un lien, ce qui donnerait les données de votre carte à l'expéditeur.",
+      "prompt": "Qu'attend-on de vous, concrètement ?",
+      "answer": "Payer de petits frais via un lien. Les données de votre carte iraient à l'expéditeur.",
       "choices": [
         "Payer de petits frais via un lien",
         "Récupérer le colis chez un voisin",
-        "Répondre avec votre adresse"
+        "Répondre en indiquant votre adresse"
       ],
       "correct": 0,
       "cues": [
@@ -138,12 +138,12 @@
       ]
     },
     "verify": {
-      "prompt": "Comment pouvez-vous vérifier par un canal que vous contrôlez ?",
-      "answer": "Ne suivez pas le chemin qu'on vous tend. Vérifiez la livraison dans l'application ou sur le site du transporteur, que vous ouvrez vous-même. Même un simple clic pour regarder peut suffire, et répondre STOP leur apprend que votre adresse est active.",
+      "prompt": "Comment vérifier par un canal que vous contrôlez ?",
+      "answer": "Ne prenez pas le chemin qu'on vous propose. Vérifiez la livraison dans l'application ou sur le site du transporteur, ouverts par vous-même. Un clic « juste pour voir » peut déjà suffire, et répondre STOP leur confirme que votre adresse est active.",
       "choices": [
-        "Vérifier la livraison dans l'application ParcelPoint, ouverte par vous-même",
-        "Le payer, car ce n'est que CHF 1.99",
-        "Répondre STOP pour qu'ils vous retirent de la liste"
+        "Ouvrir vous-même l'application ParcelPoint et vérifier",
+        "Payer quand même, ce n'est que CHF 1.99",
+        "Répondre STOP pour qu'on vous retire de la liste"
       ],
       "correct": 0,
       "cues": [
@@ -166,28 +166,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ignorer le lien et vérifier la livraison vous-même dans l'application ParcelPoint",
+      "label": "Ignorer le lien et vérifier vous-même la livraison dans l'application ParcelPoint",
       "outcome": "safe",
-      "consequence": "Aucun colis n'est en attente. L'e-mail était faux."
+      "consequence": "Aucun colis en attente. L'e-mail était faux."
     },
     {
       "id": "pay",
-      "label": "Le payer, car ce n'est que CHF 1.99",
+      "label": "Payer quand même, ce n'est que CHF 1.99",
       "outcome": "unsafe",
-      "consequence": "Les données de votre carte vont chez l'escroc, qui peut maintenant prélever bien plus que CHF 1.99."
+      "consequence": "Les données de votre carte partent chez l'escroc, qui peut maintenant prélever bien plus que CHF 1.99."
     },
     {
       "id": "look",
-      "label": "Cliquer sur le lien juste pour regarder, sans rien saisir",
+      "label": "Cliquer sur le lien juste pour voir, sans rien saisir",
       "outcome": "unsafe",
-      "consequence": "Même un coup d'œil peut confirmer que votre adresse est active, et certaines pages tentent d'exécuter du code en arrière-plan."
+      "consequence": "Un simple coup d'œil peut confirmer que votre adresse est active, et certaines pages tentent d'exécuter du code à votre insu."
     },
     {
       "id": "reply-stop",
-      "label": "Répondre STOP pour qu'ils vous retirent de la liste",
+      "label": "Répondre STOP pour qu'on vous retire de la liste",
       "outcome": "neutral",
-      "consequence": "Répondre leur apprend que votre adresse est réelle. Ils vous en envoient davantage."
+      "consequence": "Votre réponse prouve que l'adresse est bien réelle. Vous en recevrez davantage."
     }
   ],
-  "attacker_reveal": "La même ruse, une nouvelle couche de peinture... De petits frais, un compte à rebours court et un lien qu'on vous tend. Entrez par une porte que vous connaissez déjà, et je n'ai plus rien."
+  "attacker_reveal": "Vieille recette, nouvel emballage : des frais dérisoires, un délai court et un lien tout prêt. Passez par la porte que vous connaissez déjà, l'application, et je n'ai plus rien à vous vendre."
 }
