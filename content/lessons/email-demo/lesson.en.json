@@ -3,7 +3,7 @@
   "language": "en",
   "demo": true,
   "title": "Phishing in one minute",
-  "subtitle": "The rules, one hunt and two emails. Same app, faster.",
+  "subtitle": "A shortened version for the demo, with the same rules.",
   "minutes": 2,
   "sections": [
     {
@@ -13,32 +13,32 @@
           "persona": "cat",
           "role": "Personal security",
           "title": "Protect yourself first",
-          "say": "I can't look after anyone if my own logins are wide open. Neither can you. So we start with you.",
+          "say": "I can't secure anyone if I am not secure myself. Neither can you. So we start with you.",
           "rules": [
             {
               "headline": "Read the domain after the @.",
-              "body": "Every letter. thisistea.example and thisistae-app.example belong to two different owners."
+              "body": "READ every letter. thisistea.example and thisistae-app.example belong to two different owners."
             },
             {
               "headline": "Notice the rush.",
-              "body": "A two-hour deadline is a feeling someone else put in you. Feelings aren't evidence."
+              "body": "A two-hour deadline creates a feeling of pressure in you. NOTICE how an email makes you feel."
             },
             {
               "headline": "Never type a password after clicking an email link.",
               "body": "Open the site yourself, from a bookmark or by typing the address."
             }
           ],
-          "sign_off": "Zero trust isn't paranoia. It's checking."
+          "sign_off": "Don't trust your emails blindly."
         },
         {
           "persona": "turtle",
           "role": "Organisational security",
           "title": "Shield the whole shell",
-          "say": "In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too. It works a little like a vaccine.",
+          "say": "In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too.",
           "rules": [
             {
-              "headline": "Confirm the unusual, together.",
-              "body": "A wire transfer, a password reset, an urgent file: check it on another channel. A phone call costs one minute."
+              "headline": "Confirm the unusual.",
+              "body": "When someone asks for a money transfer, a password reset, or requests an urgent file: check it on another channel such as a phone call."
             }
           ],
           "sign_off": "A team we can trust is a team that looks out for each other."
@@ -49,7 +49,7 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "I hid three tricks in that email. Click whatever you think is a trap. I won't say whether you're getting warm.",
+        "intro": "I hid three tricks in that email. Click whatever you think is a trap. I will not indicate if you are close to the right answer.",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
@@ -59,7 +59,7 @@
           {
             "hotspot_id": "hs-clock",
             "title": "The clock",
-            "spider_says": "\"Within 2 hours.\" Panic is my favourite accomplice. It quiets the part of you that checks."
+            "spider_says": "\"Within 2 hours, I said.\" Panic is my favourite accomplice. It quiets the part of you that checks."
           },
           {
             "hotspot_id": "hs-ask",
