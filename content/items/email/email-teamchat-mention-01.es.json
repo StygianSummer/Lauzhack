@@ -38,7 +38,7 @@
       },
       {
         "t": "text",
-        "v": "Alex Morgan ha escrito: \"¿Podrías añadir las últimas cifras de clientes a las diapositivas del consejo antes del viernes?\""
+        "v": "Alex Morgan ha escrito: «¿Podrías añadir las últimas cifras de clientes a las diapositivas del consejo antes del viernes? ¡Gracias!»"
       },
       {
         "t": "link",
@@ -48,7 +48,7 @@
       },
       {
         "t": "text",
-        "v": "También puedes abrir tú mismo la app de TeamChat para responder."
+        "v": "También puedes responder directamente desde la app de TeamChat."
       },
       {
         "t": "signature",
@@ -62,14 +62,14 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "El aviso viene de teamchat.example, el dominio real."
+      "explain": "El aviso viene de teamchat.example, el dominio real de TeamChat."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "La petición es normal: cifras en unas diapositivas, con el viernes como plazo del que se puede hablar. No es una exportación de datos ni urge en minutos."
+      "explain": "Una petición corriente: cifras para unas diapositivas, para el viernes, un plazo que se puede negociar. Ninguna exportación de datos y nada que entregar en el acto."
     },
     {
       "id": "hs-link",
@@ -83,17 +83,17 @@
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te recuerda que tienes la app disponible."
+      "explain": "El propio correo te propone ir por la app, un camino que controlas tú."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "TeamChat: un aviso desde su dominio real que cita el mensaje de un compañero.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "TeamChat, desde su dominio real. El aviso solo cita el mensaje de un compañero.",
       "choices": [
         "TeamChat, desde su dominio real",
-        "El director general, escribiéndote directamente",
-        "Un estafador con una dirección parecida"
+        "El director, que te escribe directamente",
+        "Un estafador con una dirección casi idéntica"
       ],
       "correct": 0,
       "cues": [
@@ -103,11 +103,11 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Poca. Una petición de trabajo normal con un plazo razonable.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Poca cosa. Una petición de trabajo normal, con un plazo razonable.",
       "choices": [
-        "Poca: una petición de trabajo normal",
-        "Pánico por diez minutos",
+        "Nada especial: trabajo normal",
+        "El pánico de un plazo de diez minutos",
         "Miedo a que te detengan"
       ],
       "correct": 0,
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Añadir cifras de clientes a las diapositivas del consejo antes del viernes. Es trabajo corriente y no se exige ninguna exportación de datos.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Añadir las cifras de clientes a las diapositivas del consejo antes del viernes. Trabajo corriente, sin ninguna exportación de datos.",
       "choices": [
         "Actualizar unas diapositivas antes del viernes",
-        "Enviar la exportación completa de clientes en una respuesta",
-        "Iniciar sesión mediante un enlace raro"
+        "Responder con la exportación completa de clientes",
+        "Iniciar sesión desde un enlace raro"
       ],
       "correct": 0,
       "cues": [
@@ -135,12 +135,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Abre tú mismo la app de TeamChat y responde allí. Si alguna vez dudas de una petición del jefe, una llamada rápida ayuda.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Abre la app de TeamChat por tu cuenta y responde allí. Y si algún día una petición del jefe te parece rara, una llamada lo aclara.",
       "choices": [
-        "Abrir tú mismo la app de TeamChat y responder allí",
-        "Responder a la dirección no-reply",
-        "Reenviarlo a un amigo"
+        "Abrir la app de TeamChat por tu cuenta y responder",
+        "Responder a la dirección no-reply del aviso",
+        "Reenviarlo a un amigo para que opine"
       ],
       "correct": 0,
       "cues": [
@@ -154,22 +154,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de TeamChat y responderle a Alex allí",
+      "label": "Abrir la app de TeamChat por tu cuenta y responder a Alex",
       "outcome": "safe",
-      "consequence": "Ves el mensaje de Alex en la conversación real."
+      "consequence": "El mensaje de Alex está ahí, en la conversación real."
     },
     {
       "id": "click",
       "label": "Pulsar el enlace del aviso",
       "outcome": "safe",
-      "consequence": "Lleva al dominio real."
+      "consequence": "Lleva al dominio real de TeamChat."
     },
     {
       "id": "send-all",
-      "label": "Enviarle a Alex toda la base de datos de clientes sin dilación",
+      "label": "Enviarle ahora mismo a Alex toda la base de clientes",
       "outcome": "unsafe",
-      "consequence": "Nadie lo había pedido. No envíes datos sensibles cuando nadie te los ha solicitado."
+      "consequence": "Nadie la había pedido. No envíes datos sensibles que nadie ha solicitado."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Es un aviso del propio dominio de TeamChat sobre trabajo corriente. Compáralo con el mensaje de los \"diez minutos\": aquí nada corre prisa y nadie exige datos."
+  "attacker_reveal": "Compáralo con mi mensaje de los diez minutos: aquí hay un aviso auténtico de TeamChat, trabajo rutinario para el viernes y nadie pide datos. Algo tan aburrido no me saldría nunca."
 }

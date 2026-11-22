@@ -7,7 +7,7 @@
       "demo_target": "email-demo",
       "persona": "cat",
       "title": "Spot a phishing email",
-      "blurb": "Read the sender, the link and the pressure. Four steps, one email at a time.",
+      "blurb": "Sender, link, pressure: four steps, one email at a time.",
       "minutes": 10,
       "status": "available"
     },
@@ -17,7 +17,7 @@
       "target": "password-01",
       "persona": "dog",
       "title": "Passwords: stop remembering them",
-      "blurb": "Four rules, then five accounts to prove it.",
+      "blurb": "Four rules, and five accounts to put them to the test.",
       "minutes": 6,
       "status": "available"
     },
@@ -28,7 +28,7 @@
       "demo_target": "boardroom-crisis-demo",
       "persona": "turtle",
       "title": "Boardroom crisis",
-      "blurb": "A breach is under way and the board is looking at you. Five decisions, six hours.",
+      "blurb": "An attack is under way and the whole board is turning to you. Five decisions, six hours.",
       "minutes": 12,
       "status": "available"
     },
@@ -38,7 +38,7 @@
       "target": null,
       "persona": "spider",
       "title": "Scam calls and messages",
-      "blurb": "The fake bank, the grandson in trouble, the group that moved.",
+      "blurb": "The fake bank, the grandson in trouble, the group that \"moved\".",
       "minutes": 10,
       "status": "soon"
     }

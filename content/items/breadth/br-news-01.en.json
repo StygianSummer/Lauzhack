@@ -26,16 +26,16 @@
     "verify": "check_other_outlets"
   },
   "news": {
-    "headline": "Free train passes for everyone over 60 from Monday, says insider. Share before it is deleted!",
+    "headline": "Free train travel for everyone over 60 from Monday, insider reveals. Share before it gets deleted!",
     "source": "The Daily Lantern Online",
     "date": "2026-11-18",
     "real": false,
     "tells": [
-      "It quotes only an unnamed \"insider\" and no official body.",
-      "No other news outlet you know reports it.",
-      "It urges you to share before it is \"deleted\", which is a pressure tactic.",
+      "Only an anonymous \"insider\" is quoted, and no official body.",
+      "No news outlet you know is reporting it.",
+      "It pushes you to share before it's \"deleted\": a pressure tactic.",
       "Check the railway company's own website before you forward anything."
     ]
   },
-  "attacker_reveal": "A big free gift and a reason to hurry... you did the spreading for me. Always check a second source before you forward."
+  "attacker_reveal": "A nice free gift and a reason to hurry... and you spread the news for me. Next time, maybe you'll look for a second source before forwarding."
 }

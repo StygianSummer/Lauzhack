@@ -32,7 +32,7 @@
     "from_name": "HelvetiCare Cards",
     "from_address": "cards@helveticare.example.card-service.example",
     "to": "{{email}}",
-    "subject": "Please check your new insurance card",
+    "subject": "Your new insurance card: please check your details",
     "received": "-PT1H",
     "body": [
       {
@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "Your new insurance card for next year is attached. Please open it and check that your details are correct."
+        "v": "Please find attached your new insurance card for next year. Kindly open it and check that your details are correct."
       },
       {
         "t": "text",
-        "v": "Cards that are not confirmed are blocked on 1 January."
+        "v": "Cards that have not been confirmed will be blocked on 1 January."
       },
       {
         "t": "signature",
@@ -62,21 +62,21 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "The owner is the last name before the first slash: card-service.example. helveticare.example is only decoration on its left."
+      "explain": "Read the domain from the right: the owner is card-service.example. The helveticare.example in front of it is just scenery."
     },
     {
       "id": "hs-deadline",
       "target": "body:2",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Blocked on 1 January\" is a threat with a date, meant to make you open the file fast."
+      "explain": "\"blocked on 1 January\": a threat with a date on it, so you open the file without waiting."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "\"insurance-card.jpg.html\" ends in .html. It is a web page pretending to be a picture, and it would show a fake sign-in."
+      "explain": "\"insurance-card.jpg.html\" ends in .html: it is a web page dressed up as a picture, and it would show a fake sign-in page."
     },
     {
       "id": "hs-greeting",
@@ -88,12 +88,12 @@
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone using HelvetiCare's name. The real owner of the address is card-service.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone using HelvetiCare's name. The address actually belongs to card-service.example.",
       "choices": [
-        "HelvetiCare's card team",
-        "Your employer",
-        "Someone whose real domain is card-service.example"
+        "HelvetiCare's card service",
+        "Your employer's HR department",
+        "Someone whose domain is card-service.example"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: your card will be blocked on 1 January unless you act.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear and haste: your card will be blocked on 1 January if you do nothing.",
       "choices": [
-        "Curiosity about a bonus",
-        "None: it is routine",
-        "Fear of a blocked card, with a date"
+        "Curiosity about a loyalty bonus",
+        "None, it is a routine mailing",
+        "Fear of a blocked card, on a set date"
       ],
       "correct": 2,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Open the attachment. The file is a web page that would collect your login.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Open the attachment. The file is a web page that would harvest your login details.",
       "choices": [
-        "Pay a fee",
+        "Pay a card issuing fee",
         "Reply with your date of birth",
-        "Open an attachment"
+        "Open the attachment and check your details"
       ],
       "correct": 2,
       "cues": [
@@ -137,11 +137,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not open it. Check your card in the HelvetiCare app, or call the number on your current card.",
+      "answer": "Do not open it. Check your card in the HelvetiCare app, or call the number printed on your current card.",
       "choices": [
         "Open the file to see what it is",
-        "Reply to ask for a different format",
-        "Call the number on your current card or use the HelvetiCare app"
+        "Reply to ask for the card in another format",
+        "Call the number on your card, or use the app"
       ],
       "correct": 2,
       "cues": [
@@ -157,26 +157,26 @@
       "id": "call-card",
       "label": "Call the number on your current card and ask about the new one",
       "outcome": "safe",
-      "consequence": "They say nothing is pending. The email was fake."
+      "consequence": "They tell you no new card is on its way. The email was fake."
     },
     {
       "id": "open-file",
       "label": "Open the attachment to check your details",
       "outcome": "unsafe",
-      "consequence": "A fake sign-in page opens. If you type, your login goes to the scammer."
+      "consequence": "A fake sign-in page opens. Whatever you type there goes to the scammer."
     },
     {
       "id": "reply",
-      "label": "Reply and ask for the card in a different format",
+      "label": "Reply to ask for the card in another format",
       "outcome": "neutral",
-      "consequence": "The scammer sends another file. Your reply also shows your address is live."
+      "consequence": "The scammer sends you another file, and now knows your address is active."
     },
     {
       "id": "report-delete",
       "label": "Report it as phishing and delete it",
       "outcome": "safe",
-      "consequence": "Good call. Nothing was opened."
+      "consequence": "The file was never opened, and it never will be."
     }
   ],
-  "attacker_reveal": "A picture file that ends in .html... Most people read the first extension and stop. The second one tells the browser what to do. A date on a threat helps, too."
+  "attacker_reveal": "\".jpg\", and most people stop reading there. Yet the last extension is the one that tells the browser what to do, and mine was .html. Put a date on the threat and people click before they have finished reading."
 }

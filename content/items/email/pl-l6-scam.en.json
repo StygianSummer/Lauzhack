@@ -38,11 +38,11 @@
       },
       {
         "t": "text",
-        "v": "Thanks for sorting the rota yesterday. One more thing before I forget."
+        "v": "Thanks for sorting out the rota yesterday. One more thing, before I forget."
       },
       {
         "t": "text",
-        "v": "Can you send me the full volunteer list with phone numbers and home addresses? Just reply here with it pasted in. I am travelling and cannot open the shared folder."
+        "v": "Could you send me the full list of volunteers, with their phone numbers and home addresses? Just paste it into a reply to this message: I'm travelling and can't open the shared folder."
       },
       {
         "t": "text",
@@ -60,38 +60,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address really is Mara's, and the thread is real. That is what makes this dangerous: a hijacked account passes every address check."
+      "explain": "The address really is Mara's and the thread really exists. A hacked account passes every address check without a flicker."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "A full list of names, phones and home addresses is sensitive. Asking for it pasted into a reply, because the shared folder \"cannot be opened\", is out of character."
+      "explain": "The names, phone numbers and home addresses of every volunteer are sensitive data. Asking for them pasted into a reply, on the grounds that the shared folder won't open, doesn't sound like Mara."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Quoting your own words makes this feel real, but whoever reads the inbox can copy them."
+      "explain": "Quoting your own words makes it look genuine, but anyone reading the inbox can copy them."
     },
     {
       "id": "hs-subject",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "A genuine reply to a real thread. Nothing wrong here, and nothing reassuring either."
+      "explain": "A real reply in a real thread. Nothing wrong here, and nothing reassuring either."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Possibly not Mara. The address and the thread are real, so someone may be using her hijacked account. Only a call to Mara can tell.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Possibly not Mara. The address and the thread are genuine: someone may be using her hacked account. Only a call to Mara can settle it.",
       "choices": [
         "Maybe Mara, maybe someone who took over her account",
-        "Definitely Mara, since the thread is real",
-        "A stranger with a lookalike address"
+        "Mara, without a doubt, since the thread is real",
+        "A stranger using a near-identical address"
       ],
       "correct": 0,
       "cues": [
@@ -102,12 +102,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Helpfulness and a little hurry: a colleague in a bind who needs your help.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "The wish to help, with a little hurry: a colleague on the road needs you.",
       "choices": [
-        "Helpfulness towards a colleague in a bind",
+        "Wanting to help a stuck colleague",
         "Fear of losing your job",
-        "Excitement about a bonus"
+        "Excitement about a year-end bonus"
       ],
       "correct": 0,
       "cues": [
@@ -118,12 +118,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Reply with the volunteers' personal details. That would leak names, phones and addresses.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Reply with the volunteers' personal data. Names, phone numbers and addresses would leave the organisation.",
       "choices": [
-        "Reply with the volunteers' personal details",
+        "Reply with the volunteers' details",
         "Click a link and sign in",
-        "Open an attachment"
+        "Open an attachment in the message"
       ],
       "correct": 0,
       "cues": [
@@ -135,11 +135,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not reply. Call Mara on the number you already have, or ask in person or in TeamChat, to check she really sent it.",
+      "answer": "Don't reply. Call Mara on the number you already have, or ask her in person or on TeamChat, to check she really sent this message.",
       "choices": [
-        "Call Mara on a number you already know",
-        "Reply to ask if it is really her",
-        "Send only half of the list"
+        "Call Mara on the number you know",
+        "Reply and ask if it's really her",
+        "Send only half the list"
       ],
       "correct": 0,
       "cues": [
@@ -153,28 +153,28 @@
   "actions": [
     {
       "id": "call-mara",
-      "label": "Call Mara on her usual number and ask",
+      "label": "Call Mara on her usual number and ask her",
       "outcome": "safe",
-      "consequence": "Mara knows nothing about the email. Her account was taken over and you warn her in time."
+      "consequence": "Mara knows nothing about this email. Her account has been hacked, and you warn her in time."
     },
     {
       "id": "reply-data",
-      "label": "Reply with the volunteer list",
+      "label": "Reply with the list of volunteers",
       "outcome": "unsafe",
-      "consequence": "Every volunteer's phone number and home address is now in a stranger's hands."
+      "consequence": "The phone numbers and home addresses of every volunteer are now in a stranger's hands."
     },
     {
       "id": "reply-ask",
-      "label": "Reply and ask \"Is this really you?\"",
+      "label": "Reply asking \"Is this really you?\"",
       "outcome": "unsafe",
-      "consequence": "Whoever controls the account answers \"yes, of course\". You only asked the impostor."
+      "consequence": "Whoever holds the account replies \"Yes, of course.\" You asked the impostor."
     },
     {
       "id": "tell-it",
-      "label": "Tell IT or your lead that Mara's account may be taken over",
+      "label": "Tell the IT team or your manager that Mara's account may be hacked",
       "outcome": "safe",
-      "consequence": "Good call. The team can lock the account before it is used on someone else."
+      "consequence": "The team can lock the account before it's used against someone else."
     }
   ],
-  "attacker_reveal": "I did not need to fake anything... Mara's own account wrote to you, with her own words in the thread. The only thing that looked off was what I asked for. Look at the request, and check it another way."
+  "attacker_reveal": "I didn't have to fake a thing. Mara's account wrote to you, with your own words quoted in the thread. Only one thing was off: what I asked for. Look at the request, and check it another way."
 }

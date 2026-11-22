@@ -38,15 +38,15 @@
       },
       {
         "t": "text",
-        "v": "Gracias por organizar los turnos ayer. Una cosa más antes de que se me olvide."
+        "v": "Gracias por cerrar los turnos ayer. Una cosa más, antes de que se me olvide."
       },
       {
         "t": "text",
-        "v": "¿Puedes enviarme la lista completa de voluntarios con teléfonos y direcciones de casa? Respóndeme aquí con ella pegada. Estoy de viaje y no puedo abrir la carpeta compartida."
+        "v": "¿Me puedes mandar la lista completa de voluntarios, con sus teléfonos y direcciones de casa? Pégala directamente en la respuesta: estoy de viaje y no consigo abrir la carpeta compartida."
       },
       {
         "t": "text",
-        "v": "El martes escribiste: \"Los turnos son definitivos y la hoja de contactos está en la carpeta compartida\"."
+        "v": "El martes escribiste: «Los turnos son definitivos, y la hoja de contactos está en la carpeta compartida»."
       },
       {
         "t": "signature",
@@ -60,38 +60,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es realmente la de Mara, y la conversación es real. Eso es lo que lo hace peligroso: una cuenta secuestrada supera cualquier comprobación de la dirección."
+      "explain": "La dirección es de verdad la de Mara, y la conversación existe. Una cuenta secuestrada supera cualquier comprobación de la dirección sin pestañear."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "Una lista completa de nombres, teléfonos y direcciones de casa es información delicada. Pedirla pegada en una respuesta, porque la carpeta compartida \"no se puede abrir\", no es propio de ella."
+      "explain": "Nombres, teléfonos y direcciones de casa de todos los voluntarios son datos delicados. Pedirlos pegados en una respuesta, con la excusa de que la carpeta compartida no se abre, no es propio de Mara."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Citar tus propias palabras hace que parezca real, pero quien lea la bandeja de entrada puede copiarlas."
+      "explain": "Citar tus propias palabras le da un aire auténtico, pero cualquiera que lea la bandeja de entrada puede copiarlas."
     },
     {
       "id": "hs-subject",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "Una respuesta auténtica a una conversación real. Aquí no hay nada raro, pero tampoco nada tranquilizador."
+      "explain": "Una respuesta real en una conversación real. Nada raro aquí, y nada tranquilizador tampoco."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Quizá no sea Mara. La dirección y la conversación son reales, así que alguien puede estar usando su cuenta secuestrada. Solo una llamada a Mara lo aclara.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Quizá no sea Mara. La dirección y la conversación son auténticas: puede que alguien esté usando su cuenta secuestrada. Solo una llamada a Mara lo aclara.",
       "choices": [
-        "Quizá Mara, quizá alguien que se hizo con su cuenta",
-        "Seguro que Mara, porque la conversación es real",
-        "Un desconocido con una dirección parecida"
+        "Mara, o alguien que le ha quitado la cuenta",
+        "Mara, seguro: la conversación es real",
+        "Un desconocido con una dirección calcada"
       ],
       "correct": 0,
       "cues": [
@@ -102,12 +102,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ganas de ayudar y algo de prisa: una compañera en apuros que necesita tu ayuda.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ganas de echar una mano, con algo de prisa: una compañera que está de viaje te necesita.",
       "choices": [
         "Ganas de ayudar a una compañera en apuros",
-        "Miedo a perder el trabajo",
-        "Ilusión por una prima"
+        "Miedo a perder tu trabajo",
+        "La ilusión de una paga extra de Navidad"
       ],
       "correct": 0,
       "cues": [
@@ -118,12 +118,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Responder con los datos personales de los voluntarios. Eso filtraría nombres, teléfonos y direcciones.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Responder con los datos personales de los voluntarios. Nombres, teléfonos y direcciones saldrían de la asociación.",
       "choices": [
-        "Responder con los datos personales de los voluntarios",
+        "Responder con los datos de los voluntarios",
         "Pulsar un enlace e iniciar sesión",
-        "Abrir un archivo adjunto"
+        "Abrir un archivo adjunto del mensaje"
       ],
       "correct": 0,
       "cues": [
@@ -134,12 +134,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "No respondas. Llama a Mara al número que ya tienes, o pregúntale en persona o en TeamChat, para comprobar que de verdad lo envió ella.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No respondas. Llama a Mara al número que ya tienes, o pregúntale en persona o por TeamChat, para confirmar que el mensaje es suyo.",
       "choices": [
-        "Llamar a Mara a un número que ya conozcas",
-        "Responder para preguntar si es ella de verdad",
-        "Enviar solo la mitad de la lista"
+        "Llamar a Mara al número que ya tienes",
+        "Responder para preguntar si es ella",
+        "Mandar solo la mitad de la lista"
       ],
       "correct": 0,
       "cues": [
@@ -153,28 +153,28 @@
   "actions": [
     {
       "id": "call-mara",
-      "label": "Llamar a Mara a su número habitual y preguntarle",
+      "label": "Llamar a Mara a su número de siempre y preguntárselo",
       "outcome": "safe",
-      "consequence": "Mara no sabe nada del correo. Le han tomado la cuenta y la avisas a tiempo."
+      "consequence": "Mara no sabe nada de ese correo. Le han secuestrado la cuenta, y la avisas a tiempo."
     },
     {
       "id": "reply-data",
       "label": "Responder con la lista de voluntarios",
       "outcome": "unsafe",
-      "consequence": "El teléfono y la dirección de casa de cada voluntario están ahora en manos de un desconocido."
+      "consequence": "Los teléfonos y las direcciones de casa de todos los voluntarios están ahora en manos de un desconocido."
     },
     {
       "id": "reply-ask",
-      "label": "Responder y preguntar \"¿Eres tú de verdad?\"",
+      "label": "Responder preguntando «¿Eres tú de verdad?»",
       "outcome": "unsafe",
-      "consequence": "Quien controla la cuenta contesta \"sí, claro\". Solo le has preguntado al impostor."
+      "consequence": "Quien controla la cuenta contesta «Sí, claro». Se lo has preguntado al impostor."
     },
     {
       "id": "tell-it",
-      "label": "Avisar a informática o a tu responsable de que la cuenta de Mara puede haber sido tomada",
+      "label": "Avisar a informática o a tu responsable de que la cuenta de Mara puede estar secuestrada",
       "outcome": "safe",
-      "consequence": "Buena decisión. El equipo puede bloquear la cuenta antes de que se use contra otra persona."
+      "consequence": "El equipo puede bloquear la cuenta antes de que la usen contra otra persona."
     }
   ],
-  "attacker_reveal": "No necesité falsificar nada... La propia cuenta de Mara te escribió, con sus propias palabras en la conversación. Lo único que desentonaba era lo que pedí. Fíjate en la petición y compruébala por otra vía."
+  "attacker_reveal": "No tuve que falsificar nada. Te escribió la cuenta de Mara, con tus propias palabras citadas en la conversación. Solo desentonaba una cosa: lo que yo pedía. Fíjate en la petición y compruébala por otra vía."
 }

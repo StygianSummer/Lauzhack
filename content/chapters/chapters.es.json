@@ -7,7 +7,7 @@
       "demo_target": "email-demo",
       "persona": "cat",
       "title": "Detectar un correo de phishing",
-      "blurb": "Lee el remitente, el enlace y la presión. Cuatro pasos, un correo cada vez.",
+      "blurb": "Remitente, enlace, presión: cuatro pasos, un correo cada vez.",
       "minutes": 10,
       "status": "available"
     },
@@ -16,8 +16,8 @@
       "kind": "lesson",
       "target": "password-01",
       "persona": "dog",
-      "title": "Contrasenas: deje de memorizarlas",
-      "blurb": "Cuatro reglas y cinco cuentas para demostrarlo.",
+      "title": "Contraseñas: deja de memorizarlas",
+      "blurb": "Cuatro reglas y cinco cuentas para ponerlas a prueba.",
       "minutes": 6,
       "status": "available"
     },
@@ -28,7 +28,7 @@
       "demo_target": "boardroom-crisis-demo",
       "persona": "turtle",
       "title": "Crisis en la junta",
-      "blurb": "Hay un ataque en curso y la junta te está mirando. Cinco decisiones, seis horas.",
+      "blurb": "Hay un ataque en curso y toda la junta se vuelve hacia ti. Cinco decisiones, seis horas.",
       "minutes": 12,
       "status": "available"
     },
@@ -38,7 +38,7 @@
       "target": null,
       "persona": "spider",
       "title": "Llamadas y mensajes fraudulentos",
-      "blurb": "El banco falso, el nieto en apuros, el grupo que se «mudó».",
+      "blurb": "El banco falso, el nieto en apuros, el grupo que se ha «mudado».",
       "minutes": 10,
       "status": "soon"
     }

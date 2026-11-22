@@ -25,14 +25,14 @@
   },
   "image": {
     "file": "br-image-01.png",
-    "alt": "Una ilustración de un puesto de mercado con toldo a rayas, un cartel, un montón de fruta y una persona que extiende una mano. Una de las manos tiene seis dedos.",
+    "alt": "Ilustración de un puesto de mercado: un toldo a rayas, un cartel, un montón de fruta y una persona que tiende la mano. Una de las manos tiene seis dedos.",
     "ai_generated": true,
     "tells": [
-      "La mano tiene seis dedos.",
-      "El texto del cartel no significa nada: \"FRSH FRQITS\".",
-      "Las sombras apuntan en direcciones distintas.",
-      "Esta imagen es una ilustración hecha con código, no una fotografía."
+      "Una mano tiene seis dedos.",
+      "El cartel muestra un galimatías: «FRSH FRQITS».",
+      "Las sombras no van todas en la misma dirección.",
+      "Es una ilustración generada con código, no una fotografía."
     ]
   },
-  "attacker_reveal": "Las manos, los carteles y las sombras son donde fallan las imágenes generadas... Fíjate en los detalles pequeños antes de fiarte de una imagen."
+  "attacker_reveal": "Las manos, los carteles, las sombras: ahí es donde se delatan las imágenes generadas. Cuento con que nunca mires tan de cerca."
 }

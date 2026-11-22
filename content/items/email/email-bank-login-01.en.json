@@ -8,77 +8,191 @@
   "held_out": false,
   "unsolicited": false,
   "expected_ms": 25000,
-  "use": ["practice", "phase_b"],
+  "use": [
+    "practice",
+    "phase_b"
+  ],
   "slots": {
     "identity": "bank",
     "channel": "email",
-    "emotion": ["fear", "urgency"],
+    "emotion": [
+      "fear",
+      "urgency"
+    ],
     "ask": "click_login",
-    "surface_clues": ["lookalike_sender", "generic_greeting", "short_deadline", "lookalike_link"],
+    "surface_clues": [
+      "lookalike_sender",
+      "generic_greeting",
+      "short_deadline",
+      "lookalike_link"
+    ],
     "verify": "open_bank_app_yourself"
   },
   "email": {
     "from_name": "SwissAlpBank Security",
     "from_address": "security@swissalpbank-alerts.example",
     "to": "{{email}}",
-    "subject": "Urgent: CHF 2,450.00 is being moved out of your account",
+    "subject": "Urgent: CHF 2,450.00 is about to leave your account",
     "received": "-PT12M",
     "body": [
-      { "t": "text", "v": "Dear customer," },
-      { "t": "text", "v": "We have stopped a transfer of CHF 2,450.00 from your account to a recipient we do not recognise. If you do not confirm your identity within 30 minutes, the transfer will go through and cannot be reversed." },
-      { "t": "link", "v": "Stop the transfer now", "href": "https://swissalpbank-secure-login.example/stop", "hotspot": "hs-link" },
-      { "t": "text", "v": "For your security, please do not ignore this message." },
-      { "t": "signature", "v": "SwissAlpBank Customer Protection Team" }
+      {
+        "t": "text",
+        "v": "Dear customer,"
+      },
+      {
+        "t": "text",
+        "v": "We have suspended a transfer of CHF 2,450.00 from your account to an unknown recipient. Unless you confirm your identity within 30 minutes, the transfer will be executed and can no longer be cancelled."
+      },
+      {
+        "t": "link",
+        "v": "Stop the transfer now",
+        "href": "https://swissalpbank-secure-login.example/stop",
+        "hotspot": "hs-link"
+      },
+      {
+        "t": "text",
+        "v": "For your security, please do not ignore this message."
+      },
+      {
+        "t": "signature",
+        "v": "SwissAlpBank Customer Protection"
+      }
     ]
   },
   "hotspots": [
-    { "id": "hs-from-address", "target": "from_address", "step": "who", "red_flag": true, "explain": "The address ends in swissalpbank-alerts.example, not the bank's real domain swissalpbank.example. Anyone can register a name that looks close." },
-    { "id": "hs-greeting", "target": "body:0", "step": "who", "red_flag": true, "explain": "\"Dear customer\": your real bank knows your name and uses it." },
-    { "id": "hs-subject", "target": "subject", "step": "emotion", "red_flag": true, "explain": "A large amount and the word \"Urgent\" in the subject are there to make you panic before you think." },
-    { "id": "hs-deadline", "target": "body:1", "step": "emotion", "red_flag": true, "explain": "A 30-minute deadline leaves you no time to check. Your real bank gives you time and other ways to reach it." },
-    { "id": "hs-link", "target": "link", "step": "ask", "red_flag": true, "explain": "The button says \"Stop the transfer now\", but it leads to swissalpbank-secure-login.example, a different domain that only looks like the bank's." },
-    { "id": "hs-signature", "target": "body:4", "step": "who", "red_flag": false, "explain": "A signature is easy to copy. It is not a red flag by itself, but it proves nothing either." }
+    {
+      "id": "hs-from-address",
+      "target": "from_address",
+      "step": "who",
+      "red_flag": true,
+      "explain": "The address ends in swissalpbank-alerts.example, not swissalpbank.example. Anyone can register a domain name that looks like a bank's."
+    },
+    {
+      "id": "hs-greeting",
+      "target": "body:0",
+      "step": "who",
+      "red_flag": true,
+      "explain": "\"Dear customer\": your bank knows your name, and uses it."
+    },
+    {
+      "id": "hs-subject",
+      "target": "subject",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "A large amount and the word \"Urgent\" right in the subject line: the panic starts before you have even opened the message."
+    },
+    {
+      "id": "hs-deadline",
+      "target": "body:1",
+      "step": "emotion",
+      "red_flag": true,
+      "explain": "In 30 minutes you cannot check anything. Your bank gives you time, and other ways to reach it."
+    },
+    {
+      "id": "hs-link",
+      "target": "link",
+      "step": "ask",
+      "red_flag": true,
+      "explain": "The button says \"Stop the transfer now\", but it leads to swissalpbank-secure-login.example, another domain that only looks like the bank's."
+    },
+    {
+      "id": "hs-signature",
+      "target": "body:4",
+      "step": "who",
+      "red_flag": false,
+      "explain": "A signature takes two seconds to copy. There is nothing suspicious about it in itself, but it proves nothing."
+    }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be SwissAlpBank. The name says SwissAlpBank, but the address is on swissalpbank-alerts.example, which is not the bank's domain.",
-      "choices": ["SwissAlpBank, because the name says so", "Someone using an address that only looks like the bank's", "Your personal adviser at the bank"],
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as SwissAlpBank. The display name says SwissAlpBank, but the address is on swissalpbank-alerts.example, which is not the bank's domain.",
+      "choices": [
+        "SwissAlpBank, since the name says so",
+        "Someone imitating the bank's address",
+        "Your personal adviser at the bank"
+      ],
       "correct": 1,
-      "cues": ["Compare the sender address with swissalpbank.example.", "A display name can be set to anything."]
+      "cues": [
+        "Compare the sender address with swissalpbank.example.",
+        "A display name can be set to anything."
+      ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: a large sum of money is about to leave your account and you only have 30 minutes.",
-      "choices": ["Fear of losing money, with a rush to act", "Curiosity about a new offer", "None: it is a calm routine notice"],
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear and haste: a large sum is about to leave your account and you only have 30 minutes.",
+      "choices": [
+        "Fear of losing money, with a tight deadline",
+        "Curiosity about a new offer from the bank",
+        "None, it is just a routine notice"
+      ],
       "correct": 0,
-      "cues": ["Look at the subject line.", "Is there a deadline?"]
+      "cues": [
+        "Look at the subject line.",
+        "Is there a deadline?"
+      ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Click the link and log in, which would hand your login details to whoever wrote the email.",
-      "choices": ["Click a link and log in", "Call the number on the back of your card", "Nothing: it is only for information"],
+      "prompt": "What does it actually want you to do?",
+      "answer": "Click the link and sign in. Your login details would go straight to whoever wrote the email.",
+      "choices": [
+        "Click a link and sign in",
+        "Call the number on the back of your card",
+        "Nothing, it is for information only"
+      ],
       "correct": 0,
-      "cues": ["What does the button lead to?"]
+      "cues": [
+        "What does the button lead to?"
+      ]
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Ignore the link. Open the SwissAlpBank app, or type the bank's address yourself, and look at your recent transactions.",
-      "choices": ["Click the link to see whether it is real", "Open the SwissAlpBank app yourself and check your account", "Reply to the email and ask whether it is genuine"],
+      "answer": "Leave the link alone. Open the SwissAlpBank app, or type the bank's address yourself, and look at your recent transactions.",
+      "choices": [
+        "Click the link to see whether it is real",
+        "Open the app yourself and check the account",
+        "Reply to the email to ask for confirmation"
+      ],
       "correct": 1,
-      "cues": ["A channel you control is one you open yourself, not one the email gives you."]
+      "cues": [
+        "A channel you control is one you open yourself, not one the email gives you."
+      ]
     }
   },
   "link_question": {
     "shown_text": "Stop the transfer now",
-    "options": ["swissalpbank.example", "swissalpbank-secure-login.example", "thisistea.example"],
+    "options": [
+      "swissalpbank.example",
+      "swissalpbank-secure-login.example",
+      "thisistea.example"
+    ],
     "correct": 1
   },
   "actions": [
-    { "id": "open-app", "label": "Open the SwissAlpBank app yourself and check your recent transactions", "outcome": "safe", "consequence": "No transfer is listed. The email was fake and you gave nothing away." },
-    { "id": "click-link", "label": "Click \"Stop the transfer now\" and log in", "outcome": "unsafe", "consequence": "The page looks like your bank, but your login details go straight to the scammer, who can now get into your account." },
-    { "id": "reply", "label": "Reply and ask whether the email is genuine", "outcome": "neutral", "consequence": "The scammer answers that it is genuine and pushes you again. Your reply also tells them your address is in use." },
-    { "id": "report-delete", "label": "Report the email as phishing and delete it", "outcome": "safe", "consequence": "Good call. Nothing was clicked and your mail provider learns to catch similar emails." }
+    {
+      "id": "open-app",
+      "label": "Open the SwissAlpBank app yourself and look at your recent transactions",
+      "outcome": "safe",
+      "consequence": "No transfer is pending. The email was fake, and you gave nothing away."
+    },
+    {
+      "id": "click-link",
+      "label": "Click \"Stop the transfer now\" and sign in",
+      "outcome": "unsafe",
+      "consequence": "The page looks just like your bank's, but your login details go to the scammer, who can now get into your account."
+    },
+    {
+      "id": "reply",
+      "label": "Reply to ask whether the email is genuine",
+      "outcome": "neutral",
+      "consequence": "The scammer assures you it is and pushes even harder. Along the way, they learn that your address is active."
+    },
+    {
+      "id": "report-delete",
+      "label": "Report the email as phishing and delete it",
+      "outcome": "safe",
+      "consequence": "You clicked nothing, and your mail service learns to filter out similar emails."
+    }
   ],
-  "attacker_reveal": "I copied the bank's name, picked an address that looks close enough and invented a payment to scare you. The 30-minute deadline was there so you would click before checking. If you had logged in on my page, I would have your password."
+  "attacker_reveal": "I copied the bank's name, chose an address close enough and made up the transfer. The 30 minutes were there so you would click before checking: on my page, your password would have come straight to me."
 }

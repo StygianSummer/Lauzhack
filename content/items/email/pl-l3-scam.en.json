@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Your HelvetiCare online account needs a quick check after our system update. It takes one minute."
+        "v": "Following our system update, your HelvetiCare online account needs a quick check. It only takes a minute."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "If you do not confirm, some services may be paused."
+        "v": "Without your confirmation, some services may be suspended."
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "The display name says HelvetiCare, but helveticare-online.example is not the insurer's domain, helveticare.example."
+      "explain": "The display name says HelvetiCare, but helveticare-online.example is not helveticare.example, the insurer's domain."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Using your first name sounds personal, but scammers can find it easily. It does not prove who wrote the email."
+      "explain": "Your first name makes it feel personal, but a scammer can find it with no trouble. It says nothing about the sender."
     },
     {
       "id": "hs-pause",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Some services may be paused\" is a soft threat, so you act before thinking."
+      "explain": "\"some services may be suspended\": the threat stays vague, but it's enough to make you act before you think."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The text looks like helveticare.example, but the link really goes to helveticare-online.example. Text can say anything."
+      "explain": "The text shown looks like helveticare.example, but the link actually goes to helveticare-online.example. A link's text can show anything at all."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone using HelvetiCare's name. The display name and the greeting are right, but the address is on helveticare-online.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone borrowing HelvetiCare's name. The display name and the greeting are right, but the address is on helveticare-online.example.",
       "choices": [
-        "Someone using a lookalike address and your first name",
-        "HelvetiCare, because it knows your name",
-        "Your health adviser"
+        "An impostor with a near-identical address",
+        "HelvetiCare, since it knows your first name",
+        "Your health adviser, from a personal inbox"
       ],
       "correct": 0,
       "cues": [
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "A quiet fear of losing services, with a hint that it is quick and easy.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "A quiet worry: losing access to some services, while everything is made to sound quick and easy.",
       "choices": [
         "A quiet fear of losing services",
-        "Joy about a bonus",
-        "None: it is a routine notice"
+        "The joy of receiving a bonus",
+        "None: it's a routine notice"
       ],
       "correct": 0,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Click the link and log in to 'confirm' your details, which would hand your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Click the link and sign in to \"confirm\" your details. Your login details would go to the sender.",
       "choices": [
-        "Click the link and log in",
-        "Open an attachment",
-        "Call a helpline"
+        "Click the link and sign in",
+        "Open the attachment in the message",
+        "Call the helpline"
       ],
       "correct": 0,
       "cues": [
@@ -139,11 +139,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Ignore the link. Open the HelvetiCare app, or type the insurer's address yourself, and see whether anything needs confirming.",
+      "answer": "Ignore the link. Open the HelvetiCare app, or type the insurer's address yourself, and see whether any confirmation is really needed.",
       "choices": [
         "Open the HelvetiCare app yourself",
-        "Click the link and check the page looks right",
-        "Reply to ask if it is genuine"
+        "Click and check the page looks normal",
+        "Reply and ask whether it's genuine"
       ],
       "correct": 0,
       "cues": [
@@ -159,26 +159,26 @@
       "id": "open-app",
       "label": "Open the HelvetiCare app yourself and look for any notice",
       "outcome": "safe",
-      "consequence": "There is no notice. The email was fake."
+      "consequence": "No notice, no check pending. The email was fake."
     },
     {
       "id": "click",
-      "label": "Click the link and log in, because it knows your name",
+      "label": "Click the link and sign in, since it knows your first name",
       "outcome": "unsafe",
-      "consequence": "The page looks right, but your login goes straight to the scammer."
+      "consequence": "The page is a perfect match for the insurer's. Your login details, though, go to the scammer."
     },
     {
       "id": "hover",
-      "label": "Hover over the link and log in if the page looks right",
+      "label": "Hover over the link, then sign in if the page looks normal",
       "outcome": "unsafe",
-      "consequence": "A lookalike page can look perfect. You gave your login to the scammer."
+      "consequence": "A copied page can be flawless. You've just handed your login details to the scammer."
     },
     {
       "id": "report-delete",
-      "label": "Report it as phishing and delete it",
+      "label": "Report it as phishing, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. You gave nothing away."
+      "consequence": "The link was never opened, and your login details stayed put."
     }
   ],
-  "attacker_reveal": "I used your name, the right logo and perfect language... and the link text lied. A name in the greeting is easy to find, so it never proves who is writing."
+  "attacker_reveal": "Your first name took me no effort to find. Add the right sender name and flawless English, and nobody checks where the link goes any more. A first name in the greeting proves nothing about who wrote it."
 }

@@ -26,16 +26,16 @@
     "verify": "check_other_outlets"
   },
   "news": {
-    "headline": "Billetes de tren gratis para todos los mayores de 60 desde el lunes, según un infiltrado. ¡Compártelo antes de que lo borren!",
+    "headline": "Tren gratis para todos los mayores de 60 a partir del lunes, según una fuente interna. ¡Compártelo antes de que lo borren!",
     "source": "The Daily Lantern Online",
     "date": "2026-11-18",
     "real": false,
     "tells": [
-      "Solo cita a un \"infiltrado\" sin nombre y a ningún organismo oficial.",
-      "Ningún otro medio que conozcas lo publica.",
-      "Te pide que lo compartas antes de que lo \"borren\", una táctica de presión.",
-      "Consulta la web de la propia compañía de trenes antes de reenviar nada."
+      "Solo cita a una «fuente interna» anónima, y a ningún organismo oficial.",
+      "Ningún medio que conozcas habla de ello.",
+      "Te meten prisa para compartirlo antes de que lo «borren»: es una técnica de presión.",
+      "Consulta la web de la compañía ferroviaria antes de reenviar nada."
     ]
   },
-  "attacker_reveal": "Un gran regalo gratis y un motivo para correr... Tú hiciste la difusión por mí. Comprueba siempre una segunda fuente antes de reenviar."
+  "attacker_reveal": "Un buen regalo y un motivo para darse prisa... y fuiste tú quien difundió la noticia por mí. La próxima vez quizá busques una segunda fuente antes de reenviar."
 }

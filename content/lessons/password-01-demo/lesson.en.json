@@ -2,7 +2,7 @@
   "id": "password-01-demo",
   "language": "en",
   "title": "Passwords in one minute",
-  "subtitle": "Two rules, two accounts, one of them comes back",
+  "subtitle": "Two rules, two accounts, and one of them comes back",
   "minutes": 1,
   "sections": [
     {
@@ -11,43 +11,43 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Two rules, and then you do it",
-          "say": "We have a minute, so here is the short version. A guesser's machine does not care about your exclamation mark. It cares how much there is to get through, and whether it has seen your password somewhere else already.",
+          "title": "Two rules, then over to you",
+          "say": "We have one minute, so here's the short version. The machine that guesses passwords doesn't care about your exclamation mark. What slows it down is the number of combinations it has to try. What helps it is having seen your password somewhere else already.",
           "rules": [
             {
               "headline": "Long beats clever.",
-              "body": "Four unrelated words. A short password with symbols in it is still short."
+              "body": "Four unrelated words. A short password stays short, however many symbols you stuff into it."
             },
             {
               "headline": "Never the same one twice.",
-              "body": "One leaked site becomes every site, because attackers replay the pairs they already have."
+              "body": "A leak on one site puts them all at risk, because attackers try the username-and-password pairs they already have everywhere else."
             }
           ],
-          "sign_off": "The full lesson adds two more rules and five password managers to pick from. This is the minute version."
+          "sign_off": "The full lesson adds two more rules and five password managers to choose from. This is the one-minute version."
         }
       ]
     },
     {
       "type": "status",
-      "question": "How are you feeling about this?",
+      "question": "How are you feeling about all this?",
       "levels": [
         {
           "key": "LOW",
           "label": "Still unsure",
           "persona": "turtle",
-          "reply": "Quite all right, dear. Two accounts, and nothing you type here unlocks anything anywhere."
+          "reply": "Nothing to worry about. Only two accounts, and nothing you type here opens anything, anywhere."
         },
         {
           "key": "MEDIUM",
           "label": "Getting there",
           "persona": "cat",
-          "reply": "Good. Prove it on two accounts, and save both as you go."
+          "reply": "Good. Prove it on two accounts, and save them as you go."
         },
         {
           "key": "HIGH",
           "label": "Confident",
           "persona": "spider",
-          "reply": "Confident? Two should be no trouble then. I will be waiting at the end to say which one I would have tried first."
+          "reply": "Ah, confidence. Two accounts will be a formality, then. I'll be waiting at the end to tell you which one I'd have tried first."
         }
       ]
     },
@@ -57,19 +57,19 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Now the part that proves it",
-          "say": "Two pretend sites, one of them holding a card number. Invent a new password for each. We keep a scrambled fingerprint so you can log back in, and nothing else: not the password, not a hint, not a way to remind you.",
+          "title": "Now, the proof",
+          "say": "Two made-up sites, one of them storing a card number. Invent a new password for each. We keep a scrambled fingerprint so you can log back in, and nothing else: not the password, not a hint, nothing we could remind you with.",
           "rules": [
             {
               "headline": "Two sites, two new passwords.",
-              "body": "Both pretend, both ours, and they unlock nothing. Do not use a password you really have, not even once."
+              "body": "Both made up, both ours, and they unlock nothing. Don't use any of your real passwords, not even once."
             },
             {
-              "headline": "We will ask for one of them back.",
-              "body": "In a moment, one of the two at random. We will not say which, so the only way through is to have saved both."
+              "headline": "We'll ask for one of them back.",
+              "body": "In a moment, one of the two, picked at random. We won't say which, so you'll need to have saved both."
             }
           ],
-          "sign_off": "Two accounts. Then we find out whether the habit is real."
+          "sign_off": "Two accounts. Then we'll know whether the habit is real."
         }
       ]
     }

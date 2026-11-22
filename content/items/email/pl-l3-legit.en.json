@@ -29,7 +29,7 @@
     "from_name": "HelvetiCare",
     "from_address": "service@helveticare.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, your premium statement is ready",
+    "subject": "{{first_name}}, your premium statement is available",
     "received": "-PT1H",
     "body": [
       {
@@ -38,7 +38,7 @@
       },
       {
         "t": "text",
-        "v": "Your premium statement for this year is ready for you to read."
+        "v": "Your premium statement for this year is available."
       },
       {
         "t": "link",
@@ -48,7 +48,7 @@
       },
       {
         "t": "text",
-        "v": "You can also find it by opening the app yourself."
+        "v": "You can also get to it by opening the app yourself."
       },
       {
         "t": "signature",
@@ -62,37 +62,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on helveticare.example, the real domain."
+      "explain": "The address ends in helveticare.example, the real domain."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Your first name is nice, but it is the domain that tells you who wrote it."
+      "explain": "Your first name is a nice touch, but it's the domain that tells you who sent it."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "The link text and the real address both belong to helveticare.example."
+      "explain": "The link text and the real address both lead to helveticare.example."
     },
     {
       "id": "hs-own-channel",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "It reminds you that you can open the app yourself."
+      "explain": "It reminds you that you can go through the app, without the link."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "HelvetiCare: the address is on helveticare.example and the link goes to the same domain.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "HelvetiCare: the address is on helveticare.example, and the link points to the same domain.",
       "choices": [
-        "HelvetiCare, from its real domain",
-        "A scammer who copied the name",
+        "HelvetiCare, from its own domain",
+        "A scammer who copied the display name",
         "A broker who bought your data"
       ],
       "correct": 0,
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "None. It is a calm notice with no deadline.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "None. A calm notice, with no deadline.",
       "choices": [
-        "None: it is a calm notice",
-        "Fear of losing cover",
-        "Greed for a refund"
+        "None: it's a calm notice",
+        "Fear of losing your cover",
+        "The hope of a refund"
       ],
       "correct": 0,
       "cues": [
@@ -118,11 +118,11 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Nothing important: it offers a link to read your statement, and asks for no login or payment.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Nothing in particular: a link to read your statement, with no sign-in or payment asked for.",
       "choices": [
-        "Nothing: it only offers a link to read a statement",
-        "Pay a late fee",
+        "Nothing: it offers a link to a statement",
+        "Pay a late-payment fee",
         "Send your bank details"
       ],
       "correct": 0,
@@ -135,11 +135,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Open the HelvetiCare app yourself. The email says so too, so you never have to trust the link.",
+      "answer": "Open the HelvetiCare app yourself. The email suggests it too: you don't need to trust the link.",
       "choices": [
         "Open the HelvetiCare app yourself",
-        "Reply and ask for a printed copy",
-        "Forward it to a friend"
+        "Reply and ask for a paper copy",
+        "Forward it to a friend for advice"
       ],
       "correct": 0,
       "cues": [
@@ -154,20 +154,20 @@
       "id": "open-app",
       "label": "Open the HelvetiCare app yourself and read the statement",
       "outcome": "safe",
-      "consequence": "The statement is there, exactly as promised."
+      "consequence": "The statement is there, as announced."
     },
     {
       "id": "click",
       "label": "Click the link in the email to read it",
       "outcome": "neutral",
-      "consequence": "It leads to the real site, so no harm. Opening the app yourself is still the safer habit."
+      "consequence": "The link goes to the real site: no harm done. Opening the app yourself is still the better habit."
     },
     {
       "id": "ignore",
       "label": "Ignore it and read the statement later",
       "outcome": "safe",
-      "consequence": "Nothing is lost. The statement waits in the app."
+      "consequence": "The statement is waiting for you in the app."
     }
   ],
-  "attacker_reveal": "This one is real, dear. Compare it with its look-alike: same name, same greeting, same link text, but the domain is the insurer's own and nothing is rushed. The domain is what to read."
+  "attacker_reveal": "Put it next to my fake: same sender name, same first name up top, a link in the same place. Except here the domain belongs to the insurer and nothing is rushed. The domain was the thing to read."
 }

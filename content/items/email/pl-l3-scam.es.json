@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Tu cuenta en línea de HelvetiCare necesita una comprobación rápida tras la actualización de nuestro sistema. Lleva un minuto."
+        "v": "Tras la actualización de nuestro sistema, tu cuenta en línea de HelvetiCare necesita una comprobación rápida. Solo te llevará un minuto."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Si no lo confirmas, algunos servicios podrían quedar en pausa."
+        "v": "Si no lo confirmas, algunos servicios podrían quedar suspendidos."
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "El nombre visible dice HelvetiCare, pero helveticare-online.example no es el dominio de la aseguradora, helveticare.example."
+      "explain": "El nombre visible dice HelvetiCare, pero helveticare-online.example no es helveticare.example, el dominio de la aseguradora."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Usar tu nombre suena personal, pero los estafadores lo encuentran fácilmente. No demuestra quién escribió el correo."
+      "explain": "Tu nombre le da un aire personal, pero un estafador lo encuentra sin esfuerzo. No dice nada del remitente."
     },
     {
       "id": "hs-pause",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Algunos servicios podrían quedar en pausa\" es una amenaza suave, para que actúes antes de pensar."
+      "explain": "Con «algunos servicios podrían quedar suspendidos», la amenaza es vaga, pero basta para que actúes antes de pensar."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "El texto parece helveticare.example, pero el enlace en realidad va a helveticare-online.example. El texto puede decir cualquier cosa."
+      "explain": "El texto visible parece helveticare.example, pero el enlace lleva en realidad a helveticare-online.example. El texto de un enlace puede mostrar cualquier cosa."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
       "answer": "Alguien que usa el nombre de HelvetiCare. El nombre visible y el saludo son correctos, pero la dirección es de helveticare-online.example.",
       "choices": [
-        "Alguien que usa una dirección parecida y tu nombre de pila",
-        "HelvetiCare, porque sabe tu nombre",
-        "Tu asesor de salud"
+        "Un impostor con una dirección casi idéntica",
+        "HelvetiCare, porque sabe cómo te llamas",
+        "Tu asesora de salud, desde su correo personal"
       ],
       "correct": 0,
       "cues": [
@@ -106,11 +106,11 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Un miedo discreto a perder servicios, con la insinuación de que es rápido y fácil.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Una inquietud discreta: perder el acceso a algunos servicios, mientras todo se presenta como rápido y fácil.",
       "choices": [
-        "Un miedo discreto a perder servicios",
-        "Alegría por una prima",
+        "Un temor discreto a perder servicios",
+        "La alegría de recibir una bonificación",
         "Ninguna: es un aviso rutinario"
       ],
       "correct": 0,
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Pulsar el enlace e iniciar sesión para 'confirmar' tus datos, lo que entregaría tus datos de acceso a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Pulsar el enlace e iniciar sesión para «confirmar» tus datos. Tus datos de acceso acabarían en manos del remitente.",
       "choices": [
         "Pulsar el enlace e iniciar sesión",
-        "Abrir un archivo adjunto",
-        "Llamar a un teléfono de atención"
+        "Abrir el archivo adjunto del mensaje",
+        "Llamar a la línea de ayuda"
       ],
       "correct": 0,
       "cues": [
@@ -138,11 +138,11 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Ignora el enlace. Abre la app de HelvetiCare, o escribe tú mismo la dirección de la aseguradora, y mira si hay algo que confirmar.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Ignora el enlace. Abre la app de HelvetiCare, o escribe tú la dirección de la aseguradora, y mira si de verdad te piden alguna confirmación.",
       "choices": [
-        "Abrir tú mismo la app de HelvetiCare",
-        "Pulsar el enlace y comprobar que la página se ve bien",
+        "Abrir por tu cuenta la app de HelvetiCare",
+        "Pulsar y ver si la página parece normal",
         "Responder para preguntar si es auténtico"
       ],
       "correct": 0,
@@ -157,28 +157,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de HelvetiCare y buscar algún aviso",
+      "label": "Abrir por tu cuenta la app de HelvetiCare y buscar algún aviso",
       "outcome": "safe",
-      "consequence": "No hay ningún aviso. El correo era falso."
+      "consequence": "Ningún aviso, ninguna comprobación pendiente. El correo era falso."
     },
     {
       "id": "click",
-      "label": "Pulsar el enlace e iniciar sesión, porque sabe tu nombre",
+      "label": "Pulsar el enlace e iniciar sesión, ya que sabe tu nombre",
       "outcome": "unsafe",
-      "consequence": "La página parece correcta, pero tus datos de acceso van directos al estafador."
+      "consequence": "La página es idéntica a la de la aseguradora. Tus datos de acceso, en cambio, van al estafador."
     },
     {
       "id": "hover",
-      "label": "Pasar el ratón por el enlace e iniciar sesión si la página parece correcta",
+      "label": "Pasar el ratón por el enlace e iniciar sesión si la página parece normal",
       "outcome": "unsafe",
-      "consequence": "Una página parecida puede verse perfecta. Entregaste tus datos de acceso al estafador."
+      "consequence": "Una página copiada puede ser perfecta. Acabas de darle tus datos de acceso al estafador."
     },
     {
       "id": "report-delete",
       "label": "Denunciarlo como phishing y borrarlo",
       "outcome": "safe",
-      "consequence": "Buena decisión. No entregaste nada."
+      "consequence": "El enlace nunca se abrió, y tus datos de acceso siguen a salvo."
     }
   ],
-  "attacker_reveal": "Usé tu nombre, el logotipo correcto y un lenguaje perfecto... y el texto del enlace mintió. Un nombre en el saludo es fácil de encontrar, así que nunca prueba quién escribe."
+  "attacker_reveal": "Tu nombre lo encontré sin buscarlo. Añade el nombre de remitente correcto y un español impecable, y ya nadie mira adónde lleva el enlace. Un nombre en el saludo no dice nada de quién escribe."
 }

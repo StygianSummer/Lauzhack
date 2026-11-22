@@ -27,7 +27,7 @@
     "from_name": "HelvetiCare",
     "from_address": "service@helveticare.example",
     "to": "{{email}}",
-    "subject": "Your claim statement is ready",
+    "subject": "Your claim statement is available",
     "received": "-PT3H",
     "body": [
       {
@@ -36,11 +36,11 @@
       },
       {
         "t": "text",
-        "v": "Your latest claim statement is ready. You can read it in the HelvetiCare app, under Documents."
+        "v": "Your latest claim statement is available. You'll find it in the HelvetiCare app, under Documents."
       },
       {
         "t": "text",
-        "v": "We never send statements by email, and we never ask for bank details by email."
+        "v": "We never send statements by email, and we will never ask for your bank details this way."
       },
       {
         "t": "signature",
@@ -54,38 +54,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on helveticare.example, the insurer's real domain."
+      "explain": "The address ends in helveticare.example, the insurer's real domain."
     },
     {
       "id": "hs-no-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "It asks for nothing. It only tells you where to look."
+      "explain": "No request: it only tells you where to find the document."
     },
     {
       "id": "hs-never-asks",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "A real insurer says plainly that it never asks for bank details by email."
+      "explain": "The insurer states in black and white that it never asks for bank details by email."
     },
     {
       "id": "hs-calm",
       "target": "subject",
       "step": "emotion",
       "red_flag": false,
-      "explain": "A plain subject with no big number and no deadline."
+      "explain": "A plain subject line: no amount, no deadline."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "HelvetiCare itself: the address is on helveticare.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "HelvetiCare: the address is on helveticare.example.",
       "choices": [
-        "HelvetiCare, from its real domain",
-        "A scammer using a lookalike address",
-        "A broker selling you a new plan"
+        "HelvetiCare, from its own domain",
+        "Someone with a near-identical address",
+        "A broker wanting to sell you a policy"
       ],
       "correct": 0,
       "cues": [
@@ -95,12 +95,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "None. It is a plain, calm notice.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "None. A plain notice, with no pressure.",
       "choices": [
-        "None: it is a calm notice",
-        "Greed for a refund",
-        "Fear of losing cover"
+        "None: it's a plain notice",
+        "The lure of a refund",
+        "Fear of losing your cover"
       ],
       "correct": 0,
       "cues": [
@@ -110,11 +110,11 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Nothing, apart from reading your statement in the app if you wish.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Nothing, apart from reading your statement in the app if you want to.",
       "choices": [
-        "Nothing, apart from reading it in the app",
-        "Reply with your bank account number",
+        "Nothing, except reading it in the app",
+        "Reply with your account number",
         "Click a link and sign in"
       ],
       "correct": 0,
@@ -126,11 +126,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Open the HelvetiCare app yourself and look under Documents. The email even tells you to.",
+      "answer": "Open the HelvetiCare app yourself, under Documents. The email doesn't suggest anything else anyway.",
       "choices": [
         "Open the HelvetiCare app yourself",
         "Reply and ask for the statement",
-        "Call the number in the email"
+        "Call the number given in the email"
       ],
       "correct": 0,
       "cues": [
@@ -145,20 +145,20 @@
       "id": "open-app",
       "label": "Open the HelvetiCare app yourself and read the statement",
       "outcome": "safe",
-      "consequence": "The statement is there. Nothing was needed from the email."
+      "consequence": "The statement is there. The email was only a heads-up."
     },
     {
       "id": "ignore",
-      "label": "Ignore the email, because you will read the statement later",
+      "label": "Ignore the email: you'll read the statement later",
       "outcome": "safe",
-      "consequence": "Nothing is lost. The statement waits in the app."
+      "consequence": "No rush: the statement stays available in the app."
     },
     {
       "id": "reply",
-      "label": "Reply with your bank account number so they can pay you faster",
+      "label": "Reply with your account number to get refunded faster",
       "outcome": "unsafe",
-      "consequence": "The email said they never ask for this. Never send bank details by email, even to a real sender."
+      "consequence": "The email said the insurer never asks for it. Bank details don't go by email, even to a genuine sender."
     }
   ],
-  "attacker_reveal": "This one is real, dear. It comes from the insurer's own domain, has no link and says out loud that it never asks for bank details. Compare it with the refund email: the same company, a very different request."
+  "attacker_reveal": "You can put your suspicions away: this one really is from the insurer. No link, and it tells you itself that it never asks for bank details. Compare it with the email promising a refund: same company, opposite request."
 }

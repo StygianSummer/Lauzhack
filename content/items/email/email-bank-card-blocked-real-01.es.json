@@ -32,7 +32,7 @@
     "from_name": "Equipo antifraude de SwissAlpBank",
     "from_address": "fraud@swissalpbank.example",
     "to": "{{email}}",
-    "subject": "Hemos pausado tu tarjeta tras un pago inusual",
+    "subject": "Pago inusual: tu tarjeta está bloqueada temporalmente",
     "received": "-PT1H",
     "body": [
       {
@@ -41,15 +41,15 @@
       },
       {
         "t": "text",
-        "v": "Hemos pausado un pago con tarjeta de 389,00 CHF que parecía inusual. Tu tarjeta seguirá pausada hasta que lo confirmes."
+        "v": "Hemos retenido un pago con tarjeta de 389,00 CHF que nos ha parecido inusual. Por precaución, tu tarjeta seguirá bloqueada hasta que nos lo confirmes."
       },
       {
         "t": "text",
-        "v": "Abre la app de SwissAlpBank en las próximas 24 horas y dinos si el pago era tuyo."
+        "v": "Abre la app de SwissAlpBank en las próximas 24 horas y dinos si el pago lo has hecho tú."
       },
       {
         "t": "text",
-        "v": "Nunca te pediremos un código, una contraseña ni el número de tu tarjeta por correo, SMS o teléfono."
+        "v": "Nunca te pediremos un código, una contraseña ni el número de tu tarjeta, ni por correo, ni por SMS, ni por teléfono."
       },
       {
         "t": "signature",
@@ -63,38 +63,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de swissalpbank.example, el dominio real del banco."
+      "explain": "Después de la @ pone swissalpbank.example: el dominio del banco, sin nada añadido."
     },
     {
       "id": "hs-deadline",
       "target": "body:2",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Es un plazo real, pero te pide usar la app que ya tienes. La urgencia por sí sola no convierte un correo en una estafa."
+      "explain": "El plazo es real, pero te manda a la app que ya tienes, no a un enlace. La urgencia, por sí sola, no convierte un correo en una estafa."
     },
     {
       "id": "hs-never",
       "target": "body:3",
       "step": "ask",
       "red_flag": false,
-      "explain": "Dice claramente que nunca te pedirá un código ni una contraseña."
+      "explain": "El banco lo escribe bien claro: nunca te pedirá un código ni una contraseña."
     },
     {
       "id": "hs-no-link",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "No hay ningún enlace. Te envía a la app, un canal que tú controlas."
+      "explain": "No hay ningún enlace: te remite a la app, un canal que abres tú."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "SwissAlpBank: la dirección es de swissalpbank.example y nada apunta a otro dominio.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "SwissAlpBank. La dirección es de swissalpbank.example y nada en el mensaje lleva a otro dominio.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "Una persona que llama al azar",
-        "SwissAlpBank, desde su dominio real"
+        "Alguien que imita la dirección del banco",
+        "Un falso asesor que quiere llamarte",
+        "SwissAlpBank, desde su propio dominio"
       ],
       "correct": 2,
       "cues": [
@@ -104,11 +104,11 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Algo de urgencia, porque se pausó un pago y hay un margen de 24 horas. Pero la presión es un plazo real, sin amenazas.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Algo de urgencia: hay un pago retenido y tienes 24 horas. La presión viene de un plazo real, sin ninguna amenaza.",
       "choices": [
-        "Ganas de recibir un reembolso",
-        "Ninguna en absoluto",
+        "La ilusión de recibir un reembolso",
+        "Ninguna, es un simple aviso informativo",
         "Algo de urgencia, por un plazo real"
       ],
       "correct": 2,
@@ -120,11 +120,11 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Abrir la app y decir si el pago era tuyo. Sin código, sin enlace, sin contraseña.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Abrir la app y decir si el pago es tuyo. Ni código, ni enlace, ni contraseña.",
       "choices": [
-        "Responder con el código de tu móvil",
-        "Iniciar sesión mediante un enlace",
+        "Reenviar el código que te llegue al móvil",
+        "Iniciar sesión desde un enlace",
         "Revisar un pago en la app del banco"
       ],
       "correct": 2,
@@ -136,12 +136,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Abre tú mismo la app de SwissAlpBank o llama al número que figura en el reverso de tu tarjeta.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Abre por tu cuenta la app de SwissAlpBank o llama al número del reverso de tu tarjeta.",
       "choices": [
-        "Responder al correo",
-        "Pulsar un enlace del correo",
-        "Abrir tú mismo la app de SwissAlpBank"
+        "Responder al correo para confirmar el pago",
+        "Buscar en el correo un enlace a tu cuenta",
+        "Abrir por tu cuenta la app de SwissAlpBank"
       ],
       "correct": 2,
       "cues": [
@@ -155,22 +155,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de SwissAlpBank y revisar el pago",
+      "label": "Abrir por tu cuenta la app de SwissAlpBank y revisar el pago",
       "outcome": "safe",
-      "consequence": "El pago aparece en la lista y lo confirmas o lo niegas."
+      "consequence": "Ahí está el pago retenido: lo confirmas o lo rechazas."
     },
     {
       "id": "call-card",
       "label": "Llamar al número del reverso de tu tarjeta",
       "outcome": "safe",
-      "consequence": "El banco confirma el pago pausado."
+      "consequence": "Al otro lado del teléfono, el banco confirma que ha retenido ese pago."
     },
     {
       "id": "reply-code",
       "label": "Responder con el código si te llega uno",
       "outcome": "unsafe",
-      "consequence": "El correo decía que nunca lo pedirían. Un código no se entrega jamás, ni siquiera a un banco de verdad."
+      "consequence": "El correo lo decía: el banco nunca pide códigos. Un código no se le da a nadie, ni siquiera a tu banco de verdad."
     }
   ],
-  "attacker_reveal": "Este es real, querido, aunque tenga un plazo. El dominio es el del propio banco, nadie pide un código y te envían a la app. Compáralo con el correo del 'caso 7731': los dos son tranquilos, pero solo uno te pide que leas un código en voz alta."
+  "attacker_reveal": "De este no saco nada: un plazo real, el dominio correcto y la app que ya tienes. Compáralo con el «Caso 7731»: la misma calma, el mismo importe, pero solo uno te pide los dígitos que te llegan por SMS."
 }

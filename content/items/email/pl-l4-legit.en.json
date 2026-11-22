@@ -28,7 +28,7 @@
     "from_name": "SwissAlpBank Statements",
     "from_address": "statements@swissalpbank.example",
     "to": "{{email}}",
-    "subject": "Your October statement is ready",
+    "subject": "Your October statement is available",
     "received": "-PT30M",
     "body": [
       {
@@ -37,11 +37,11 @@
       },
       {
         "t": "text",
-        "v": "Your October statement is attached as a PDF. You can also read it in the SwissAlpBank app, under Documents."
+        "v": "Please find attached your October statement as a PDF. It's also available in the SwissAlpBank app, under Documents."
       },
       {
         "t": "text",
-        "v": "Replies to this address are not read."
+        "v": "Messages sent to this address are not read."
       },
       {
         "t": "signature",
@@ -58,38 +58,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on swissalpbank.example, the bank's real domain, and there is no different reply-to."
+      "explain": "The address ends in swissalpbank.example, the bank's real domain, and no reply-to address leads anywhere else."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": false,
-      "explain": "A plain .pdf, not .pdf.html. The file type matches what the email says."
+      "explain": "A plain .pdf, not a .pdf.html. The file is what the email says it is."
     },
     {
       "id": "hs-no-reply",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "It says plainly that replies are not read, so nothing is sent to a strange address."
+      "explain": "It says replies aren't read: nothing goes off to an unknown address."
     },
     {
       "id": "hs-app",
       "target": "body:1",
       "step": "verify",
       "red_flag": false,
-      "explain": "It tells you where to find the same statement yourself, in the app."
+      "explain": "It tells you where to find the same statement yourself: in the app."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "SwissAlpBank: the sender address is on the real domain and there is no reply-to pointing anywhere else.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "SwissAlpBank: the sender address is on the real domain, and no reply-to address points anywhere else.",
       "choices": [
-        "Someone faking the bank's address",
-        "SwissAlpBank, from its real domain",
-        "Your personal adviser"
+        "An impostor forging the bank's address",
+        "SwissAlpBank, from its own domain",
+        "Your personal adviser at the bank"
       ],
       "correct": 1,
       "cues": [
@@ -100,12 +100,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "None. It is routine mail with no deadline or threat.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "None. Routine mail, with no deadline or threat.",
       "choices": [
-        "Fear of a fee",
-        "None: it is routine mail",
-        "Excitement about an offer"
+        "Fear of unexpected charges",
+        "None: it's routine mail",
+        "Excitement about a special offer"
       ],
       "correct": 1,
       "cues": [
@@ -115,12 +115,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Nothing. It delivers your statement as a PDF. There is no sign-in, link or payment.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Nothing. It sends you your statement as a PDF: no sign-in, no link, no payment.",
       "choices": [
-        "Sign in to see it",
-        "Nothing: it only delivers a statement",
-        "Pay a fee"
+        "Sign in to view the statement",
+        "Nothing: it sends you a statement",
+        "Pay an account-keeping fee"
       ],
       "correct": 1,
       "cues": [
@@ -132,9 +132,9 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "If you are unsure, open the SwissAlpBank app yourself and read the same statement there.",
+      "answer": "If in doubt, open the SwissAlpBank app yourself and read the same statement there.",
       "choices": [
-        "Reply to ask for a paper copy",
+        "Reply and ask for a paper copy",
         "Open the SwissAlpBank app yourself",
         "Forward it to a friend first"
       ],
@@ -151,20 +151,20 @@
       "id": "open-app",
       "label": "Open the SwissAlpBank app yourself and read the statement there",
       "outcome": "safe",
-      "consequence": "The same statement is there. You never needed the attachment."
+      "consequence": "The same statement is there. You didn't even need the attachment."
     },
     {
       "id": "open-pdf",
       "label": "Open the PDF attachment",
       "outcome": "safe",
-      "consequence": "It is a normal statement. A real .pdf from the real domain is fine to open."
+      "consequence": "It's a perfectly normal statement. A real .pdf from the real domain is safe to open."
     },
     {
       "id": "reply",
-      "label": "Reply to ask a question about the statement",
+      "label": "Reply with a question about the statement",
       "outcome": "neutral",
-      "consequence": "Nobody reads replies to this address. Use the app or the number on your card."
+      "consequence": "Nobody reads that inbox. Use the app or the number on your card."
     }
   ],
-  "attacker_reveal": "This one is real, dear. Same bank, same kind of attachment as the fake, but the file really is a PDF and nothing points to another address. Read file names to the end, and check the reply-to too."
+  "attacker_reveal": "The real bank, this time. Same sender, same attached statement as my fake, but the file is a real PDF and no reply goes anywhere else. Read file names to the very end, and the reply-to along with them."
 }

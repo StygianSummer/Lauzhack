@@ -31,7 +31,7 @@
     "from_name": "Parcel Point Delivary",
     "from_address": "delivery.agent77@free-mailbox.example",
     "to": "{{email}}",
-    "subject": "Your parcel is waiting!!! pay small fee",
+    "subject": "Your parcel is waitting !!! pay the small fee",
     "received": "-PT25M",
     "body": [
       {
@@ -40,17 +40,17 @@
       },
       {
         "t": "text",
-        "v": "Your parcle is held at our depot. You must pay a small fee of CHF 2.50 today or it will be send back."
+        "v": "Your parcle is held at our depot. You must payed a small fee of CHF 2.50 todday or it will be send back."
       },
       {
         "t": "link",
-        "v": "Pay fee now",
+        "v": "Pay the fee now",
         "href": "http://parcel-pay-fee.example/x7q",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "Thank you for you patience."
+        "v": "Thank you for you patiense and have a nice day."
       },
       {
         "t": "signature",
@@ -64,45 +64,45 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "A free-looking mailbox address, not parcelpoint.example. A real parcel company writes from its own domain."
+      "explain": "A free mailbox, not parcelpoint.example. A carrier writes from its own domain, not from a throwaway address."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": true,
-      "explain": "\"Dear costumer\" is generic and misspelt. Your real parcel company knows your name."
+      "explain": "\"Dear costumer\": no name, and a mistake in the very first words. The carrier you have an account with knows what you're called."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Today or it will be sent back\" is there to rush you."
+      "explain": "\"todday or it will be send back\": a deadline of a few hours, so you pay before you think."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "A strange address on a different domain that has nothing to do with ParcelPoint."
+      "explain": "The button leads to an unknown address, on a domain that has nothing to do with ParcelPoint."
     },
     {
       "id": "hs-typos",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "More spelling mistakes. Companies proofread; scammers often do not."
+      "explain": "More mistakes, right down to the sign-off. Companies proofread their messages; a scammer in a hurry rarely does."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Not ParcelPoint. The address is on free-mailbox.example, not parcelpoint.example, and the spelling mistakes are not how a real parcel company writes.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Not ParcelPoint. The address is on free-mailbox.example instead of parcelpoint.example, and no carrier sends a message riddled with mistakes.",
       "choices": [
         "ParcelPoint's delivery team",
-        "Someone using a throwaway mailbox, not ParcelPoint",
-        "A neighbour holding your parcel"
+        "A stranger using a free mailbox",
+        "A neighbour who took in your parcel"
       ],
       "correct": 1,
       "cues": [
@@ -113,12 +113,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Hurry: pay today or lose the parcel.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Hurry: pay today, or the parcel goes back.",
       "choices": [
-        "Curiosity about a prize",
-        "Hurry: pay today or the parcel goes back",
-        "None: it is a plain notice"
+        "Curiosity: a gift to collect",
+        "Hurry: pay today",
+        "None: it's a simple delivery notice"
       ],
       "correct": 1,
       "cues": [
@@ -129,12 +129,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Pay a fee through a link, which would hand your card details to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Pay a fee through the link. The payment page would collect your card details.",
       "choices": [
         "Collect the parcel from a neighbour",
-        "Pay a fee through a link",
-        "Nothing, it is for information"
+        "Pay a fee through the link",
+        "Nothing, it just informs you"
       ],
       "correct": 1,
       "cues": [
@@ -146,11 +146,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Ignore the link. Open the ParcelPoint app, or type the address yourself, and look up your parcels.",
+      "answer": "Leave the link alone. Open the ParcelPoint app yourself, or type its address, and look at your current deliveries.",
       "choices": [
         "Pay the small fee, just in case",
-        "Look up your parcels in the ParcelPoint app, opened yourself",
-        "Reply and ask for a different link"
+        "Check in the ParcelPoint app",
+        "Reply and ask for another link"
       ],
       "correct": 1,
       "cues": [
@@ -164,22 +164,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the ParcelPoint app yourself and check your parcels",
+      "label": "Open the ParcelPoint app yourself and check your deliveries",
       "outcome": "safe",
-      "consequence": "No parcel is on hold. The email was fake and you gave nothing away."
+      "consequence": "No parcel on hold, nothing to pay. The email was fake, and you gave nothing away."
     },
     {
       "id": "pay",
       "label": "Pay the fee through the link",
       "outcome": "unsafe",
-      "consequence": "Your card details go to the scammer, who can spend your money."
+      "consequence": "Your card details go to the scammer. The small fee was only a pretext: now they can charge far more."
     },
     {
       "id": "report-delete",
-      "label": "Report the email as phishing and delete it",
+      "label": "Report the email as phishing, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. Nothing was clicked and your mail provider learns to catch the next one."
+      "consequence": "Nothing was clicked, and your email provider gets better at spotting the next one."
     }
   ],
-  "attacker_reveal": "Spelling mistakes, a stranger's address and a fee small enough that nobody checks... I did not even try. This still catches people who are waiting for a parcel."
+  "attacker_reveal": "Three typos a line, a throwaway address and a fee too small to bother questioning. I made no effort at all. People waiting for a parcel pay anyway."
 }

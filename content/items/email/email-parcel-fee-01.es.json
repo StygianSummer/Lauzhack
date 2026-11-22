@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "ParcelPoint: tu paquete está retenido. Paga la tasa de 1,99 CHF en un plazo de 24 horas para liberarlo."
+        "v": "ParcelPoint: tu paquete está retenido. Para que te lo entreguemos, paga la tasa de 1,99 CHF en un plazo de 24 horas."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Los paquetes que no se liberen a tiempo se devuelven al remitente."
+        "v": "Pasado ese plazo, el paquete se devolverá al remitente."
       },
       {
         "t": "signature",
@@ -64,37 +64,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "parcelpoint-fees.example no es el dominio de ParcelPoint, parcelpoint.example."
+      "explain": "parcelpoint-fees.example no es el dominio de ParcelPoint, que es parcelpoint.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"En un plazo de 24 horas\" está ahí para meterte prisa. La tasa minúscula hace que pagar parezca inofensivo."
+      "explain": "«en un plazo de 24 horas» sirve para meterte prisa. Y con una tasa tan pequeña, pagar parece no tener ningún riesgo."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "La página te pediría los datos de tu tarjeta. Un transportista de verdad no cobra tasas mediante un enlace en un mensaje."
+      "explain": "La página te pediría los datos de la tarjeta. Un transportista de verdad no te cobra tasas a través de un enlace recibido en un mensaje."
     },
     {
       "id": "hs-return",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "La amenaza de perder el paquete suma presión a la que ya genera el plazo."
+      "explain": "La amenaza de que el paquete vuelva al remitente se suma al plazo."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que usa el nombre de ParcelPoint. La dirección es de parcelpoint-fees.example, no de parcelpoint.example. Es el mismo truco que en las versiones por SMS.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que usa el nombre de ParcelPoint. La dirección es de parcelpoint-fees.example, no de parcelpoint.example. Las versiones por SMS hacen exactamente el mismo truco.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "El equipo de reparto de ParcelPoint",
+        "Alguien con una dirección casi idéntica",
+        "El servicio de reparto de ParcelPoint",
         "La tienda donde hiciste el pedido"
       ],
       "correct": 0,
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Prisa y algo de preocupación: paga en 24 horas o el paquete se devuelve.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Prisa, con un punto de inquietud: paga en 24 horas o el paquete se devuelve.",
       "choices": [
-        "Prisa: paga en 24 horas o pierdes el paquete",
-        "Ganas de conseguir un regalo gratis",
-        "Ninguna: es un aviso sencillo"
+        "Prisa: pagar en 24 horas o perder el paquete",
+        "Ganas de recibir un regalo gratis",
+        "Ninguna, es un simple aviso de entrega"
       ],
       "correct": 0,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Pagar una tasa pequeña mediante un enlace, lo que entregaría los datos de tu tarjeta a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Pagar una tasa pequeña desde un enlace. Los datos de tu tarjeta irían al remitente.",
       "choices": [
-        "Pagar una tasa pequeña mediante un enlace",
+        "Pagar una tasa pequeña desde un enlace",
         "Recoger el paquete en casa de un vecino",
-        "Responder con tu dirección"
+        "Responder indicando tu dirección"
       ],
       "correct": 0,
       "cues": [
@@ -138,12 +138,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "No uses el camino que te dan. Consulta el envío en la app o la web del propio transportista, que abres tú mismo. Incluso pulsar para mirar puede bastar, y responder STOP les dice que tu dirección está activa.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No vayas por el camino que te ofrecen. Comprueba el envío en la app o en la web del transportista, abiertas por tu cuenta. Un clic «solo para mirar» ya puede bastar, y responder STOP les confirma que tu dirección está activa.",
       "choices": [
-        "Consultar el envío en la app de ParcelPoint, abierta por ti mismo",
-        "Pagarla, porque son solo 1,99 CHF",
-        "Responder STOP para que te den de baja de la lista"
+        "Abrir por tu cuenta la app de ParcelPoint y comprobarlo",
+        "Pagar igualmente, solo son 1,99 CHF",
+        "Responder STOP para que te quiten de la lista"
       ],
       "correct": 0,
       "cues": [
@@ -166,28 +166,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ignorar el enlace y consultar tú mismo el envío en la app de ParcelPoint",
+      "label": "Ignorar el enlace y comprobar por tu cuenta el envío en la app de ParcelPoint",
       "outcome": "safe",
-      "consequence": "No hay ningún paquete retenido. El correo era falso."
+      "consequence": "Ningún paquete pendiente. El correo era falso."
     },
     {
       "id": "pay",
-      "label": "Pagarla, porque son solo 1,99 CHF",
+      "label": "Pagar igualmente, solo son 1,99 CHF",
       "outcome": "unsafe",
-      "consequence": "Los datos de tu tarjeta van al estafador, que ahora puede llevarse mucho más que 1,99 CHF."
+      "consequence": "Los datos de tu tarjeta van al estafador, que ahora puede cobrarte mucho más que 1,99 CHF."
     },
     {
       "id": "look",
-      "label": "Pulsar el enlace solo para mirar, sin introducir nada",
+      "label": "Pulsar el enlace solo para mirar, sin escribir nada",
       "outcome": "unsafe",
-      "consequence": "Incluso mirar puede confirmar que tu dirección está activa, y algunas páginas intentan ejecutar código en segundo plano."
+      "consequence": "Un simple vistazo puede confirmar que tu dirección está activa, y algunas páginas intentan ejecutar código sin que te des cuenta."
     },
     {
       "id": "reply-stop",
-      "label": "Responder STOP para que te den de baja de la lista",
+      "label": "Responder STOP para que te quiten de la lista",
       "outcome": "neutral",
-      "consequence": "Responder les dice que tu dirección es real. Te envían más."
+      "consequence": "Tu respuesta demuestra que la dirección es real. Te llegarán más."
     }
   ],
-  "attacker_reveal": "El mismo truco con otra mano de pintura... Una tasa pequeña, un reloj corto y un enlace que ellos te dan. Entra por una puerta que ya conoces y no me queda nada."
+  "attacker_reveal": "Receta vieja, envoltorio nuevo: una tasa ridícula, un plazo corto y un enlace ya preparado. Entra por la puerta que ya conoces, la app, y ya no tengo nada que venderte."
 }

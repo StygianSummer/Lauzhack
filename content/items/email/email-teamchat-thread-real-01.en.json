@@ -37,15 +37,15 @@
       },
       {
         "t": "text",
-        "v": "The notes are in the shared folder as usual, no sign-in needed. I put the actions at the top."
+        "v": "The notes are in the shared folder as usual, no need to sign in. I've put the action points right at the top."
       },
       {
         "t": "text",
-        "v": "Tell me if I missed anything and we can go through it on the phone."
+        "v": "Let me know if anything's missing, we can go over it on the phone."
       },
       {
         "t": "text",
-        "v": "You wrote on Wednesday: \"The notes are final, I will share them after the call.\""
+        "v": "On Wednesday you wrote: \"The notes are final, I'll share them after the call.\""
       },
       {
         "t": "signature",
@@ -59,38 +59,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is Jonas's and the thread is real. Alone, that proves little, but here the rest matches."
+      "explain": "It is Jonas's address, and the conversation is real. On its own that proves little, but here everything else fits too."
     },
     {
       "id": "hs-usual",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "Same shared folder as always, and no sign-in. Nothing is asked of you."
+      "explain": "The usual shared folder, no sign-in. Nothing is being asked of you."
     },
     {
       "id": "hs-phone",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "He offers a phone call, a channel you can use any time."
+      "explain": "He offers to talk it over by phone, a channel you can use whenever you like."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "It quotes your own words, which fits a real conversation."
+      "explain": "He quotes your own words, as in any real conversation."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Jonas, most likely: a real thread, the usual folder and an offer to talk by phone.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Very probably Jonas: the conversation is real, the notes are in the usual place, and he offers to talk by phone.",
       "choices": [
-        "Jonas, most likely",
-        "Someone using a lookalike address",
-        "A stranger"
+        "Very probably Jonas himself",
+        "Someone with a near-identical address",
+        "A stranger who found your address"
       ],
       "correct": 0,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "None. It is a friendly, everyday message.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "None. A friendly message, ordinary office life.",
       "choices": [
-        "None: it is an everyday message",
+        "None: an everyday message",
         "Fear of a penalty",
-        "Greed for a bonus"
+        "Hope of a bonus"
       ],
       "correct": 0,
       "cues": [
@@ -116,12 +116,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Nothing. The notes are in the usual folder. There is no link and no new sign-in.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Nothing. The notes are in the usual folder, with no link and no new sign-in.",
       "choices": [
         "Nothing: the notes are in the usual place",
-        "Sign in again through a link",
-        "Send the volunteer list"
+        "Sign in again by going through a link",
+        "Send the list of volunteers"
       ],
       "correct": 0,
       "cues": [
@@ -133,11 +133,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Look in the shared folder yourself. If anything bothers you, call Jonas on the number you already have.",
+      "answer": "Look in the shared folder yourself. If something bothers you, call Jonas on the number you already have.",
       "choices": [
-        "Open the shared folder yourself, or call Jonas",
-        "Reply to ask if it is really him",
-        "Ignore it forever"
+        "Open the folder yourself, or call Jonas",
+        "Reply to ask whether it is really him",
+        "Ignore it, and every one after it"
       ],
       "correct": 0,
       "cues": [
@@ -153,20 +153,20 @@
       "id": "open-folder",
       "label": "Open the shared folder yourself and read the notes",
       "outcome": "safe",
-      "consequence": "The notes are there, as Jonas said."
+      "consequence": "The notes are there, just as Jonas said."
     },
     {
       "id": "call",
-      "label": "Call Jonas to talk through the notes",
+      "label": "Call Jonas to go through the notes",
       "outcome": "safe",
-      "consequence": "He confirms. A short call is never wasted."
+      "consequence": "He confirms. The call wasn't wasted time."
     },
     {
       "id": "sign-in",
-      "label": "Sign in again somewhere, just in case",
+      "label": "Sign in again somewhere, just to be safe",
       "outcome": "unsafe",
-      "consequence": "Nothing asked for it. Never type a login when no real request needs it."
+      "consequence": "Nobody asked you to. Don't type your login details when no real request calls for it."
     }
   ],
-  "attacker_reveal": "This one is real, dear. It is almost a twin of the 'sign in again' email, but this one asks for nothing and points to the usual folder. At this level, ask what is being requested."
+  "attacker_reveal": "Jonas wrote this one himself, in the same thread as my message asking you to sign in again. He asks for nothing and points to the usual folder: when two emails look this alike, the request is what tells them apart."
 }

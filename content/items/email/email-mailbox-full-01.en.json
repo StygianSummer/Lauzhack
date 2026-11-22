@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "Your inbox is 99% full. Sign in within 1 hour or incoming mail will be rejected."
+        "v": "Your inbox is 99% full. Sign in within 1 hour, or new emails will be rejected."
       },
       {
         "t": "link",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "\"cl0uddrive\" has a zero where the o belongs, and it is not CloudDrive's domain, clouddrive.example, anyway."
+      "explain": "\"cl0uddrive\": a zero replaces the o. And even spelled correctly, it would not be CloudDrive's domain, clouddrive.example."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": true,
-      "explain": "\"Dear user\": a real service knows your name."
+      "explain": "\"Dear user\": the service that runs your account knows your name."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "Who chose the one-hour deadline, you or them? A threat of missing mail is made to hurry you."
+      "explain": "That one-hour deadline: who set it, you or them? The threat of losing emails is there to rush you."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The button leads to cl0uddrive-support.example, a lookalike domain. A lookalike link can look perfectly reasonable when you hover over it."
+      "explain": "The button leads to cl0uddrive-support.example, a lookalike domain. When you hover over it, a lookalike address can look perfectly normal."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be CloudDrive. 'cl0uddrive' has a zero where the o belongs, and it is not CloudDrive's domain anyway.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as CloudDrive. \"cl0uddrive\" has a zero instead of the o, and it is not CloudDrive's domain anyway.",
       "choices": [
         "CloudDrive's support team",
-        "Someone using a lookalike address",
-        "Your IT department"
+        "Someone with an almost identical address",
+        "Your IT team"
       ],
       "correct": 1,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: you are told mail will be lost unless you act within an hour.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear and haste: if you do not act within the hour, you will lose emails.",
       "choices": [
         "Curiosity about a new feature",
-        "Fear of missing mail, with a one-hour rush",
-        "None: it is a routine notice"
+        "Fear of losing emails, within the hour",
+        "None, it is a routine notice"
       ],
       "correct": 1,
       "cues": [
@@ -120,8 +120,8 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Sign in through the link, which would give your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Sign in through the link. Your login details would go to the sender.",
       "choices": [
         "Delete some old files",
         "Sign in through a link",
@@ -137,11 +137,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Click nothing. Report it to IT, then check your mailbox by opening the official site yourself.",
+      "answer": "Click nothing. Report the email to the IT team, then check your mailbox by opening the official site yourself.",
       "choices": [
-        "Reply and ask if the message is genuine",
+        "Reply to ask whether the message is genuine",
         "Open the official site yourself and report the email",
-        "Hover over the link and sign in if it looks reasonable"
+        "Hover over the link and sign in if it looks right"
       ],
       "correct": 1,
       "cues": [
@@ -164,28 +164,28 @@
   "actions": [
     {
       "id": "report-open",
-      "label": "Click nothing, report it to IT, then open the official site yourself",
+      "label": "Click nothing, report it to the IT team, then open the official site yourself",
       "outcome": "safe",
-      "consequence": "Your mailbox is fine. The email was fake and your report may protect a colleague."
+      "consequence": "Your mailbox is working normally. The email was fake, and your report may spare a colleague the same trap."
     },
     {
       "id": "sign-in",
       "label": "Sign in through the link, quickly",
       "outcome": "unsafe",
-      "consequence": "The page looks like CloudDrive, but your login goes straight to the scammer."
+      "consequence": "The page looks like CloudDrive, but your login details go to the scammer."
     },
     {
       "id": "reply",
-      "label": "Reply and ask the sender whether the message is genuine",
+      "label": "Reply to the sender to ask whether the message is genuine",
       "outcome": "neutral",
-      "consequence": "The scammer says yes, of course. Your reply also shows your address is live."
+      "consequence": "\"Of course,\" the scammer replies. And now they know your address is active."
     },
     {
       "id": "hover",
-      "label": "Hover over the link and sign in if the address looks reasonable",
+      "label": "Hover over the link and sign in if the address looks right",
       "outcome": "unsafe",
-      "consequence": "A lookalike address can look reasonable. You gave your login away."
+      "consequence": "A lookalike address can look perfectly right. Your login details are gone."
     }
   ],
-  "attacker_reveal": "A zero instead of an o, and a clock ticking... You read the words, not the letters. People who are worried about their mail rarely check the sender."
+  "attacker_reveal": "You read \"clouddrive\". There was a zero where the o should be, and an hour on the clock so you would not look too closely. People worried about their inbox read words, not letters."
 }

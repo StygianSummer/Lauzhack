@@ -40,15 +40,15 @@
       },
       {
         "t": "text",
-        "v": "Tu paquete lleva 6 días esperando en el punto de recogida. Mañana volverá al remitente si no se recoge."
+        "v": "Tu paquete lleva 6 días esperando en el punto de recogida. Si no lo recoges, mañana volverá al remitente."
       },
       {
         "t": "text",
-        "v": "Recogerlo no cuesta nada. Lleva tu documento de identidad y el código que aparece en la app de ParcelPoint."
+        "v": "La recogida es gratuita. Presenta un documento de identidad y el código que aparece en la app de ParcelPoint."
       },
       {
         "t": "text",
-        "v": "Puedes ver el horario de apertura en la app."
+        "v": "El horario de apertura lo tienes en la app."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de parcelpoint.example, el dominio real."
+      "explain": "La dirección termina en parcelpoint.example, el dominio real."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Es un plazo real, pero no te pide nada salvo que recojas tu paquete. La urgencia por sí sola no convierte un correo en una estafa."
+      "explain": "El plazo es real, pero solo te piden que pases a recoger tu paquete. La urgencia, por sí sola, no convierte un correo en una estafa."
     },
     {
       "id": "hs-free",
       "target": "body:2",
       "step": "ask",
       "red_flag": false,
-      "explain": "Recogerlo no cuesta nada. Una estafa pediría aquí una tasa."
+      "explain": "La recogida es gratuita. Justo ahí es donde una estafa colaría unos gastos."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te envía a la app que ya tienes, no a un enlace."
+      "explain": "Te remite a la app que ya tienes, no a un enlace."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "ParcelPoint: la dirección es del dominio real y todo apunta a la app.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "ParcelPoint: la dirección es del dominio real, y todo remite a la app.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "Tu vecino",
-        "ParcelPoint, desde su dominio real"
+        "Alguien con una dirección casi idéntica",
+        "Un vecino que ha guardado el paquete",
+        "ParcelPoint, desde su propio dominio"
       ],
       "correct": 2,
       "cues": [
@@ -103,11 +103,11 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Algo de urgencia, porque el paquete se devuelve mañana. Pero la presión es un plazo real, no un truco.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Un poco de urgencia, porque el paquete se devuelve mañana. Pero esa presión viene de un plazo real, no de una maniobra.",
       "choices": [
-        "Ganas de conseguir un premio",
-        "Ninguna en absoluto",
+        "Las ganas de ganar un concurso",
+        "Ninguna emoción en particular",
         "Algo de urgencia, por un plazo real"
       ],
       "correct": 2,
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Recoger tu paquete en persona. No hay pago, ni inicio de sesión, ni enlace.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Recoger tu paquete en persona. Ni pagos, ni inicio de sesión, ni enlaces.",
       "choices": [
-        "Pagar una tasa en línea",
+        "Pagar unos gastos en línea",
         "Responder con el número de tu tarjeta",
-        "Recoger el paquete, sin coste"
+        "Recoger el paquete, sin pagar nada"
       ],
       "correct": 2,
       "cues": [
@@ -135,12 +135,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Abre tú mismo la app de ParcelPoint para ver el punto de recogida y el código. El correo te remite allí.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Abre tú la app de ParcelPoint para ver el punto de recogida y tu código. El propio correo te manda ahí.",
       "choices": [
         "Pulsar un enlace del correo",
-        "Responder y pedir más tiempo",
-        "Abrir tú mismo la app de ParcelPoint"
+        "Responder para pedir más tiempo",
+        "Abrir por tu cuenta la app de ParcelPoint"
       ],
       "correct": 2,
       "cues": [
@@ -153,22 +153,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de ParcelPoint y mirar los datos de recogida",
+      "label": "Abrir por tu cuenta la app de ParcelPoint y consultar los datos de recogida",
       "outcome": "safe",
-      "consequence": "El paquete y su código de recogida aparecen en la lista."
+      "consequence": "El paquete y su código de recogida aparecen ahí."
     },
     {
       "id": "collect",
       "label": "Recoger el paquete en el punto de recogida",
       "outcome": "safe",
-      "consequence": "Entregas tu documento de identidad y el código. No te piden dinero."
+      "consequence": "Enseñas tu documento de identidad y el código. Nadie te pide dinero."
     },
     {
       "id": "reply-pay",
-      "label": "Responder para ofrecer pagar una prórroga",
+      "label": "Responder para ofrecerte a pagar una prórroga",
       "outcome": "neutral",
-      "consequence": "La dirección no-reply no contesta. De todos modos no hacía falta nada."
+      "consequence": "Nadie lee las respuestas a esta dirección. De todos modos, no había nada que pagar."
     }
   ],
-  "attacker_reveal": "Este es real, querido, aunque tenga un plazo. El dominio es el correcto, nadie pide dinero y te envía a la app. Un plazo por sí solo no es una señal de alarma. Pregúntate qué quieren de ti."
+  "attacker_reveal": "Sí, hay un plazo. Y no, no es cosa mía: dominio correcto, ni un céntimo pedido, y te manda a la app. Un plazo no basta para dar la alarma. Mira qué esperan de ti."
 }

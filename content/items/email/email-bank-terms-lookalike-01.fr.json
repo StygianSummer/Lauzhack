@@ -141,7 +141,7 @@
     },
     "verify": {
       "prompt": "Comment vérifier par un canal que vous contrôlez ?",
-      "answer": "Passez par l'identifiant SwissAlpBank enregistré dans votre gestionnaire de mots de passe. Il compare l'adresse exacte du site et ne remplit rien sur une imitation : s'il reste muet, c'est votre signal d'alerte. Vous pouvez aussi ouvrir vous-même l'application de la banque.",
+      "answer": "Passez par l'identifiant SwissAlpBank enregistré dans votre gestionnaire de mots de passe. Il ne propose cet identifiant que sur le site dont l'adresse correspond exactement : s'il ne propose rien, c'est votre signal d'alerte. Vous pouvez aussi ouvrir vous-même l'application de la banque.",
       "choices": [
         "Cliquer sur le lien et vérifier que la page a l'air normale",
         "Passer par l'identifiant de votre gestionnaire, ou par l'application",
@@ -191,5 +191,5 @@
       "consequence": "Vos identifiants ne sont jamais sortis de chez vous."
     }
   ],
-  "attacker_reveal": "Vos yeux ont corrigé tout seuls : un chiffre glissé à la place d'une lettre, et vous lisiez encore le nom de la banque. Votre gestionnaire de mots de passe, lui, compare caractère par caractère ; quand il refuse de remplir, c'est lui qu'il faut croire."
+  "attacker_reveal": "Vos yeux ont corrigé tout seuls : un chiffre glissé à la place d'une lettre, et vous lisiez encore le nom de la banque. Votre gestionnaire de mots de passe, lui, compare caractère par caractère ; quand il reste muet, c'est lui qu'il faut croire."
 }

@@ -32,7 +32,7 @@
     "from_name": "SwissAlpBank Fraud Desk",
     "from_address": "fraud.desk@swissalpbank-desk.example",
     "to": "{{email}}",
-    "subject": "Case 7731: a card payment we blocked",
+    "subject": "Case 7731: we have blocked a card payment",
     "received": "-PT2H",
     "body": [
       {
@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "We blocked a card payment of CHF 389.00 at an online shop. To close the case we need to confirm that it was you who stopped it."
+        "v": "We have blocked a card payment of CHF 389.00 at an online shop. To close the case, we just need to confirm with you that this payment was not yours."
       },
       {
         "t": "text",
-        "v": "In a moment you will receive a six-digit code by text message. Please reply to this email with that code and we will finish the case."
+        "v": "In a few moments you will receive a six-digit code by text message. Simply reply to this email with the code and we will close the case."
       },
       {
         "t": "link",
@@ -55,7 +55,7 @@
       },
       {
         "t": "text",
-        "v": "Thank you for your help."
+        "v": "Thank you in advance for your help."
       },
       {
         "t": "signature",
@@ -69,38 +69,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "swissalpbank-desk.example is not the bank's domain, swissalpbank.example."
+      "explain": "The domain is swissalpbank-desk.example. The bank's is swissalpbank.example, without \"-desk\"."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "No deadline and no threat. The tone is calm and helpful, which is why it works."
+      "explain": "No deadline, no threat: a calm, helpful tone that gives you no reason to be suspicious."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "A code sent to your phone is a key. A real bank never asks you to read it back or reply with it. With it, the sender can approve their own payment."
+      "explain": "The code sent to your phone is there to approve a transaction. A real bank never asks you to send it back or read it out. With this code, the sender can approve their own payment."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The case page is on the lookalike domain."
+      "explain": "The case page is on the same lookalike domain as the sender's address."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be the bank's fraud desk. The address is on swissalpbank-desk.example, not swissalpbank.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as the bank's fraud desk. The address is on swissalpbank-desk.example, not swissalpbank.example.",
       "choices": [
-        "SwissAlpBank's fraud desk",
-        "A friendly colleague of yours",
-        "Someone using a lookalike address"
+        "Your bank's fraud desk, at SwissAlpBank",
+        "A colleague trying to do you a favour",
+        "Someone with an almost identical address"
       ],
       "correct": 2,
       "cues": [
@@ -111,12 +111,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Little pressure here: authority and helpfulness. The calm tone makes you want to cooperate.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Hardly any pressure. The message leans on the authority of a fraud desk and on your wish to help: with a tone this calm, people cooperate gladly.",
       "choices": [
-        "Panic about a deadline",
-        "Greed for a refund",
-        "Authority and a wish to help"
+        "Panic over a tight deadline",
+        "Hope of a quick refund",
+        "Authority, and your wish to help"
       ],
       "correct": 2,
       "cues": [
@@ -127,12 +127,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Reply with the code that arrives on your phone. That code approves a transaction or a login for the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Send back the code that arrives on your phone. That code approves a transaction or a login, for the sender's benefit.",
       "choices": [
         "Click a link and sign in",
-        "Pay a fee",
-        "Hand over a code sent to your phone"
+        "Pay a handling fee",
+        "Pass on the code you get by text"
       ],
       "correct": 2,
       "cues": [
@@ -171,28 +171,28 @@
   "actions": [
     {
       "id": "call-card",
-      "label": "Call the number on the back of your card and ask about the case",
+      "label": "Call the number on the back of your card and ask where the case stands",
       "outcome": "safe",
-      "consequence": "The bank knows nothing about case 7731. The email was fake."
+      "consequence": "The bank has no record of a case 7731. The email was fake."
     },
     {
       "id": "reply-code",
-      "label": "Reply with the code when it arrives",
+      "label": "Reply with the code as soon as it arrives",
       "outcome": "unsafe",
-      "consequence": "The sender uses your code to approve a payment or log in as you."
+      "consequence": "The sender uses it to approve a payment or sign in as you."
     },
     {
       "id": "view-case",
       "label": "View the case on the page they give you",
       "outcome": "unsafe",
-      "consequence": "The page asks for your login and card details. Both go to the scammer."
+      "consequence": "The page asks for your login details, then your card details. All of it lands with the scammer."
     },
     {
       "id": "report-delete",
       "label": "Report it as phishing and delete it",
       "outcome": "safe",
-      "consequence": "Good call. You gave nothing away."
+      "consequence": "You handed over nothing: no code, no login details."
     }
   ],
-  "attacker_reveal": "No rush, no threats, a case number and a friendly name... I only wanted six digits from your phone. A real bank never asks you to read a code back to anyone."
+  "attacker_reveal": "A case number, your first name, a very polite \"Marc\": nothing urgent, nothing threatening. All I needed were the six digits about to appear on your phone, and no bank will ever ask you for those."
 }

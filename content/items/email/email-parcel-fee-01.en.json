@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "ParcelPoint: your parcel is on hold. Pay the CHF 1.99 fee within 24 hours to release it."
+        "v": "ParcelPoint: your parcel is being held. To have it delivered, pay the CHF 1.99 fee within 24 hours."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Parcels not released in time are returned to the sender."
+        "v": "After this deadline, the parcel will be returned to the sender."
       },
       {
         "t": "signature",
@@ -64,37 +64,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "parcelpoint-fees.example is not ParcelPoint's domain, parcelpoint.example."
+      "explain": "parcelpoint-fees.example is not ParcelPoint's domain, which is parcelpoint.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Within 24 hours\" is there to hurry you. The tiny fee makes paying feel harmless."
+      "explain": "\"within 24 hours\" is there to rush you. And with a fee this small, paying seems risk-free."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The page would ask for your card details. A real carrier does not ask for fees through a link in a message."
+      "explain": "The page would ask for your card details. A real carrier does not make you pay fees through a link in a message."
     },
     {
       "id": "hs-return",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "The threat of losing the parcel adds pressure on top of the deadline."
+      "explain": "The threat of the parcel being sent back comes on top of the deadline."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone using ParcelPoint's name. The address is on parcelpoint-fees.example, not parcelpoint.example. It is the same trick as the text-message versions.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone borrowing ParcelPoint's name. The address is on parcelpoint-fees.example, not parcelpoint.example. The text-message versions pull exactly the same trick.",
       "choices": [
-        "Someone using a lookalike address",
-        "ParcelPoint's delivery team",
+        "Someone with an almost identical address",
+        "ParcelPoint's delivery service",
         "The shop you ordered from"
       ],
       "correct": 0,
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Hurry and a little worry: pay within 24 hours or the parcel goes back.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Haste, with a touch of worry: pay within 24 hours or the parcel goes back.",
       "choices": [
         "Hurry: pay within 24 hours or lose the parcel",
-        "Greed for a free gift",
-        "None: it is a plain notice"
+        "The wish to receive a free gift",
+        "None, it is just a delivery notice"
       ],
       "correct": 0,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Pay a small fee through a link, which would give your card details to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Pay a small fee through a link. Your card details would go to the sender.",
       "choices": [
         "Pay a small fee through a link",
         "Collect the parcel from a neighbour",
-        "Reply with your address"
+        "Reply with your home address"
       ],
       "correct": 0,
       "cues": [
@@ -139,11 +139,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not use the path they hand you. Check the delivery in the carrier's own app or website, which you open yourself. Even tapping to look can be enough, and replying STOP tells them your address is live.",
+      "answer": "Do not take the route they offer you. Check the delivery in the carrier's app or website, opened by you. A click \"just to look\" can already be enough, and replying STOP confirms that your address is active.",
       "choices": [
-        "Check the delivery in the ParcelPoint app, opened yourself",
-        "Pay it, because it is only CHF 1.99",
-        "Reply STOP so they take you off the list"
+        "Open the ParcelPoint app yourself and check",
+        "Pay anyway, it is only CHF 1.99",
+        "Reply STOP to be taken off the list"
       ],
       "correct": 0,
       "cues": [
@@ -166,28 +166,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Ignore the link and check the delivery in the ParcelPoint app yourself",
+      "label": "Ignore the link and check the delivery yourself in the ParcelPoint app",
       "outcome": "safe",
       "consequence": "No parcel is on hold. The email was fake."
     },
     {
       "id": "pay",
-      "label": "Pay it, because it is only CHF 1.99",
+      "label": "Pay anyway, it is only CHF 1.99",
       "outcome": "unsafe",
-      "consequence": "Your card details go to the scammer, who can now take much more than CHF 1.99."
+      "consequence": "Your card details go to the scammer, who can now charge far more than CHF 1.99."
     },
     {
       "id": "look",
-      "label": "Click the link just to look, and enter nothing",
+      "label": "Click the link just to look, without entering anything",
       "outcome": "unsafe",
-      "consequence": "Even a look can confirm your address is live, and some pages try to run code in the background."
+      "consequence": "A quick look can confirm your address is active, and some pages try to run code behind your back."
     },
     {
       "id": "reply-stop",
-      "label": "Reply STOP so they take you off the list",
+      "label": "Reply STOP to be taken off the list",
       "outcome": "neutral",
-      "consequence": "Replying tells them your address is real. They send you more."
+      "consequence": "Your reply proves the address is real. You will get more of them."
     }
   ],
-  "attacker_reveal": "The same trick, a new coat of paint... A small fee, a short clock, and a link they hand you. Walk in through a door you already know, and I have nothing."
+  "attacker_reveal": "Old recipe, new packaging: a tiny fee, a short deadline and a ready-made link. Come in through the door you already know, the app, and I have nothing left to sell you."
 }

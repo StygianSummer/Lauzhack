@@ -33,7 +33,7 @@
     "from_name": "SwissAlpBank",
     "from_address": "service@swissa1pbank.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, new terms for your e-banking",
+    "subject": "{{first_name}}, the terms of your e-banking are changing",
     "received": "-PT45M",
     "body": [
       {
@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "We have updated the terms of your e-banking agreement. Please sign in to accept them by the end of the week."
+        "v": "The terms of your e-banking agreement have been updated. Please sign in to accept them by the end of the week."
       },
       {
         "t": "link",
@@ -52,7 +52,7 @@
       },
       {
         "t": "text",
-        "v": "Without acceptance your access may be limited."
+        "v": "Without your acceptance, your access may be limited."
       },
       {
         "t": "signature",
@@ -66,38 +66,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "swissa1pbank.example has the digit 1 in place of the letter l. It is not swissalpbank.example."
+      "explain": "swissa1pbank.example: the digit 1 has taken the place of the letter l. This is not swissalpbank.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"By the end of the week\" gives you a deadline you did not choose."
+      "explain": "\"by the end of the week\": the sender sets the deadline, not you."
     },
     {
       "id": "hs-limited",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Access may be limited\" is a threat to make you act."
+      "explain": "\"your access may be limited\": a threat vague enough to worry you and precise enough to make you act."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The sign-in page is on the lookalike domain and would copy your login."
+      "explain": "The sign-in page is on the lookalike domain. Any login details you typed there would be copied."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone using the bank's name. The address has a digit 1 where the letter l belongs: swissa1pbank.example is not swissalpbank.example. Your eyes can miss a one-letter swap, but a password manager never does.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone borrowing the bank's name. The address has a digit 1 instead of the letter l: swissa1pbank.example is not swissalpbank.example. The eye easily skips a character; a password manager compares the address character by character.",
       "choices": [
-        "SwissAlpBank, because it knows your name",
-        "Someone using a lookalike domain",
-        "Your personal adviser"
+        "SwissAlpBank, since it knows your first name",
+        "Someone imitating the bank's domain",
+        "Your personal adviser at the bank"
       ],
       "correct": 1,
       "cues": [
@@ -108,12 +108,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: you could lose access if you do not act by the end of the week.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear and haste: you could lose access if you do not act before the end of the week.",
       "choices": [
-        "Curiosity about a prize",
+        "Curiosity about a prize to be won",
         "Fear of losing access, with a deadline",
-        "None: it is routine"
+        "None, it is just a formality"
       ],
       "correct": 1,
       "cues": [
@@ -124,12 +124,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Sign in to 'accept' new terms, which would give your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Sign in to \"accept\" the new terms. Your login details would go to the sender.",
       "choices": [
-        "Open an attachment",
+        "Open the agreement in the attachment",
         "Sign in through a link",
-        "Reply with your account number"
+        "Send back your account number"
       ],
       "correct": 1,
       "cues": [
@@ -141,11 +141,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Use your password manager's saved SwissAlpBank login. It checks the exact web address and will not fill in on a lookalike site: if it stays quiet, that is your warning. Or open the bank's app yourself.",
+      "answer": "Go through the SwissAlpBank login saved in your password manager. It only offers that login on the site whose address matches exactly: if it offers nothing, that is your warning sign. You can also open the bank's app yourself.",
       "choices": [
-        "Click the link and check that the page looks right",
-        "Open the saved login in your password manager, or the app yourself",
-        "Type your password by hand if the manager does not fill it in"
+        "Click the link and check the page looks normal",
+        "Use the login saved in your manager, or the app",
+        "Type the password by hand if the manager offers nothing"
       ],
       "correct": 1,
       "cues": [
@@ -168,28 +168,28 @@
   "actions": [
     {
       "id": "manager",
-      "label": "Open the bank from your password manager's saved login, or the app",
+      "label": "Open the bank from the login saved in your password manager, or through the app",
       "outcome": "safe",
-      "consequence": "Nothing to accept. If you had clicked the email, the manager would not have filled anything in."
+      "consequence": "Nothing to accept. And on the page from the email, the manager would not have offered your login."
     },
     {
       "id": "click-type",
-      "label": "Click the link and type your password",
+      "label": "Click the link and enter your password",
       "outcome": "unsafe",
-      "consequence": "The page looks right, but your login goes straight to the scammer."
+      "consequence": "The page looks normal, but your login details go straight to the scammer."
     },
     {
       "id": "type-by-hand",
-      "label": "The password manager does not fill in, so type the password by hand",
+      "label": "The manager offers nothing, so type the password by hand",
       "outcome": "unsafe",
-      "consequence": "The manager stayed quiet because the address was wrong. You overrode your best warning."
+      "consequence": "It stayed silent because the address was wrong. That was your best warning, and you overrode it."
     },
     {
       "id": "report-delete",
       "label": "Report it as phishing and delete it",
       "outcome": "safe",
-      "consequence": "Good call. You gave nothing away."
+      "consequence": "Your login details never left your hands."
     }
   ],
-  "attacker_reveal": "A single digit in place of a letter... Your eyes skip it, but a password manager compares every character. When it refuses to fill in, believe it."
+  "attacker_reveal": "Your eyes corrected it for you: one digit slipped in for a letter, and you still read the bank's name. Your password manager compares character by character. When it stays silent, believe it over your eyes."
 }
