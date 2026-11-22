@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "We noticed a sign-in to your TeamChat account from a new device in another country. If this was not you, please secure your account within the next few hours."
+        "v": "We detected a sign-in to your TeamChat account from a new device in another country. If it wasn't you, please secure your account within the next few hours."
       },
       {
         "t": "link",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "teamchat-support.example is not TeamChat's domain, teamchat.example. Anyone can register a name that sounds official."
+      "explain": "teamchat-support.example is not teamchat.example, TeamChat's domain. Anyone can buy a domain name that looks official."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "A sign-in from abroad and \"the next few hours\" are meant to scare you into acting fast."
+      "explain": "A foreign country and \"within the next few hours\": enough to worry you into clicking without thinking."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The button leads to teamchat-secure.example, a different domain from the real one."
+      "explain": "The button leads to teamchat-secure.example, yet another domain that isn't the real one."
     },
     {
       "id": "hs-signature",
       "target": "body:4",
       "step": "who",
       "red_flag": false,
-      "explain": "Signatures are easy to copy. This one proves nothing either way."
+      "explain": "A signature takes two seconds to copy. It proves nothing either way."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be TeamChat. The name looks right, but the address is on teamchat-support.example, not teamchat.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone imitating TeamChat. The display name looks right, but the address is on teamchat-support.example instead of teamchat.example.",
       "choices": [
         "TeamChat's security team",
-        "A colleague on your team",
-        "Someone using an address that only looks like TeamChat's"
+        "A colleague from your team",
+        "Someone with an address imitating TeamChat"
       ],
       "correct": 2,
       "cues": [
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: a stranger may be in your account and you must act within hours.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear, then hurry: a stranger may be in your account, and you only have a few hours.",
       "choices": [
         "Curiosity about a new feature",
-        "None: it is a routine notice",
-        "Fear that someone is in your account, with a rush"
+        "None: it's a routine notice",
+        "Fear of a break-in, with a tight deadline"
       ],
       "correct": 2,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Click the link and sign in, which would hand your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Click the button and sign in. Your login details would go straight to the sender.",
       "choices": [
         "Call TeamChat support",
-        "Nothing, it is only for information",
-        "Click a link and sign in"
+        "Nothing, it's just for information",
+        "Click the button and sign in"
       ],
       "correct": 2,
       "cues": [
@@ -139,11 +139,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Ignore the link. Open the TeamChat app yourself and look at your devices and recent sign-ins.",
+      "answer": "Don't use the button. Open the TeamChat app yourself and look at the list of signed-in devices.",
       "choices": [
-        "Click the link to see whether it is real",
-        "Reply and ask if the alert is genuine",
-        "Open the TeamChat app yourself and check your devices"
+        "Click the link to find out for sure",
+        "Reply and ask whether the alert is real",
+        "Open the app yourself and check your devices"
       ],
       "correct": 2,
       "cues": [
@@ -159,26 +159,26 @@
       "id": "open-app",
       "label": "Open the TeamChat app yourself and check your devices",
       "outcome": "safe",
-      "consequence": "Only your own devices are listed. The alert was fake."
+      "consequence": "Only your own devices are listed. The alert was made up."
     },
     {
       "id": "click",
       "label": "Click \"Secure my account\" and sign in",
       "outcome": "unsafe",
-      "consequence": "The page looks like TeamChat, but your login goes straight to the scammer."
+      "consequence": "The page looks every bit like TeamChat, but your login details go straight to the scammer."
     },
     {
       "id": "reply",
-      "label": "Reply and ask whether the alert is real",
+      "label": "Reply and ask whether the alert is genuine",
       "outcome": "neutral",
-      "consequence": "The scammer says yes and pushes harder. Your reply also shows your address is in use."
+      "consequence": "The scammer confirms it, naturally, and pushes harder. Along the way, you've proved your address is active."
     },
     {
       "id": "report-delete",
-      "label": "Report it as phishing and delete it",
+      "label": "Report it as phishing, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. Nothing was clicked."
+      "consequence": "Nothing was clicked, and the message is no longer sitting in your inbox."
     }
   ],
-  "attacker_reveal": "A made-up alert, a foreign country and a few hours to decide... Fear does half my work. The address was close enough that you had to read every letter to catch it."
+  "attacker_reveal": "A sign-in that never happened, a faraway country, a few hours to react: fear did half the work. As for the address, you had to read it letter by letter to see what was wrong."
 }

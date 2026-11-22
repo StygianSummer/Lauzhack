@@ -36,17 +36,17 @@
       },
       {
         "t": "text",
-        "v": "Tu paquete ha salido de nuestro almacén y se entregará mañana. No tienes que hacer nada."
+        "v": "Tu paquete ha salido de nuestro almacén y te llegará mañana. No tienes que hacer nada."
       },
       {
         "t": "link",
-        "v": "Seguir tu paquete",
+        "v": "Seguir mi paquete",
         "href": "https://parcelpoint.example/track",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "También puedes seguirlo en la app de ParcelPoint."
+        "v": "También puedes seguir el envío en la app de ParcelPoint."
       },
       {
         "t": "signature",
@@ -60,38 +60,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de parcelpoint.example, el dominio real de la empresa."
+      "explain": "La dirección termina en parcelpoint.example: el dominio real de la empresa de paquetería."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Sin plazo y sin pago. Solo te cuenta lo que está pasando."
+      "explain": "Ni plazo ni pago: solo te cuenta cómo va el paquete."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "El enlace lleva a parcelpoint.example, el dominio real. Aun así, la app es la forma más segura de mirar."
+      "explain": "El enlace apunta a parcelpoint.example, el dominio real. Aun así, la app sigue siendo el camino más seguro."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te remite a la app, un canal que ya controlas."
+      "explain": "Te remite a la app, un canal que ya tienes a mano."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "El propio ParcelPoint: la dirección es de parcelpoint.example y la ortografía es correcta.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "ParcelPoint: la dirección es de parcelpoint.example y el texto está limpio.",
       "choices": [
-        "Un estafador que usa una dirección parecida",
-        "ParcelPoint, desde su dominio real",
-        "Un desconocido con un buzón gratuito"
+        "Un estafador con una dirección casi idéntica",
+        "ParcelPoint, desde su propio dominio",
+        "Un desconocido tras un buzón gratuito"
       ],
       "correct": 1,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ninguna. Es una actualización tranquila y sin plazo.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ninguna. El mensaje informa, sin plazos ni presión.",
       "choices": [
-        "Miedo a perder el paquete",
-        "Ninguna: es una actualización tranquila",
-        "Ganas de conseguir un regalo gratis"
+        "El miedo a perder el paquete",
+        "Ninguna: se limita a informar",
+        "Las ganas de un regalo gratis"
       ],
       "correct": 1,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Nada. Solo te dice que el paquete está en camino y te ofrece un enlace de seguimiento.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Nada. Te anuncian la entrega y te ofrecen un enlace de seguimiento.",
       "choices": [
-        "Pagar una tasa de gestión",
-        "Nada: solo da información",
+        "Pagar unos gastos de gestión",
+        "Nada: solo te tienen al día",
         "Enviar el número de tu tarjeta"
       ],
       "correct": 1,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "No necesitas hacer nada. Si quieres mirar, abre tú mismo la app de ParcelPoint.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No hay nada urgente que comprobar. Si quieres seguir el envío, abre tú la app de ParcelPoint.",
       "choices": [
-        "Responder con tu dirección",
-        "Abrir tú mismo la app de ParcelPoint si quieres mirar",
-        "Reenviarlo a un amigo para que lo compruebe"
+        "Responder dando tu dirección",
+        "Abrir por tu cuenta la app de ParcelPoint",
+        "Reenviárselo a alguien para que opine"
       ],
       "correct": 1,
       "cues": [
@@ -150,22 +150,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de ParcelPoint si quieres comprobarlo",
+      "label": "Abrir por tu cuenta la app de ParcelPoint para comprobarlo",
       "outcome": "safe",
-      "consequence": "Ves la misma fecha de entrega. No hacía falta nada."
+      "consequence": "Aparece la misma fecha de entrega. No había nada que hacer."
     },
     {
       "id": "ignore",
       "label": "No hacer nada y esperar el paquete",
       "outcome": "safe",
-      "consequence": "El paquete llega mañana. No hacía falta nada."
+      "consequence": "El paquete llega mañana, como estaba previsto."
     },
     {
       "id": "reply",
-      "label": "Responder con la dirección de tu casa, por si acaso",
+      "label": "Responder con tu dirección de casa, por si acaso",
       "outcome": "neutral",
-      "consequence": "La dirección no-reply no contesta. No entregaste nada útil, pero tampoco hacía falta nada."
+      "consequence": "Nadie lee las respuestas que llegan a esta dirección de avisos. No hace daño, pero tampoco sirve de nada."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Viene del dominio de la propia empresa, no pide nada y no tiene plazo. Un aviso de paquete que solo te informa es exactamente lo que parece uno de verdad."
+  "attacker_reveal": "Ese no es mío. Sale del dominio de ParcelPoint, no reclama nada y no pone plazos. Un aviso de paquete de verdad te tiene al corriente; no te hace mover un dedo."
 }

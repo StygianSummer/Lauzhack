@@ -3,7 +3,7 @@
   "language": "en",
   "demo": true,
   "title": "Phishing in one minute",
-  "subtitle": "The rules, one hunt and two emails. Same app, faster.",
+  "subtitle": "The rules, one trap hunt and two emails. Same app, on fast-forward.",
   "minutes": 2,
   "sections": [
     {
@@ -12,36 +12,36 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Protect yourself first",
-          "say": "I can't look after anyone if my own logins are wide open. Neither can you. So we start with you.",
+          "title": "You first",
+          "say": "I can't protect anyone while my own accounts are wide open. Neither can you. So we start with yours.",
           "rules": [
             {
               "headline": "Read the domain after the @.",
-              "body": "Every letter. thisistea.example and thisistae-app.example belong to two different owners."
+              "body": "Letter by letter. thisistea.example and thisistae-app.example don't have the same owner."
             },
             {
               "headline": "Notice the rush.",
-              "body": "A two-hour deadline is a feeling someone else put in you. Feelings aren't evidence."
+              "body": "A two-hour deadline is a worry someone else planted in you. It proves nothing."
             },
             {
               "headline": "Never type a password after clicking an email link.",
-              "body": "Open the site yourself, from a bookmark or by typing the address."
+              "body": "Open the site yourself: from a bookmark, or by typing the address."
             }
           ],
-          "sign_off": "Zero trust isn't paranoia. It's checking."
+          "sign_off": "I do trust people. Once I've checked."
         },
         {
           "persona": "turtle",
           "role": "Organisational security",
-          "title": "Shield the whole shell",
-          "say": "In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too. It works a little like a vaccine.",
+          "title": "Protect the whole house",
+          "say": "One badly shut door and the water gets into every room. I've seen it happen more than once. Your inbox is one of those doors. Keep an eye on it and you protect your colleagues too, a bit like a vaccine protects the people around you.",
           "rules": [
             {
-              "headline": "Confirm the unusual, together.",
-              "body": "A wire transfer, a password reset, an urgent file: check it on another channel. A phone call costs one minute."
+              "headline": "Confirm the unusual with a second person.",
+              "body": "A transfer, a password reset, an \"urgent\" file: check through another channel. A phone call takes a minute."
             }
           ],
-          "sign_off": "A team we can trust is a team that looks out for each other."
+          "sign_off": "The strong teams I've known weren't extraordinary. They'd simply got into the habit of warning each other."
         }
       ]
     },
@@ -49,39 +49,39 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "I hid three tricks in that email. Click whatever you think is a trap. I won't say whether you're getting warm.",
+        "intro": "This email hides three tricks. Click anything that looks rigged to you. And don't count on me to tell you whether you're getting warm...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "The address",
-            "spider_says": "I swapped two letters and moved one word. Who reads every letter when they're worried?"
+            "spider_says": "Two letters swapped, one word added. Under stress, who takes the time to read every letter?"
           },
           {
             "hotspot_id": "hs-clock",
-            "title": "The clock",
-            "spider_says": "\"Within 2 hours.\" Panic is my favourite accomplice. It quiets the part of you that checks."
+            "title": "The countdown",
+            "spider_says": "I wrote \"within 2 hours\" and panic did the rest. It sends the part of you that checks to sleep."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "The ask",
-            "spider_says": "ThisIsTea would never ask for your password by email. But I sounded like ThisIsTea, and that was enough."
+            "spider_says": "ThisIsTea will never ask for your password by email. I will. All I had to do was look like them."
           }
         ],
-        "debrief": "Every trick he just bragged about is one of my three rules. Address, rush, password. Go back and read them once more."
+        "debrief": "The three tricks Spider just bragged about are my three rules: address, rush, password. Read them through once more."
       },
       "recovery": {
-        "title_caught": "If a real one ever gets you, dear, do this.",
-        "lead_caught": "This time it was only practice and nothing was taken. A real one happens to the careful ones too, and then what matters is how fast we close the door. Here is the list.",
-        "title_default": "Keep this plan in your pocket",
-        "lead_default": "You walked past this one. Someday one will look better. Here are the first two steps of the rescue plan: knowing them by heart is half the cure.",
+        "title_caught": "If a real one ever catches you, here's what to do.",
+        "lead_caught": "This was an exercise: nothing was stolen. Real traps catch careful people too, and then what counts is how quickly the door gets shut. Here are the steps.",
+        "title_default": "Keep this plan close to hand",
+        "lead_default": "This one didn't get you. Some day a better-made one will come along. Here are the first two steps of the rescue plan: knowing them by heart gets you halfway there.",
         "steps": [
           {
             "headline": "Change the password, on the real site.",
-            "body": "Open the site yourself, from a bookmark or by typing the address, never through the email. Then change that same password anywhere else you reused it."
+            "body": "Open the site yourself, from a bookmark or by typing the address, never from the email. Then change that password everywhere you reused it."
           },
           {
             "headline": "Turn on multi-factor authentication.",
-            "body": "A second lock means a stolen password alone no longer opens the door."
+            "body": "With a second lock, a stolen password is no longer enough to open the door."
           }
         ]
       }

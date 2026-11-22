@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "Necesito la exportación completa de clientes para el consejo en 10 minutos. Súbela aquí. Estoy de viaje y no puedo hablar."
+        "v": "Necesito la exportación completa de la base de clientes para el consejo, en 10 minutos. Súbela aquí. Estoy de viaje y no puedo atender llamadas."
       },
       {
         "t": "link",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "El nombre es el del director general, pero teamchat-mail.example no es el dominio de TeamChat, teamchat.example. Un nombre visible puede decir cualquier cosa."
+      "explain": "El nombre visible es el del director, pero la dirección está en teamchat-mail.example. El dominio de TeamChat es teamchat.example. Un nombre visible lo puede escribir cualquiera."
     },
     {
       "id": "hs-urgency",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "Diez minutos y \"no puedo hablar\" te empujan a saltarte la comprobación. Quien usa el nombre del jefe cuenta con que seas demasiado educado o vayas demasiado deprisa para preguntar."
+      "explain": "Diez minutos y «no puedo atender llamadas»: todo te empuja a saltarte la comprobación. Quien usa el nombre del jefe cuenta con tu educación o con tus prisas para que no hagas preguntas."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "Una base de datos completa de clientes es justo lo que quiere un delincuente. Enviarla por mensaje filtraría los datos de todos los clientes."
+      "explain": "Una base de clientes completa es justo lo que buscan los estafadores. Enviarla por mensaje filtraría los datos de todos los clientes."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "El enlace de respuesta lleva a teamchat-mail.example, no al propio TeamChat."
+      "explain": "El enlace «Responder» lleva a teamchat-mail.example, no a TeamChat."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que se hace pasar por Alex Morgan. El nombre visible es el del director general, pero la dirección es de teamchat-mail.example.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por Alex Morgan. El nombre visible es el del director; la dirección está en teamchat-mail.example.",
       "choices": [
-        "Alex Morgan, el director general",
-        "Alguien que usa el nombre del director general y una dirección parecida",
-        "Un administrador de TeamChat"
+        "Alex Morgan, el director, desde TeamChat",
+        "Alguien que usa el nombre del director",
+        "Un administrador de la plataforma TeamChat"
       ],
       "correct": 1,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Autoridad y prisa: el jefe quiere algo en diez minutos y no admite preguntas.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Autoridad y prisa: el jefe quiere algo en diez minutos y no hay forma de localizarlo.",
       "choices": [
         "Curiosidad por un proyecto nuevo",
-        "Autoridad y prisa del jefe",
-        "Ninguna: es una petición normal"
+        "La autoridad del jefe, y prisa",
+        "Ninguna, es una petición corriente"
       ],
       "correct": 1,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Enviar la exportación completa de la base de datos de clientes. Eso filtraría los datos personales de todos los clientes.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Enviar la exportación completa de la base de clientes, lo que filtraría los datos personales de todos los clientes.",
       "choices": [
-        "Pulsar un enlace e iniciar sesión",
-        "Enviar una exportación completa de datos de clientes",
-        "Aprobar un pago"
+        "Pulsar un enlace para iniciar sesión",
+        "Enviar la exportación completa de clientes",
+        "Aprobar un pago pendiente"
       ],
       "correct": 1,
       "cues": [
@@ -136,11 +136,11 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Confirma la petición por otro canal que ya conozcas, como una llamada al número habitual de Alex. Preguntar dentro del mismo mensaje es preguntarle al impostor.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Confirma la petición por otro canal que ya conozcas, por ejemplo llamando a Alex a su número de siempre. Preguntar en el mismo hilo es preguntarle al impostor.",
       "choices": [
-        "Preguntar \"¿eres tú de verdad?\" en el mismo chat",
-        "Llamar a Alex a un número que ya conozcas",
+        "Preguntar «¿Eres tú?» en el mismo hilo",
+        "Llamar a Alex a un número que conozcas",
         "Enviar solo una parte de los datos"
       ],
       "correct": 1,
@@ -164,28 +164,28 @@
   "actions": [
     {
       "id": "call-alex",
-      "label": "Confirmarlo por otro canal que ya conozcas, como una llamada al número habitual de Alex",
+      "label": "Confirmarlo por otro canal que ya conozcas, por ejemplo llamando a Alex a su número de siempre",
       "outcome": "safe",
       "consequence": "Alex está en una reunión y no ha enviado nada. Los datos se quedan donde están."
     },
     {
       "id": "send",
-      "label": "Enviarlo enseguida: una reunión del consejo no es momento para preguntas",
+      "label": "Enviarla enseguida: antes de un consejo no se hacen preguntas",
       "outcome": "unsafe",
-      "consequence": "La base de datos de clientes está ahora en manos de un desconocido. Todos los clientes están en riesgo."
+      "consequence": "La base de clientes está ahora en manos de un desconocido. Todos tus clientes quedan expuestos."
     },
     {
       "id": "ask-same",
-      "label": "Preguntar \"¿eres tú de verdad?\" en el mismo chat y enviarlo si dicen que sí",
+      "label": "Preguntar «¿Eres tú?» en el mismo hilo y enviarla si dice que sí",
       "outcome": "unsafe",
-      "consequence": "El impostor responde que sí. Solo le has preguntado a la persona de la que desconfiabas."
+      "consequence": "El impostor dice que sí. Le has pedido confirmación justo a la persona de la que desconfiabas."
     },
     {
       "id": "send-part",
-      "label": "Enviar solo una parte de los datos, para limitar el daño",
+      "label": "Enviar solo una parte de los datos, para limitar los daños",
       "outcome": "unsafe",
-      "consequence": "Una parte de una base de datos de clientes sigue siendo una filtración."
+      "consequence": "Una parte de la base de clientes sigue siendo una fuga de datos."
     }
   ],
-  "attacker_reveal": "No necesité hackear nada... Solo usé el nombre del jefe y un reloj de diez minutos. A la gente educada le cuesta decir \"déjame comprobarlo\". Una llamada corta a un número de confianza lo estropea todo."
+  "attacker_reveal": "Ni siquiera tuve que piratear nada. El nombre del jefe, diez minutos de cuenta atrás y tu educación: a nadie le gusta contestarle al director «primero lo compruebo». Una llamada al número de siempre y se me venía todo abajo."
 }

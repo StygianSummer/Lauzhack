@@ -1,8 +1,8 @@
 {
   "id": "password-01-demo",
   "language": "es",
-  "title": "Contrasenas en un minuto",
-  "subtitle": "Dos reglas, dos cuentas, y una de ellas vuelve",
+  "title": "Contraseñas en un minuto",
+  "subtitle": "Dos reglas, dos cuentas, y una de ellas volverá",
   "minutes": 1,
   "sections": [
     {
@@ -11,43 +11,43 @@
         {
           "persona": "cat",
           "role": "Seguridad personal",
-          "title": "Dos reglas y luego lo hace usted",
-          "say": "Tenemos un minuto, asi que esta es la version corta. A la maquina que adivina no le importa su signo de exclamacion. Le importa cuanto hay que recorrer, y si ya ha visto su contrasena en otro sitio.",
+          "title": "Dos reglas, y luego te toca",
+          "say": "Tenemos un minuto, así que va la versión corta. A la máquina que adivina contraseñas le da igual tu signo de exclamación. Lo que la frena es el número de combinaciones que tiene que probar. Lo que la ayuda es haberse cruzado ya con tu contraseña en otra parte.",
           "rules": [
             {
-              "headline": "Larga gana a ingeniosa.",
-              "body": "Cuatro palabras sin relacion. Una contrasena corta sigue siendo corta, aunque lleve simbolos."
+              "headline": "Mejor larga que ingeniosa.",
+              "body": "Cuatro palabras que no tengan nada que ver entre sí. Una contraseña corta sigue siendo corta, por muchos símbolos que lleve."
             },
             {
               "headline": "Nunca la misma dos veces.",
-              "body": "Un sitio filtrado se convierte en todos, porque los atacantes reutilizan los pares que ya tienen."
+              "body": "Una filtración en un sitio las pone en peligro todas, porque los atacantes prueban en otras webs los pares usuario-contraseña que ya tienen."
             }
           ],
-          "sign_off": "La leccion completa anade dos reglas mas y cinco gestores de contrasenas para elegir. Esta es la version de un minuto."
+          "sign_off": "La lección completa añade dos reglas más y cinco gestores de contraseñas para elegir. Esta es la versión de un minuto."
         }
       ]
     },
     {
       "type": "status",
-      "question": "Como se siente con esto?",
+      "question": "¿Cómo te sientes con todo esto?",
       "levels": [
         {
           "key": "LOW",
-          "label": "Todavia con dudas",
+          "label": "Todavía dudo",
           "persona": "turtle",
-          "reply": "Es completamente normal. Dos cuentas, y nada de lo que escriba aqui abre nada en ningun sitio."
+          "reply": "Nada preocupante. Solo son dos cuentas, y nada de lo que escribas aquí abre nada en ningún sitio."
         },
         {
           "key": "MEDIUM",
-          "label": "Mejorando",
+          "label": "Voy cogiéndolo",
           "persona": "cat",
-          "reply": "Bien. Demuestrelo en dos cuentas, y guarde las dos sobre la marcha."
+          "reply": "Bien. Demuéstralo en dos cuentas, y guárdalas sobre la marcha."
         },
         {
           "key": "HIGH",
           "label": "Con confianza",
           "persona": "spider",
-          "reply": "Con confianza? Entonces dos no seran problema. Le espero al final para decirle cual habria probado primero."
+          "reply": "Vaya, cuánto aplomo. Entonces dos cuentas serán un trámite. Te espero al final para decirte cuál habría probado primero."
         }
       ]
     },
@@ -57,19 +57,19 @@
         {
           "persona": "cat",
           "role": "Seguridad personal",
-          "title": "Ahora la parte que lo demuestra",
-          "say": "Dos sitios ficticios, uno de ellos con un numero de tarjeta. Invente una contrasena nueva para cada uno. Guardamos una huella cifrada para que pueda volver a entrar, y nada mas: ni la contrasena, ni una pista, ni forma de recordarsela.",
+          "title": "Ahora, la prueba",
+          "say": "Dos sitios ficticios, y uno de ellos guarda un número de tarjeta. Inventa una contraseña nueva para cada uno. Guardamos una huella cifrada para que puedas volver a entrar, y nada más: ni la contraseña, ni una pista, ni forma de recordártela.",
           "rules": [
             {
-              "headline": "Dos sitios, dos contrasenas nuevas.",
-              "body": "Los dos ficticios, los dos nuestros, y no abren nada. No use una contrasena que tenga de verdad, ni una sola vez."
+              "headline": "Dos sitios, dos contraseñas nuevas.",
+              "body": "Los dos ficticios, los dos nuestros, y no abren nada. No uses ninguna de tus contraseñas reales, ni una sola vez."
             },
             {
-              "headline": "Le pediremos una de las dos.",
-              "body": "En un momento, una al azar. No diremos cual: la unica forma de pasar es haber guardado las dos."
+              "headline": "Te pediremos una de vuelta.",
+              "body": "Dentro de un momento, una de las dos, elegida al azar. No diremos cuál: tendrás que haber guardado las dos."
             }
           ],
-          "sign_off": "Dos cuentas. Despues veremos si el habito es real."
+          "sign_off": "Dos cuentas. Después sabremos si el hábito es real."
         }
       ]
     }

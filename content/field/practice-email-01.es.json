@@ -1,17 +1,17 @@
 {
   "id": "practice-email-01",
-  "subject": "Correo de práctica provisional: sustitúyelo antes de la demo",
-  "text": "Hola {{first_name}}:\n\nCorreo de práctica provisional: sustitúyelo antes de la demo.\n\nEnlace de práctica: {{click_url}}\n\nGestionar los correos de ThisIsTea: {{settings_url}}\n",
-  "html": "<p>Hola {{first_name}}:</p>\n<p>Correo de práctica provisional: sustitúyelo antes de la demo.</p>\n<p><a href=\"{{click_url}}\">Enlace de práctica</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gestionar los correos de ThisIsTea</a></p>\n",
+  "subject": "Correo de práctica provisional, pendiente de sustituir antes de la demo",
+  "text": "Hola {{first_name}}:\n\nEste es un correo de práctica provisional, pendiente de sustituir antes de la demo.\n\nEnlace de práctica: {{click_url}}\n\nGestionar los correos de ThisIsTea: {{settings_url}}\n",
+  "html": "<p>Hola {{first_name}}:</p>\n<p>Este es un correo de práctica provisional, pendiente de sustituir antes de la demo.</p>\n<p><a href=\"{{click_url}}\">Enlace de práctica</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Gestionar los correos de ThisIsTea</a></p>\n",
   "reveal": {
     "steps": {
-      "who": "Provisional: quién envió realmente el correo de práctica.",
-      "emotion": "Provisional: la emoción que intentó provocar.",
-      "ask": "Provisional: lo que te pedía que hicieras.",
-      "verify": "Provisional: cómo podrías haberlo comprobado por un canal que tú controlas."
+      "who": "Provisional: quién envió de verdad este correo de práctica.",
+      "emotion": "Provisional: con qué emoción jugaba.",
+      "ask": "Provisional: qué te pedía.",
+      "verify": "Provisional: cómo comprobarlo por un canal que tú controlas."
     },
     "hints": [
-      "Pista provisional: sustitúyela antes de la demo."
+      "Pista provisional, pendiente de sustituir antes de la demo."
     ]
   }
 }

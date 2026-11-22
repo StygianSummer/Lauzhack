@@ -33,7 +33,7 @@
     "from_name": "Soporte de CloudDrive",
     "from_address": "security@cl0uddrive-support.example",
     "to": "{{email}}",
-    "subject": "Buzón lleno: inicia sesión ya",
+    "subject": "Bandeja de entrada llena: inicia sesión ahora",
     "received": "-PT18M",
     "body": [
       {
@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "Tu bandeja de entrada está llena al 99 %. Inicia sesión en el plazo de 1 hora o el correo entrante será rechazado."
+        "v": "Tu bandeja de entrada está llena al 99 %. Inicia sesión en un plazo de 1 hora o los correos nuevos serán rechazados."
       },
       {
         "t": "link",
@@ -62,37 +62,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "\"cl0uddrive\" lleva un cero donde debería ir la o, y de todos modos no es el dominio de CloudDrive, clouddrive.example."
+      "explain": "«cl0uddrive»: un cero sustituye a la o. E incluso bien escrito, no sería el dominio de CloudDrive, clouddrive.example."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": true,
-      "explain": "\"Estimado usuario\": un servicio de verdad sabe cómo te llamas."
+      "explain": "«Estimado usuario»: el servicio que gestiona tu cuenta sabe cómo te llamas."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "¿Quién eligió el plazo de una hora, tú o ellos? La amenaza de perder correo sirve para meterte prisa."
+      "explain": "Ese plazo de una hora, ¿quién lo ha puesto, tú o ellos? La amenaza de perder correos está ahí para meterte prisa."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "El botón lleva a cl0uddrive-support.example, un dominio parecido. Un enlace parecido puede verse perfectamente razonable al pasar el ratón por encima."
+      "explain": "El botón lleva a cl0uddrive-support.example, un dominio de imitación. Al pasar el ratón por encima, una dirección imitada puede parecer de lo más normal."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que se hace pasar por CloudDrive. 'cl0uddrive' lleva un cero donde debería ir la o, y de todos modos no es el dominio de CloudDrive.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por CloudDrive. «cl0uddrive» lleva un cero en lugar de la o, y de todas formas no es el dominio de CloudDrive.",
       "choices": [
         "El equipo de soporte de CloudDrive",
-        "Alguien que usa una dirección parecida",
+        "Alguien con una dirección casi idéntica",
         "Tu departamento de informática"
       ],
       "correct": 1,
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Miedo y prisa: te dicen que perderás correo si no actúas en una hora.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Miedo y prisa: si no haces algo en la próxima hora, perderás correos.",
       "choices": [
         "Curiosidad por una función nueva",
-        "Miedo a perder correo, con prisa de una hora",
-        "Ninguna: es un aviso rutinario"
+        "Miedo a perder correos, en menos de una hora",
+        "Ninguna, es un aviso rutinario"
       ],
       "correct": 1,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Iniciar sesión mediante el enlace, lo que entregaría tus datos de acceso a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Iniciar sesión desde el enlace. Tus datos de acceso irían al remitente.",
       "choices": [
-        "Borrar algunos archivos antiguos",
-        "Iniciar sesión mediante un enlace",
-        "Llamar a soporte"
+        "Borrar archivos antiguos",
+        "Iniciar sesión desde un enlace",
+        "Llamar al soporte"
       ],
       "correct": 1,
       "cues": [
@@ -136,12 +136,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "No pulses nada. Avisa a informática y revisa después tu buzón abriendo tú mismo el sitio oficial.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No pulses nada. Avisa al departamento de informática y luego revisa tu buzón abriendo por tu cuenta la web oficial.",
       "choices": [
-        "Responder y preguntar si el mensaje es auténtico",
-        "Abrir tú mismo el sitio oficial y denunciar el correo",
-        "Pasar el ratón por el enlace e iniciar sesión si parece razonable"
+        "Responder para preguntar si el mensaje es auténtico",
+        "Abrir por tu cuenta la web oficial y avisar del correo",
+        "Pasar el ratón por el enlace y entrar si parece correcto"
       ],
       "correct": 1,
       "cues": [
@@ -164,28 +164,28 @@
   "actions": [
     {
       "id": "report-open",
-      "label": "No pulsar nada, avisar a informática y abrir tú mismo el sitio oficial",
+      "label": "No pulsar nada, avisar a informática y abrir por tu cuenta la web oficial",
       "outcome": "safe",
-      "consequence": "Tu buzón está bien. El correo era falso y tu aviso puede proteger a un compañero."
+      "consequence": "Tu buzón funciona con normalidad. El correo era falso, y tu aviso puede ahorrarle la misma trampa a un compañero."
     },
     {
       "id": "sign-in",
-      "label": "Iniciar sesión mediante el enlace, rápidamente",
+      "label": "Iniciar sesión desde el enlace, rápido",
       "outcome": "unsafe",
-      "consequence": "La página se parece a CloudDrive, pero tus datos de acceso van directos al estafador."
+      "consequence": "La página se parece a CloudDrive, pero tus datos de acceso van al estafador."
     },
     {
       "id": "reply",
-      "label": "Responder y preguntar al remitente si el mensaje es auténtico",
+      "label": "Responder al remitente para preguntar si el mensaje es auténtico",
       "outcome": "neutral",
-      "consequence": "El estafador dice que sí, por supuesto. Tu respuesta también demuestra que tu dirección está activa."
+      "consequence": "«Por supuesto», contesta el estafador. Y ahora sabe que tu dirección está activa."
     },
     {
       "id": "hover",
-      "label": "Pasar el ratón por el enlace e iniciar sesión si la dirección parece razonable",
+      "label": "Pasar el ratón por el enlace e iniciar sesión si la dirección parece correcta",
       "outcome": "unsafe",
-      "consequence": "Una dirección parecida puede parecer razonable. Entregaste tus datos de acceso."
+      "consequence": "Una dirección imitada puede parecer perfectamente correcta. Tus datos de acceso ya se han ido."
     }
   ],
-  "attacker_reveal": "Un cero en lugar de una o, y un reloj que corre... Leíste las palabras, no las letras. Quien se preocupa por su correo rara vez comprueba el remitente."
+  "attacker_reveal": "Leíste «clouddrive». Y sin embargo había un cero en lugar de la o, y una hora de plazo para que no miraras demasiado de cerca. Cuando a alguien le preocupa su correo, lee las palabras, no las letras."
 }

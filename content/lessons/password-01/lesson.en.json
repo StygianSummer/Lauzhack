@@ -2,7 +2,7 @@
   "id": "password-01",
   "language": "en",
   "title": "Passwords: stop remembering them",
-  "subtitle": "Four rules, then five accounts to prove it",
+  "subtitle": "Four rules, and five accounts to put them to the test",
   "minutes": 6,
   "sections": [
     {
@@ -11,101 +11,101 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Length is the only thing that buys time",
-          "say": "People hand me punctuation and think they've done something. A guesser's machine doesn't care about your exclamation mark. It cares how much there is to get through.",
+          "title": "Only length slows the attacker down",
+          "say": "People hand me punctuation as if it were armour. The machine that guesses passwords doesn't care about your exclamation mark. What slows it down is the number of combinations it has to try.",
           "rules": [
             {
               "headline": "Long beats clever.",
-              "body": "Four or five unrelated words. A short password with symbols in it is still short."
+              "body": "Four or five unrelated words. A short password stays short, however many symbols you stuff into it."
             },
             {
               "headline": "Never the same one twice.",
-              "body": "One leaked site becomes five leaked sites by itself: attackers replay the pairs they already have."
+              "body": "A leak on one site turns into five on its own: attackers try the username-and-password pairs they already have everywhere else."
             }
           ],
-          "sign_off": "Four unrelated words beat P@ssw0rd! by a distance no punctuation closes."
+          "sign_off": "Four unrelated words beat P@ssw0rd! by a margin no punctuation can make up."
         },
         {
           "persona": "cat",
           "role": "Personal security",
           "title": "The part nobody wants to hear",
-          "say": "You are not supposed to remember them. That is not a failure of yours, it is arithmetic. Nobody holds forty unrelated passwords in their head, so people reuse one, and that is the whole problem in one move.",
+          "say": "Nobody's asking you to remember them, and the arithmetic is on your side: no one keeps forty different passwords in their head. So people reuse one, and that's the whole problem right there.",
           "rules": [
             {
-              "headline": "Don't make it about you.",
-              "body": "Your name, your year of birth, your pet, your team. All of it is already online, and all of it is what anyone guessing tries first."
+              "headline": "Leave yourself out of it.",
+              "body": "Your first name, your year of birth, your cat's name, your favourite team. All of it is already lying around online, and it's the first thing anyone tries."
             },
             {
-              "headline": "You are not supposed to remember them.",
-              "body": "That is the manager's job. You remember one strong passphrase and let it hold the rest."
+              "headline": "Remembering is the manager's job.",
+              "body": "You remember one strong passphrase, and it keeps all the rest."
             }
           ],
-          "sign_off": "One strong passphrase, a manager for the rest, and two-factor login where it is offered."
+          "sign_off": "One strong passphrase, a manager for the rest, and multi-factor authentication wherever it's offered."
         }
       ]
     },
     {
       "type": "tools",
-      "intro": "Right, this is the bit that actually fixes it. Pick one of these now, not later. They're all better than your memory, and four of the five cost nothing.",
+      "intro": "Now for the part that actually fixes it. Pick one now, while you're here: any of them beats your memory, and four of the five are free.",
       "tools": [
         {
           "resource_id": "bitwarden",
           "name": "Bitwarden",
-          "what": "Free, open-source, audited, syncs to every device.",
-          "dog_says": "My oldest pal. He remembers every password for you, and he won't fill one in on a fake site. If he stays quiet, that's your warning.",
+          "what": "Free, open source, audited, syncs across all your devices.",
+          "dog_says": "My oldest companion. He remembers everything for you and only offers your login on the real site. If he offers nothing, take a closer look at the address.",
           "button": "Open Bitwarden"
         },
         {
           "resource_id": "proton-pass",
           "name": "Proton Pass",
-          "what": "Swiss, free tier, same account as Proton Mail.",
-          "dog_says": "Younger than the others, and run here in Switzerland. Good pick if you already use their mail.",
+          "what": "Swiss, free plan, same account as Proton Mail.",
+          "dog_says": "Newer than the others, and based here in Switzerland. A good pick if you already use their mail.",
           "button": "Open Proton Pass"
         },
         {
           "resource_id": "keepassxc",
           "name": "KeePassXC",
-          "what": "Keeps everything in a file on your own device. No company involved.",
-          "dog_says": "For the sort who trusts nobody. Fair enough, friend. Just remember the backups are yours too.",
+          "what": "Everything stays in a file on your own device. No company between you and your passwords.",
+          "dog_says": "For people who trust nobody. Fair enough. But the backups are your job too.",
           "button": "Open KeePassXC"
         },
         {
           "resource_id": "1password",
           "name": "1Password",
           "what": "Paid, and the easiest to set up for a whole family.",
-          "dog_says": "Costs money, I'll say it plainly. Worth it if you're sorting this out for your parents as well.",
+          "dog_says": "It costs money, I won't hide that. Worth it if you're setting up your parents too.",
           "button": "Open 1Password"
         },
         {
           "resource_id": "builtin-manager",
           "name": "The one already on your phone",
           "what": "Apple Passwords, Google Password Manager or Firefox.",
-          "dog_says": "Already there, already backed up, nothing to install. Tied to one ecosystem, so it's awkward if you switch. Still far better than reusing one.",
+          "dog_says": "Already there, already backed up, nothing to install. The catch: it ties you to one ecosystem, which makes things awkward if you switch phones. Still far better than reusing a password.",
           "button": "How to turn it on"
         }
       ]
     },
     {
       "type": "status",
-      "question": "How are you feeling about this?",
+      "question": "How are you feeling about all this?",
       "levels": [
         {
           "key": "LOW",
           "label": "Still unsure",
           "persona": "turtle",
-          "reply": "That's quite all right, dear. You only need to do one thing today: install one of Dog's managers. The rest follows from that, and we'll go slowly."
+          "reply": "That's perfectly fine. Just one thing today: install one of the managers Dog showed you. The rest will follow, and we'll take it slowly."
         },
         {
           "key": "MEDIUM",
           "label": "Getting there",
           "persona": "cat",
-          "reply": "Good. Now prove it on five accounts in a row, because that is where remembering stops working."
+          "reply": "Good. Prove it on five accounts in a row: that's where memory gives out."
         },
         {
           "key": "HIGH",
           "label": "Confident",
           "persona": "spider",
-          "reply": "Confident, are we? Then five accounts should be no trouble at all. I'll be waiting at the end to show you which one I'd have cracked first."
+          "reply": "Ah, confidence. Then five accounts won't give you any trouble. I'll be waiting at the end to show you which one I'd have cracked first."
         }
       ]
     },
@@ -115,23 +115,23 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Now the part that proves it",
-          "say": "Knowing the rules is free. Five accounts in a row is where it costs something, because by the third one your memory gives up and the manager is the only way through. That is the lesson, and you cannot read it, you have to feel it.",
+          "title": "Now, the proof",
+          "say": "Knowing the rules costs nothing. Five accounts in a row is another matter: around the third, your memory gives up and only the manager is left. You can't learn this one by reading. You have to feel it happen.",
           "rules": [
             {
               "headline": "Five sites, five new passwords.",
-              "body": "All pretend, all ours, and they unlock nothing. Do not use a password you really have, not even once."
+              "body": "All made up, all ours, and they unlock nothing. Don't use any of your real passwords, not even once."
             },
             {
-              "headline": "Save each one as you go.",
-              "body": "In the manager you just installed. Not in a note, not in your head."
+              "headline": "Save them as you go.",
+              "body": "In the manager you've just installed. Not in a note, not in your head."
             },
             {
-              "headline": "We will ask for one of them back.",
-              "body": "In a later session, one of the five picked at random. We will not say which, so the only way through is to have saved all five. We cannot remind you: we never kept them."
+              "headline": "We'll ask for one of them back.",
+              "body": "In a later session, one of the five, picked at random. We won't say which, so you'll need to have saved them all. And we can't remind you, because we never kept them."
             }
           ],
-          "sign_off": "Five accounts. Then we find out whether the habit is real."
+          "sign_off": "Five accounts. Then we'll know whether the habit is real."
         }
       ]
     }

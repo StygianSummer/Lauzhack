@@ -1,8 +1,8 @@
 {
   "id": "email-01",
   "language": "en",
-  "title": "Phishing: don't take the bait",
-  "subtitle": "How attackers trick people into handing over their keys, and how to spot it before you do.",
+  "title": "Phishing: spot the bait before you bite",
+  "subtitle": "How attackers get people to hand over the keys, and how to catch them before you do.",
   "minutes": 10,
   "sections": [
     {
@@ -11,78 +11,78 @@
         {
           "persona": "cat",
           "role": "Personal security",
-          "title": "Protect yourself first",
-          "say": "I can't look after anyone if my own logins are wide open. Neither can you. So we start with you.",
+          "title": "You first",
+          "say": "I can't protect anyone while my own accounts are wide open. Neither can you. So we start with yours.",
           "rules": [
             {
               "headline": "Read the domain after the @.",
-              "body": "Every letter. thisistea.example and thisistae-app.example belong to two different owners."
+              "body": "Letter by letter. thisistea.example and thisistae-app.example don't have the same owner."
             },
             {
               "headline": "Notice the rush.",
-              "body": "A two-hour deadline is a feeling someone else put in you. Feelings aren't evidence."
+              "body": "A two-hour deadline is a worry someone else planted in you. It proves nothing."
             },
             {
               "headline": "Never type a password after clicking an email link.",
-              "body": "Open the site yourself, from a bookmark or by typing the address."
+              "body": "Open the site yourself: from a bookmark, or by typing the address."
             }
           ],
-          "sign_off": "Zero trust isn't paranoia. It's checking."
+          "sign_off": "I do trust people. Once I've checked."
         },
         {
           "persona": "turtle",
           "role": "Organisational security",
-          "title": "Shield the whole shell",
-          "say": "In all my years I've learned one thing: a single open door lets the tide into every room. When you guard your inbox, you guard your neighbours too. It works a little like a vaccine.",
+          "title": "Protect the whole house",
+          "say": "One badly shut door and the water gets into every room. I've seen it happen more than once. Your inbox is one of those doors. Keep an eye on it and you protect your colleagues too, a bit like a vaccine protects the people around you.",
           "rules": [
             {
-              "headline": "Confirm the unusual, together.",
-              "body": "A wire transfer, a password reset, an urgent file: check it on another channel. A phone call costs one minute."
+              "headline": "Confirm the unusual with a second person.",
+              "body": "A transfer, a password reset, an \"urgent\" file: check through another channel. A phone call takes a minute."
             },
             {
-              "headline": "Tell the others.",
-              "body": "If a strange email reached you, it reached your colleagues too. Report it to IT so we can warn everyone."
+              "headline": "Tell your colleagues.",
+              "body": "If a strange email reached you, it has probably reached them too. Report it to the IT team so we can warn everyone."
             },
             {
-              "headline": "Give the whole team a second lock.",
-              "body": "With multi-factor authentication, one stolen password is a scratch, not a crack in the shell."
+              "headline": "A second lock for the whole team.",
+              "body": "With multi-factor authentication, a stolen password becomes a nuisance rather than a break-in."
             }
           ],
-          "sign_off": "A team we can trust is a team that looks out for each other."
+          "sign_off": "The strong teams I've known weren't extraordinary. They'd simply got into the habit of warning each other."
         }
       ]
     },
     {
       "type": "tools",
-      "intro": "Hey, friend! I've sniffed out plenty of shady links in my time, and I never go in alone. Let me introduce you to my buddies. They're all free, and they've got your back.",
+      "intro": "Hello! I've seen hundreds of dodgy links go by, and I never check one alone. Here's my crew: four free tools that work for you.",
       "tools": [
         {
           "resource_id": "bitwarden",
           "name": "Bitwarden",
-          "what": "Free, open-source password manager for you and your team.",
-          "dog_says": "My oldest pal. He remembers every password for you, and he won't fill them in on a fake site. If he stays quiet, that's your warning.",
+          "what": "Free, open-source password manager, for you and for your team.",
+          "dog_says": "My oldest companion. He remembers all your passwords and only offers your login on the site whose address matches. On a copy he offers nothing, and that silence is your warning.",
           "button": "Open Bitwarden"
         },
         {
           "resource_id": "virustotal",
           "name": "VirusTotal",
-          "what": "Checks a link or file against 70+ security scanners at once.",
-          "dog_says": "Right-click the link, choose Copy link address, and paste it here. Ask before you click, not after!",
+          "what": "Runs a link or file past more than 70 scanning engines at once.",
+          "dog_says": "Right-click the link, choose \"Copy link address\", then paste it here. The time to ask is before the click.",
           "button": "Open VirusTotal"
         },
         {
           "resource_id": "urlscan",
           "name": "URLScan.io",
-          "what": "Opens a page in its own browser and shows you a screenshot.",
-          "dog_says": "He walks into the dark alley so you don't have to. You see where the link goes; he takes the risk.",
+          "what": "Opens the page remotely, in its own browser, and shows you a screenshot.",
+          "dog_says": "He walks down the dark alley for you. You see where the link leads, and he's the one taking the risk.",
           "button": "Open URLScan"
         },
         {
           "resource_id": "hibp",
           "name": "Have I Been Pwned",
-          "what": "Tells you whether your email address appeared in a known data breach.",
-          "dog_says": "Ever wondered how the Spider got your address? Look yourself up here. Then change any password that showed up.",
-          "button": "Check my email"
+          "what": "Tells you whether your email address shows up in a known data breach.",
+          "dog_says": "Wondering where Spider found your address? Type it in here. Then change your password on every site that appears in the list.",
+          "button": "Check my address"
         }
       ]
     },
@@ -90,76 +90,76 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "I hid three tricks in that email. Click whatever you think is a trap. I won't say whether you're getting warm.",
+        "intro": "This email hides three tricks. Click anything that looks rigged to you. And don't count on me to tell you whether you're getting warm...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "The address",
-            "spider_says": "I swapped two letters and moved one word. Who reads every letter when they're worried?"
+            "spider_says": "Two letters swapped, one word added. Under stress, who takes the time to read every letter?"
           },
           {
             "hotspot_id": "hs-clock",
-            "title": "The clock",
-            "spider_says": "\"Within 2 hours.\" Panic is my favourite accomplice. It quiets the part of you that checks."
+            "title": "The countdown",
+            "spider_says": "I wrote \"within 2 hours\" and panic did the rest. It sends the part of you that checks to sleep."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "The ask",
-            "spider_says": "ThisIsTea would never ask for your password by email. But I sounded like ThisIsTea, and that was enough."
+            "spider_says": "ThisIsTea will never ask for your password by email. I will. All I had to do was look like them."
           }
         ],
-        "debrief": "Every trick he just bragged about is one of my three rules. Address, rush, password. Go back and read them once more."
+        "debrief": "The three tricks Spider just bragged about are my three rules: address, rush, password. Read them through once more."
       },
       "recovery": {
-        "title_caught": "If a real one ever gets you, dear, do this.",
-        "lead_caught": "This time it was only practice and nothing was taken. A real one happens to the careful ones too, and then what matters is how fast we close the door. Here is the list.",
-        "title_default": "Keep this plan in your pocket",
-        "lead_default": "You walked past this one. Someday one will look better. Here is the five-step rescue plan: knowing it by heart is half the cure.",
+        "title_caught": "If a real one ever catches you, here's what to do.",
+        "lead_caught": "This was an exercise: nothing was stolen. Real traps catch careful people too, and then what counts is how quickly the door gets shut. Here are the steps.",
+        "title_default": "Keep this plan close to hand",
+        "lead_default": "This one didn't get you. Some day a better-made one will come along. Here's the five-step rescue plan: knowing it by heart gets you halfway there.",
         "steps": [
           {
             "headline": "Change the password, on the real site.",
-            "body": "Open the site yourself, from a bookmark or by typing the address, never through the email. Then change that same password anywhere else you reused it."
+            "body": "Open the site yourself, from a bookmark or by typing the address, never from the email. Then change that password everywhere you reused it."
           },
           {
             "headline": "Turn on multi-factor authentication.",
-            "body": "A second lock means a stolen password alone no longer opens the door."
+            "body": "With a second lock, a stolen password is no longer enough to open the door."
           },
           {
-            "headline": "Tell IT or security straight away.",
-            "body": "If you can, forward the email as an attachment. Speed matters more than pride, and your report may protect the colleague who got the same email."
+            "headline": "Tell the IT team or security straight away.",
+            "body": "If you can, forward the email as an attachment. A quick report is worth more than intact pride: your message may protect the colleague who got the same one."
           },
           {
-            "headline": "Look for strange activity.",
-            "body": "Check the sign-in history and connected devices, and look for mail rules that forward or delete messages. Sign out anywhere you don't recognise."
+            "headline": "Look for unusual activity.",
+            "body": "Check your sign-in history and the list of connected devices. Make sure no mail rule is forwarding or deleting your messages. Sign out anything you don't recognise."
           },
           {
             "headline": "Expect a second attempt.",
-            "body": "Attackers often follow up with a message that mentions the first one. Stay suspicious for the next few weeks."
+            "body": "Attackers often come back with a message that refers to the first one. Stay on your guard for the next few weeks."
           }
         ]
       }
     },
     {
       "type": "status",
-      "question": "How confident do you feel?",
+      "question": "How are you getting on?",
       "levels": [
         {
           "key": "LOW",
-          "label": "Still unsure",
+          "label": "Not there yet",
           "persona": "turtle",
-          "reply": "That's all right, dear. Nobody learns this in one sitting. Read the Cat's three rules once more, then try one of Dog's link checkers. We'll get there together."
+          "reply": "Nothing unusual about that. Nobody learns this in one sitting. Read Cat's three rules again, then try one of Dog's tools on a link. We'll get there together, at your pace."
         },
         {
           "key": "MEDIUM",
           "label": "Getting there",
           "persona": "cat",
-          "reply": "Good. Stay that way. The next trick won't look like this one."
+          "reply": "Good. Keep that reflex. The next trick won't look like this one."
         },
         {
           "key": "HIGH",
           "label": "Confident",
           "persona": "spider",
-          "reply": "Confident? How lovely. Confident people are my favourite kind... I'll be in touch."
+          "reply": "Confident? Charming. That's my favourite audience... I'll write to you soon."
         }
       ]
     },
@@ -171,9 +171,9 @@
     },
     {
       "type": "readiness",
-      "prompt": "Want to test yourself for real? We'll send **one practice phishing email** to {{email}} at a random moment in the next few minutes. It will look like a real scam but it is harmless and never asks for a password. See if you spot it.",
+      "prompt": "Fancy a real test? We'll send **one practice phishing email** to {{email}} at a random moment in the next few minutes. It will look like a real scam, but it's harmless and will never ask for a password. Your job is to spot it.",
       "button": "Yes, send me one",
-      "done": "Done. Keep an eye on your inbox, and use the four steps."
+      "done": "On its way. Watch your inbox, and use the four steps."
     }
   ]
 }

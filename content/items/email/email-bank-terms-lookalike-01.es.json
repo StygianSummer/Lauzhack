@@ -33,7 +33,7 @@
     "from_name": "SwissAlpBank",
     "from_address": "service@swissa1pbank.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, nuevas condiciones para tu banca en línea",
+    "subject": "{{first_name}}, cambian las condiciones de tu banca en línea",
     "received": "-PT45M",
     "body": [
       {
@@ -42,11 +42,11 @@
       },
       {
         "t": "text",
-        "v": "Hemos actualizado las condiciones de tu contrato de banca en línea. Inicia sesión para aceptarlas antes de que acabe la semana."
+        "v": "Hemos actualizado las condiciones de tu contrato de banca en línea. Te rogamos que inicies sesión para aceptarlas antes de que termine la semana."
       },
       {
         "t": "link",
-        "v": "Revisar y aceptar las condiciones",
+        "v": "Consultar y aceptar las condiciones",
         "href": "https://swissa1pbank.example/terms",
         "hotspot": "hs-link"
       },
@@ -66,38 +66,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "swissa1pbank.example lleva el dígito 1 en lugar de la letra l. No es swissalpbank.example."
+      "explain": "swissa1pbank.example: el dígito 1 ocupa el lugar de la letra l. No es swissalpbank.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Antes de que acabe la semana\" te impone un plazo que tú no has elegido."
+      "explain": "«antes de que termine la semana»: el plazo lo pone el remitente, no tú."
     },
     {
       "id": "hs-limited",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Tu acceso podría quedar limitado\" es una amenaza para que actúes."
+      "explain": "«tu acceso podría quedar limitado»: una amenaza lo bastante vaga para inquietar y lo bastante concreta para que actúes."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "La página de inicio de sesión está en el dominio parecido y copiaría tus datos de acceso."
+      "explain": "La página de inicio de sesión está en el dominio de imitación. Los datos de acceso que escribieras ahí quedarían copiados."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que usa el nombre del banco. La dirección tiene un dígito 1 donde debería ir la letra l: swissa1pbank.example no es swissalpbank.example. A tus ojos se les puede escapar el cambio de un solo carácter, pero a un gestor de contraseñas nunca.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que usa el nombre del banco. La dirección lleva un dígito 1 en lugar de la letra l: swissa1pbank.example no es swissalpbank.example. El ojo se salta un carácter con facilidad; un gestor de contraseñas compara la dirección carácter por carácter.",
       "choices": [
-        "SwissAlpBank, porque sabe tu nombre",
-        "Alguien que usa un dominio parecido",
-        "Tu asesor personal"
+        "SwissAlpBank, porque sabe cómo te llamas",
+        "Alguien que imita el dominio del banco",
+        "Tu gestor personal en el banco"
       ],
       "correct": 1,
       "cues": [
@@ -108,12 +108,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Miedo y prisa: podrías perder el acceso si no actúas antes de que acabe la semana.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Miedo y prisa: podrías perder el acceso si no haces nada antes de que termine la semana.",
       "choices": [
         "Curiosidad por un premio",
         "Miedo a perder el acceso, con un plazo",
-        "Ninguna: es algo rutinario"
+        "Ninguna, es un simple trámite"
       ],
       "correct": 1,
       "cues": [
@@ -124,12 +124,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Iniciar sesión para 'aceptar' unas condiciones nuevas, lo que entregaría tus datos de acceso a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Iniciar sesión para «aceptar» las nuevas condiciones. Tus datos de acceso irían al remitente.",
       "choices": [
-        "Abrir un archivo adjunto",
-        "Iniciar sesión mediante un enlace",
-        "Responder con tu número de cuenta"
+        "Abrir el contrato adjunto",
+        "Iniciar sesión desde un enlace",
+        "Enviar tu número de cuenta"
       ],
       "correct": 1,
       "cues": [
@@ -140,12 +140,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Usa el acceso de SwissAlpBank guardado en tu gestor de contraseñas. Comprueba la dirección web exacta y no rellena nada en un sitio parecido: si se queda callado, esa es tu alarma. O abre tú mismo la app del banco.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Entra por el acceso de SwissAlpBank guardado en tu gestor de contraseñas. El gestor solo ofrece ese acceso en el sitio cuya dirección coincide exactamente: si no ofrece nada, esa es tu señal de alarma. También puedes abrir por tu cuenta la app del banco.",
       "choices": [
-        "Pulsar el enlace y comprobar que la página se ve bien",
-        "Abrir el acceso guardado en tu gestor de contraseñas, o la app tú mismo",
-        "Escribir la contraseña a mano si el gestor no la rellena"
+        "Pulsar el enlace y comprobar que la página parece normal",
+        "Entrar desde el acceso de tu gestor, o desde la app",
+        "Escribir la contraseña a mano si el gestor no rellena nada"
       ],
       "correct": 1,
       "cues": [
@@ -157,7 +157,7 @@
     }
   },
   "link_question": {
-    "shown_text": "Revisar y aceptar las condiciones",
+    "shown_text": "Consultar y aceptar las condiciones",
     "options": [
       "swissalpbank.example",
       "swissa1pbank.example",
@@ -170,26 +170,26 @@
       "id": "manager",
       "label": "Abrir el banco desde el acceso guardado en tu gestor de contraseñas, o desde la app",
       "outcome": "safe",
-      "consequence": "No hay nada que aceptar. Si hubieras pulsado el enlace del correo, el gestor no habría rellenado nada."
+      "consequence": "No hay nada que aceptar. Y en la página del correo, el gestor no habría rellenado nada."
     },
     {
       "id": "click-type",
       "label": "Pulsar el enlace y escribir tu contraseña",
       "outcome": "unsafe",
-      "consequence": "La página parece correcta, pero tus datos de acceso van directos al estafador."
+      "consequence": "La página parece normal, pero tus datos de acceso van directos al estafador."
     },
     {
       "id": "type-by-hand",
-      "label": "El gestor de contraseñas no rellena nada, así que escribes la contraseña a mano",
+      "label": "El gestor no rellena nada: escribir la contraseña a mano",
       "outcome": "unsafe",
-      "consequence": "El gestor se quedó callado porque la dirección era incorrecta. Ignoraste tu mejor aviso."
+      "consequence": "Se quedaba callado porque la dirección era falsa. Era tu mejor aviso, y lo has pasado por alto."
     },
     {
       "id": "report-delete",
-      "label": "Denunciarlo como phishing y borrarlo",
+      "label": "Marcarlo como phishing y borrarlo",
       "outcome": "safe",
-      "consequence": "Buena decisión. No entregaste nada."
+      "consequence": "Tus datos de acceso no han salido de casa."
     }
   ],
-  "attacker_reveal": "Un solo dígito en lugar de una letra... A tus ojos se les escapa, pero un gestor de contraseñas compara cada carácter. Cuando se niega a rellenar, créele."
+  "attacker_reveal": "Tus ojos lo corrigieron solos: un dígito colado en lugar de una letra, y tú seguías leyendo el nombre del banco. Tu gestor de contraseñas, en cambio, compara carácter por carácter; cuando se queda callado, créele a él."
 }

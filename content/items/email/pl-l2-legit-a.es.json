@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Si no fuiste tú, abre tú mismo la app de TeamChat, ve a Ajustes, luego a Dispositivos, y cierra la sesión de ese dispositivo."
+        "v": "Si no fuiste tú, abre la app de TeamChat por tu cuenta, ve a Ajustes y luego a Dispositivos, y cierra la sesión de ese dispositivo."
       },
       {
         "t": "signature",
@@ -54,38 +54,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de teamchat.example, el dominio real."
+      "explain": "La dirección termina en teamchat.example, el dominio real."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "\"Si fuiste tú, no tienes que hacer nada.\" Ni amenaza ni plazo."
+      "explain": "«Si fuiste tú, no tienes que hacer nada.» Ni amenazas ni plazos."
     },
     {
       "id": "hs-own-channel",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te dice que abras tú mismo la app en lugar de darte un enlace."
+      "explain": "En lugar de un enlace, te indica el camino dentro de la app, para que lo sigas por tu cuenta."
     },
     {
       "id": "hs-no-link",
       "target": "body:3",
       "step": "ask",
       "red_flag": false,
-      "explain": "No hay enlace ni botón. Nada aquí te pide tus datos de acceso."
+      "explain": "Ni enlace ni botón: nada en este mensaje puede hacerse con tus datos de acceso."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "El propio TeamChat: la dirección es del dominio real, teamchat.example.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "TeamChat: la dirección es de su dominio real, teamchat.example.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "Un compañero que te está poniendo a prueba",
-        "TeamChat, desde su dominio real"
+        "Alguien con una dirección casi idéntica",
+        "Un compañero que te pone a prueba",
+        "TeamChat, desde su propio dominio"
       ],
       "correct": 2,
       "cues": [
@@ -95,12 +95,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Prácticamente ninguna. Es tranquilo y te dice que no pasará nada malo si fuiste tú.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Casi ninguna. El tono es tranquilo, y si el inicio de sesión fue tuyo, ahí acaba todo.",
       "choices": [
-        "Pánico por un acceso no autorizado",
-        "Ilusión por un premio",
-        "Ninguna: es tranquilo y no tiene plazo"
+        "Pánico ante una intrusión",
+        "La emoción de haber ganado un premio",
+        "Ninguna: tono tranquilo, sin plazo"
       ],
       "correct": 2,
       "cues": [
@@ -110,12 +110,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Nada por ahora. Si el inicio de sesión no fue tuyo, te dice que vayas tú mismo a la app.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Nada por ahora. Si el inicio de sesión no fue tuyo, te manda a la app, por tus propios medios.",
       "choices": [
         "Pulsar un enlace e iniciar sesión",
-        "Pagar para proteger la cuenta",
-        "Nada, aparte de revisar en la app si no fuiste tú"
+        "Pagar un extra para proteger la cuenta",
+        "Nada, salvo revisar la app si hace falta"
       ],
       "correct": 2,
       "cues": [
@@ -126,12 +126,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Ya sabes cómo: abre tú mismo la app de TeamChat y mira tus dispositivos.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "El propio mensaje te dice qué hacer: abre la app de TeamChat y mira tus dispositivos.",
       "choices": [
-        "Responder diciendo que no fuiste tú",
-        "Reenviarlo antes a un amigo",
-        "Abrir tú mismo la app de TeamChat y revisar tus dispositivos"
+        "Responder para decir que no fuiste tú",
+        "Reenviárselo antes a un amigo",
+        "Abrir tú la app y mirar tus dispositivos"
       ],
       "correct": 2,
       "cues": [
@@ -144,22 +144,22 @@
   "actions": [
     {
       "id": "check-app",
-      "label": "Abrir tú mismo la app de TeamChat y mirar tus dispositivos",
+      "label": "Abrir por tu cuenta la app de TeamChat y mirar tus dispositivos",
       "outcome": "safe",
-      "consequence": "Ves tu propio móvil y tu portátil. No hay nada que hacer."
+      "consequence": "Ves tu móvil y tu ordenador. Nada raro."
     },
     {
       "id": "ignore",
-      "label": "Ignorarlo, porque reconoces el dispositivo nuevo",
+      "label": "Ignorarlo: reconoces el dispositivo nuevo",
       "outcome": "safe",
-      "consequence": "Sabes que el inicio de sesión fue tuyo, así que no hace falta nada."
+      "consequence": "El inicio de sesión era tuyo. No había nada que hacer."
     },
     {
       "id": "reply",
       "label": "Responder al correo para decir que no fuiste tú",
       "outcome": "neutral",
-      "consequence": "La dirección no-reply no contesta. Si no fuiste tú, usa mejor la app."
+      "consequence": "Nadie lee las respuestas que llegan a esta dirección. Si el inicio de sesión no fue tuyo, hay que actuar desde la app."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Viene del dominio de TeamChat, no tiene enlace y te dice que uses tú mismo la app. Las alertas de seguridad pueden ser auténticas. Lo que importa es que esta no te pide nada."
+  "attacker_reveal": "Auténtico, te lo concedo. Dominio de TeamChat, ni un solo enlace, y te manda a la app por tus propios medios. Una alerta de seguridad puede ser real: a esta se la reconoce porque no te pide nada."
 }

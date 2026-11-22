@@ -32,7 +32,7 @@
     "from_name": "ThisIsTea",
     "from_address": "notifications@thisistae-app.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, your team workspace is ready",
+    "subject": "{{first_name}}, your team's workspace is ready",
     "received": "-PT2H",
     "body": [
       {
@@ -41,7 +41,7 @@
       },
       {
         "t": "text",
-        "v": "Your team has set up a shared ThisIsTea workspace. Sign in to join it."
+        "v": "Your team has created a shared workspace on ThisIsTea. Sign in to join it."
       },
       {
         "t": "link",
@@ -65,38 +65,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "thisistae-app.example swaps two letters and adds a word. It is not thisistea.example."
+      "explain": "thisistae-app.example: two letters swapped and an extra word. That is not thisistea.example."
     },
     {
       "id": "hs-deadline",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Expire after 48 hours\" is a soft deadline to make you act first and check later."
+      "explain": "\"Expire after 48 hours\": a gentle deadline, so that you act first and check later."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The text shows thisistea.example, but the link really goes to thisistae-app.example. Only an address with thisistea.example right before the first slash belongs to ThisIsTea. The others swap letters or hide a different owner, like secure-login.example or thisistea-support.example."
+      "explain": "The text shows thisistea.example, but the link actually goes to thisistae-app.example. Only an address with thisistea.example right before the first slash belongs to ThisIsTea. The others swap letters or hide a different owner, like secure-login.example or thisistea-support.example."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Your first name is easy to find. It does not prove who wrote the email."
+      "explain": "Your first name is easy to find. It proves nothing about the sender."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone imitating ThisIsTea. The sender is on thisistae-app.example, with two letters swapped. Read the owner, not the look.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone imitating ThisIsTea. The sender is on thisistae-app.example, with two letters swapped. Go by who owns the domain, not by how it looks.",
       "choices": [
-        "ThisIsTea itself",
-        "Someone using a lookalike domain",
-        "Your team administrator"
+        "ThisIsTea, from its real domain",
+        "Someone with a near-identical domain",
+        "Your team's administrator"
       ],
       "correct": 1,
       "cues": [
@@ -107,11 +107,11 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Curiosity and a little hurry: a new workspace for your team, with an expiry.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Curiosity, and a little haste: a new space for your team, with an expiry date.",
       "choices": [
-        "Fear of arrest",
-        "Curiosity about a new workspace, with a deadline",
+        "Fear of being arrested",
+        "Curiosity, with a deadline to act",
         "None: it is routine"
       ],
       "correct": 1,
@@ -123,8 +123,8 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Sign in through the link, which would give your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Sign in through the link, which means handing your login details to the sender.",
       "choices": [
         "Open an attachment",
         "Sign in through a link",
@@ -140,11 +140,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not use the link. Open ThisIsTea yourself, from a bookmark or by typing the address, and look for the workspace.",
+      "answer": "Ignore the link. Open ThisIsTea yourself, from a bookmark or by typing the address, and look for the workspace.",
       "choices": [
         "Click the link if it looks right",
-        "Open ThisIsTea yourself by typing its address",
-        "Reply to ask whether it is real"
+        "Open ThisIsTea by typing the address yourself",
+        "Reply to ask whether it is genuine"
       ],
       "correct": 1,
       "cues": [
@@ -167,28 +167,28 @@
   "actions": [
     {
       "id": "type-address",
-      "label": "Open ThisIsTea yourself by typing its address and look for the workspace",
+      "label": "Open ThisIsTea by typing the address yourself, then look for the workspace",
       "outcome": "safe",
-      "consequence": "There is no new workspace. The email was fake."
+      "consequence": "No new workspace. The email was fake."
     },
     {
       "id": "click",
       "label": "Click the link and sign in",
       "outcome": "unsafe",
-      "consequence": "The page looks like ThisIsTea, but your login goes to the scammer."
+      "consequence": "The page looks every bit like ThisIsTea, but your login details go to the scammer."
     },
     {
       "id": "hover-click",
-      "label": "Hover first, then sign in because the shown address looks right",
+      "label": "Hover over the link first, then sign in because the address shown looks right",
       "outcome": "unsafe",
-      "consequence": "The shown text was bait. The real address was something else."
+      "consequence": "The displayed text was the bait. The real address, the one hovering revealed, was something else entirely."
     },
     {
       "id": "report-it",
-      "label": "Report it to IT and delete it",
+      "label": "Report it to the IT team, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. The team can warn others."
+      "consequence": "The IT team can warn your colleagues before they click."
     }
   ],
-  "attacker_reveal": "The link said thisistea.example, because the words on a link are mine to choose... The address underneath is where you really go. Which ones are real? Only the owner before the first slash."
+  "attacker_reveal": "I write the words on a link, and thisistea.example costs nothing to type. The address hidden underneath decides where you land. Look at what comes just before the first slash, and nothing else."
 }

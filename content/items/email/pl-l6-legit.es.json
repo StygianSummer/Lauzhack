@@ -37,15 +37,15 @@
       },
       {
         "t": "text",
-        "v": "Gracias por organizar los turnos ayer. Una cosa más antes de que se me olvide."
+        "v": "Gracias por cerrar los turnos ayer. Una cosa más, antes de que se me olvide."
       },
       {
         "t": "text",
-        "v": "¿Podrías poner los turnos de esta semana en la carpeta compartida de TeamChat? Si no se te abre, dame un toque y lo arreglamos."
+        "v": "¿Podrías subir los turnos de esta semana a la carpeta compartida de TeamChat? Si no se te abre, llámame y lo solucionamos."
       },
       {
         "t": "text",
-        "v": "El martes escribiste: \"Los turnos son definitivos y la hoja de contactos está en la carpeta compartida\"."
+        "v": "El martes escribiste: «Los turnos son definitivos, y la hoja de contactos está en la carpeta compartida»."
       },
       {
         "t": "signature",
@@ -59,38 +59,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es la de Mara y la conversación es real. Por sí solo, eso prueba poco, pero aquí el resto encaja."
+      "explain": "La dirección es la de Mara y la conversación existe. Por sí sola, esa prueba vale poco, pero aquí todo lo demás encaja."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": false,
-      "explain": "Una petición normal: unos turnos, no datos personales, y va a la carpeta compartida, no a una respuesta privada."
+      "explain": "Una petición corriente: unos turnos, ningún dato personal, y van a la carpeta compartida, no a una respuesta privada."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Cita tus propias palabras, lo cual encaja con una conversación real."
+      "explain": "Cita tus propias palabras, como en una conversación real."
     },
     {
       "id": "hs-ring",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Ofrece una llamada si hay algún problema. Es un canal que puedes usar."
+      "explain": "Te propone llamarla si hay algún problema: un canal que puedes usar tú."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Lo más probable es que sea Mara: una conversación real, una petición corriente y una oferta de hablar por teléfono.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Muy probablemente Mara: una conversación real, una petición corriente y la propuesta de hablarlo por teléfono.",
       "choices": [
-        "Lo más probable es que Mara",
-        "Alguien que usa una dirección parecida",
-        "Un desconocido"
+        "Mara, muy probablemente",
+        "Alguien con una dirección casi idéntica",
+        "Un desconocido que adivinó el tema"
       ],
       "correct": 0,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Prácticamente ninguna. Es una petición amistosa y cotidiana.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Casi ninguna. Una petición amable, de las de todos los días.",
       "choices": [
-        "Ninguna: es una petición cotidiana",
-        "Miedo a perder el trabajo",
-        "Ganas de conseguir una prima"
+        "Ninguna: una petición de todos los días",
+        "Miedo a perder tu trabajo",
+        "Ganas de cobrar una paga extra"
       ],
       "correct": 0,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Poner los turnos en la carpeta compartida. No es nada delicado y no se envía nada en privado.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Subir los turnos a la carpeta compartida. Nada delicado, y nada sale por privado.",
       "choices": [
-        "Poner los turnos en la carpeta compartida de TeamChat",
-        "Enviar por respuesta la lista de teléfonos de los voluntarios",
+        "Subir los turnos a la carpeta de TeamChat",
+        "Responder con los teléfonos de los voluntarios",
         "Pulsar un enlace e iniciar sesión"
       ],
       "correct": 0,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Si algo te inquieta, llama a Mara al número que ya tienes. Para esta petición puedes hacerlo tú mismo directamente en TeamChat.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Si algo no te cuadra, llama a Mara al número que ya tienes. Para una petición así, también puedes ir directamente a TeamChat.",
       "choices": [
-        "Usar TeamChat tú mismo, o llamar a Mara si dudas",
-        "Responder y preguntar si es ella de verdad",
-        "Ignorarlo para siempre"
+        "Ir a TeamChat, o llamar a Mara si dudas",
+        "Responder para preguntar si es ella",
+        "Ignorarlo, ya insistirá Mara"
       ],
       "correct": 0,
       "cues": [
@@ -150,22 +150,22 @@
   "actions": [
     {
       "id": "upload",
-      "label": "Poner los turnos en la carpeta compartida de TeamChat, como se pide",
+      "label": "Subir los turnos a la carpeta compartida de TeamChat, como te pide",
       "outcome": "safe",
-      "consequence": "Hecho. No se envió nada delicado y no se escribió nada en una página extraña."
+      "consequence": "Hecho. No ha salido nada delicado, y no has escrito nada en ninguna página dudosa."
     },
     {
       "id": "call-mara",
-      "label": "Llamar antes a Mara, para ir sobre seguro",
+      "label": "Llamar antes a Mara, por precaución",
       "outcome": "safe",
-      "consequence": "Lo confirma. Una llamada corta nunca es una pérdida de tiempo."
+      "consequence": "Te lo confirma. La llamada te ha llevado un minuto."
     },
     {
       "id": "reply-list",
-      "label": "Responder añadiendo también los teléfonos de los voluntarios, para ahorrar tiempo",
+      "label": "Responder añadiendo los teléfonos de los voluntarios, para ganar tiempo",
       "outcome": "unsafe",
-      "consequence": "Ella no pidió eso. No envíes datos personales que nadie ha pedido."
+      "consequence": "No los ha pedido. No envíes datos personales que nadie te ha pedido."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Se parece casi igual al que quería toda la lista de contactos, pero esta petición es corriente y se queda dentro de la carpeta compartida. En este nivel la pregunta es siempre qué se te está pidiendo."
+  "attacker_reveal": "Este lo escribió Mara en persona. Se parece casi palabra por palabra al que quería toda la lista de contactos, pero la petición es corriente y no sale de la carpeta compartida. A este nivel, todo depende de lo que te piden."
 }

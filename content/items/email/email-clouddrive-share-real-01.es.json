@@ -30,7 +30,7 @@
     "from_name": "CloudDrive",
     "from_address": "no-reply@clouddrive.example",
     "to": "{{email}}",
-    "subject": "Mara Keller ha compartido \"Fotos del evento\" contigo",
+    "subject": "Mara Keller ha compartido «Fotos del evento» contigo",
     "received": "-PT35M",
     "body": [
       {
@@ -39,7 +39,7 @@
       },
       {
         "t": "text",
-        "v": "Mara Keller ha compartido una carpeta contigo: Fotos del evento."
+        "v": "Mara Keller ha compartido una carpeta contigo: «Fotos del evento»."
       },
       {
         "t": "link",
@@ -49,7 +49,7 @@
       },
       {
         "t": "text",
-        "v": "Si no esperabas este mensaje, consulta con Mara antes de abrirlo."
+        "v": "¿No te esperabas esta carpeta? Pregúntale a Mara antes de abrirla."
       },
       {
         "t": "signature",
@@ -63,37 +63,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de clouddrive.example, el dominio real."
+      "explain": "La dirección termina en clouddrive.example: es el dominio de CloudDrive."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "El enlace lleva a clouddrive.example. CloudDrive comparte mediante enlace, no con archivos adjuntos."
+      "explain": "El enlace lleva a clouddrive.example. CloudDrive comparte mediante enlaces, no con archivos adjuntos: el archivo se queda en sus servidores."
     },
     {
       "id": "hs-unexpected",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Puede que no lo esperaras. Los correos reales también pueden ser inesperados, así que preguntarle un momento a Mara no cuesta nada."
+      "explain": "Que no te lo esperaras no lo convierte en falso. Un mensaje a Mara para confirmarlo no cuesta nada."
     },
     {
       "id": "hs-no-attachment",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "No hay ningún archivo adjunto. El archivo se queda en CloudDrive."
+      "explain": "No hay archivo adjunto: la carpeta se queda en CloudDrive y no tienes que descargar nada."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "El propio CloudDrive: el aviso viene de clouddrive.example. El nombre de Mara aparece en el asunto porque fue ella quien compartió la carpeta.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "CloudDrive, desde clouddrive.example. El nombre de Mara sale en el asunto porque fue ella quien compartió la carpeta.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "Mara, escribiendo en privado",
+        "Alguien que usa una dirección casi idéntica",
+        "Mara, desde su correo personal",
         "CloudDrive, desde su dominio real"
       ],
       "correct": 2,
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Como mucho, un poco de curiosidad. No hay plazo ni amenaza.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Un poco de curiosidad, como mucho. Ni plazos ni amenazas.",
       "choices": [
-        "Miedo a una sanción",
-        "Ganas de conseguir un premio",
-        "Algo de curiosidad: sin plazo ni amenaza"
+        "Miedo a una sanción si tardas",
+        "La ilusión de haber ganado algo",
+        "Un poco de curiosidad, nada más"
       ],
       "correct": 2,
       "cues": [
@@ -119,10 +119,10 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Abrir una carpeta compartida si quieres. No hay ningún archivo adjunto y nada te pide dinero ni una contraseña.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Abrir una carpeta compartida, si quieres. No hay nada adjunto, y nadie te pide dinero ni contraseñas.",
       "choices": [
-        "Abrir un archivo adjunto oculto",
+        "Abrir un archivo adjunto escondido",
         "Responder con tu contraseña",
         "Abrir una carpeta compartida, si quieres"
       ],
@@ -135,12 +135,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Si no lo esperabas, pregúntale a Mara por teléfono o en persona, o abre tú mismo CloudDrive y mira.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Si te extraña, pregúntale a Mara por teléfono o en persona, o entra en CloudDrive por tu cuenta y mira si la carpeta está ahí.",
       "choices": [
-        "Responder a la dirección no-reply",
-        "Reenviarlo a un amigo",
-        "Preguntarle a Mara por un canal que conozcas, o abrir tú mismo CloudDrive"
+        "Responder a la dirección no-reply para saber más",
+        "Reenviarlo a un amigo para que opine",
+        "Preguntar a Mara, o entrar en CloudDrive por tu cuenta"
       ],
       "correct": 2,
       "cues": [
@@ -156,20 +156,20 @@
       "id": "ask-mara",
       "label": "Preguntarle a Mara si compartió la carpeta y luego abrirla",
       "outcome": "safe",
-      "consequence": "Dice que sí, que las fotos son del evento."
+      "consequence": "«Sí, son las fotos del evento», te contesta. Ya puedes abrir la carpeta."
     },
     {
       "id": "open-site",
-      "label": "Abrir tú mismo CloudDrive y buscar la carpeta",
+      "label": "Entrar en CloudDrive por tu cuenta y buscar la carpeta",
       "outcome": "safe",
-      "consequence": "La carpeta aparece en \"Compartido conmigo\"."
+      "consequence": "La carpeta aparece en «Compartido conmigo»."
     },
     {
       "id": "reply",
-      "label": "Responder a la dirección no-reply para preguntar qué es",
+      "label": "Responder a la dirección no-reply para preguntar de qué se trata",
       "outcome": "neutral",
-      "consequence": "Nadie lee esa dirección. Mejor pregúntale a Mara."
+      "consequence": "Nadie lee lo que llega a esa dirección. Mejor pregúntale a Mara."
     }
   ],
-  "attacker_reveal": "Este es real, querido, aunque no lo esperaras. Viene del dominio real y no adjunta nada. Aun así, charlar un momento con Mara es la forma más amable de asegurarte."
+  "attacker_reveal": "Dominio auténtico y nada adjunto: este lo mandó CloudDrive de verdad, aunque no lo esperaras. Y si te queda alguna duda, Mara te contestará en persona; yo no puedo coger el teléfono por ella."
 }

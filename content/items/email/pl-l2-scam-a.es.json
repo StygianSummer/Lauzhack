@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "Hemos detectado un inicio de sesión en tu cuenta de TeamChat desde un dispositivo nuevo en otro país. Si no fuiste tú, protege tu cuenta en las próximas horas."
+        "v": "Hemos detectado un inicio de sesión en tu cuenta de TeamChat desde un dispositivo nuevo, ubicado en otro país. Si no fuiste tú, protege tu cuenta en las próximas horas."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "Gracias por ayudarnos a mantener TeamChat seguro."
+        "v": "Gracias por ayudarnos a proteger TeamChat."
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "teamchat-support.example no es el dominio de TeamChat, teamchat.example. Cualquiera puede registrar un nombre que suene oficial."
+      "explain": "teamchat-support.example no es teamchat.example, el dominio de TeamChat. Cualquiera puede comprar un dominio con pinta oficial."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "Un inicio de sesión desde el extranjero y \"las próximas horas\" buscan asustarte para que actúes deprisa."
+      "explain": "Un país extranjero y «en las próximas horas»: lo justo para inquietarte y que hagas clic sin pensar."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "El botón lleva a teamchat-secure.example, un dominio distinto del real."
+      "explain": "El botón lleva a teamchat-secure.example, otro dominio más que no es el real."
     },
     {
       "id": "hs-signature",
       "target": "body:4",
       "step": "who",
       "red_flag": false,
-      "explain": "Las firmas son fáciles de copiar. Esta no demuestra nada en un sentido ni en otro."
+      "explain": "Una firma se copia en dos segundos. No demuestra nada, ni en un sentido ni en otro."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que se hace pasar por TeamChat. El nombre parece correcto, pero la dirección es de teamchat-support.example, no de teamchat.example.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que imita a TeamChat. El nombre visible parece correcto, pero la dirección es de teamchat-support.example y no de teamchat.example.",
       "choices": [
         "El equipo de seguridad de TeamChat",
         "Un compañero de tu equipo",
-        "Alguien que usa una dirección que solo se parece a la de TeamChat"
+        "Alguien con una dirección que imita a TeamChat"
       ],
       "correct": 2,
       "cues": [
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Miedo y prisa: puede que un desconocido esté en tu cuenta y debas actuar en pocas horas.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Miedo, y después prisa: habría un desconocido en tu cuenta y solo tienes unas horas.",
       "choices": [
         "Curiosidad por una función nueva",
         "Ninguna: es un aviso rutinario",
-        "Miedo a que alguien esté en tu cuenta, con prisa"
+        "Miedo a una intrusión, con un plazo corto"
       ],
       "correct": 2,
       "cues": [
@@ -122,12 +122,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Pulsar el enlace e iniciar sesión, lo que entregaría tus datos de acceso a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Pulsar el botón e iniciar sesión. Tus datos de acceso irían directos al remitente.",
       "choices": [
-        "Llamar al soporte de TeamChat",
-        "Nada, es solo informativo",
-        "Pulsar un enlace e iniciar sesión"
+        "Llamar al servicio de ayuda de TeamChat",
+        "Nada, es solo información",
+        "Pulsar el botón e iniciar sesión"
       ],
       "correct": 2,
       "cues": [
@@ -138,12 +138,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Ignora el enlace. Abre tú mismo la app de TeamChat y mira tus dispositivos y tus últimos inicios de sesión.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No uses el botón. Abre tú la app de TeamChat y mira la lista de dispositivos conectados.",
       "choices": [
-        "Pulsar el enlace para ver si es real",
-        "Responder y preguntar si la alerta es auténtica",
-        "Abrir tú mismo la app de TeamChat y revisar tus dispositivos"
+        "Pulsar el enlace para salir de dudas",
+        "Responder para preguntar si la alerta es real",
+        "Abrir tú la app y mirar tus dispositivos"
       ],
       "correct": 2,
       "cues": [
@@ -157,28 +157,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de TeamChat y revisar tus dispositivos",
+      "label": "Abrir por tu cuenta la app de TeamChat y revisar tus dispositivos",
       "outcome": "safe",
-      "consequence": "Solo aparecen tus propios dispositivos. La alerta era falsa."
+      "consequence": "En la lista solo están tus propios dispositivos. La alerta era inventada."
     },
     {
       "id": "click",
-      "label": "Pulsar \"Proteger mi cuenta\" e iniciar sesión",
+      "label": "Pulsar «Proteger mi cuenta» e iniciar sesión",
       "outcome": "unsafe",
-      "consequence": "La página se parece a TeamChat, pero tus datos de acceso van directos al estafador."
+      "consequence": "La página está calcada de la de TeamChat, pero tus datos de acceso van directos al estafador."
     },
     {
       "id": "reply",
-      "label": "Responder y preguntar si la alerta es real",
+      "label": "Responder para preguntar si la alerta es auténtica",
       "outcome": "neutral",
-      "consequence": "El estafador dice que sí y aprieta más. Tu respuesta también demuestra que tu dirección está en uso."
+      "consequence": "El estafador lo confirma, claro, e insiste. De paso, le has demostrado que tu dirección está activa."
     },
     {
       "id": "report-delete",
       "label": "Denunciarlo como phishing y borrarlo",
       "outcome": "safe",
-      "consequence": "Buena decisión. No se pulsó nada."
+      "consequence": "No se ha pulsado nada, y el mensaje ya no ronda por tu bandeja."
     }
   ],
-  "attacker_reveal": "Una alerta inventada, un país extranjero y unas horas para decidir... El miedo hace la mitad de mi trabajo. La dirección se parecía tanto que había que leer cada letra para darse cuenta."
+  "attacker_reveal": "Un inicio de sesión que nunca ocurrió, un país lejano y unas horas para reaccionar: el miedo hizo la mitad del trabajo. La dirección, en cambio, había que leerla letra a letra para pillarla."
 }

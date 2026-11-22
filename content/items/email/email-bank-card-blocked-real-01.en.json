@@ -32,7 +32,7 @@
     "from_name": "SwissAlpBank Fraud Team",
     "from_address": "fraud@swissalpbank.example",
     "to": "{{email}}",
-    "subject": "Your card was paused after an unusual payment",
+    "subject": "Unusual payment: your card has been temporarily paused",
     "received": "-PT1H",
     "body": [
       {
@@ -41,15 +41,15 @@
       },
       {
         "t": "text",
-        "v": "We paused a card payment of CHF 389.00 that looked unusual. Your card stays paused until you confirm it."
+        "v": "We have held a card payment of CHF 389.00 that looked unusual to us. As a precaution, your card stays paused until we hear back from you."
       },
       {
         "t": "text",
-        "v": "Please open the SwissAlpBank app within 24 hours and tell us whether the payment was yours."
+        "v": "Please open the SwissAlpBank app within 24 hours and let us know whether you made this payment."
       },
       {
         "t": "text",
-        "v": "We will never ask you for a code, a password or your card number by email, text or phone."
+        "v": "We will never ask you for a code, a password or your card number, whether by email, text message or phone."
       },
       {
         "t": "signature",
@@ -63,38 +63,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on swissalpbank.example, the bank's real domain."
+      "explain": "After the @ it reads swissalpbank.example: the bank's own domain, with nothing added."
     },
     {
       "id": "hs-deadline",
       "target": "body:2",
       "step": "emotion",
       "red_flag": false,
-      "explain": "A real deadline, but it asks you to use the app you already have. Urgency alone does not make an email a scam."
+      "explain": "The deadline is real, but it sends you to the app you already have, not to a link. Urgency on its own does not make a scam."
     },
     {
       "id": "hs-never",
       "target": "body:3",
       "step": "ask",
       "red_flag": false,
-      "explain": "It says clearly that it will never ask for a code or password."
+      "explain": "The bank says in writing that it will never ask you for a code or a password."
     },
     {
       "id": "hs-no-link",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "There is no link. You are sent to the app, a channel you control."
+      "explain": "There is no link in the message: it points you to the app, a channel you open yourself."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "SwissAlpBank: the address is on swissalpbank.example and nothing points to another domain.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "SwissAlpBank. The address is on swissalpbank.example, and nothing in the message leads to another domain.",
       "choices": [
-        "Someone using a lookalike address",
-        "A random caller",
-        "SwissAlpBank, from its real domain"
+        "Someone imitating the bank's address",
+        "A fake adviser who wants to call you",
+        "SwissAlpBank, from its own domain"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Some urgency, because a payment was paused and there is a 24-hour window. But the pressure is a real deadline, with no threat.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "A little urgency: a payment is on hold and you have 24 hours. The pressure comes from a real deadline, with no threat at all.",
       "choices": [
-        "Greed for a refund",
-        "None at all",
-        "Some urgency, from a real deadline"
+        "Hope of getting a refund",
+        "None, it is just an information notice",
+        "A little urgency, tied to a real deadline"
       ],
       "correct": 2,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
+      "prompt": "What does it actually want you to do?",
       "answer": "Open the app and say whether the payment was yours. No code, no link, no password.",
       "choices": [
-        "Reply with the code from your phone",
-        "Sign in through a link",
-        "Check a payment in the bank's app"
+        "Send back the code that reached your phone",
+        "Sign in by following a link",
+        "Check a payment in the app"
       ],
       "correct": 2,
       "cues": [
@@ -139,8 +139,8 @@
       "prompt": "How can you check through a channel you control?",
       "answer": "Open the SwissAlpBank app yourself, or call the number on the back of your card.",
       "choices": [
-        "Reply to the email",
-        "Click a link in the email",
+        "Reply to the email to confirm the payment",
+        "Look in the email for a link to your account",
         "Open the SwissAlpBank app yourself"
       ],
       "correct": 2,
@@ -157,20 +157,20 @@
       "id": "open-app",
       "label": "Open the SwissAlpBank app yourself and check the payment",
       "outcome": "safe",
-      "consequence": "The payment is listed and you confirm or deny it."
+      "consequence": "The held payment is there: you confirm it or dispute it."
     },
     {
       "id": "call-card",
       "label": "Call the number on the back of your card",
       "outcome": "safe",
-      "consequence": "The bank confirms the paused payment."
+      "consequence": "On the phone, the bank confirms that it did hold this payment."
     },
     {
       "id": "reply-code",
       "label": "Reply with the code if one arrives",
       "outcome": "unsafe",
-      "consequence": "The email said they would never ask. A code must never be given away, even to a real bank."
+      "consequence": "The email said so: the bank never asks for a code. A code goes to nobody, not even your real bank."
     }
   ],
-  "attacker_reveal": "This one is real, dear, even though it has a deadline. The domain is the bank's own, nobody asks for a code and you are sent to the app. Compare it with the 'case 7731' email: both are calm, but only one asks you to read out a code."
+  "attacker_reveal": "Nothing for me in this one: a real deadline, the right domain, and the app you already have. Put it next to the \"Case 7731\" email: same calm, same amount, but only one of them wants the digits from your text messages."
 }

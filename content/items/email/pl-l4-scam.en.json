@@ -40,11 +40,11 @@
       },
       {
         "t": "text",
-        "v": "Your October statement is attached. Please open the attachment and sign in to view the details."
+        "v": "Please find attached your October statement. Open the attachment and sign in to see the details."
       },
       {
         "t": "text",
-        "v": "If you have questions, just reply to this email."
+        "v": "If you have any questions, simply reply to this email."
       },
       {
         "t": "signature",
@@ -61,7 +61,7 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "This address looks right, but a sender address can be forged. Check where a reply would go."
+      "explain": "The address looks right, but a sender address can be forged. Look instead at where your reply would go."
     },
     {
       "id": "hs-reply-to",
@@ -75,24 +75,24 @@
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "\"statement-october.pdf.html\" ends in .html: it is a web page dressed up as a PDF. It would show you a fake sign-in."
+      "explain": "\"statement-october.pdf.html\" ends in .html: it's a web page dressed up as a PDF. Once opened, it would show a fake sign-in page."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Your first name is easy to find. It does not prove who wrote the email."
+      "explain": "Anyone can pick up a first name online. It's no proof of identity."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Not the bank, despite the sender address. The reply-to is on swissalpbank-mail.example, so any answer would go to someone else.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Not the bank, despite the sender address. The reply-to address is on swissalpbank-mail.example: your reply would land with someone else.",
       "choices": [
         "SwissAlpBank's statements team",
-        "Someone faking the bank's address, with replies going elsewhere",
-        "Your personal adviser"
+        "An impostor diverting replies elsewhere",
+        "Your personal adviser at the bank"
       ],
       "correct": 1,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Only mild curiosity: it is an ordinary-looking statement, which is the point. Nothing here is pushing you.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "A little curiosity, nothing more: the message looks like an ordinary statement, on purpose. Nothing is rushing you.",
       "choices": [
-        "Panic about a debt",
-        "Mild curiosity: it looks like routine mail",
-        "Anger at the bank"
+        "Panic over a debt",
+        "A little curiosity: it looks routine",
+        "Anger at bank charges"
       ],
       "correct": 1,
       "cues": [
@@ -118,10 +118,10 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Open the attachment and sign in. The attachment is a web page that would collect your login.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Open the attachment and sign in. That attachment is a web page that would collect your login details.",
       "choices": [
-        "Pay a fee",
+        "Pay an account-keeping fee",
         "Open the attachment and sign in",
         "Reply with your account number"
       ],
@@ -135,11 +135,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not open it. Look for your statement in the SwissAlpBank app, or call the number on your card.",
+      "answer": "Don't open it. Look for your statement in the SwissAlpBank app, or call the number on your card.",
       "choices": [
-        "Open the attachment to check it",
-        "Open the SwissAlpBank app yourself to see your statements",
-        "Reply and ask if it is genuine"
+        "Open the attachment to find out for sure",
+        "Open the SwissAlpBank app yourself",
+        "Reply and ask whether it's genuine"
       ],
       "correct": 1,
       "cues": [
@@ -153,28 +153,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the SwissAlpBank app yourself and look under Documents",
+      "label": "Open the SwissAlpBank app yourself, under Documents",
       "outcome": "safe",
-      "consequence": "Your statement is there, or not yet. Either way you never touched the attachment."
+      "consequence": "Your statement is there, or not yet. Either way, the attachment stayed closed."
     },
     {
       "id": "open-attachment",
       "label": "Open the attachment to see the statement",
       "outcome": "unsafe",
-      "consequence": "A fake sign-in page opens. If you type your login, it goes to the scammer."
+      "consequence": "A fake sign-in page appears. If you enter your login details, the scammer gets them."
     },
     {
       "id": "reply",
       "label": "Reply and ask whether the statement is genuine",
       "outcome": "neutral",
-      "consequence": "Your reply goes to the scammer's address, not the bank. They tell you it is genuine."
+      "consequence": "Your reply reaches the scammer, not the bank. They assure you everything is in order."
     },
     {
       "id": "report-delete",
-      "label": "Report it as phishing and delete it",
+      "label": "Report it as phishing, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. Nothing was opened."
+      "consequence": "The attachment was never opened."
     }
   ],
-  "attacker_reveal": "The sender looked right, so you stopped checking... but I made your replies come to me, and the \"PDF\" was a web page with a mask on. Always read to the very end of a file name."
+  "attacker_reveal": "The sender was perfect, so you stopped looking. Meanwhile your replies were coming to me, and my \"PDF\" was a web page. Read a file name all the way to the last dot."
 }

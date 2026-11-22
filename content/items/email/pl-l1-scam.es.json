@@ -31,16 +31,16 @@
     "from_name": "Parcel Point Entrgea",
     "from_address": "delivery.agent77@free-mailbox.example",
     "to": "{{email}}",
-    "subject": "¡¡¡Tu paquete te espera!!! paga tasa pequeña",
+    "subject": "Tu paquete te espera!!! paga la pequeña tasa",
     "received": "-PT25M",
     "body": [
       {
         "t": "text",
-        "v": "Estimado clinete:"
+        "v": "Estimado clinete,"
       },
       {
         "t": "text",
-        "v": "Tu paqeute está retenido en nuestro almacén. Debes pagar una tasa pequeña de 2,50 CHF hoy o sera devuelto."
+        "v": "Tu paqeute esta retenido en nuestro almazen. Debes de pagar una pequeña tasa de 2,50 CHF oy mismo sino sera debuelto."
       },
       {
         "t": "link",
@@ -50,11 +50,11 @@
       },
       {
         "t": "text",
-        "v": "Gracias por tu paciensia."
+        "v": "Gracias por su paciensia y buen dia."
       },
       {
         "t": "signature",
-        "v": "Equipo de Parcel Point Entrgea"
+        "v": "El equipo de Parcel Point Entrgea"
       }
     ]
   },
@@ -64,45 +64,45 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "Una dirección de buzón gratuito, no de parcelpoint.example. Una empresa de paquetería de verdad escribe desde su propio dominio."
+      "explain": "Un buzón de correo gratuito, no parcelpoint.example. Una empresa de paquetería escribe desde su propio dominio, no desde una dirección de usar y tirar."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": true,
-      "explain": "\"Estimado clinete\" es genérico y tiene una errata. Tu empresa de paquetería de verdad sabe cómo te llamas."
+      "explain": "«Estimado clinete»: ni rastro de tu nombre, y ya hay una falta en la segunda palabra. La empresa en la que tienes cuenta sabe cómo te llamas."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Hoy o será devuelto\" está ahí para meterte prisa."
+      "explain": "«oy mismo sino sera debuelto»: un plazo de unas horas, para que pagues antes de pensártelo."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "Una dirección extraña de un dominio distinto que no tiene nada que ver con ParcelPoint."
+      "explain": "El botón lleva a una dirección desconocida, en un dominio que no tiene nada que ver con ParcelPoint."
     },
     {
       "id": "hs-typos",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Más faltas de ortografía. Las empresas revisan sus textos; los estafadores a menudo no."
+      "explain": "Más faltas, hasta en la despedida. Una empresa revisa sus mensajes; un estafador con prisa, rara vez."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "No es ParcelPoint. La dirección es de free-mailbox.example, no de parcelpoint.example, y las faltas de ortografía no son propias de una empresa de paquetería de verdad.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "No es ParcelPoint. La dirección es de free-mailbox.example en vez de parcelpoint.example, y ninguna empresa de paquetería manda un mensaje plagado de faltas.",
       "choices": [
         "El equipo de reparto de ParcelPoint",
-        "Alguien que usa un buzón desechable, no ParcelPoint",
-        "Un vecino que guarda tu paquete"
+        "Un desconocido tras un buzón gratuito",
+        "Un vecino que ha recogido tu paquete"
       ],
       "correct": 1,
       "cues": [
@@ -113,12 +113,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Prisa: paga hoy o pierdes el paquete.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Prisa: pagar hoy, o el paquete se devuelve.",
       "choices": [
-        "Curiosidad por un premio",
-        "Prisa: paga hoy o el paquete se devuelve",
-        "Ninguna: es un aviso sencillo"
+        "Curiosidad: un regalo por recoger",
+        "Prisa: pagar hoy mismo",
+        "Ninguna: es un simple aviso de entrega"
       ],
       "correct": 1,
       "cues": [
@@ -129,12 +129,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Pagar una tasa mediante un enlace, lo que entregaría los datos de tu tarjeta a quien escribe.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Pagar una tasa a través del enlace. La página de pago se quedaría con los datos de tu tarjeta.",
       "choices": [
-        "Recoger el paquete en casa de un vecino",
-        "Pagar una tasa mediante un enlace",
-        "Nada, es solo informativo"
+        "Ir a buscar el paquete a casa de un vecino",
+        "Pagar una tasa a través del enlace",
+        "Nada, solo te informa"
       ],
       "correct": 1,
       "cues": [
@@ -145,11 +145,11 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Ignora el enlace. Abre la app de ParcelPoint, o escribe tú mismo la dirección, y consulta tus paquetes.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Olvídate del enlace. Abre tú la app de ParcelPoint, o escribe su dirección, y mira tus envíos en curso.",
       "choices": [
-        "Pagar la tasa pequeña, por si acaso",
-        "Consultar tus paquetes en la app de ParcelPoint, abierta por ti mismo",
+        "Pagar la tasa, por precaución",
+        "Comprobarlo en la app de ParcelPoint",
         "Responder y pedir otro enlace"
       ],
       "correct": 1,
@@ -164,22 +164,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de ParcelPoint y revisar tus paquetes",
+      "label": "Abrir por tu cuenta la app de ParcelPoint y revisar tus envíos",
       "outcome": "safe",
-      "consequence": "No hay ningún paquete retenido. El correo era falso y no entregaste nada."
+      "consequence": "Ningún paquete retenido, nada que pagar. El correo era falso y no has entregado nada."
     },
     {
       "id": "pay",
-      "label": "Pagar la tasa mediante el enlace",
+      "label": "Pagar la tasa a través del enlace",
       "outcome": "unsafe",
-      "consequence": "Los datos de tu tarjeta van al estafador, que puede gastar tu dinero."
+      "consequence": "Los datos de tu tarjeta acaban en manos del estafador. La tasa era solo un pretexto: ahora puede cobrarte mucho más."
     },
     {
       "id": "report-delete",
       "label": "Denunciar el correo como phishing y borrarlo",
       "outcome": "safe",
-      "consequence": "Buena decisión. No se pulsó nada y tu proveedor de correo aprende a detectar el siguiente."
+      "consequence": "No se ha pulsado nada, y tu correo aprenderá a reconocer el siguiente."
     }
   ],
-  "attacker_reveal": "Faltas de ortografía, la dirección de un desconocido y una tasa tan pequeña que nadie la comprueba... Ni siquiera me esforcé. Esto todavía engaña a quien espera un paquete."
+  "attacker_reveal": "Tres faltas por línea, una dirección de usar y tirar y una tasa demasiado pequeña para levantar sospechas. Ni me esforcé. Quien espera un paquete paga igual."
 }

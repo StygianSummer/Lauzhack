@@ -30,7 +30,7 @@
     "from_name": "Elena Roth",
     "from_address": "elena.roth@northfield-aid.example",
     "to": "{{email}}",
-    "subject": "Re: Annual report: final figures",
+    "subject": "Re: Annual report – final figures",
     "received": "-PT40M",
     "body": [
       {
@@ -39,17 +39,17 @@
       },
       {
         "t": "text",
-        "v": "Great, that works for me. I have put the final figures into CloudDrive so we can both edit them. It will ask you to sign in with your work email."
+        "v": "Perfect, that works for me. I've put the final figures on CloudDrive so we can both edit them. CloudDrive will ask you to sign in with your work email."
       },
       {
         "t": "link",
-        "v": "View \"Final figures\" in CloudDrive",
+        "v": "Open \"Final figures\" in CloudDrive",
         "href": "https://clouddrive-view.example/f/annual-final",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "You wrote on Monday: \"Send me the figures when they are final and I will check them.\""
+        "v": "On Monday you wrote: \"Send me the figures when they're final and I'll check them.\""
       },
       {
         "t": "signature",
@@ -63,38 +63,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address really is Elena's and the thread is real. A hijacked account passes every address check."
+      "explain": "It really is Elena's address, and the conversation really happened. A hijacked account passes every address check."
     },
     {
       "id": "hs-signin",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "A new shared file that needs you to sign in with your work email is how a login gets copied."
+      "explain": "A new shared file, and you have to sign in with your work email to see it. That is exactly the kind of request used to harvest login details."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "clouddrive-view.example is not CloudDrive's domain, clouddrive.example. A thief using Elena's account can send any link."
+      "explain": "clouddrive-view.example is not CloudDrive's domain, which is clouddrive.example. Whoever controls Elena's account can send any link they like."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": true,
-      "explain": "Quoting your own words makes it feel real, but whoever reads the inbox can copy them."
+      "explain": "Your own sentences, quoted word for word: it sounds genuine. But anyone reading Elena's inbox can copy them."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Possibly not Elena. The address and the thread are real, so her account may have been taken over. Only a call can tell.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Not necessarily Elena. The address and the conversation are genuine, so her account may have been hijacked. Only a phone call will tell you.",
       "choices": [
-        "Maybe Elena, maybe someone using her hijacked account",
-        "Definitely Elena, since the thread is real",
-        "CloudDrive itself"
+        "Maybe Elena, maybe someone who hijacked her account",
+        "Definitely Elena, since the conversation is genuine",
+        "CloudDrive, sending a sharing notification"
       ],
       "correct": 0,
       "cues": [
@@ -105,12 +105,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Helpfulness and a little hurry to finish the report together.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Wanting to help, and a little hurry to get the report finished together.",
       "choices": [
-        "A wish to help finish the report",
-        "Fear of a fine",
-        "Greed for a bonus"
+        "Wanting to help finish the report",
+        "Fear of being fined",
+        "Hope of getting a bonus"
       ],
       "correct": 0,
       "cues": [
@@ -121,11 +121,11 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Sign in to CloudDrive through a link, which would give your work login to whoever controls Elena's account.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Sign in to CloudDrive through a link. Your work login details would go straight to whoever controls Elena's account.",
       "choices": [
-        "Sign in through a link",
-        "Pay a fee",
+        "Sign in by going through a link",
+        "Pay an admin fee",
         "Reply with your date of birth"
       ],
       "correct": 0,
@@ -138,11 +138,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not use the link. Open CloudDrive yourself and look for the file, or call Elena on a number you already know.",
+      "answer": "Don't touch the link. Open CloudDrive yourself and look for the file, or call Elena on a number you already know.",
       "choices": [
-        "Open CloudDrive yourself, or call Elena on a known number",
-        "Sign in, since the thread is real",
-        "Reply to ask if it is her"
+        "Open CloudDrive yourself, or call Elena",
+        "Sign in, the conversation is genuine",
+        "Reply to ask whether it is really her"
       ],
       "correct": 0,
       "cues": [
@@ -154,7 +154,7 @@
     }
   },
   "link_question": {
-    "shown_text": "View \"Final figures\" in CloudDrive",
+    "shown_text": "Open \"Final figures\" in CloudDrive",
     "options": [
       "clouddrive.example",
       "clouddrive-view.example",
@@ -165,28 +165,28 @@
   "actions": [
     {
       "id": "open-yourself",
-      "label": "Open CloudDrive yourself and look for the file, or call Elena",
+      "label": "Open CloudDrive yourself to look for the file, or call Elena",
       "outcome": "safe",
-      "consequence": "No such file exists. Elena knows nothing about the email."
+      "consequence": "No file by that name. On the phone, Elena is baffled: she never sent that email."
     },
     {
       "id": "click",
       "label": "Click the link and sign in",
       "outcome": "unsafe",
-      "consequence": "The page copies your work login for whoever controls Elena's account."
+      "consequence": "The page records your work login details and passes them to whoever controls Elena's account."
     },
     {
       "id": "reply-ask",
-      "label": "Reply and ask \"Is this really you?\"",
+      "label": "Reply: \"Is this really you?\"",
       "outcome": "unsafe",
-      "consequence": "Whoever controls the account answers yes. You only asked the impostor."
+      "consequence": "Whoever holds the account says yes. You asked the impostor."
     },
     {
       "id": "tell-it",
-      "label": "Tell IT that Elena's account may be taken over",
+      "label": "Tell the IT team that Elena's account may have been hijacked",
       "outcome": "safe",
-      "consequence": "Good call. The account can be locked before it reaches more people."
+      "consequence": "The IT team can lock the account before it is used against anyone else."
     }
   ],
-  "attacker_reveal": "A new kind of file-sharing email, in a thread you trusted, from someone you trust... You had never seen this exact trick, but the question was the same as ever: who is really writing, and how can you check?"
+  "attacker_reveal": "You'd never seen this one before: my link slipped into a real conversation, under a real colleague's name. The questions hadn't changed, though. Who is really writing, and how do you check?"
 }

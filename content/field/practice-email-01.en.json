@@ -1,17 +1,17 @@
 {
   "id": "practice-email-01",
-  "subject": "Placeholder practice email: replace before the demo",
-  "text": "Hello {{first_name}},\n\nPlaceholder practice email: replace before the demo.\n\nPractice link: {{click_url}}\n\nManage ThisIsTea emails: {{settings_url}}\n",
-  "html": "<p>Hello {{first_name}},</p>\n<p>Placeholder practice email: replace before the demo.</p>\n<p><a href=\"{{click_url}}\">Practice link</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Manage ThisIsTea emails</a></p>\n",
+  "subject": "Placeholder practice email, to be replaced before the demo",
+  "text": "Hello {{first_name}},\n\nThis is a placeholder practice email, to be replaced before the demo.\n\nPractice link: {{click_url}}\n\nManage ThisIsTea emails: {{settings_url}}\n",
+  "html": "<p>Hello {{first_name}},</p>\n<p>This is a placeholder practice email, to be replaced before the demo.</p>\n<p><a href=\"{{click_url}}\">Practice link</a></p>\n<p style=\"font-size:12px;color:#666\"><a href=\"{{settings_url}}\">Manage ThisIsTea emails</a></p>\n",
   "reveal": {
     "steps": {
-      "who": "Placeholder: who really sent the practice email.",
-      "emotion": "Placeholder: the feeling it tried to create.",
-      "ask": "Placeholder: what it asked you to do.",
-      "verify": "Placeholder: how you could have checked through a channel you control."
+      "who": "Placeholder: who really sent this practice email.",
+      "emotion": "Placeholder: which feeling it pressed on.",
+      "ask": "Placeholder: what it wanted you to do.",
+      "verify": "Placeholder: how to check it through a channel you control."
     },
     "hints": [
-      "Placeholder hint: replace before the demo."
+      "Placeholder hint, to be replaced before the demo."
     ]
   }
 }

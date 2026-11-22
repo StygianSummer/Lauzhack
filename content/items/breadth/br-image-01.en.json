@@ -25,14 +25,14 @@
   },
   "image": {
     "file": "br-image-01.png",
-    "alt": "An illustration of a market stall with a striped roof, a sign, a pile of fruit and a person holding out one hand. One hand has six fingers.",
+    "alt": "Illustration of a market stall: a striped roof, a sign, a pile of fruit and a person holding out a hand. One of the hands has six fingers.",
     "ai_generated": true,
     "tells": [
-      "The hand has six fingers.",
-      "The text on the sign is gibberish: \"FRSH FRQITS\".",
-      "The shadows point in different directions.",
-      "This picture is an illustration made by code, not a photograph."
+      "One hand has six fingers.",
+      "The sign is gibberish: \"FRSH FRQITS\".",
+      "The shadows don't all fall the same way.",
+      "This is an illustration made by code, not a photograph."
     ]
   },
-  "attacker_reveal": "Hands, signs and shadows are where generated pictures slip up... Look at the small details before you trust a picture."
+  "attacker_reveal": "Hands, signs, shadows: that's where generated pictures give themselves away. I'm counting on you never looking that closely."
 }

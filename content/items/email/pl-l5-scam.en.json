@@ -29,7 +29,7 @@
     "from_name": "ParcelPoint",
     "from_address": "service@parcelpoint-delivery.example",
     "to": "{{email}}",
-    "subject": "Customs charge for your parcel",
+    "subject": "Customs fees for your parcel",
     "received": "-PT3H",
     "body": [
       {
@@ -38,17 +38,17 @@
       },
       {
         "t": "text",
-        "v": "Your parcel from an overseas shop has arrived in Switzerland. A customs handling charge of CHF 3.20 is due before delivery."
+        "v": "Your parcel from a shop abroad has arrived in Switzerland. A customs processing fee of CHF 3.20 must be paid before delivery."
       },
       {
         "t": "link",
-        "v": "Pay the CHF 3.20 charge",
+        "v": "Pay the CHF 3.20 fee",
         "href": "https://parcelpoint-delivery.example/charge/58213",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "Once paid, your parcel will be delivered within two working days."
+        "v": "Once we receive payment, your parcel will be delivered within two working days."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "parcelpoint-delivery.example is not ParcelPoint's domain, parcelpoint.example. It is the only slip in the whole email."
+      "explain": "parcelpoint-delivery.example is not parcelpoint.example, ParcelPoint's domain. It's the only slip in the whole email."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "No deadline, no threat, no typos. A scam does not have to shout."
+      "explain": "No deadline, no threat, no typos. A scam can speak quietly."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The link matches the sender, but both are on the lookalike domain. Matching each other does not make them real."
+      "explain": "The link matches the sender, but both are on the imitation domain. That they agree with each other proves nothing."
     },
     {
       "id": "hs-amount",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "A small fee, so you will not think twice about paying. The payment page would take your card details."
+      "explain": "A small amount, so you pay without thinking. The payment page would collect your card details."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be ParcelPoint. Every detail is right except the domain: parcelpoint-delivery.example is not parcelpoint.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as ParcelPoint. Everything is right except the domain: parcelpoint-delivery.example instead of parcelpoint.example.",
       "choices": [
-        "ParcelPoint, because everything else is right",
-        "A customs officer",
-        "Someone using a lookalike domain"
+        "ParcelPoint, since everything else is right",
+        "The customs office",
+        "Someone with a near-identical domain"
       ],
       "correct": 2,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Hardly any. It is calm and routine, which makes it easier to trust.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Hardly any. The tone is calm and routine, which is exactly why you trust it.",
       "choices": [
         "Panic about a fine",
-        "Anger at a delay",
-        "Very little: it is calm and routine"
+        "Irritation at a delay",
+        "Very little: the tone is calm and routine"
       ],
       "correct": 2,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Pay a small charge through a link. That would hand your card details to whoever wrote it.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Pay a small fee through a link. Your card details would go to whoever wrote the message.",
       "choices": [
-        "Collect a parcel yourself",
-        "Nothing, it is for information",
-        "Pay a small charge through a link"
+        "Go and collect the parcel yourself",
+        "Nothing, it's just for information",
+        "Pay a small fee through a link"
       ],
       "correct": 2,
       "cues": [
@@ -137,10 +137,10 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Ignore the link. Open the ParcelPoint app, or type its address yourself, and see whether a charge is really due.",
+      "answer": "Ignore the link. Open the ParcelPoint app, or type its address yourself, and see whether any fee is really due.",
       "choices": [
-        "Pay: it is only CHF 3.20",
-        "Reply to ask for the customs form",
+        "Pay: it's only CHF 3.20",
+        "Reply and ask for the customs form",
         "Open the ParcelPoint app yourself"
       ],
       "correct": 2,
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the ParcelPoint app yourself and check for a charge",
+      "label": "Open the ParcelPoint app yourself and look for pending fees",
       "outcome": "safe",
-      "consequence": "No charge is listed. The email was fake."
+      "consequence": "Nothing to pay shows up. The email was fake."
     },
     {
       "id": "pay",
-      "label": "Pay the CHF 3.20, because it is so small",
+      "label": "Pay the CHF 3.20, it's next to nothing",
       "outcome": "unsafe",
-      "consequence": "Your card details go to the scammer. Small fees are how they get them."
+      "consequence": "Your card details go to the scammer. Small amounts like this are how they get them so easily."
     },
     {
       "id": "report-delete",
-      "label": "Report it as phishing and delete it",
+      "label": "Report it as phishing, then delete it",
       "outcome": "safe",
-      "consequence": "Good call. Nothing was clicked."
+      "consequence": "Nothing was clicked or paid."
     },
     {
       "id": "reply",
       "label": "Reply and ask for the customs form",
       "outcome": "neutral",
-      "consequence": "The scammer sends you a fake form. Your reply also shows your address is in use."
+      "consequence": "The scammer sends you a fake form, and now knows your address is active."
     }
   ],
-  "attacker_reveal": "No rush, no typos, no threats... Surface clues are for beginners. A calm email on a lookalike domain beats a loud one every time."
+  "attacker_reveal": "No typos, no threats, no rush. Surface clues are for amateurs. A quiet email on a lookalike domain slips through where a loud one gets caught."
 }

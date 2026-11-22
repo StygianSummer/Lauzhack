@@ -28,7 +28,7 @@
     "from_name": "Extractos de SwissAlpBank",
     "from_address": "statements@swissalpbank.example",
     "to": "{{email}}",
-    "subject": "Tu extracto de octubre está listo",
+    "subject": "Tu extracto de octubre ya está disponible",
     "received": "-PT30M",
     "body": [
       {
@@ -37,11 +37,11 @@
       },
       {
         "t": "text",
-        "v": "Adjuntamos tu extracto de octubre en PDF. También puedes leerlo en la app de SwissAlpBank, en el apartado Documentos."
+        "v": "Te adjuntamos tu extracto de octubre en PDF. También lo tienes en la app de SwissAlpBank, apartado Documentos."
       },
       {
         "t": "text",
-        "v": "Las respuestas a esta dirección no se leen."
+        "v": "Los mensajes enviados a esta dirección no se leen."
       },
       {
         "t": "signature",
@@ -58,38 +58,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de swissalpbank.example, el dominio real del banco, y no hay ninguna dirección de respuesta distinta."
+      "explain": "La dirección termina en swissalpbank.example, el dominio real del banco, y ninguna dirección de respuesta lleva a otro sitio."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": false,
-      "explain": "Un .pdf normal, no un .pdf.html. El tipo de archivo coincide con lo que dice el correo."
+      "explain": "Un simple .pdf, no un .pdf.html. El archivo es lo que el correo dice que es."
     },
     {
       "id": "hs-no-reply",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Dice claramente que las respuestas no se leen, así que no se envía nada a una dirección extraña."
+      "explain": "Avisa de que las respuestas no se leen: nada sale hacia una dirección desconocida."
     },
     {
       "id": "hs-app",
       "target": "body:1",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te dice dónde encontrar tú mismo el mismo extracto, en la app."
+      "explain": "Te dice dónde consultar el mismo extracto por tu cuenta: en la app."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "SwissAlpBank: la dirección del remitente es del dominio real y no hay ninguna dirección de respuesta que apunte a otro sitio.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "SwissAlpBank: el remitente es del dominio real, y ninguna dirección de respuesta lleva a otro sitio.",
       "choices": [
-        "Alguien que falsifica la dirección del banco",
-        "SwissAlpBank, desde su dominio real",
-        "Tu asesor personal"
+        "Un impostor que falsifica la dirección del banco",
+        "SwissAlpBank, desde su propio dominio",
+        "Tu gestor personal en el banco"
       ],
       "correct": 1,
       "cues": [
@@ -100,12 +100,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ninguna. Es correo rutinario, sin plazo ni amenaza.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ninguna. Un envío rutinario, sin plazos ni amenazas.",
       "choices": [
-        "Miedo a una comisión",
-        "Ninguna: es correo rutinario",
-        "Ilusión por una oferta"
+        "Miedo a comisiones inesperadas",
+        "Ninguna: es un envío rutinario",
+        "La emoción de una oferta especial"
       ],
       "correct": 1,
       "cues": [
@@ -115,12 +115,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Nada. Te entrega tu extracto en PDF. No hay inicio de sesión, ni enlace, ni pago.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Nada. Te envía tu extracto en PDF: ni inicio de sesión, ni enlace, ni pago.",
       "choices": [
-        "Iniciar sesión para verlo",
-        "Nada: solo entrega un extracto",
-        "Pagar una cuota"
+        "Iniciar sesión para ver el extracto",
+        "Nada: te envía un extracto",
+        "Pagar una comisión de mantenimiento"
       ],
       "correct": 1,
       "cues": [
@@ -131,12 +131,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Si tienes dudas, abre tú mismo la app de SwissAlpBank y lee allí el mismo extracto.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Si tienes dudas, abre tú la app de SwissAlpBank y consulta ahí el mismo extracto.",
       "choices": [
         "Responder para pedir una copia en papel",
-        "Abrir tú mismo la app de SwissAlpBank",
-        "Reenviarlo antes a un amigo"
+        "Abrir por tu cuenta la app de SwissAlpBank",
+        "Reenviárselo antes a un amigo"
       ],
       "correct": 1,
       "cues": [
@@ -149,22 +149,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de SwissAlpBank y leer allí el extracto",
+      "label": "Abrir por tu cuenta la app de SwissAlpBank y leer ahí el extracto",
       "outcome": "safe",
-      "consequence": "El mismo extracto está allí. Nunca necesitaste el archivo adjunto."
+      "consequence": "Ahí está el mismo extracto. Ni siquiera hacía falta el adjunto."
     },
     {
       "id": "open-pdf",
       "label": "Abrir el PDF adjunto",
       "outcome": "safe",
-      "consequence": "Es un extracto normal. Un .pdf de verdad del dominio real se puede abrir sin problema."
+      "consequence": "Es un extracto de lo más normal. Un .pdf de verdad, desde el dominio real, se abre sin riesgo."
     },
     {
       "id": "reply",
       "label": "Responder para hacer una pregunta sobre el extracto",
       "outcome": "neutral",
-      "consequence": "Nadie lee las respuestas a esta dirección. Usa la app o el número de tu tarjeta."
+      "consequence": "Nadie lee ese buzón. Usa la app o el número que figura en tu tarjeta."
     }
   ],
-  "attacker_reveal": "Este es real, querido. El mismo banco, el mismo tipo de adjunto que el falso, pero el archivo es de verdad un PDF y nada apunta a otra dirección. Lee los nombres de archivo hasta el final y comprueba también la dirección de respuesta."
+  "attacker_reveal": "Esta vez, el banco de verdad. Mismo remitente y mismo extracto adjunto que mi falsificación, pero el archivo es un PDF auténtico y ninguna respuesta se desvía. Lee el nombre del archivo hasta el final, y la dirección de respuesta también."
 }

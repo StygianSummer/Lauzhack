@@ -1,8 +1,8 @@
 {
   "id": "email-01",
   "language": "es",
-  "title": "Phishing: no piques el anzuelo",
-  "subtitle": "Cómo engañan los atacantes para que les entregues tus llaves y cómo detectarlo antes de caer.",
+  "title": "Phishing: detecta el anzuelo antes de morder",
+  "subtitle": "Cómo consiguen los atacantes que les entregues las llaves, y cómo desenmascararlos antes de hacerlo.",
   "minutes": 10,
   "sections": [
     {
@@ -11,78 +11,78 @@
         {
           "persona": "cat",
           "role": "Seguridad personal",
-          "title": "Protégete primero",
-          "say": "No puedo cuidar de nadie si mis propias cuentas están abiertas de par en par. Tú tampoco. Así que empezamos por ti.",
+          "title": "Tú primero",
+          "say": "No protejo a nadie con mis accesos abiertos de par en par. Tú tampoco. Así que empezamos por los tuyos.",
           "rules": [
             {
               "headline": "Lee el dominio que va después de la @.",
-              "body": "Cada letra. thisistea.example y thisistae-app.example pertenecen a dos dueños distintos."
+              "body": "Letra a letra. thisistea.example y thisistae-app.example no tienen el mismo dueño."
             },
             {
               "headline": "Fíjate en la prisa.",
-              "body": "Un plazo de dos horas es una sensación que otro te ha metido dentro. Las sensaciones no son pruebas."
+              "body": "Un plazo de dos horas es una inquietud que otro te ha metido en el cuerpo. No demuestra nada."
             },
             {
-              "headline": "Nunca escribas una contraseña tras pulsar un enlace de un correo.",
-              "body": "Abre tú mismo el sitio, desde un marcador o escribiendo la dirección."
+              "headline": "Nunca una contraseña después de un enlace recibido por correo.",
+              "body": "Abre el sitio por tu cuenta: desde un marcador o escribiendo la dirección."
             }
           ],
-          "sign_off": "Desconfiar no es paranoia. Es comprobar."
+          "sign_off": "Me fío. Después de comprobarlo."
         },
         {
           "persona": "turtle",
           "role": "Seguridad de la organización",
-          "title": "Protege todo el caparazón",
-          "say": "En todos mis años he aprendido una cosa: una sola puerta abierta deja entrar la marea en todas las habitaciones. Cuando proteges tu bandeja de entrada, proteges también a tus vecinos. Funciona un poco como una vacuna.",
+          "title": "Protege toda la casa",
+          "say": "Una sola puerta mal cerrada y el agua llega a todas las habitaciones: lo he visto más de una vez. Tu bandeja de entrada es una de esas puertas. Si la vigilas, proteges también a tus compañeros, un poco como una vacuna protege a quienes te rodean.",
           "rules": [
             {
-              "headline": "Confirmad juntos lo inusual.",
-              "body": "Una transferencia, un cambio de contraseña, un archivo urgente: compruébalo por otro canal. Una llamada cuesta un minuto."
+              "headline": "Lo inusual se confirma entre dos.",
+              "body": "Una transferencia, un cambio de contraseña, un archivo «urgente»: compruébalo por otro canal. Una llamada lleva un minuto."
             },
             {
-              "headline": "Avisa a los demás.",
-              "body": "Si te ha llegado un correo extraño, también les ha llegado a tus compañeros. Avisa a informática para que podamos alertar a todos."
+              "headline": "Avisa a tus compañeros.",
+              "body": "Si a ti te ha llegado un correo raro, seguramente también les ha llegado a ellos. Comunícalo a informática para que podamos avisar a todo el mundo."
             },
             {
-              "headline": "Dale a todo el equipo un segundo cerrojo.",
-              "body": "Con la autenticación multifactor, una contraseña robada es un rasguño, no una grieta en el caparazón."
+              "headline": "Un segundo cerrojo para todo el equipo.",
+              "body": "Con la autenticación multifactor, una contraseña robada se queda en un contratiempo y no llega a allanamiento."
             }
           ],
-          "sign_off": "Un equipo en el que podemos confiar es un equipo que se cuida entre sí."
+          "sign_off": "Los equipos sólidos que he conocido no tenían nada de extraordinario. Simplemente se habían acostumbrado a avisarse."
         }
       ]
     },
     {
       "type": "tools",
-      "intro": "¡Hola, amigo! ¡He olfateado muchísimos enlaces sospechosos y nunca entro solo! Deja que te presente a mis colegas. ¡Son gratis y te cubren las espaldas!",
+      "intro": "¡Hola! He visto pasar cientos de enlaces sospechosos, y nunca los examino solo. Te presento a mi equipo: cuatro herramientas gratuitas que trabajan para ti.",
       "tools": [
         {
           "resource_id": "bitwarden",
           "name": "Bitwarden",
-          "what": "Gestor de contraseñas gratuito y de código abierto para ti y tu equipo.",
-          "dog_says": "¡Mi amigo de toda la vida! Se acuerda de todas tus contraseñas y no las rellena en una web falsa. ¡Si se queda callado, esa es tu alarma!",
+          "what": "Gestor de contraseñas gratuito y de código abierto, para ti y para tu equipo.",
+          "dog_says": "Mi compañero más veterano. Recuerda todas tus contraseñas y solo te ofrece tus datos de acceso en el sitio cuya dirección coincide. En una imitación no te ofrece nada, y ese silencio debería ponerte en guardia.",
           "button": "Abrir Bitwarden"
         },
         {
           "resource_id": "virustotal",
           "name": "VirusTotal",
-          "what": "Comprueba un enlace o archivo con más de 70 analizadores de seguridad a la vez.",
-          "dog_says": "¡Pulsa con el botón derecho en el enlace, elige Copiar dirección del enlace y pégala aquí! ¡Pregunta antes de pulsar, no después!",
+          "what": "Pasa un enlace o un archivo por más de 70 motores de análisis a la vez.",
+          "dog_says": "Clic derecho en el enlace, «Copiar dirección del enlace», y la pegas aquí. El momento de preguntar es antes del clic.",
           "button": "Abrir VirusTotal"
         },
         {
           "resource_id": "urlscan",
           "name": "URLScan.io",
-          "what": "Abre una página en su propio navegador y te enseña una captura.",
-          "dog_says": "¡Se mete en el callejón oscuro para que tú no tengas que hacerlo! ¡Tú ves adónde lleva el enlace y él corre el riesgo!",
+          "what": "Abre la página en su propio navegador, a distancia, y te enseña una captura de pantalla.",
+          "dog_says": "Se mete en el callejón oscuro por ti. Tú ves adónde lleva el enlace, y el riesgo lo corre él.",
           "button": "Abrir URLScan"
         },
         {
           "resource_id": "hibp",
           "name": "Have I Been Pwned",
           "what": "Te dice si tu dirección de correo aparece en alguna filtración de datos conocida.",
-          "dog_says": "¿Te has preguntado alguna vez cómo consiguió la Araña tu dirección? ¡Búscate aquí! ¡Y cambia todas las contraseñas que aparezcan!",
-          "button": "Comprobar mi correo"
+          "dog_says": "¿Te preguntas de dónde sacó la Araña tu dirección? Escríbela aquí. Después, cambia la contraseña de cada sitio que salga en la lista.",
+          "button": "Comprobar mi dirección"
         }
       ]
     },
@@ -90,76 +90,76 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "He escondido tres trucos en ese correo. Pulsa lo que creas que es una trampa. No te diré si te estás acercando.",
+        "intro": "Este correo esconde tres trucos. Pulsa todo lo que te parezca una trampa. Y no esperes que te diga «frío» o «caliente»...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "La dirección",
-            "spider_says": "Cambié dos letras y moví una palabra... ¿Quién lee cada letra cuando está preocupado?"
+            "spider_says": "Dos letras cambiadas de sitio y una palabra de más. Con el estrés encima, ¿quién lee cada letra?"
           },
           {
             "hotspot_id": "hs-clock",
-            "title": "El reloj",
-            "spider_says": "\"En un plazo de 2 horas.\" El pánico es mi cómplice favorito... Acalla la parte de ti que comprueba."
+            "title": "La cuenta atrás",
+            "spider_says": "Escribí «en las próximas 2 horas» y el pánico hizo el resto. Adormece la parte de ti que comprueba."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "La petición",
-            "spider_says": "ThisIsTea jamás te pediría la contraseña por correo... Pero yo sonaba como ThisIsTea, y con eso bastó."
+            "spider_says": "ThisIsTea nunca te pedirá la contraseña por correo. Yo sí. Me bastaba con parecerme."
           }
         ],
-        "debrief": "Cada truco del que acaba de presumir es una de mis tres reglas. Dirección, prisa, contraseña. Vuelve atrás y léelas una vez más."
+        "debrief": "Los tres trucos de los que acaba de presumir la Araña son mis tres reglas: dirección, prisa, contraseña. Reléelas una vez."
       },
       "recovery": {
-        "title_caught": "Si alguna vez te engañan de verdad, querido, haz esto.",
-        "lead_caught": "Esta vez solo era práctica y no te han quitado nada. Uno de verdad les pasa también a los cuidadosos, y entonces lo que importa es lo rápido que cerremos la puerta. Aquí tienes la lista.",
-        "title_default": "Guarda este plan en el bolsillo",
-        "lead_default": "Esta vez has pasado de largo. Algún día llegará uno mejor hecho. Aquí tienes el plan de rescate en cinco pasos: saberlo de memoria es media cura.",
+        "title_caught": "Si algún día te pilla una trampa de verdad, esto es lo que hay que hacer.",
+        "lead_caught": "Esto era un ejercicio: no te han robado nada. Las trampas de verdad también pillan a la gente prudente, y entonces lo que cuenta es la rapidez con que se cierra la puerta. Estos son los pasos.",
+        "title_default": "Ten este plan a mano",
+        "lead_default": "Este no te ha pillado. Algún día llegará otro mejor hecho. Aquí tienes el plan de emergencia en cinco pasos: sabérselo de memoria ya es haber hecho la mitad del camino.",
         "steps": [
           {
             "headline": "Cambia la contraseña, en la web de verdad.",
-            "body": "Abre tú mismo el sitio, desde un marcador o escribiendo la dirección, nunca desde el correo. Después cambia esa misma contraseña en cualquier otro sitio donde la hayas repetido."
+            "body": "Abre el sitio por tu cuenta, desde un marcador o escribiendo la dirección, nunca desde el correo. Después cambia esa contraseña en todos los sitios donde la hubieras reutilizado."
           },
           {
             "headline": "Activa la autenticación multifactor.",
-            "body": "Un segundo cerrojo hace que una contraseña robada, por sí sola, ya no abra la puerta."
+            "body": "Con un segundo cerrojo, una contraseña robada ya no basta para abrir la puerta."
           },
           {
             "headline": "Avisa enseguida a informática o a seguridad.",
-            "body": "Si puedes, reenvía el correo como archivo adjunto. La rapidez importa más que el orgullo, y tu aviso puede proteger al compañero que recibió el mismo correo."
+            "body": "Si puedes, reenvía el correo como archivo adjunto. Más vale avisar rápido que salvar el orgullo: tu mensaje quizá proteja al compañero que ha recibido el mismo."
           },
           {
-            "headline": "Busca actividad extraña.",
-            "body": "Revisa el historial de inicios de sesión y los dispositivos conectados, y busca reglas de correo que reenvíen o borren mensajes. Cierra la sesión en todo lo que no reconozcas."
+            "headline": "Busca actividad inusual.",
+            "body": "Revisa el historial de inicios de sesión y la lista de dispositivos conectados. Comprueba también que ninguna regla del correo reenvíe o borre tus mensajes. Cierra la sesión en todo lo que no reconozcas."
           },
           {
-            "headline": "Espera un segundo intento.",
-            "body": "Los atacantes suelen insistir con un mensaje que menciona el primero. Mantente alerta durante las próximas semanas."
+            "headline": "Cuenta con un segundo intento.",
+            "body": "Los atacantes suelen volver con un mensaje que hace referencia al primero. Mantente en guardia durante las semanas siguientes."
           }
         ]
       }
     },
     {
       "type": "status",
-      "question": "¿Qué tal te sientes?",
+      "question": "¿Cómo lo llevas?",
       "levels": [
         {
           "key": "LOW",
-          "label": "Aún tengo dudas",
+          "label": "Todavía no lo domino",
           "persona": "turtle",
-          "reply": "No pasa nada, querido. Nadie aprende esto de una sentada. Lee otra vez las tres reglas del Gato y prueba después alguno de los verificadores de enlaces del Perro. Llegaremos juntos."
+          "reply": "Es lo normal. Nadie aprende esto en una sesión. Vuelve a leer las tres reglas del Gato y prueba una de las herramientas del Perro para comprobar un enlace. Iremos avanzando juntos, a tu ritmo."
         },
         {
           "key": "MEDIUM",
-          "label": "Voy mejorando",
+          "label": "Voy cogiéndolo",
           "persona": "cat",
-          "reply": "Bien. Sigue así. El próximo truco no se parecerá a este."
+          "reply": "Bien. Mantén ese reflejo. El próximo truco no se parecerá a este."
         },
         {
           "key": "HIGH",
-          "label": "Me siento seguro",
+          "label": "Con confianza",
           "persona": "spider",
-          "reply": "¿Seguro? Qué encantador... La gente segura es mi favorita... Ya te escribiré."
+          "reply": "¿Con confianza? Qué encanto. Es mi público favorito... Te escribiré pronto."
         }
       ]
     },
@@ -171,9 +171,9 @@
     },
     {
       "type": "readiness",
-      "prompt": "¿Quieres ponerte a prueba de verdad? Te enviaremos **un correo de phishing de práctica** a {{email}} en un momento aleatorio de los próximos minutos. Parecerá una estafa real, pero es inofensivo y nunca pide una contraseña. A ver si lo detectas.",
+      "prompt": "¿Te apetece una prueba de verdad? Enviaremos **un correo de phishing de práctica** a {{email}}, en un momento al azar de los próximos minutos. Parecerá una estafa real, pero es inofensivo y nunca te pedirá una contraseña. Te toca detectarlo.",
       "button": "Sí, envíame uno",
-      "done": "Hecho. Vigila tu bandeja de entrada y usa los cuatro pasos."
+      "done": "En marcha. Vigila tu bandeja de entrada y aplica los cuatro pasos."
     }
   ]
 }

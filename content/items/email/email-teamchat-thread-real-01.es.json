@@ -37,15 +37,15 @@
       },
       {
         "t": "text",
-        "v": "Las notas están en la carpeta compartida de siempre, sin necesidad de iniciar sesión. He puesto las acciones al principio."
+        "v": "Las notas están en la carpeta compartida, como siempre; no hace falta iniciar sesión. He puesto las tareas pendientes arriba del todo."
       },
       {
         "t": "text",
-        "v": "Dime si se me ha pasado algo y lo repasamos por teléfono."
+        "v": "Dime si falta algo y lo hablamos por teléfono."
       },
       {
         "t": "text",
-        "v": "El miércoles me escribiste: \"Las notas son definitivas, las comparto después de la llamada\"."
+        "v": "El miércoles escribiste: «Las notas son definitivas, las comparto después de la llamada»."
       },
       {
         "t": "signature",
@@ -59,38 +59,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es la de Jonas y la conversación es real. Por sí solo, eso prueba poco, pero aquí el resto encaja."
+      "explain": "Es la dirección de Jonas y la conversación es real. Por sí sola, esa prueba vale poco, pero aquí todo lo demás encaja."
     },
     {
       "id": "hs-usual",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "La misma carpeta compartida de siempre y sin inicio de sesión. No te piden nada."
+      "explain": "La carpeta compartida de siempre, sin inicio de sesión. No te piden nada."
     },
     {
       "id": "hs-phone",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Ofrece una llamada, un canal que puedes usar en cualquier momento."
+      "explain": "Propone hablarlo por teléfono, un canal que puedes usar cuando quieras."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Cita tus propias palabras, lo cual encaja con una conversación real."
+      "explain": "Cita tus propias palabras, como en cualquier conversación real."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Lo más probable es que sea Jonas: una conversación real, la carpeta de siempre y una oferta de hablar por teléfono.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Casi seguro que Jonas: la conversación es real, las notas están donde siempre y propone hablarlo por teléfono.",
       "choices": [
-        "Lo más probable es que Jonas",
-        "Alguien que usa una dirección parecida",
-        "Un desconocido"
+        "Casi seguro que el propio Jonas",
+        "Alguien con una dirección casi idéntica",
+        "Un desconocido que encontró tu dirección"
       ],
       "correct": 0,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ninguna. Es un mensaje amistoso y cotidiano.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ninguna. Un mensaje amable, del día a día de la oficina.",
       "choices": [
-        "Ninguna: es un mensaje cotidiano",
+        "Ninguna: un mensaje de lo más normal",
         "Miedo a una sanción",
-        "Ganas de conseguir una prima"
+        "La ilusión de cobrar una prima"
       ],
       "correct": 0,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Nada. Las notas están en la carpeta de siempre. No hay enlace ni un nuevo inicio de sesión.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Nada. Las notas están en la carpeta de siempre, sin enlace y sin nuevo inicio de sesión.",
       "choices": [
         "Nada: las notas están en el sitio de siempre",
-        "Volver a iniciar sesión mediante un enlace",
+        "Volver a iniciar sesión desde un enlace",
         "Enviar la lista de voluntarios"
       ],
       "correct": 0,
@@ -132,12 +132,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Mira tú mismo en la carpeta compartida. Si algo te inquieta, llama a Jonas al número que ya tienes.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Mira en la carpeta compartida por tu cuenta. Si algo no te cuadra, llama a Jonas al número que ya tienes.",
       "choices": [
-        "Abrir tú mismo la carpeta compartida, o llamar a Jonas",
-        "Responder para preguntar si es él de verdad",
-        "Ignorarlo para siempre"
+        "Abrir la carpeta por tu cuenta, o llamar a Jonas",
+        "Responder para preguntarle si es él",
+        "Ignorarlo, y todos los que vengan detrás"
       ],
       "correct": 0,
       "cues": [
@@ -151,22 +151,22 @@
   "actions": [
     {
       "id": "open-folder",
-      "label": "Abrir tú mismo la carpeta compartida y leer las notas",
+      "label": "Abrir la carpeta compartida por tu cuenta y leer las notas",
       "outcome": "safe",
-      "consequence": "Las notas están allí, como dijo Jonas."
+      "consequence": "Las notas están ahí, como dijo Jonas."
     },
     {
       "id": "call",
       "label": "Llamar a Jonas para repasar las notas",
       "outcome": "safe",
-      "consequence": "Lo confirma. Una llamada corta nunca es una pérdida de tiempo."
+      "consequence": "Te lo confirma. Esa llamada no fue tiempo perdido."
     },
     {
       "id": "sign-in",
       "label": "Volver a iniciar sesión en algún sitio, por si acaso",
       "outcome": "unsafe",
-      "consequence": "Nada lo pedía. Nunca escribas tus datos de acceso cuando ninguna petición real lo necesita."
+      "consequence": "Nadie te lo ha pedido. No escribas tus datos de acceso si ninguna petición real lo exige."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Es casi un gemelo del correo de \"vuelve a iniciar sesión\", pero este no pide nada y remite a la carpeta de siempre. En este nivel, pregúntate qué es lo que se te pide."
+  "attacker_reveal": "Esto lo escribió Jonas, en el mismo hilo que mi mensaje que te pedía volver a iniciar sesión. Él no pide nada y te remite a la carpeta de siempre: cuando dos correos se parecen tanto, lo que los separa es la petición."
 }

@@ -38,7 +38,7 @@
       },
       {
         "t": "text",
-        "v": "Alex Morgan wrote: \"Could you add the latest client numbers to the board slides by Friday?\""
+        "v": "Alex Morgan wrote: \"Could you add the latest client numbers to the board slides by Friday? Thanks!\""
       },
       {
         "t": "link",
@@ -48,11 +48,11 @@
       },
       {
         "t": "text",
-        "v": "You can also open the TeamChat app yourself to reply."
+        "v": "You can also reply directly from the TeamChat app."
       },
       {
         "t": "signature",
-        "v": "The TeamChat Team"
+        "v": "The TeamChat team"
       }
     ]
   },
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The notification comes from teamchat.example, the real domain."
+      "explain": "The notification comes from teamchat.example, TeamChat's real domain."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "The request is ordinary: numbers on slides, with Friday as a deadline you can discuss. It is not a data export and not urgent in minutes."
+      "explain": "An ordinary request: numbers for some slides, by Friday, a deadline you can negotiate. No data export, and nothing due within minutes."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "The link leads to teamchat.example."
+      "explain": "The link points to teamchat.example."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "It reminds you that the app is available."
+      "explain": "The email itself suggests going through the app, a route you control."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "TeamChat: a notification from its real domain, quoting a colleague's message.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "TeamChat, from its real domain. The notification simply quotes a colleague's message.",
       "choices": [
         "TeamChat, from its real domain",
-        "The CEO, writing directly",
-        "A scammer with a lookalike address"
+        "The CEO, writing to you directly",
+        "A scammer with a near-identical address"
       ],
       "correct": 0,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Little. A normal work request with a reasonable deadline.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Not much. A normal work request, with a reasonable deadline.",
       "choices": [
-        "Little: a normal work request",
-        "Panic about ten minutes",
-        "Fear of arrest"
+        "Nothing in particular: normal work",
+        "Panic over a ten-minute deadline",
+        "Fear of being arrested"
       ],
       "correct": 0,
       "cues": [
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Add client numbers to the board slides by Friday. It is ordinary work and no data export is demanded.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Add the client numbers to the board slides by Friday. Ordinary work, with no data export involved.",
       "choices": [
         "Update some slides by Friday",
-        "Send the full client export in a reply",
-        "Sign in through an odd link"
+        "Reply with the full client export",
+        "Sign in through an odd-looking link"
       ],
       "correct": 0,
       "cues": [
@@ -136,11 +136,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Open the TeamChat app yourself and reply there. If you ever doubt a request from the boss, a quick call helps.",
+      "answer": "Open the TeamChat app yourself and reply there. And if a request from the boss ever seems odd, a phone call settles it.",
       "choices": [
-        "Open the TeamChat app yourself and reply there",
-        "Reply to the no-reply address",
-        "Forward it to a friend"
+        "Open the TeamChat app yourself and reply",
+        "Reply to the notification's no-reply address",
+        "Forward it to a friend for a second opinion"
       ],
       "correct": 0,
       "cues": [
@@ -154,22 +154,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the TeamChat app yourself and reply to Alex there",
+      "label": "Open the TeamChat app yourself and reply to Alex",
       "outcome": "safe",
-      "consequence": "You see Alex's message in the real conversation."
+      "consequence": "Alex's message is there, in the real conversation."
     },
     {
       "id": "click",
       "label": "Click the link in the notification",
       "outcome": "safe",
-      "consequence": "It leads to the real domain."
+      "consequence": "It leads to TeamChat's real domain."
     },
     {
       "id": "send-all",
-      "label": "Send the entire client database to Alex straight away",
+      "label": "Send Alex the entire client database right away",
       "outcome": "unsafe",
-      "consequence": "That was not asked for. Do not send sensitive data when it was never requested."
+      "consequence": "Nobody asked for it. Don't send sensitive data that nobody has requested."
     }
   ],
-  "attacker_reveal": "This one is real, dear. It is a notification from TeamChat's own domain about ordinary work. Compare it with the 'ten minutes' message: here nothing is rushed and no data is demanded."
+  "attacker_reveal": "Put this next to my ten-minute message: a genuine TeamChat notification, dull work due Friday, and nobody asking for data. I could never manage to be this boring."
 }

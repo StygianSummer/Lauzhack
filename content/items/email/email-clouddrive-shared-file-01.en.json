@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "Mara Keller has shared a file with you: Invoice 2291."
+        "v": "Mara Keller has shared a file with you: \"Invoice 2291\"."
       },
       {
         "t": "text",
-        "v": "Open the attached file to view it."
+        "v": "Open the attachment to view the document."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "clouddrive-files.example is not CloudDrive's domain, clouddrive.example."
+      "explain": "The sender writes from clouddrive-files.example. CloudDrive's domain is clouddrive.example, with nothing around it."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "CloudDrive shares files by link, not by attaching them. A file you were not expecting is a reason to stop."
+      "explain": "CloudDrive shares by link, not by attachment. A file you weren't expecting is worth stopping for."
     },
     {
       "id": "hs-name",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "A colleague's name in the subject feels safe, but names are easy to copy from a leaked contact list."
+      "explain": "A colleague's name in the subject is reassuring. But a name takes two seconds to copy from a stolen address book."
     },
     {
       "id": "hs-curiosity",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Invoice 2291\" is vague on purpose, so you will open it to find out what it is."
+      "explain": "\"Invoice 2291\", with no amount and no context: just enough to make you open the file to see what it is."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone imitating CloudDrive. The sender is on clouddrive-files.example, not clouddrive.example. The colleague's name is only a hook.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as CloudDrive. The sender is on clouddrive-files.example, not clouddrive.example. Mara's name is the bait.",
       "choices": [
-        "Someone using a lookalike address",
-        "CloudDrive itself",
-        "Mara Keller"
+        "Someone using a near-identical address",
+        "CloudDrive, from its own domain",
+        "Mara Keller, from her account"
       ],
       "correct": 0,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Curiosity, and a wish to be helpful to a colleague: you want to see what she sent.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Curiosity, plus not wanting to keep a colleague waiting: you want to see what Mara has sent you.",
       "choices": [
         "Curiosity about a colleague's file",
-        "Fear of a penalty",
-        "None: it is routine"
+        "Fear of a penalty or a fine",
+        "None, it is a routine message"
       ],
       "correct": 0,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Open an attachment you were not expecting. It could install harmful software or show a fake sign-in.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Open an attachment you weren't expecting. It could install malware or show a fake sign-in page.",
       "choices": [
         "Open an unexpected attachment",
         "Click a link and sign in",
-        "Reply with your details"
+        "Reply with your contact details"
       ],
       "correct": 0,
       "cues": [
@@ -137,11 +137,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not open it. Ask Mara by phone or in person, or open CloudDrive yourself and see whether anything was shared.",
+      "answer": "Don't open anything. Ask Mara by phone or in person, or open CloudDrive yourself and see whether she shared anything with you.",
       "choices": [
-        "Ask Mara on a channel you know, or open CloudDrive yourself",
-        "Open the file in case it is fine",
-        "Reply to the sender and ask what it is"
+        "Ask Mara, or open CloudDrive yourself",
+        "Open the file, it is probably harmless",
+        "Reply to the sender for more details"
       ],
       "correct": 0,
       "cues": [
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "ask-mara",
-      "label": "Ask Mara by phone or in person whether she shared anything",
+      "label": "Ask Mara, by phone or in person, whether she shared anything with you",
       "outcome": "safe",
-      "consequence": "Mara shared nothing. You stopped the attachment before it ran."
+      "consequence": "Mara shared nothing. You stopped the attachment before it could run."
     },
     {
       "id": "open",
       "label": "Open the attachment to see what it is",
       "outcome": "unsafe",
-      "consequence": "The file runs and shows a fake page, or puts harmful software on your computer."
+      "consequence": "The file runs: it shows a fake sign-in page, or installs malware on your computer."
     },
     {
       "id": "reply",
-      "label": "Reply to the sender and ask what the file is",
+      "label": "Reply to the sender to ask what the file is",
       "outcome": "neutral",
-      "consequence": "The scammer answers with a more convincing story. Your reply also shows your address is live."
+      "consequence": "The scammer serves you a more convincing story. And your reply tells them your address is live."
     },
     {
       "id": "open-site",
-      "label": "Open CloudDrive yourself and look for shared files",
+      "label": "Open CloudDrive yourself and check your shared files",
       "outcome": "safe",
-      "consequence": "Nothing is shared with you. The email was fake."
+      "consequence": "Nothing has been shared with you. The email was fake."
     }
   ],
-  "attacker_reveal": "A friend's name, a vague invoice and a file ready to open... You wanted to know what it was. That is all I needed."
+  "attacker_reveal": "An invoice number, Mara's name in the subject, and I let your curiosity do the rest. One double-click and I'd have moved into your computer."
 }

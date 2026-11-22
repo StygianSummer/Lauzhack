@@ -36,17 +36,17 @@
       },
       {
         "t": "text",
-        "v": "Your parcel has left our depot and will be delivered tomorrow. You do not need to do anything."
+        "v": "Your parcel has left our depot and will be delivered tomorrow. You don't need to do anything."
       },
       {
         "t": "link",
-        "v": "Track your parcel",
+        "v": "Track my parcel",
         "href": "https://parcelpoint.example/track",
         "hotspot": "hs-link"
       },
       {
         "t": "text",
-        "v": "You can also follow it in the ParcelPoint app."
+        "v": "You can also follow the delivery in the ParcelPoint app."
       },
       {
         "t": "signature",
@@ -60,38 +60,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on parcelpoint.example, the company's real domain."
+      "explain": "The address ends in parcelpoint.example: the carrier's real domain."
     },
     {
       "id": "hs-calm",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "No deadline and no payment. It only tells you what is happening."
+      "explain": "No deadline, no payment: it just tells you where your parcel is."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "The link leads to parcelpoint.example, the real domain. Even so, the app is the safest way to look."
+      "explain": "The link goes to parcelpoint.example, the real domain. Even so, the app is still the safest route."
     },
     {
       "id": "hs-app",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "It points you to the app, a channel you already control."
+      "explain": "It points you to the app, a channel you already have in hand."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "ParcelPoint itself: the address is on parcelpoint.example and the spelling is clean.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "ParcelPoint: the address is on parcelpoint.example and the text is clean.",
       "choices": [
-        "A scammer using a lookalike address",
-        "ParcelPoint, from its real domain",
-        "A stranger with a free mailbox"
+        "A scammer with a near-identical address",
+        "ParcelPoint, from its own domain",
+        "A stranger using a free mailbox"
       ],
       "correct": 1,
       "cues": [
@@ -101,12 +101,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "None. It is a calm update with no deadline.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "None. The message informs you, with no deadline and no pressure.",
       "choices": [
         "Fear of losing the parcel",
-        "None: it is a calm update",
-        "Greed for a free gift"
+        "None: it just keeps you informed",
+        "The lure of a free gift"
       ],
       "correct": 1,
       "cues": [
@@ -116,11 +116,11 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Nothing. It only tells you the parcel is on its way and offers a tracking link.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Nothing. It tells you about the delivery and offers a tracking link.",
       "choices": [
         "Pay a handling fee",
-        "Nothing: it only gives information",
+        "Nothing: it keeps you posted",
         "Send your card number"
       ],
       "correct": 1,
@@ -133,11 +133,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "You do not need to act. If you want to look, open the ParcelPoint app yourself.",
+      "answer": "Nothing urgent to check. If you want to follow the delivery, open the ParcelPoint app yourself.",
       "choices": [
-        "Reply with your address",
-        "Open the ParcelPoint app yourself if you want to look",
-        "Forward it to a friend to check"
+        "Reply with your home address",
+        "Open the ParcelPoint app yourself",
+        "Forward it to a relative for advice"
       ],
       "correct": 1,
       "cues": [
@@ -150,22 +150,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the ParcelPoint app yourself if you want to check",
+      "label": "Open the ParcelPoint app yourself to check",
       "outcome": "safe",
-      "consequence": "You see the same delivery date. Nothing was needed."
+      "consequence": "The same delivery date shows up. There was nothing to do."
     },
     {
       "id": "ignore",
       "label": "Do nothing and wait for the parcel",
       "outcome": "safe",
-      "consequence": "The parcel arrives tomorrow. Nothing was needed."
+      "consequence": "The parcel arrives tomorrow, as announced."
     },
     {
       "id": "reply",
       "label": "Reply with your home address, just in case",
       "outcome": "neutral",
-      "consequence": "The no-reply address does not answer. You gave away nothing useful, but nothing was needed either."
+      "consequence": "Nobody reads replies sent to this notification address. No harm done, but no use either."
     }
   ],
-  "attacker_reveal": "This one is real, dear. It comes from the company's own domain, asks for nothing and has no deadline. A parcel notice that only informs you is exactly what a real one looks like."
+  "attacker_reveal": "Not one of mine. It comes from ParcelPoint's domain, asks for nothing and sets no deadline. A real parcel notice keeps you posted; it doesn't get you to do anything."
 }

@@ -1,10 +1,10 @@
 {
   "id": "boardroom-crisis-demo",
   "language": "en",
-  "title": "Boardroom crisis: 1-minute demo",
+  "title": "Boardroom crisis: the 1-minute version",
   "pill": "Demo: Boardroom crisis",
   "headline": "The first six hours, in one minute",
-  "subtitle": "A breach is under way. Three quick calls, then see what each choice costs.",
+  "subtitle": "An attack is under way. Three quick decisions, then the bill, choice by choice.",
   "minutes": 1,
   "deadline": "14:00",
   "start_meters": {
@@ -36,7 +36,7 @@
     "briefing": [
       {
         "persona": "spider",
-        "text": "Do take your time... I have all day. You have until 14:00."
+        "text": "Take all the time you need... I've got all day. You've got until 14:00."
       }
     ],
     "playbook": [],
@@ -44,84 +44,84 @@
     "fallout": [
       {
         "persona": "spider",
-        "text": "Ah, the ledger. Let's see what you cost yourselves..."
+        "text": "Ah, the ledger. Let's see what your good ideas cost you..."
       }
     ]
   },
   "briefing": {
-    "turtle_intro": "Welcome to the room, dear. It is 08:10 and the board is waiting. Three calls, one minute.",
+    "turtle_intro": "Welcome to the room. It's 08:10 and the board is waiting for you. Three decisions, one minute. Let's begin.",
     "roster_title": "",
     "roster": [],
-    "timeline_title": "What has happened so far",
+    "timeline_title": "The morning so far",
     "timeline": [
       {
         "time": "07:40",
-        "text": "The security tool flags 40 GB leaving a file server for an unknown address. The alert waits in a queue."
+        "text": "The security tool spots 40 GB leaving a file server for an unknown address. The alert lands in a queue."
       },
       {
         "time": "08:10",
-        "text": "**Now.** The board is called into the crisis room, and you take the chair.",
+        "text": "**Now.** The board meets in the crisis room. You're in the chair.",
         "now": true
       }
     ],
     "known_title": "What we know",
     "known": [
-      "Files on several servers are encrypted, and it is still spreading.",
-      "A large upload left the network at 07:40."
+      "Files on several servers are encrypted, and the encryption is still spreading.",
+      "At 07:40, a large volume of data left the network."
     ],
     "unknown_title": "What we don't know yet",
     "unknown": [
-      "How they got in, and whether they are still inside.",
+      "How they got in, and whether they're still in the network.",
       "Whether customer data was copied, and whose."
     ],
-    "spider_line": "Six hours. Plenty of time to make mistakes... I do hope you make some.",
+    "spider_line": "Six hours. Plenty of time to make a few mistakes... I'm counting on you.",
     "note_title": "A little note for the board",
     "note": [
       "Dear board...",
-      "Pay me €1.2 million in crypto before 14:00 and I will send the key. Refuse, and at 14:00 the copy goes online and the key is destroyed."
+      "Pay €1.2 million in crypto before 14:00 and you'll get the key. If not, at 14:00 the copy goes online and the key disappears."
     ],
     "note_sign": "S.",
     "chips": [
       "Deadline: 14:00",
-      "Demand: €1.2 million"
+      "Ransom: €1.2 million"
     ]
   },
   "playbook": {
-    "intro": "Two rules cover the first hours. Tap a card to read it up close.",
+    "intro": "Two cards to get you through the first hours. Tap one to open it.",
     "cards": [
       {
         "persona": "cat",
         "role": "Facts before moves",
         "title": "Contain, then think",
-        "say": "A panicking board makes the attacker's job easy. Do the boring things first, in the right order, and keep the evidence.",
+        "say": "A panicking board works for the attacker. Start with the boring moves, in order, and keep the evidence.",
         "rules": [
           {
             "headline": "Cut the cable, keep the power.",
-            "body": "Disconnect affected machines from the network, but don't switch them off or wipe them. The evidence lives in memory and on disk."
+            "body": "Disconnect the affected machines from the network, without switching them off or wiping them. The evidence is in memory and on disk."
           },
           {
             "headline": "Say only what you can prove.",
-            "body": "\"No data was affected\" is a promise. Break it once and nobody believes your next update."
+            "body": "\"No data was affected\" is a promise. If the facts contradict it, nobody will believe your next message."
           }
         ],
-        "sign_off": "Calm isn't a feeling. It's an order of operations."
+        "sign_off": "In a crisis, calm is a list you follow in order."
       },
       {
         "persona": "turtle",
         "role": "Right people, right order",
-        "title": "Nobody does this alone",
-        "say": "I have seen many storms, dear. The boards that came through them well were never the cleverest. They simply called the right people early and told the truth.",
+        "title": "Nobody gets through this alone",
+        "say": "I've seen my share of crises. The boards that came out of them well were never the cleverest. They'd called the right people early, and they'd told the truth.",
         "rules": [
           {
-            "headline": "Call the experts before you decide anything big.",
-            "body": "Legal, your insurer, the police and an incident response team come first. That includes the ransom: paying guarantees nothing and funds the next attack."
+            "headline": "Call the experts before any big decision.",
+            "body": "Legal first, then your insurer, the police and an incident response team. The ransom is no exception: paying guarantees nothing, and the money funds the next attack."
           },
           {
             "headline": "Tell the right people, on time.",
-            "body": "A regulator's clock starts when you become aware: 72 hours under GDPR, \"as soon as possible\" in Switzerland. Customers need clear steps before the attacker leaks the data."
+            "body": "The clock for telling the regulator starts when you become aware of the incident: 72 hours under GDPR, \"as soon as possible\" in Switzerland. Your customers need to know what to do before the attacker publishes their data."
           }
         ],
-        "sign_off": "A team that stays calm in the storm was looked after long before it."
+        "sign_off": "The teams that hold together on a Friday morning had someone looking after them long before."
       }
     ]
   },
@@ -149,7 +149,7 @@
   },
   "decisions_intro": {
     "persona": "cat",
-    "text": "Three decisions. Lock each one in and I'll check it. No takebacks. Watch the four dials."
+    "text": "Three decisions. You lock them in, I check them. No going back. Keep an eye on the four dials."
   },
   "decisions": [
     {
@@ -158,60 +158,60 @@
       "voice": "cat",
       "type": "single",
       "title": "Stop the spread",
-      "text": "The encryption is moving from server to server. Dana is on the line and needs an order right now. What do you tell her?",
+      "text": "The encryption is jumping from server to server. Dana is on the line and needs an order, now. What do you tell her?",
       "artifact": {
         "initials": "DK",
         "name": "Dana Keller",
         "role": "Head of IT",
         "time": "08:14",
-        "text": "It's spreading. Fourteen servers in ten minutes, and the backup server is next on its list. Tell me what to do, Sam."
+        "text": "It's spreading. Fourteen servers in ten minutes, and next on the list is the backup server. Tell me what to do, Sam."
       },
       "options": [
         {
           "text": "Cut the affected machines off from the network, but leave them switched on. Nobody wipes anything.",
-          "short": "Isolate, keep power on",
+          "short": "Isolate, keep them on",
           "ok": true
         },
         {
-          "text": "Switch everything off and wipe it, then rebuild from scratch. A clean slate.",
-          "short": "Wipe and rebuild",
+          "text": "Switch everything off, wipe it all and rebuild. Start again from zero.",
+          "short": "Wipe it all, start over",
           "ok": false,
           "fx": {
             "legal": -20,
             "systems": -10
           },
           "rv": "cat0",
-          "why": "You wiped the evidence along with the problem. Now nobody can show which door I used or what I took, so you must assume I took everything... and I still have the key to that door."
+          "why": "You wiped the evidence along with the problem. Now nobody can show which door I used or what I took, so you have to assume I took everything... And I still have the key to that door."
         },
         {
-          "text": "Wait until IT has the full picture, then act in one go.",
-          "short": "Waiting for the full picture",
+          "text": "Wait until IT has the full picture, then do everything in one go.",
+          "short": "Wait for the full picture",
           "ok": false,
           "fx": {
             "systems": -25,
             "cash": -10
           },
           "rv": "cat0",
-          "why": "While the board waited for a full picture, I finished the painting. By 09:00 the backup server was locked too, and your best way out had gone."
+          "why": "The board wanted the full picture? I finished it for you. By 09:00 the backup server was locked too, and your best way out went with it."
         },
         {
-          "text": "Tell every employee to reboot their computer, which usually clears this sort of thing.",
-          "short": "Rebooting every machine",
+          "text": "Tell everyone to restart their computer: that usually sorts out this kind of problem.",
+          "short": "Restart everything",
           "ok": false,
           "fx": {
             "systems": -20,
             "legal": -10
           },
           "rv": "cat0",
-          "why": "Rebooting wiped the traces held in memory, the ones investigators wanted most. And my encryption simply woke up again with each machine."
+          "why": "Restarting cleared the memory, and with it the traces the investigators wanted first. My encryption restarted right along with every machine."
         }
       ],
       "gain": {
         "systems": 15
       },
-      "explain": "Isolate first, ask questions later. Pulling the network cable stops the spread, and leaving the power on keeps the evidence in memory and on disk. Investigators need it to find the way in and to learn what was copied.",
-      "spider_ok": "Hm. A cable pulled and the evidence untouched. I had nine more servers on my list... and now no way to reach them.",
-      "best": "Disconnect the affected machines from the network, leave them powered on, and wipe nothing."
+      "explain": "Isolate now, ask questions later. Network cable out: the spread stops. Power left on: the evidence stays in memory and on disk. That's what the investigators will use to find the way in and work out what was copied.",
+      "spider_ok": "Hm. Cable pulled, evidence intact. I had nine servers left on my list... and no way left to reach them.",
+      "best": "Cut the affected machines off from the network, leave them switched on, wipe nothing."
     },
     {
       "id": "d3",
@@ -219,61 +219,61 @@
       "voice": "cat",
       "type": "single",
       "title": "The ransom",
-      "text": "The note demands €1.2 million in crypto before 14:00. After that the stolen copy goes online and the key is destroyed. Where does the board stand?",
+      "text": "The note demands €1.2 million in crypto before 14:00. After that, the stolen copy goes online and the key is destroyed. What is the board's position?",
       "artifact": {
         "initials": "DK",
         "name": "Dana Keller",
         "role": "Head of IT",
         "time": "09:38",
-        "text": "Last night's backup sits on the same network, so I can't promise it's clean. The board needs a position on the note before the press finds it."
+        "text": "Last night's backup is on the same network. I can't promise you it's clean. And the board needs a position on this note before the press gets hold of it."
       },
       "options": [
         {
-          "text": "Don't pay yet. Call the police, and let legal and the response team check the backups and the options first.",
-          "short": "Not yet, with experts",
+          "text": "Don't pay for now. Call the police, and let legal and the response team look at the backups and the options first.",
+          "short": "Not yet, experts first",
           "ok": true
         },
         {
-          "text": "Pay now, before the clock runs down. It's the fastest way to get the files back.",
-          "short": "Paying at once",
+          "text": "Pay now, before the countdown runs out. It's the shortest route to getting the files back.",
+          "short": "Pay right away",
           "ok": false,
           "fx": {
             "cash": -30,
             "legal": -10
           },
           "rv": "turtle0",
-          "why": "Thank you for the money... My key opened a third of your files. I kept my copy of your data, naturally. And now I know that this board pays."
+          "why": "Thank you for the money... My key unlocked a third of your files. My copy of your data, I kept, naturally. And now I know this board pays."
         },
         {
-          "text": "Reply from the CEO's mailbox and haggle the price down yourselves.",
-          "short": "Negotiating it yourselves",
+          "text": "Reply from the CEO's email address and haggle over the price yourselves.",
+          "short": "Haggle yourselves",
           "ok": false,
           "fx": {
             "cash": -15,
             "legal": -15
           },
           "rv": "turtle0",
-          "why": "How brave... You wrote like frightened amateurs, and I am no amateur. Each reply told me how badly you needed those files, so each reply raised the price."
+          "why": "How brave... You wrote like frightened amateurs, and I'm not one. Every reply told me how much those files meant to you. So every reply put the price up."
         },
         {
-          "text": "Refuse, and tell nobody outside this room. Fewer people knowing means fewer leaks.",
-          "short": "Telling no one outside the room",
+          "text": "Refuse, and tell nobody outside this room. Fewer people in the know, fewer leaks.",
+          "short": "Refuse and keep quiet",
           "ok": false,
           "fx": {
             "legal": -20,
             "trust": -10
           },
           "rv": "turtle0",
-          "why": "Silence. My favourite. No police, no one who has met me before... You made yourselves quite alone."
+          "why": "Silence. My favourite. No police, nobody who's dealt with me before... You isolated yourselves. I didn't even have to."
         }
       ],
       "gain": {
         "cash": 10,
         "legal": 5
       },
-      "explain": "Paying is never a reflex. It buys no promise of a working key, no promise the stolen copy is deleted, and it funds the next attack. Call the police, bring in legal and the responders, test what your backups can really restore, and decide on facts, not on a countdown.",
-      "spider_ok": "No payment. No panic. I do hate a patient board.",
-      "best": "Don't pay yet. Involve the police, legal and the responders, and test the backups first."
+      "explain": "Paying should never be a reflex. The money doesn't buy a key that's sure to work, or the deletion of the stolen copy, and it funds the next attack. Call the police, bring in legal and the responders, test what your backups actually restore. Then decide on facts. The countdown isn't one.",
+      "spider_ok": "No payment, no panic. I can't stand a patient board.",
+      "best": "Don't pay for now: bring in the police, legal and the responders, and test the backups first."
     },
     {
       "id": "d4",
@@ -281,61 +281,61 @@
       "voice": "turtle",
       "type": "single",
       "title": "Customers and the regulator",
-      "text": "The responders confirm it: about 40 GB were copied, including the names, emails and hashed passwords of 120,000 customers. The attacker says it goes public at 14:00. What do you do about the regulator and your customers?",
+      "text": "The responders confirm it: about 40 GB were copied, including the names, email addresses and hashed passwords of 120,000 customers. The attacker promises to publish everything at 14:00. What do you do about the regulator and your customers?",
       "artifact": {
         "initials": "LM",
         "name": "Luc Marchand",
         "role": "General Counsel",
         "time": "11:12",
-        "text": "Under GDPR the clock to tell the authority is 72 hours from when we became aware. Swiss law says as soon as possible. Our clock started at 07:40, whatever we decide."
+        "text": "GDPR gives us 72 hours to notify the authority, counting from when we became aware of the incident. Swiss law says \"as soon as possible\". And our clock has been running since 07:40, whatever we decide."
       },
       "options": [
         {
-          "text": "Notify the data protection authority now, and prepare a plain message for customers: what happened, what was taken, and what to do.",
+          "text": "Notify the data protection authority now, and prepare a plain message for customers: what happened, what was taken, what they need to do.",
           "short": "Tell the regulator and customers",
           "ok": true
         },
         {
-          "text": "Wait until the investigation is finished, then decide who to tell.",
-          "short": "Waiting for the final report",
+          "text": "Wait for the investigation to finish, then decide who to tell.",
+          "short": "Wait for the final report",
           "ok": false,
           "fx": {
             "legal": -25,
             "trust": -10
           },
           "rv": "turtle1",
-          "why": "An investigation takes weeks. The legal deadline takes three days. The regulator will ask why you knew on Friday and spoke on Tuesday... and fines are written in percentages."
+          "why": "An investigation takes weeks. The legal deadline is three days. The regulator will want to know why you knew on Friday and only spoke up on Tuesday... And fines are calculated as a percentage."
         },
         {
-          "text": "Say nothing unless the data actually appears online.",
-          "short": "Staying silent unless it leaks",
+          "text": "Say nothing until the data shows up online.",
+          "short": "Stay quiet until it leaks",
           "ok": false,
           "fx": {
             "trust": -30,
             "legal": -20
           },
           "rv": "turtle1",
-          "why": "At 14:00 I published. Your customers learnt it from a stranger on a forum, with no warning and no chance to change a password. Several accounts fell by evening."
+          "why": "At 14:00, I published. Your customers heard it from a stranger on a forum, with no warning and no chance to change their password. By evening, several accounts had fallen."
         },
         {
-          "text": "Email every customer now: 'your data is safe'. Investigate afterwards.",
-          "short": "Telling customers they are safe",
+          "text": "Email every customer now: \"your data is safe\". Investigate afterwards.",
+          "short": "Reassure customers",
           "ok": false,
           "fx": {
             "trust": -30,
             "legal": -10
           },
           "rv": "cat2",
-          "why": "'Your data is safe.' Such a lovely sentence to send an hour before I proved it false. Trust takes years to build, and one sentence to spend."
+          "why": "\"Your data is safe.\" Lovely sentence, sent an hour before I proved otherwise. It took you years to earn their trust. One sentence was enough to spend it."
         }
       ],
       "gain": {
         "trust": 15,
         "legal": 10
       },
-      "explain": "Be early, be plain, be true, dear. The regulator's clock started when you became aware, and customers need to change passwords and watch for phishing before the attacker gets to them. Never promise safety you can't prove.",
-      "spider_ok": "You told them yourselves, and plainly. That leaves me nothing to threaten with.",
-      "best": "Tell the regulator on time, and tell customers plainly what happened and what to do."
+      "explain": "Speak early, speak plainly, tell the truth. The regulator's clock started when you became aware of the incident, and your customers need to change their passwords and watch out for phishing before the attacker comes after them. And never promise them safety you can't prove.",
+      "spider_ok": "You told them yourselves, and straight. That leaves me nothing to blackmail you with.",
+      "best": "Notify the regulator in time, and tell customers plainly what happened and what they need to do."
     }
   ],
   "outcome_thresholds": {
@@ -344,23 +344,23 @@
   "outcomes": {
     "contained": {
       "voice": "turtle",
-      "title": "Hm. You closed every door I tried.",
-      "body": "Isolated, informed, patient, honest and kind. I did not enjoy that at all. I'll look for a house with a quieter board... and fewer second factors.",
-      "score": "Three out of three, dear. Notice that none of it needed a clever tool, only the right order. Now go and ask your own team whether the VPN has a second lock."
+      "title": "Every door I tried was shut. Irritating.",
+      "body": "Isolated, informed, patient, honest, even kind. I didn't care for it. I'll find myself a house with a quieter board... and fewer second factors.",
+      "score": "Three out of three. None of these decisions needed a clever tool, only taking them in the right order. One last thing: ask your team whether your VPN has a second lock."
     },
     "bruised": {
       "voice": "cat",
-      "title": "You're still standing... but I left marks.",
-      "body": "Most of it, you handled. A few of your choices were gifts, and I kept them. The ledger below shows exactly which.",
-      "score": "Mostly sound. The ones that went wrong are in the recap, each with the rule that would have saved you. Read them, then replay."
+      "title": "Still standing... but I left you a few marks.",
+      "body": "You held on to what mattered. But some of your choices were gifts, and I accepted them. The ledger below tells you which.",
+      "score": "Fairly solid. The decisions you got wrong are in the recap, each with the rule that would have prevented it. Read them, then replay."
     },
     "wrecked": {
       "voice": "turtle",
-      "title": "What a lovely mess we made together.",
-      "body": "Every one of those choices felt reasonable at the time. That is exactly why they work on people. Try again, and this time, think about the order.",
-      "score": "That was a hard morning, dear, and it was meant to be. Real boards get these wrong too, which is why we practise. Read the recap, then try again."
+      "title": "What a beautiful disaster. We did good work, you and I.",
+      "body": "In the moment, every one of those choices seemed reasonable. That's why they work so often. So try again, and think about the order this time.",
+      "score": "A hard morning, and it was built to be. Real boards get these same choices wrong. Better to do it here than on a real Friday. Read the recap, then we'll go again."
     }
   },
-  "footer": "Until next time... the next note won't come by email. Do ask whether your VPN has a second lock.",
+  "footer": "Until next time... And next time, I won't come in by email. By the way, that second lock on your VPN: have you checked?",
   "demo": true
 }

@@ -29,7 +29,7 @@
     "from_name": "HelvetiCare",
     "from_address": "service@helveticare.example",
     "to": "{{email}}",
-    "subject": "{{first_name}}, tu extracto de primas está listo",
+    "subject": "{{first_name}}, tu extracto de primas ya está disponible",
     "received": "-PT1H",
     "body": [
       {
@@ -38,7 +38,7 @@
       },
       {
         "t": "text",
-        "v": "Tu extracto de primas de este año ya está listo para que lo leas."
+        "v": "Tu extracto de primas de este año ya está disponible."
       },
       {
         "t": "link",
@@ -48,7 +48,7 @@
       },
       {
         "t": "text",
-        "v": "También puedes encontrarlo abriendo tú mismo la app."
+        "v": "También puedes consultarlo abriendo la app por tu cuenta."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de helveticare.example, el dominio real."
+      "explain": "La dirección termina en helveticare.example, el dominio real."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Que use tu nombre es agradable, pero lo que te dice quién escribió es el dominio."
+      "explain": "Que use tu nombre es un detalle agradable, pero lo que te dice quién escribe es el dominio."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": false,
-      "explain": "El texto del enlace y la dirección real pertenecen los dos a helveticare.example."
+      "explain": "El texto del enlace y la dirección real llevan los dos a helveticare.example."
     },
     {
       "id": "hs-own-channel",
       "target": "body:3",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te recuerda que puedes abrir tú mismo la app."
+      "explain": "Te recuerda que puedes entrar por la app, sin pasar por el enlace."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "HelvetiCare: la dirección es de helveticare.example y el enlace va al mismo dominio.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "HelvetiCare: la dirección es de helveticare.example, y el enlace apunta al mismo dominio.",
       "choices": [
-        "HelvetiCare, desde su dominio real",
-        "Un estafador que copió el nombre",
-        "Un corredor que compró tus datos"
+        "HelvetiCare, desde su propio dominio",
+        "Un estafador que copió el nombre visible",
+        "Un corredor que ha comprado tus datos"
       ],
       "correct": 0,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ninguna. Es un aviso tranquilo y sin plazo.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ninguna. Un aviso tranquilo, sin plazo.",
       "choices": [
         "Ninguna: es un aviso tranquilo",
-        "Miedo a perder la cobertura",
-        "Ganas de recibir un reembolso"
+        "El miedo a perder tu cobertura",
+        "La esperanza de un reembolso"
       ],
       "correct": 0,
       "cues": [
@@ -118,10 +118,10 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Nada importante: ofrece un enlace para leer tu extracto y no pide inicio de sesión ni pago.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Nada en especial: un enlace para leer tu extracto, sin pedirte que inicies sesión ni que pagues.",
       "choices": [
-        "Nada: solo ofrece un enlace para leer un extracto",
+        "Nada: ofrece un enlace a un extracto",
         "Pagar un recargo por demora",
         "Enviar tus datos bancarios"
       ],
@@ -134,12 +134,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Abre tú mismo la app de HelvetiCare. El correo también lo dice, así que nunca tienes que fiarte del enlace.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Abre tú la app de HelvetiCare. El propio correo te lo sugiere: no necesitas fiarte del enlace.",
       "choices": [
-        "Abrir tú mismo la app de HelvetiCare",
-        "Responder y pedir una copia impresa",
-        "Reenviarlo a un amigo"
+        "Abrir por tu cuenta la app de HelvetiCare",
+        "Responder para pedir una copia en papel",
+        "Reenviárselo a un amigo para que opine"
       ],
       "correct": 0,
       "cues": [
@@ -152,22 +152,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de HelvetiCare y leer el extracto",
+      "label": "Abrir por tu cuenta la app de HelvetiCare y leer el extracto",
       "outcome": "safe",
-      "consequence": "El extracto está ahí, tal como se prometía."
+      "consequence": "Ahí está el extracto, tal como decía el correo."
     },
     {
       "id": "click",
       "label": "Pulsar el enlace del correo para leerlo",
       "outcome": "neutral",
-      "consequence": "Lleva a la web real, así que no hay problema. Abrir tú mismo la app sigue siendo el hábito más seguro."
+      "consequence": "El enlace lleva al sitio real: ningún daño. Aun así, abrir la app por tu cuenta sigue siendo la mejor costumbre."
     },
     {
       "id": "ignore",
       "label": "Ignorarlo y leer el extracto más tarde",
       "outcome": "safe",
-      "consequence": "No se pierde nada. El extracto espera en la app."
+      "consequence": "El extracto te espera en la app."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Compáralo con su imitación: el mismo nombre, el mismo saludo, el mismo texto de enlace, pero el dominio es el de la propia aseguradora y nada corre prisa. El dominio es lo que hay que leer."
+  "attacker_reveal": "Ponlo al lado de mi imitación: mismo remitente, mismo nombre en el saludo, un enlace en el mismo sitio. Solo que aquí el dominio es de la aseguradora y nada corre prisa. Había que leer el dominio."
 }

@@ -40,7 +40,7 @@
       },
       {
         "t": "text",
-        "v": "I moved the notes to a new TeamChat page so everyone can edit them. You may need to sign in again to see it."
+        "v": "I've moved the notes to a new TeamChat page so everyone can edit them. You may need to sign in again to get to it."
       },
       {
         "t": "link",
@@ -50,7 +50,7 @@
       },
       {
         "t": "text",
-        "v": "You wrote on Wednesday: \"The notes are final, I will share them after the call.\""
+        "v": "On Wednesday you wrote: \"The notes are final, I'll share them after the call.\""
       },
       {
         "t": "signature",
@@ -64,38 +64,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address really is Jonas's and the thread is real. A hijacked account passes every address check."
+      "explain": "It is Jonas's address, and his thread too. But once an account is hijacked, the address proves nothing."
     },
     {
       "id": "hs-habit",
       "target": "body:1",
       "step": "who",
       "red_flag": true,
-      "explain": "Jonas normally shares notes in the shared folder. A new page that needs a fresh sign-in is out of character, and a real address does not prove the real person wrote it."
+      "explain": "Jonas usually puts the notes in the shared folder. A new page that makes you sign in again isn't like him. And a real address doesn't prove he is the one writing."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "teamchat-signin.example is not TeamChat's domain. A thief using Jonas's account can send any link."
+      "explain": "teamchat-signin.example is not TeamChat's domain. Whoever controls Jonas's account can send any link they like."
     },
     {
       "id": "hs-thread",
       "target": "body:3",
       "step": "who",
       "red_flag": false,
-      "explain": "Quoting your own words fits a real thread, but anyone reading the inbox can copy them."
+      "explain": "Quoting your own words fits a real conversation. But anyone with access to the inbox can copy them."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Possibly not Jonas. The address and the thread are real, so his account may have been taken over. Only a call can tell.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Maybe not Jonas. The address and the thread are genuine, which doesn't rule out a hijacked account. A phone call will settle it.",
       "choices": [
-        "Definitely Jonas, since the thread is real",
-        "A stranger with a lookalike address",
-        "Maybe Jonas, maybe someone using his hijacked account"
+        "Definitely Jonas, since the conversation is genuine",
+        "A stranger with a near-identical address",
+        "Maybe Jonas, maybe someone who hijacked his account"
       ],
       "correct": 2,
       "cues": [
@@ -106,12 +106,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Helpfulness: a colleague made things easier for the whole team.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Wanting to help: a colleague has just made life easier for the whole team, so this is no time to drag your feet.",
       "choices": [
         "Fear of a penalty",
-        "Greed for a prize",
-        "A wish to be helpful and to keep up with the team"
+        "Hope of winning a prize",
+        "Wanting to keep up with the team and help"
       ],
       "correct": 2,
       "cues": [
@@ -122,10 +122,10 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Sign in again through a link, which would give your TeamChat login to whoever controls Jonas's account.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Sign in again through a link. Your TeamChat login details would go to whoever controls Jonas's account.",
       "choices": [
-        "Send the volunteer list",
+        "Send the list of volunteers",
         "Open an attachment",
         "Sign in again through a link"
       ],
@@ -139,11 +139,11 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Do not use the link. Open TeamChat yourself and look for the notes, or call Jonas on the number you already have.",
+      "answer": "Leave the link alone. Open TeamChat yourself to look for the notes, or call Jonas on the number you already have.",
       "choices": [
-        "Click the link, because the thread is real",
-        "Reply to ask if it is him",
-        "Open TeamChat yourself, or call Jonas on a known number"
+        "Click, since the conversation is genuine",
+        "Reply to ask whether it is really him",
+        "Open TeamChat yourself, or call Jonas"
       ],
       "correct": 2,
       "cues": [
@@ -166,28 +166,28 @@
   "actions": [
     {
       "id": "open-yourself",
-      "label": "Open TeamChat yourself and look for the notes, or call Jonas",
+      "label": "Open TeamChat yourself to look for the notes, or call Jonas",
       "outcome": "safe",
-      "consequence": "No new page exists. Jonas knows nothing about the email."
+      "consequence": "No new page in TeamChat. And Jonas never sent that email."
     },
     {
       "id": "click",
-      "label": "Click the link and sign in, since the thread is real",
+      "label": "Click the link and sign in, since the conversation is genuine",
       "outcome": "unsafe",
-      "consequence": "The sign-in page copies your login for whoever controls the account."
+      "consequence": "The fake sign-in page copies your login details for whoever controls the account."
     },
     {
       "id": "reply-ask",
-      "label": "Reply and ask \"Is this really you?\"",
+      "label": "Reply: \"Is this really you?\"",
       "outcome": "unsafe",
-      "consequence": "Whoever controls the account answers yes. You only asked the impostor."
+      "consequence": "The intruder says yes, of course. You asked the person holding the account."
     },
     {
       "id": "tell-lead",
-      "label": "Tell IT or your lead that Jonas's account may be taken over",
+      "label": "Tell the IT team or your manager that Jonas's account may have been hijacked",
       "outcome": "safe",
-      "consequence": "Good call. The account can be locked before it hits more colleagues."
+      "consequence": "The account can be locked before it catches other colleagues."
     }
   ],
-  "attacker_reveal": "Jonas's real account, Jonas's real thread, even your own words quoted back... No lookalike address was needed. Only one door was left: ask him another way."
+  "attacker_reveal": "Why fake an address when you can borrow the real one? Jonas's account, his thread, your own sentences... You had one way out left: call him."
 }

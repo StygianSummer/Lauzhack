@@ -3,7 +3,7 @@
   "language": "es",
   "demo": true,
   "title": "Phishing en un minuto",
-  "subtitle": "Las reglas, una caza y dos correos. La misma app, más rápida.",
+  "subtitle": "Las reglas, una caza de trampas y dos correos. La misma app, a cámara rápida.",
   "minutes": 2,
   "sections": [
     {
@@ -12,36 +12,36 @@
         {
           "persona": "cat",
           "role": "Seguridad personal",
-          "title": "Protégete primero",
-          "say": "No puedo cuidar de nadie si mis propias cuentas están abiertas de par en par. Tú tampoco. Así que empezamos por ti.",
+          "title": "Tú primero",
+          "say": "No protejo a nadie con mis accesos abiertos de par en par. Tú tampoco. Así que empezamos por los tuyos.",
           "rules": [
             {
               "headline": "Lee el dominio que va después de la @.",
-              "body": "Cada letra. thisistea.example y thisistae-app.example pertenecen a dos dueños distintos."
+              "body": "Letra a letra. thisistea.example y thisistae-app.example no tienen el mismo dueño."
             },
             {
               "headline": "Fíjate en la prisa.",
-              "body": "Un plazo de dos horas es una sensación que otro te ha metido dentro. Las sensaciones no son pruebas."
+              "body": "Un plazo de dos horas es una inquietud que otro te ha metido en el cuerpo. No demuestra nada."
             },
             {
-              "headline": "Nunca escribas una contraseña tras pulsar un enlace de un correo.",
-              "body": "Abre tú mismo el sitio, desde un marcador o escribiendo la dirección."
+              "headline": "Nunca una contraseña después de un enlace recibido por correo.",
+              "body": "Abre el sitio por tu cuenta: desde un marcador o escribiendo la dirección."
             }
           ],
-          "sign_off": "Desconfiar no es paranoia. Es comprobar."
+          "sign_off": "Me fío. Después de comprobarlo."
         },
         {
           "persona": "turtle",
           "role": "Seguridad de la organización",
-          "title": "Protege todo el caparazón",
-          "say": "En todos mis años he aprendido una cosa: una sola puerta abierta deja entrar la marea en todas las habitaciones. Cuando proteges tu bandeja de entrada, proteges también a tus vecinos. Funciona un poco como una vacuna.",
+          "title": "Protege toda la casa",
+          "say": "Una sola puerta mal cerrada y el agua llega a todas las habitaciones: lo he visto más de una vez. Tu bandeja de entrada es una de esas puertas. Si la vigilas, proteges también a tus compañeros, un poco como una vacuna protege a quienes te rodean.",
           "rules": [
             {
-              "headline": "Confirmad juntos lo inusual.",
-              "body": "Una transferencia, un cambio de contraseña, un archivo urgente: compruébalo por otro canal. Una llamada cuesta un minuto."
+              "headline": "Lo inusual se confirma entre dos.",
+              "body": "Una transferencia, un cambio de contraseña, un archivo «urgente»: compruébalo por otro canal. Una llamada lleva un minuto."
             }
           ],
-          "sign_off": "Un equipo en el que podemos confiar es un equipo que se cuida entre sí."
+          "sign_off": "Los equipos sólidos que he conocido no tenían nada de extraordinario. Simplemente se habían acostumbrado a avisarse."
         }
       ]
     },
@@ -49,39 +49,39 @@
       "type": "attacks",
       "hunt": {
         "item_id": "email-lesson-hunt-01",
-        "intro": "He escondido tres trucos en ese correo. Pulsa lo que creas que es una trampa. No te diré si te estás acercando.",
+        "intro": "Este correo esconde tres trucos. Pulsa todo lo que te parezca una trampa. Y no esperes que te diga «frío» o «caliente»...",
         "flags": [
           {
             "hotspot_id": "hs-from-address",
             "title": "La dirección",
-            "spider_says": "Cambié dos letras y moví una palabra... ¿Quién lee cada letra cuando está preocupado?"
+            "spider_says": "Dos letras cambiadas de sitio y una palabra de más. Con el estrés encima, ¿quién lee cada letra?"
           },
           {
             "hotspot_id": "hs-clock",
-            "title": "El reloj",
-            "spider_says": "\"En un plazo de 2 horas.\" El pánico es mi cómplice favorito... Acalla la parte de ti que comprueba."
+            "title": "La cuenta atrás",
+            "spider_says": "Escribí «en las próximas 2 horas» y el pánico hizo el resto. Adormece la parte de ti que comprueba."
           },
           {
             "hotspot_id": "hs-ask",
             "title": "La petición",
-            "spider_says": "ThisIsTea jamás te pediría la contraseña por correo... Pero yo sonaba como ThisIsTea, y con eso bastó."
+            "spider_says": "ThisIsTea nunca te pedirá la contraseña por correo. Yo sí. Me bastaba con parecerme."
           }
         ],
-        "debrief": "Cada truco del que acaba de presumir es una de mis tres reglas. Dirección, prisa, contraseña. Vuelve atrás y léelas una vez más."
+        "debrief": "Los tres trucos de los que acaba de presumir la Araña son mis tres reglas: dirección, prisa, contraseña. Reléelas una vez."
       },
       "recovery": {
-        "title_caught": "Si alguna vez te engañan de verdad, querido, haz esto.",
-        "lead_caught": "Esta vez solo era práctica y no te han quitado nada. Uno de verdad les pasa también a los cuidadosos, y entonces lo que importa es lo rápido que cerremos la puerta. Aquí tienes la lista.",
-        "title_default": "Guarda este plan en el bolsillo",
-        "lead_default": "Esta vez has pasado de largo. Algún día llegará uno mejor hecho. Aquí tienes los dos primeros pasos del plan de rescate: saberlos de memoria es media cura.",
+        "title_caught": "Si algún día te pilla una trampa de verdad, esto es lo que hay que hacer.",
+        "lead_caught": "Esto era un ejercicio: no te han robado nada. Las trampas de verdad también pillan a la gente prudente, y entonces lo que cuenta es la rapidez con que se cierra la puerta. Estos son los pasos.",
+        "title_default": "Ten este plan a mano",
+        "lead_default": "Este no te ha pillado. Algún día llegará otro mejor hecho. Aquí tienes los dos primeros pasos del plan de emergencia: sabérselos de memoria ya es haber hecho la mitad del camino.",
         "steps": [
           {
             "headline": "Cambia la contraseña, en la web de verdad.",
-            "body": "Abre tú mismo el sitio, desde un marcador o escribiendo la dirección, nunca desde el correo. Después cambia esa misma contraseña en cualquier otro sitio donde la hayas repetido."
+            "body": "Abre el sitio por tu cuenta, desde un marcador o escribiendo la dirección, nunca desde el correo. Después cambia esa contraseña en todos los sitios donde la hubieras reutilizado."
           },
           {
             "headline": "Activa la autenticación multifactor.",
-            "body": "Un segundo cerrojo hace que una contraseña robada, por sí sola, ya no abra la puerta."
+            "body": "Con un segundo cerrojo, una contraseña robada ya no basta para abrir la puerta."
           }
         ]
       }

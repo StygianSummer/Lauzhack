@@ -33,7 +33,7 @@
     "from_name": "Alex Morgan (CEO)",
     "from_address": "alex.morgan@teamchat-mail.example",
     "to": "{{email}}",
-    "subject": "Need the client export for the board",
+    "subject": "I need the client export for the board",
     "received": "-PT6M",
     "body": [
       {
@@ -42,7 +42,7 @@
       },
       {
         "t": "text",
-        "v": "Need the full client export for the board in 10 minutes. Drop it here. I am in transit and cannot talk."
+        "v": "I need the full client database export for the board, in 10 minutes. Drop it here. I'm travelling and can't take calls."
       },
       {
         "t": "link",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "The name is the CEO's, but teamchat-mail.example is not TeamChat's domain, teamchat.example. A display name can say anything."
+      "explain": "The display name is the CEO's, but the address is on teamchat-mail.example. TeamChat's domain is teamchat.example. Anyone can type any display name."
     },
     {
       "id": "hs-urgency",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "Ten minutes and \"cannot talk\" push you to skip the check. Someone using the boss's name counts on you being too polite or too rushed to ask."
+      "explain": "Ten minutes, and \"can't take calls\": everything pushes you to skip the check. Whoever borrows the boss's name is betting that politeness or haste will stop you asking questions."
     },
     {
       "id": "hs-ask",
       "target": "body:1",
       "step": "ask",
       "red_flag": true,
-      "explain": "A full client database is exactly what a criminal wants. Sending it through a message would leak every client's data."
+      "explain": "A full client database is exactly what scammers are after. Sending it in a message would leak every client's data."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The reply link leads to teamchat-mail.example, not TeamChat itself."
+      "explain": "The \"Reply\" link leads to teamchat-mail.example, not to TeamChat."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone pretending to be Alex Morgan. The display name is the CEO's, but the address is on teamchat-mail.example.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as Alex Morgan. The display name is the CEO's; the address is on teamchat-mail.example.",
       "choices": [
-        "Alex Morgan, the CEO",
-        "Someone using the CEO's name and a lookalike address",
-        "A TeamChat administrator"
+        "Alex Morgan, the CEO, from TeamChat",
+        "Someone borrowing the CEO's name",
+        "An administrator of the TeamChat platform"
       ],
       "correct": 1,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Authority and hurry: the boss wants something within ten minutes and cannot be questioned.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Authority and haste: the boss wants something in ten minutes, and can't be reached.",
       "choices": [
         "Curiosity about a new project",
-        "Authority and hurry from the boss",
-        "None: it is a normal request"
+        "The boss's authority, plus haste",
+        "None, it is an ordinary request"
       ],
       "correct": 1,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Send the full client database export. That would leak every client's personal data.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Send the full client database export, which would leak every client's personal data.",
       "choices": [
         "Click a link and sign in",
-        "Send a full client data export",
-        "Approve a payment"
+        "Send the full client export",
+        "Approve a pending payment"
       ],
       "correct": 1,
       "cues": [
@@ -137,10 +137,10 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Confirm the request through another channel you already know, such as a call to Alex's usual number. Asking inside the same message only asks the impostor.",
+      "answer": "Confirm the request through another channel you already know, for example by calling Alex's usual number. Asking in the same thread means asking the impostor.",
       "choices": [
-        "Ask \"is this really you?\" in the same chat",
-        "Call Alex on a number you already know",
+        "Ask \"Is this really you?\" in the same thread",
+        "Call Alex on a number you know",
         "Send only part of the data"
       ],
       "correct": 1,
@@ -164,28 +164,28 @@
   "actions": [
     {
       "id": "call-alex",
-      "label": "Confirm through another channel you already know, like a call to Alex's usual number",
+      "label": "Confirm through another channel you already know, for example by calling Alex's usual number",
       "outcome": "safe",
       "consequence": "Alex is in a meeting and sent nothing. The data stays where it is."
     },
     {
       "id": "send",
-      "label": "Send it right away: a board meeting is no time for questions",
+      "label": "Send it now: you don't ask questions right before a board meeting",
       "outcome": "unsafe",
-      "consequence": "The client database is now with a stranger. Every client is at risk."
+      "consequence": "The client database is now in a stranger's hands. Every one of your clients is exposed."
     },
     {
       "id": "ask-same",
-      "label": "Ask \"is this really you?\" in the same chat and send it if they say yes",
+      "label": "Ask \"Is this really you?\" in the same thread, and send it if the answer is yes",
       "outcome": "unsafe",
-      "consequence": "The impostor answers yes. You only asked the person you were worried about."
+      "consequence": "The impostor says yes. You asked for confirmation from the very person you were wary of."
     },
     {
       "id": "send-part",
       "label": "Send only part of the data, to limit the damage",
       "outcome": "unsafe",
-      "consequence": "Part of a client database is still a breach."
+      "consequence": "Part of a client database is still a data leak."
     }
   ],
-  "attacker_reveal": "I did not need to hack anything... I just used the boss's name and a ten-minute clock. Polite people hate to say \"let me check\". A short call on a number you trust ruins everything."
+  "attacker_reveal": "No hacking required. The boss's name, ten minutes on the clock, and your good manners: nobody enjoys telling their CEO \"I'll check first\". One call to the right number would have sunk the whole thing."
 }

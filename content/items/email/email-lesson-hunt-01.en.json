@@ -32,28 +32,28 @@
     "from_name": "ThisIsTea Support",
     "from_address": "support@thisistae-app.example",
     "to": "{{email}}",
-    "subject": "Action required: problem creating your ThisIsTea account",
+    "subject": "Action required: we couldn't finish creating your ThisIsTea account",
     "received": "-PT14M",
     "body": [
       {
         "t": "text",
-        "v": "Hi there,"
+        "v": "Hello,"
       },
       {
         "t": "text",
-        "v": "We ran into an error finalising your account."
+        "v": "Something went wrong while we were finalising your account."
       },
       {
         "t": "text",
-        "v": "Please re-enter your email and password to finish."
+        "v": "To finish, please re-enter your email address and password."
       },
       {
         "t": "text",
-        "v": "You have 2 hours, then your account is deactivated automatically."
+        "v": "If we don't hear from you within 2 hours, your account will be deactivated automatically."
       },
       {
         "t": "link",
-        "v": "Verify account now",
+        "v": "Verify my account",
         "href": "https://thisistae-app.example/login",
         "hotspot": "hs-link"
       },
@@ -69,52 +69,52 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "I swapped two letters and moved one word: thisistae-app.example is not thisistea.example."
+      "explain": "Two letters swapped and a word added: thisistae-app.example is not thisistea.example."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "A plain hello. Honest companies say hello too."
+      "explain": "An ordinary greeting. Real companies say hello too."
     },
     {
       "id": "hs-error",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "Just words. Anyone could write that sentence. Look for the part that wants something from you."
+      "explain": "Anyone could write this sentence, and it asks nothing of you. Look for the part that wants something from you."
     },
     {
       "id": "hs-ask",
       "target": "body:2",
       "step": "ask",
       "red_flag": true,
-      "explain": "ThisIsTea would never ask for your password by email."
+      "explain": "ThisIsTea will never ask for your password by email."
     },
     {
       "id": "hs-clock",
       "target": "body:3",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"2 hours\" is there to quiet the part of you that checks."
+      "explain": "\"within 2 hours\": a short deadline, so that you act before you've checked."
     },
     {
       "id": "hs-link",
       "target": "link",
       "step": "ask",
       "red_flag": true,
-      "explain": "The button leads to the same lookalike domain."
+      "explain": "The button points to the same lookalike domain."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "Someone imitating ThisIsTea. The address is thisistae-app.example, with two letters swapped and an extra word.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "Someone posing as ThisIsTea. The address is thisistae-app.example: two letters swapped and a word added.",
       "choices": [
-        "ThisIsTea support",
-        "A colleague",
-        "Someone using a lookalike address"
+        "ThisIsTea's own support team",
+        "A colleague forwarding a message",
+        "An impostor with a near-identical address"
       ],
       "correct": 2,
       "cues": [
@@ -125,12 +125,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Fear and hurry: your account is deactivated unless you act within two hours.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "Fear and haste: your account will be deactivated unless you act within two hours.",
       "choices": [
-        "Curiosity about an update",
-        "None: it is routine",
-        "Fear and hurry: two hours to act"
+        "Curiosity: something new to try out",
+        "None, it's a routine message",
+        "Fear and haste: two hours to act"
       ],
       "correct": 2,
       "cues": [
@@ -141,11 +141,11 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Re-enter your email and password. That would hand your login to the sender.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Re-enter your email address and password, which would hand your login details to the sender.",
       "choices": [
         "Download an update",
-        "Pay a fee",
+        "Pay a reactivation fee",
         "Re-enter your email and password"
       ],
       "correct": 2,
@@ -160,9 +160,9 @@
       "prompt": "How can you check through a channel you control?",
       "answer": "Never type a password after clicking an email link. Open ThisIsTea yourself, from a bookmark or by typing the address.",
       "choices": [
-        "Click the link and check the page",
-        "Reply to ask for help",
-        "Open ThisIsTea yourself, by typing the address or using a bookmark"
+        "Click the link to see the page",
+        "Reply to the email asking for help",
+        "Open ThisIsTea yourself, via a bookmark"
       ],
       "correct": 2,
       "cues": [
@@ -174,7 +174,7 @@
     }
   },
   "link_question": {
-    "shown_text": "Verify account now",
+    "shown_text": "Verify my account",
     "options": [
       "thisistea.example",
       "thisistae-app.example",
@@ -185,22 +185,22 @@
   "actions": [
     {
       "id": "type-address",
-      "label": "Open ThisIsTea yourself, by typing its address",
+      "label": "Open ThisIsTea yourself by typing the address",
       "outcome": "safe",
-      "consequence": "Your account is fine. The email was fake."
+      "consequence": "Your account is working normally. The email was fake."
     },
     {
       "id": "click",
       "label": "Click the link and re-enter your password",
       "outcome": "unsafe",
-      "consequence": "Your login goes straight to the scammer."
+      "consequence": "Your login details go straight to the scammer."
     },
     {
       "id": "report",
-      "label": "Report it to IT and delete it",
+      "label": "Report it to the IT team, then delete it",
       "outcome": "safe",
-      "consequence": "Good call."
+      "consequence": "The IT team can now warn the other recipients."
     }
   ],
-  "attacker_reveal": "I swapped two letters, started a clock, and asked for a password. ThisIsTea would never ask for it, but I sounded like ThisIsTea, and that was enough."
+  "attacker_reveal": "A near-identical address, a two-hour deadline, a login form. Three ingredients, and most people notice none of them."
 }

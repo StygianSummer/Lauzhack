@@ -28,7 +28,7 @@
     "from_name": "ParcelPoint",
     "from_address": "notifications@parcelpoint.example",
     "to": "{{email}}",
-    "subject": "Tu paquete está listo para recoger",
+    "subject": "Tu paquete te espera en el punto de recogida",
     "received": "-PT1H",
     "body": [
       {
@@ -37,11 +37,11 @@
       },
       {
         "t": "text",
-        "v": "Tu paquete está listo para recoger en el punto de recogida. Recogerlo no cuesta nada."
+        "v": "Tu paquete ya está disponible en el punto de recogida. Recogerlo es gratis."
       },
       {
         "t": "text",
-        "v": "Lleva el código que aparece en la app de ParcelPoint."
+        "v": "En el mostrador, enseña el código que aparece en tu app de ParcelPoint."
       },
       {
         "t": "signature",
@@ -55,37 +55,37 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "La dirección es de parcelpoint.example, el dominio real."
+      "explain": "La dirección termina en parcelpoint.example, el dominio del transportista."
     },
     {
       "id": "hs-free",
       "target": "body:1",
       "step": "ask",
       "red_flag": false,
-      "explain": "\"No cuesta nada\" es lo contrario de una estafa de tasas."
+      "explain": "«gratis»: justo lo contrario de una estafa de tasas."
     },
     {
       "id": "hs-app",
       "target": "body:2",
       "step": "verify",
       "red_flag": false,
-      "explain": "Te envía a la app que ya tienes."
+      "explain": "Te remite a una app que ya tienes."
     },
     {
       "id": "hs-greeting",
       "target": "body:0",
       "step": "who",
       "red_flag": false,
-      "explain": "Un simple \"Hola\" es algo impersonal, pero lo que cuenta aquí es el dominio."
+      "explain": "Un simple «Hola», algo impersonal. Aquí lo que decide es el dominio."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "ParcelPoint: la dirección es del dominio real, parcelpoint.example.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "ParcelPoint: la dirección es de su dominio real, parcelpoint.example.",
       "choices": [
-        "ParcelPoint, desde su dominio real",
-        "Un estafador con una dirección parecida",
+        "ParcelPoint, desde su propio dominio",
+        "Un estafador con una dirección casi idéntica",
         "La tienda donde hiciste el pedido"
       ],
       "correct": 0,
@@ -96,12 +96,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Ninguna. Es un aviso tranquilo y sin plazo.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Ninguna. Un aviso tranquilo, sin plazos ni presión.",
       "choices": [
-        "Ninguna: es un aviso tranquilo",
-        "Miedo a perder el paquete",
-        "Ganas de conseguir un regalo"
+        "Ninguna, es un aviso tranquilo",
+        "Miedo a que el paquete se devuelva",
+        "Ganas de recibir un regalo"
       ],
       "correct": 0,
       "cues": [
@@ -111,11 +111,11 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Recoger tu paquete. No cuesta nada y no hay enlace ni inicio de sesión.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Ir a recoger tu paquete. Es gratis, sin enlace ni inicio de sesión.",
       "choices": [
-        "Recoger el paquete, sin coste",
-        "Pagar una tasa mediante un enlace",
+        "Recoger el paquete, sin pagar nada",
+        "Pagar una tasa desde un enlace",
         "Responder con el número de tu tarjeta"
       ],
       "correct": 0,
@@ -126,12 +126,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "Abre tú mismo la app de ParcelPoint para ver el punto de recogida y tu código.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "Abre por tu cuenta la app de ParcelPoint: ahí están el punto de recogida y tu código.",
       "choices": [
-        "Abrir tú mismo la app de ParcelPoint",
-        "Responder y pedir el código",
-        "Reenviarlo a un amigo"
+        "Abrir por tu cuenta la app de ParcelPoint",
+        "Responder para pedir el código",
+        "Reenviar el correo a un amigo"
       ],
       "correct": 0,
       "cues": [
@@ -144,22 +144,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Abrir tú mismo la app de ParcelPoint y mirar los datos de recogida",
+      "label": "Abrir por tu cuenta la app de ParcelPoint y consultar los datos de recogida",
       "outcome": "safe",
-      "consequence": "Tu código y el punto de recogida aparecen en la lista."
+      "consequence": "Tu código y la dirección del punto de recogida están ahí."
     },
     {
       "id": "collect",
       "label": "Recoger el paquete con el código de tu app",
       "outcome": "safe",
-      "consequence": "No te piden dinero. Coincide con la app."
+      "consequence": "Nadie te pide dinero, y todo coincide con lo que muestra la app."
     },
     {
       "id": "reply",
       "label": "Responder para pedir el código",
       "outcome": "neutral",
-      "consequence": "La dirección no-reply no contesta. El código está en tu app."
+      "consequence": "Nadie lee las respuestas que llegan a esta dirección de notificaciones. El código, en cambio, está en tu app."
     }
   ],
-  "attacker_reveal": "Este es real, querido. Compáralo con el mensaje de \"tasa pendiente\": el de verdad no cuesta nada, no tiene enlace y te remite a la app. Cuando no te piden dinero, hay mucho menos de qué preocuparse."
+  "attacker_reveal": "Mala suerte para mí: este sale de verdad de ParcelPoint. Ponlo al lado del de la «tasa pendiente»: el auténtico no cuesta nada, no lleva enlace y te remite a la app. Si nadie te pide dinero, tengo muy poco a lo que agarrarme."
 }

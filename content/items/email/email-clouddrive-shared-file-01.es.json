@@ -32,7 +32,7 @@
     "from_name": "CloudDrive",
     "from_address": "share@clouddrive-files.example",
     "to": "{{email}}",
-    "subject": "Mara Keller ha compartido \"Factura 2291\" contigo",
+    "subject": "Mara Keller ha compartido «Factura 2291» contigo",
     "received": "-PT55M",
     "body": [
       {
@@ -41,11 +41,11 @@
       },
       {
         "t": "text",
-        "v": "Mara Keller ha compartido un archivo contigo: Factura 2291."
+        "v": "Mara Keller ha compartido un archivo contigo: «Factura 2291»."
       },
       {
         "t": "text",
-        "v": "Abre el archivo adjunto para verlo."
+        "v": "Abre el archivo adjunto para ver el documento."
       },
       {
         "t": "signature",
@@ -62,38 +62,38 @@
       "target": "from_address",
       "step": "who",
       "red_flag": true,
-      "explain": "clouddrive-files.example no es el dominio de CloudDrive, clouddrive.example."
+      "explain": "El remitente escribe desde clouddrive-files.example. El dominio de CloudDrive es clouddrive.example, sin nada alrededor."
     },
     {
       "id": "hs-attachment",
       "target": "attachment:0",
       "step": "ask",
       "red_flag": true,
-      "explain": "CloudDrive comparte archivos mediante enlace, no adjuntándolos. Un archivo que no esperabas es motivo para parar."
+      "explain": "CloudDrive comparte mediante enlaces, no con archivos adjuntos. Un archivo que no esperabas merece que te pares."
     },
     {
       "id": "hs-name",
       "target": "subject",
       "step": "who",
       "red_flag": false,
-      "explain": "El nombre de un compañero en el asunto da confianza, pero los nombres son fáciles de copiar de una lista de contactos filtrada."
+      "explain": "El nombre de una compañera en el asunto da confianza. Pero copiar un nombre de una lista de contactos robada lleva dos segundos."
     },
     {
       "id": "hs-curiosity",
       "target": "body:1",
       "step": "emotion",
       "red_flag": true,
-      "explain": "\"Factura 2291\" es vago a propósito, para que lo abras y averigües qué es."
+      "explain": "«Factura 2291», sin importe ni contexto: lo justo para que abras el archivo solo por saber qué es."
     }
   ],
   "steps": {
     "who": {
-      "prompt": "¿Quién escribe realmente? Mira la dirección, no solo el nombre.",
-      "answer": "Alguien que imita a CloudDrive. El remitente es de clouddrive-files.example, no de clouddrive.example. El nombre del compañero es solo un cebo.",
+      "prompt": "¿Quién te escribe de verdad? Lee la dirección, no solo el nombre.",
+      "answer": "Alguien que se hace pasar por CloudDrive. El remitente está en clouddrive-files.example, no en clouddrive.example. El nombre de Mara es el cebo.",
       "choices": [
-        "Alguien que usa una dirección parecida",
-        "El propio CloudDrive",
-        "Mara Keller"
+        "Alguien que usa una dirección casi idéntica",
+        "CloudDrive, desde su propio dominio",
+        "Mara Keller, desde su cuenta"
       ],
       "correct": 0,
       "cues": [
@@ -104,12 +104,12 @@
       ]
     },
     "emotion": {
-      "prompt": "¿Qué emoción intentan provocar?",
-      "answer": "Curiosidad y ganas de ayudar a una compañera: quieres ver lo que te ha enviado.",
+      "prompt": "¿Con qué emoción juega este correo?",
+      "answer": "Curiosidad, y las ganas de no hacer esperar a una compañera: quieres ver qué te manda Mara.",
       "choices": [
         "Curiosidad por el archivo de una compañera",
-        "Miedo a una sanción",
-        "Ninguna: es algo rutinario"
+        "Miedo a una sanción o a una multa",
+        "Ninguna, es un mensaje rutinario"
       ],
       "correct": 0,
       "cues": [
@@ -120,12 +120,12 @@
       ]
     },
     "ask": {
-      "prompt": "¿Qué me piden exactamente?",
-      "answer": "Abrir un archivo adjunto que no esperabas. Podría instalar software dañino o mostrar un falso inicio de sesión.",
+      "prompt": "¿Qué te pide exactamente?",
+      "answer": "Abrir un archivo adjunto que no esperabas. Puede instalar software malicioso o mostrarte una página de inicio de sesión falsa.",
       "choices": [
         "Abrir un archivo adjunto inesperado",
-        "Pulsar un enlace e iniciar sesión",
-        "Responder con tus datos"
+        "Pulsar un enlace para iniciar sesión",
+        "Responder con tus datos de contacto"
       ],
       "correct": 0,
       "cues": [
@@ -136,12 +136,12 @@
       ]
     },
     "verify": {
-      "prompt": "¿Cómo puedo comprobarlo por un canal que yo controlo?",
-      "answer": "No lo abras. Pregúntale a Mara por teléfono o en persona, o abre tú mismo CloudDrive y mira si se ha compartido algo.",
+      "prompt": "¿Cómo puedes comprobarlo por un canal que tú controlas?",
+      "answer": "No abras nada. Pregúntale a Mara por teléfono o en persona, o entra en CloudDrive por tu cuenta y mira si te ha compartido algo.",
       "choices": [
-        "Preguntarle a Mara por un canal que conozcas, o abrir tú mismo CloudDrive",
-        "Abrir el archivo por si no pasa nada",
-        "Responder al remitente y preguntar qué es"
+        "Preguntar a Mara, o entrar en CloudDrive por tu cuenta",
+        "Abrir el archivo, seguro que es inofensivo",
+        "Responder al remitente para pedir detalles"
       ],
       "correct": 0,
       "cues": [
@@ -155,28 +155,28 @@
   "actions": [
     {
       "id": "ask-mara",
-      "label": "Preguntarle a Mara por teléfono o en persona si ha compartido algo",
+      "label": "Preguntarle a Mara, por teléfono o en persona, si te ha compartido algo",
       "outcome": "safe",
-      "consequence": "Mara no ha compartido nada. Detuviste el archivo adjunto antes de que se ejecutara."
+      "consequence": "Mara no ha compartido nada. Has frenado el archivo adjunto antes de que pudiera ejecutarse."
     },
     {
       "id": "open",
       "label": "Abrir el archivo adjunto para ver qué es",
       "outcome": "unsafe",
-      "consequence": "El archivo se ejecuta y muestra una página falsa, o instala software dañino en tu ordenador."
+      "consequence": "El archivo se ejecuta: te muestra una página de inicio de sesión falsa o instala software malicioso en tu ordenador."
     },
     {
       "id": "reply",
-      "label": "Responder al remitente y preguntar qué es el archivo",
+      "label": "Responder al remitente para preguntar qué es el archivo",
       "outcome": "neutral",
-      "consequence": "El estafador responde con una historia más convincente. Tu respuesta también demuestra que tu dirección está activa."
+      "consequence": "El estafador te sirve una historia más convincente. Y tu respuesta le confirma que tu dirección está activa."
     },
     {
       "id": "open-site",
-      "label": "Abrir tú mismo CloudDrive y buscar archivos compartidos",
+      "label": "Entrar en CloudDrive por tu cuenta y revisar los archivos compartidos",
       "outcome": "safe",
       "consequence": "No hay nada compartido contigo. El correo era falso."
     }
   ],
-  "attacker_reveal": "El nombre de una amiga, una factura vaga y un archivo listo para abrir... Querías saber qué era. Eso era todo lo que necesitaba."
+  "attacker_reveal": "Un número de factura, el nombre de Mara en el asunto, y tu curiosidad hizo el resto. Bastaba un doble clic para instalarme en tu ordenador."
 }

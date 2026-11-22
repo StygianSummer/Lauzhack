@@ -40,15 +40,15 @@
       },
       {
         "t": "text",
-        "v": "Your parcel has been waiting at the pick-up point for 6 days. It will go back to the sender tomorrow if it is not collected."
+        "v": "Your parcel has been waiting at the pick-up point for 6 days. If it isn't collected, it will go back to the sender tomorrow."
       },
       {
         "t": "text",
-        "v": "Collecting it costs nothing. Bring your ID and the code shown in the ParcelPoint app."
+        "v": "Collection is free. Bring an ID document and the code shown in the ParcelPoint app."
       },
       {
         "t": "text",
-        "v": "You can see the opening hours in the app."
+        "v": "Opening hours are shown in the app."
       },
       {
         "t": "signature",
@@ -62,21 +62,21 @@
       "target": "from_address",
       "step": "who",
       "red_flag": false,
-      "explain": "The address is on parcelpoint.example, the real domain."
+      "explain": "The address ends in parcelpoint.example, the real domain."
     },
     {
       "id": "hs-deadline",
       "target": "body:1",
       "step": "emotion",
       "red_flag": false,
-      "explain": "This is a real deadline, but it asks nothing of you except to collect your parcel. Urgency alone does not make an email a scam."
+      "explain": "The deadline is real, but all you're asked to do is collect your parcel. Urgency on its own doesn't make a scam."
     },
     {
       "id": "hs-free",
       "target": "body:2",
       "step": "ask",
       "red_flag": false,
-      "explain": "Collecting costs nothing. A scam would ask for a fee here."
+      "explain": "Collection is free. That's exactly where a scam would slip in a fee."
     },
     {
       "id": "hs-app",
@@ -88,12 +88,12 @@
   ],
   "steps": {
     "who": {
-      "prompt": "Who is really writing to you? Look at the address, not just the name.",
-      "answer": "ParcelPoint: the address is on the real domain and everything points to the app.",
+      "prompt": "Who is really writing to you? Read the address, not just the name.",
+      "answer": "ParcelPoint: the address is on the real domain, and everything points to the app.",
       "choices": [
-        "Someone using a lookalike address",
-        "Your neighbour",
-        "ParcelPoint, from its real domain"
+        "Someone with a near-identical address",
+        "A neighbour who kept the parcel",
+        "ParcelPoint, from its own domain"
       ],
       "correct": 2,
       "cues": [
@@ -103,12 +103,12 @@
       ]
     },
     "emotion": {
-      "prompt": "What feeling is this email trying to create?",
-      "answer": "Some urgency, since the parcel goes back tomorrow. But the pressure is a real deadline, not a trick.",
+      "prompt": "Which feeling is this email pressing on?",
+      "answer": "A little urgency, since the parcel goes back tomorrow. But that pressure comes from a real deadline, not a ploy.",
       "choices": [
-        "Greed for a prize",
-        "None at all",
-        "Some urgency, from a real deadline"
+        "The hope of winning a contest",
+        "No particular feeling",
+        "A little urgency, from a real deadline"
       ],
       "correct": 2,
       "cues": [
@@ -119,12 +119,12 @@
       ]
     },
     "ask": {
-      "prompt": "What exactly does it want you to do?",
-      "answer": "Collect your parcel in person. There is no payment, no login and no link.",
+      "prompt": "What does it actually want you to do?",
+      "answer": "Collect your parcel in person. No payment, no sign-in, no link.",
       "choices": [
         "Pay a fee online",
         "Reply with your card number",
-        "Collect the parcel, at no cost"
+        "Collect the parcel, paying nothing"
       ],
       "correct": 2,
       "cues": [
@@ -136,7 +136,7 @@
     },
     "verify": {
       "prompt": "How can you check through a channel you control?",
-      "answer": "Open the ParcelPoint app yourself to see the pick-up point and the code. The email points you there.",
+      "answer": "Open the ParcelPoint app yourself to see the pick-up point and your code. The email itself sends you there.",
       "choices": [
         "Click a link in the email",
         "Reply and ask for more time",
@@ -153,22 +153,22 @@
   "actions": [
     {
       "id": "open-app",
-      "label": "Open the ParcelPoint app yourself and look at the pick-up details",
+      "label": "Open the ParcelPoint app yourself and check the collection details",
       "outcome": "safe",
-      "consequence": "The parcel and its collection code are listed."
+      "consequence": "The parcel and its collection code are both there."
     },
     {
       "id": "collect",
       "label": "Collect the parcel from the pick-up point",
       "outcome": "safe",
-      "consequence": "You hand over your ID and the code. No money is asked for."
+      "consequence": "You show your ID and the code. Nobody asks you for money."
     },
     {
       "id": "reply-pay",
-      "label": "Reply to offer to pay for an extension",
+      "label": "Reply and offer to pay for an extension",
       "outcome": "neutral",
-      "consequence": "The no-reply address does not answer. Nothing was needed anyway."
+      "consequence": "Nobody reads replies to this address. And there was nothing to pay anyway."
     }
   ],
-  "attacker_reveal": "This one is real, dear, even though it has a deadline. The domain is right, nobody asks for money and it sends you to the app. A deadline alone is not a red flag. Ask what they want from you."
+  "attacker_reveal": "Yes, there's a deadline. And no, it isn't me: right domain, not a franc asked for, and it sends you to the app. A deadline alone doesn't make an alarm. Look at what they want from you."
 }
