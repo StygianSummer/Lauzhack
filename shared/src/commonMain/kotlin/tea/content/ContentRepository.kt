@@ -11,6 +11,7 @@ import tea.model.Challenge
 import tea.model.Chapter
 import tea.model.ChapterCatalog
 import tea.model.ContentIndex
+import tea.model.FieldTemplate
 import tea.model.Item
 import tea.model.Lesson
 import tea.model.TeaJson
@@ -84,6 +85,16 @@ class ContentRepository(
             ?.let { parseChapters(it).chapters }.orEmpty()
         chaptersByLang[lang] = list
         list
+    }
+
+    /**
+     * The practice-email template [id] in [lang] (fallback `en`), the same file the server sends
+     * (`content/field/<id>.<lang>.json`), or null when missing. Not cached: shown once per lesson.
+     */
+    suspend fun fieldTemplate(id: String, lang: String): FieldTemplate? {
+        val effective = mutex.withLock { effectiveLang(lang, indexLocked()) }
+        return loadWithFallback(effective) { l -> "$root/field/$id.$l.json" }
+            ?.let { TeaJson.decodeFromString(FieldTemplate.serializer(), it.decodeToString()) }
     }
 
     suspend fun resources(): ResourceCatalog = mutex.withLock {

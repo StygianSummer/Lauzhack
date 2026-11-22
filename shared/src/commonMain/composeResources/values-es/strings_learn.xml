@@ -45,8 +45,8 @@
 
     <!-- Placement (plan §6.2, §9.3) -->
     <string name="placement_intro_title">Veamos por dónde empezar</string>
-    <string name="placement_intro_body">Unos 3 minutos. Sin nota.</string>
-    <string name="placement_intro_cat">Te voy a enseñar unos cuantos correos y te preguntaré qué piensas. Nada de esto cuenta en tu contra. Solo quiero saber por dónde empezar.</string>
+    <string name="placement_intro_body">Dos correos. Más o menos un minuto. Sin nota.</string>
+    <string name="placement_intro_cat">Te voy a enseñar dos correos y te preguntaré qué piensas de cada uno. Nada de esto cuenta en tu contra. Solo quiero saber por dónde empezar.</string>
     <string name="placement_intro_dont_know">¿No estás seguro de alguno? Dilo. “Todavía no lo sé” es una respuesta perfectamente válida.</string>
     <string name="placement_start">Empezar</string>
     <string name="placement_resume">Continuar donde lo dejaste</string>
@@ -209,4 +209,18 @@
     <string name="summary_empty">Todavía no hay resumen de práctica.</string>
     <string name="lesson_to_drill">Abrir cinco cuentas</string>
     <string name="lesson_to_drill_demo">Abrir dos cuentas</string>
+    <string name="placement_level_label">Tu prueba de nivel</string>
+    <string name="placement_level_basics_title">Ya conoces lo básico</string>
+    <string name="placement_level_basics_body">Detectaste la estafa y confiaste en el correo real. Puedes hacer el entrenamiento de phishing en un nivel más difícil.</string>
+    <string name="placement_level_basics_action">Entrenar en un nivel más difícil</string>
+    <string name="placement_level_start_title">Empecemos por lo básico</string>
+    <string name="placement_level_start_body">Uno de los dos correos te engañó. Es normal al principio: la lección 1 te enseña los cuatro pasos para detectarlo.</string>
+    <string name="lesson_readiness_preview_title">Sin conexión: este es el correo que recibirías</string>
+    <string name="lesson_readiness_preview_body">Estás usando ThisIsTea sin conexión, así que no se envía nada. Con conexión, al terminar esta lección te llega un correo real de phishing de práctica, en un momento al azar durante los minutos siguientes. Se vería así:</string>
+    <string name="lesson_readiness_preview_from">De</string>
+    <string name="lesson_readiness_preview_to">Para</string>
+    <string name="lesson_readiness_preview_subject">Asunto</string>
+    <string name="lesson_readiness_preview_link">[enlace de práctica]</string>
+    <string name="lesson_readiness_preview_settings_link">[enlace a los ajustes de correo]</string>
+    <string name="lesson_readiness_preview_note">Es inofensivo: el enlace solo abre una página que te muestra las pistas que se te escaparon, y nada te pide nunca una contraseña.</string>
 </resources>

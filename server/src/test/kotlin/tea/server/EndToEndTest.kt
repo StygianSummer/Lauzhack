@@ -316,11 +316,10 @@ class EndToEndTest {
         val modes = placement.steps.map { it.mode }.toSet()
         val budgetS = placement.steps.sumOf { it.item.expectedMs } / 1000
         println("[e2e] placement: ${placement.steps.size} items, modes=$modes, expected time ~${budgetS}s, level=${result.level}, strength=${result.strength}, focus=${result.focus}")
-        // Phase A (≤ 5 pairs + 1 warm-up pair) + 4 phase B + 2 breadth. The items' own expected_ms
-        // add up to ~5 min for a strong learner, more than the "about 3 minutes" the intro promises
-        // (reported to the content owner; not asserted here).
-        assertTrue(placement.steps.size in 8..18, "placement length ${placement.steps.size}")
-        assertTrue(modes.containsAll(listOf(ItemMode.VERDICT, ItemMode.NEWS, ItemMode.IMAGE)))
+        // The quick placement of the demo: one scam/legit pair at difficulty 2, both right → level 3.
+        assertEquals(2, placement.steps.size, "placement length ${placement.steps.size}")
+        assertEquals(setOf(ItemMode.VERDICT), modes)
+        assertEquals(3, result.level)
         assertEquals(Screen.Home, app.nextAfterSignIn())
 
         // ---- §16.4 lesson 1 practice: support fades, held-out last, summary, lesson_completed

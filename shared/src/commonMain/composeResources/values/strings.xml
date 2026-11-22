@@ -400,4 +400,5 @@
     <string name="home_vault_action">Log back in</string>
     <string name="home_vault_done">%1$d of %2$d logged back in</string>
     <string name="vault_login_none_see">See your five</string>
+    <string name="code_offline">You're offline, so no email went out. Enter the demo code to keep going on this device. You can register for real once you're back online.</string>
 </resources>

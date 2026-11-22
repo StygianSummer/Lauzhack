@@ -130,6 +130,12 @@ fun EmailScreen(app: AppState) {
         if (!EMAIL.matches(address)) {
             error = errInvalid; return
         }
+        // Offline sign-up: no code can be sent, but the Code screen takes the demo code (AppState.verifyOffline).
+        if (!online && !loginMode) {
+            app.startEmailOffline(address)
+            app.navigate(Screen.Code(address))
+            return
+        }
         busy = true; error = null
         scope.launch {
             val r = if (loginMode) app.login(address, password) else app.startEmail(address)
@@ -179,7 +185,7 @@ fun EmailScreen(app: AppState) {
         TeaButton(
             stringResource(if (loginMode) Res.string.email_sign_in else Res.string.email_send),
             onClick = { send() },
-            enabled = !busy && online && email.isNotBlank() && (!loginMode || password.isNotEmpty()),
+            enabled = !busy && (online || !loginMode) && email.isNotBlank() && (!loginMode || password.isNotEmpty()),
             modifier = Modifier.fillMaxWidth(),
         )
         TeaButton(
@@ -205,6 +211,7 @@ fun EmailScreen(app: AppState) {
 
 @Composable
 fun CodeScreen(app: AppState, email: String) {
+    val online by app.online.collectAsState()
     val scope = rememberCoroutineScope()
     var code by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
@@ -219,8 +226,18 @@ fun CodeScreen(app: AppState, email: String) {
         }
     }
 
+    fun offline(value: String) {
+        if (app.verifyOffline(value)) {
+            app.goNext(app.nextAfterSignIn())
+        } else {
+            code = ""
+            error = Res.string.code_error_invalid
+        }
+    }
+
     fun verify(value: String) {
         if (busy || value.length != 6) return
+        if (!online) return offline(value)
         busy = true; error = null
         scope.launch {
             val r = app.verifyCode(email, value)
@@ -236,13 +253,15 @@ fun CodeScreen(app: AppState, email: String) {
                         else -> Res.string.shell_error_generic
                     }
                 }
-                ApiResult.Offline -> error = Res.string.shell_offline_try
+                // The connection dropped while verifying: the demo code still works on this device.
+                ApiResult.Offline -> if (value == AppState.OFFLINE_DEMO_CODE) offline(value) else error = Res.string.shell_offline_try
             }
         }
     }
 
     ScreenColumn(onBack = backOrNull(app)) {
         SectionHeading(stringResource(Res.string.code_title), large = true, intro = stringResource(Res.string.code_intro, email))
+        if (!online) Banner(stringResource(Res.string.code_offline))
         CodeField(
             value = code,
             onValueChange = { code = it; error = null },

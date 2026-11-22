@@ -53,6 +53,8 @@ data class PlacementAnswer(
  * - [used]: every item id shown (phase B items must not come back in practice this session).
  * - [modesDone]: phase B / C modes already answered.
  * - [seed]: makes [Placement.next] deterministic for a given state (calling it twice gives the same step).
+ * - [quick]: the short test of the demo: one scam/legit pair (two emails), no warm-up retry, no
+ *   phase B or C. Both right (and not "guessing") → level 3, "knows the basics"; otherwise level 1.
  */
 @Serializable
 data class PlacementState(
@@ -68,6 +70,7 @@ data class PlacementState(
     val used: Set<String> = emptySet(),
     val modesDone: List<ItemMode> = emptyList(),
     val answers: List<PlacementAnswer> = emptyList(),
+    val quick: Boolean = false,
 ) {
     /** Placement level (1..6) once known: `min(lo, 6)`. */
     val level: Int? get() = searchLevel?.let { min(it, 6) }
@@ -113,18 +116,25 @@ object Placement {
 
     /** Denominator of the progress bar estimate. */
     const val EXPECTED_ITEMS = 11
+
+    /** Items in a quick placement: one scam/legit pair. */
+    const val QUICK_ITEMS = 2
     const val PROGRESS_CAP = 0.95f
 
     val PHASE_B_MODES: List<ItemMode> = listOf(ItemMode.TAP_HOTSPOT, ItemMode.LINK, ItemMode.EMOTION, ItemMode.ACTION)
     val PHASE_C_MODES: List<ItemMode> = listOf(ItemMode.NEWS, ItemMode.IMAGE)
 
-    /** A fresh placement. [random] only seeds the state; the pool is not needed yet but kept for symmetry. */
+    /**
+     * A fresh placement. [random] only seeds the state; the pool is not needed yet but kept for symmetry.
+     * [quick]: the two-email version (see [PlacementState.quick]).
+     */
     @Suppress("UNUSED_PARAMETER")
-    fun start(pool: List<Item>, random: Random): PlacementState = PlacementState(seed = random.nextLong())
+    fun start(pool: List<Item>, random: Random, quick: Boolean = false): PlacementState =
+        PlacementState(seed = random.nextLong(), quick = quick)
 
-    /** Progress bar estimate: answered / 11, capped at 95% until the result screen. */
+    /** Progress bar estimate: answered / 11 (2 when quick), capped at 95% until the result screen. */
     fun progress(state: PlacementState): Float =
-        min(state.answers.size.toFloat() / EXPECTED_ITEMS, PROGRESS_CAP)
+        min(state.answers.size.toFloat() / (if (state.quick) QUICK_ITEMS else EXPECTED_ITEMS), PROGRESS_CAP)
 
     /** True when [next] returns null. */
     fun isDone(state: PlacementState, pool: List<Item>): Boolean = next(state, pool) == null
@@ -144,6 +154,7 @@ object Placement {
             val pair = pickPair(state, pool, rnd)
             if (pair != null) return PlacementStep(pair.first(), ItemMode.VERDICT, PlacementPhase.A, pair.map { it.id })
         }
+        if (state.quick) return null
         val level = state.level ?: min(state.lo, 6)
         for (mode in PHASE_B_MODES) {
             if (mode in state.modesDone) continue
@@ -205,6 +216,11 @@ object Placement {
             it.correct && it.confidence != Confidence.GUESSING && (firstProbe || !it.slow)
         }
         s = s.copy(pair = emptyList(), pending = emptyList())
+        if (s.quick) {
+            // One pair decides: known → lo = idx + 1, else the bottom of the ladder.
+            val lo = if (known) s.idx + 1 else s.lo
+            return s.copy(lo = lo, hi = if (known) s.hi else s.idx, probes = s.probes + 1, searchLevel = lo)
+        }
         if (firstProbe && !known && !s.warmupRetryUsed) {
             // Warm-up grace: show a second pair at the same idx; its result replaces this one.
             return s.copy(warmupRetryUsed = true)

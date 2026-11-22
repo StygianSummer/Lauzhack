@@ -68,7 +68,7 @@ class LearnScreenshotsTest {
 
     private fun placementAt(mode: ItemMode): Pair<FakeTeaApp, PlacementController> {
         val app = app()
-        val c = PlacementController(app, pool, Random(1))
+        val c = PlacementController(app, pool, Random(1), quick = false)
         var n = 0
         while (c.current!!.mode != mode && n++ < 20) c.answer(c.current!!, Oracle.right(c.current!!))
         return app to c
@@ -103,6 +103,21 @@ class LearnScreenshotsTest {
         c.finish()
         shot("placement_result", height = 1000) { PlacementResultScreen(app) }
         shot("placement_result_dark", dark = true, height = 1000) { PlacementResultScreen(app) }
+    }
+
+    @Test fun placementQuickResults() {
+        val basics = app()
+        PlacementController(basics, pool, Random(4)).apply {
+            while (current != null) answer(current!!, Oracle.right(current!!))
+            finish()
+        }
+        shot("placement_quick_result_basics", height = 1000) { PlacementResultScreen(basics) }
+        val start = app()
+        PlacementController(start, pool, Random(5)).apply {
+            while (current != null) answer(current!!, tea.ui.screens.practice.ItemAnswer(tea.model.AttemptAnswers(), null, 4_000, dontKnow = true))
+            finish()
+        }
+        shot("placement_quick_result_start", height = 1000) { PlacementResultScreen(start) }
     }
 
     // ---- lesson sections ----

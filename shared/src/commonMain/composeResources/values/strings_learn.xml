@@ -46,8 +46,8 @@
 
     <!-- Placement (plan §6.2, §9.3) -->
     <string name="placement_intro_title">Let's see where to start</string>
-    <string name="placement_intro_body">About 3 minutes. No score.</string>
-    <string name="placement_intro_cat">I'll show you a few emails and ask what you think. Nothing here counts against you. I just want to know where to begin.</string>
+    <string name="placement_intro_body">Two emails. About a minute. No score.</string>
+    <string name="placement_intro_cat">I'll show you two emails and ask what you think of each. Nothing here counts against you. I just want to know where to begin.</string>
     <string name="placement_intro_dont_know">Not sure about one? Say so. “I don't know yet” is a perfectly good answer.</string>
     <string name="placement_start">Start</string>
     <string name="placement_resume">Carry on where you left off</string>
@@ -210,4 +210,18 @@
     <string name="summary_empty">There's no practice summary yet.</string>
     <string name="lesson_to_drill">Open five accounts</string>
     <string name="lesson_to_drill_demo">Open two accounts</string>
+    <string name="placement_level_label">Your level test</string>
+    <string name="placement_level_basics_title">You know the basics</string>
+    <string name="placement_level_basics_body">You spotted the scam and trusted the real email. You can take the phishing training at a harder level.</string>
+    <string name="placement_level_basics_action">Train at a harder level</string>
+    <string name="placement_level_start_title">Let's start with the basics</string>
+    <string name="placement_level_start_body">One of the two emails fooled you. That's normal at the start: lesson 1 shows you the four steps that catch it.</string>
+    <string name="lesson_readiness_preview_title">Offline: here is the email you would get</string>
+    <string name="lesson_readiness_preview_body">You're using ThisIsTea offline, so nothing is sent. Online, finishing this lesson sends one real practice phishing email to your inbox, at a random moment in the next few minutes. It would look like this:</string>
+    <string name="lesson_readiness_preview_from">From</string>
+    <string name="lesson_readiness_preview_to">To</string>
+    <string name="lesson_readiness_preview_subject">Subject</string>
+    <string name="lesson_readiness_preview_link">[practice link]</string>
+    <string name="lesson_readiness_preview_settings_link">[email settings link]</string>
+    <string name="lesson_readiness_preview_note">It's harmless: the link only opens a page that shows you the clues you missed, and nothing ever asks for a password.</string>
 </resources>

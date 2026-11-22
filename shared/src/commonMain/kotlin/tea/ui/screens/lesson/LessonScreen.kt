@@ -44,6 +44,7 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import tea.app.Screen
 import tea.app.TeaApp
+import tea.content.Placeholders
 import tea.content.ResourceCatalog
 import tea.generated.resources.Res
 import tea.generated.resources.lesson_complete
@@ -61,6 +62,14 @@ import tea.generated.resources.lesson_readiness_guest
 import tea.generated.resources.lesson_readiness_guest_address
 import tea.generated.resources.lesson_readiness_not_now
 import tea.generated.resources.lesson_readiness_offline
+import tea.generated.resources.lesson_readiness_preview_body
+import tea.generated.resources.lesson_readiness_preview_from
+import tea.generated.resources.lesson_readiness_preview_link
+import tea.generated.resources.lesson_readiness_preview_note
+import tea.generated.resources.lesson_readiness_preview_settings_link
+import tea.generated.resources.lesson_readiness_preview_subject
+import tea.generated.resources.lesson_readiness_preview_title
+import tea.generated.resources.lesson_readiness_preview_to
 import tea.generated.resources.lesson_readiness_reason_already_done
 import tea.generated.resources.lesson_readiness_reason_not_verified
 import tea.generated.resources.lesson_readiness_reason_other
@@ -88,6 +97,8 @@ import tea.generated.resources.summary_practise_again
 import tea.model.AttacksSection
 import tea.model.ContentSection
 import tea.model.EventTypes
+import tea.model.FIELD_TEMPLATE_ID
+import tea.model.FieldTemplate
 import tea.model.Item
 import tea.model.Lesson
 import tea.model.LessonSection
@@ -101,6 +112,7 @@ import tea.model.RuleCard
 import tea.model.StatusSection
 import tea.model.ToolRow
 import tea.model.ToolsSection
+import tea.ui.components.DashedDivider
 import tea.ui.components.OptionRow
 import tea.ui.components.PersonaBubble
 import tea.ui.components.PersonaCard
@@ -456,6 +468,57 @@ private fun ColumnScope.ReadinessSectionView(app: TeaApp, lessonId: String, s: R
     }
 
     if (status == READINESS_SCHEDULED) PersonaBubble(Persona.CAT, Mood.HAPPY, s.done, onSoft = true)
+    // Offline or guest: nothing can be sent, so show what would have arrived (handy for a stage demo).
+    if (status == null && (!loggedIn || !online)) OfflineEmailPreview(app)
+}
+
+/** The sender the server uses for practice emails (plan §12, decisions.md: our own plain address). */
+private const val PRACTICE_EMAIL_SENDER = "ThisIsTea <thisistea@gmail.com>"
+
+/**
+ * "If you were online, we would send you this": the practice email rendered from the same template
+ * the server sends (`content/field/practice-email-01.<lang>.json`, plain-text part), with the
+ * learner's name and address filled in and the two links shown as labels.
+ */
+@Composable
+private fun OfflineEmailPreview(app: TeaApp) {
+    val lang by app.lang.collectAsState()
+    val profile by app.profile.collectAsState()
+    val address by app.email.collectAsState()
+    val template by produceState<FieldTemplate?>(null, lang) {
+        value = runCatching { app.content.fieldTemplate(FIELD_TEMPLATE_ID, lang) }.getOrNull()
+    }
+    val values = Placeholders.values(profile, address) + mapOf(
+        "click_url" to stringResource(Res.string.lesson_readiness_preview_link),
+        "settings_url" to stringResource(Res.string.lesson_readiness_preview_settings_link),
+    )
+    TeaCard(Modifier.fillMaxWidth()) {
+        Text(stringResource(Res.string.lesson_readiness_preview_title), style = TeaTheme.type.title, color = TeaTheme.colors.ink)
+        Text(stringResource(Res.string.lesson_readiness_preview_body), style = TeaTheme.type.body, color = TeaTheme.colors.inkSoft)
+        val t = template
+        if (t != null) {
+            Column(
+                Modifier.fillMaxWidth().clip(TeaShapes.sm).background(TeaTheme.colors.paper)
+                    .border(TeaSize.border, TeaTheme.colors.line, TeaShapes.sm).padding(TeaSpacing.s2),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                MailHeader(stringResource(Res.string.lesson_readiness_preview_from), PRACTICE_EMAIL_SENDER)
+                MailHeader(stringResource(Res.string.lesson_readiness_preview_to), values.getValue("email"))
+                MailHeader(stringResource(Res.string.lesson_readiness_preview_subject), Placeholders.fill(t.subject, values))
+                DashedDivider(Modifier.padding(vertical = 4.dp))
+                Text(Placeholders.fill(t.text, values).trim(), style = TeaTheme.type.body, color = TeaTheme.colors.ink)
+            }
+        }
+        PersonaBubble(Persona.CAT, Mood.HAPPY, stringResource(Res.string.lesson_readiness_preview_note), onSoft = true)
+    }
+}
+
+@Composable
+private fun MailHeader(label: String, value: String) {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(label, style = TeaTheme.type.smallStrong, color = TeaTheme.colors.inkSoft, modifier = Modifier.widthIn(min = 64.dp))
+        Text(value, style = TeaTheme.type.small, color = TeaTheme.colors.ink, modifier = Modifier.weight(1f))
+    }
 }
 
 /** `**bold**` spans (used by the lesson's readiness prompt) to an AnnotatedString. */

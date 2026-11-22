@@ -1,6 +1,6 @@
 # Handoff: nathann
 
-Branch: `nathann` · Last updated: 2026-11-21
+Branch: `nathann` · Last updated: 2026-11-22
 
 ## Done
 - Set up team coordination: AGENTS.md, CLAUDE.md, docs/idea.md, docs/decisions.md, TASKS.md,
@@ -51,6 +51,11 @@ Branch: `nathann` · Last updated: 2026-11-21
   `Screen` through the real app shell (compile error if a new screen is missing). It found and I fixed
   a crash: the Gallery's inline dialog card nested a vertical scroll inside the screen's scroll.
 
+- **Short demo (2026-11-22, decisions.md):** onboarding cut to 2 questions (text size, past experience);
+  placement cut to one scam/legit pair (`quick` mode) with a level card on Home and the result screen;
+  offline/guest end of lesson 1 shows the practice email that would have been sent; offline sign-up
+  takes the code `426769` and continues as a guest. Tests updated (shared 251, server 60, all green).
+
 ## In progress
 - Getting team agreement on the idea (TASKS.md #1).
 
@@ -78,6 +83,9 @@ Branch: `nathann` · Last updated: 2026-11-21
   returns to the Password screen; a server error on the leaderboard reads "needs a connection".
 
 ## Questions for others
+- To krishna and ferran: `content/field/practice-email-01.*.json` on main is still the placeholder, and
+  the app now shows it to offline users at the end of lesson 1. Ferran has a real one on
+  `Fez248/storytelling` ("Unusual sign-in to your ThisIsTea account"). Can one of you bring the final text to main?
 - To everyone: does the idea in docs/idea.md work for you? Which area do you want to own (TASKS.md)?
 - To ferran: I wrote up your AI & sensitive data idea (scenario-engine.md, AI1–AI6, TASKS #26). Want to own it? Please correct anything off.
 - To everyone: claim your language in TASKS.md #21 (fr, en, hi, te, ur, de, it, es, ca).
